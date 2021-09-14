@@ -25,9 +25,11 @@ Tiedettyjä ongelmia: Mac ei tykkää postgresql:n helposta asennuksesta. Mm ohj
 
 Lataa ja asenna [Postgresql](https://www.postgresql.org/download/)
 - Muista salasana. Tärkeä.
+- Macilla Postgres kannattaa asentaa Homebrew'n kautta.
 
 Lataa ja asenna [Node](https://nodejs.org/en/)
 
+**WINDOWS:**
 Luo tarvittu käyttäjä ja tietokanta Postgresql:iin: syötä seuraavat rivit komentoriviin:
 - psql -d postgres -U postgres
 - Syötä salasanasi
@@ -37,6 +39,18 @@ Luo tarvittu käyttäjä ja tietokanta Postgresql:iin: syötä seuraavat rivit k
 - psql -d postgres -U taudinpurkaus 
 - syötä salasana (kokeilu)
 - CREATE DATABASE taudinpurkaus;
+
+**MAC:**
+Luo tarvittu käyttäjä ja tietokanta Postgresql:iin: syötä seuraavat rivit komentoriviin:
+- psql postgres
+- Syötä salasanasi, jos sitä kysytään
+- CREATE ROLE taudinpurkaus WITH LOGIN PASSWORD 'kokeilu';
+- ALTER ROLE taudinpurkaus CREATEDB;
+- \q 
+- psql -d postgres -U taudinpurkaus 
+- syötä salasana (kokeilu)
+- CREATE DATABASE taudinpurkaus;
+- \q
 
 Lataa itse ohjelma/tämä branch
 
