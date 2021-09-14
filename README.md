@@ -20,6 +20,8 @@ Dod-määritelmä (täsmentyy vielä 0 sprintin aikana):
 Lataa ja asenna [Postgresql](https://www.postgresql.org/download/)
 - Muista salasana. Tärkeä.
 
+Lataa ja asenna [Node](https://nodejs.org/en/)
+
 Luo tarvittu käyttäjä ja tietokanta Postgresql:iin: syötä seuraavat rivit komentoriviin:
 - psql -d postgres -U postgres
 - Syötä salasanasi
