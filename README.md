@@ -43,10 +43,11 @@ Lataa itse ohjelma/tämä branch
 Käynnistä palvelin:
 - mene kansioon backend 
 - avaa komentorivi 
-- syötä "node server.js"
+- syötä "node server.js" (anna tämän pyöriä niin kauan kun aiot käyttää ohjelmaa/tämä siis palvelimen käyttöönotto)
 
 Käynnistä ohjelma
 - mene kansioon frontend
 - avaa komentorivi
+- syötä "npm install"
 - syötä "npm start"
 
