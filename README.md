@@ -38,7 +38,7 @@ Luo tarvittu käyttäjä ja tietokanta Postgresql:iin: syötä seuraavat rivit k
 - syötä salasana (kokeilu)
 - CREATE DATABASE taudinpurkaus;
 
-Lataa itse ohjelma
+Lataa itse ohjelma/tämä branch
 
 Käynnistä palvelin:
 - mene kansioon backend 
