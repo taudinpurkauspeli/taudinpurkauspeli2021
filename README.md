@@ -21,6 +21,8 @@ Dod-määritelmä (täsmentyy vielä 0 sprintin aikana):
 
 Alla olevat ohjeet tehty Windows käyttäjälle. Saattavat hieman poiketa muille. Nämä pitää toki myös dokumentoida.
 
+Tiedettyjä ongelmia: Mac ei tykkää postgresql:n helposta asennuksesta. Mm ohjeita [täällä](https://www.codementor.io/@engineerapart/getting-started-with-postgresql-on-mac-osx-are8jcopb)
+
 Lataa ja asenna [Postgresql](https://www.postgresql.org/download/)
 - Muista salasana. Tärkeä.
 
