@@ -17,6 +17,8 @@ Dod-määritelmä (täsmentyy vielä 0 sprintin aikana):
 
 ## Käyttöohje
 
+!HUOM tällä hetkellä nuo käyttäjä/salasana/jne ovat kovakoodatut. Tämä ei hyvä asia, mutta siihen palataan ensi sprintin yhteydessä.
+
 Lataa ja asenna [Postgresql](https://www.postgresql.org/download/)
 - Muista salasana. Tärkeä.
 
