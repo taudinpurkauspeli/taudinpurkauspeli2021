@@ -38,6 +38,8 @@ Käynnistä palvelin:
 - mene kansioon backend 
 - avaa komentorivi 
 - syötä "node server.js"
+
+Käynnistä ohjelma
 - mene kansioon frontend
 - avaa komentorivi
 - syötä "npm start"
