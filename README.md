@@ -32,9 +32,9 @@ Luo tarvittu käyttäjä ja tietokanta Postgresql:iin: syötä seuraavat rivit k
 - psql -d postgres -U postgres
 - Syötä salasanasi
 - CREATE ROLE taudinpurkaus WITH LOGIN PASSWORD 'kokeilu';
-- ALTER ROLE my_user CREATEDB;
+- ALTER ROLE taudinpurkaus CREATEDB;
 - \q 
-- psql -d postgres -U my_user 
+- psql -d postgres -U taudinpurkaus 
 - syötä salasana (kokeilu)
 - CREATE DATABASE taudinpurkaus;
 
