@@ -65,7 +65,7 @@ Luo tarvittu käyttäjä ja tietokanta Postgresql:iin: syötä seuraavat rivit k
 - `postgres=>CREATE DATABASE taudinpurkaus;`
 - `postgres=>\q`
 
-HUOM! Mikäli ensimmäisestä komennosta jättää psql pois, vaihtaa se käyttäjän postgreksi (komentorivillä näkyy muodossa postgres@<koneen tunnus>). Takaisin omalle käyttäjälle (<käyttäjätunnus>@<koneen tunnus>) pääsee kirjoittamalla komentoriville exit.
+HUOM! Mikäli ensimmäisestä komennosta jättää psql pois, vaihtaa se käyttäjän postgreksi (komentorivillä näkyy muodossa postgres@<koneen_tunnus>). Takaisin omalle käyttäjälle (<käyttäjätunnus>@<koneen_tunnus>) pääsee kirjoittamalla komentoriville exit.
 
 
 Lataa itse ohjelma/tämä branch
