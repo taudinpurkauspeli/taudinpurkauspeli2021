@@ -31,26 +31,42 @@ Lataa ja asenna [Node](https://nodejs.org/en/)
 
 **WINDOWS:**
 Luo tarvittu käyttäjä ja tietokanta Postgresql:iin: syötä seuraavat rivit komentoriviin:
-- psql -d postgres -U postgres
+- `$ psql -d postgres -U postgres`
 - Syötä salasanasi
-- CREATE ROLE taudinpurkaus WITH LOGIN PASSWORD 'kokeilu';
-- ALTER ROLE taudinpurkaus CREATEDB;
-- \q 
-- psql -d postgres -U taudinpurkaus 
+- `postgres=>CREATE ROLE taudinpurkaus WITH LOGIN PASSWORD 'kokeilu';`
+- `postgres=>ALTER ROLE taudinpurkaus CREATEDB;`
+- `postgres=>\q` 
+- `$ psql -d postgres -U taudinpurkaus`
 - syötä salasana (kokeilu)
-- CREATE DATABASE taudinpurkaus;
+- `postgres=>CREATE DATABASE taudinpurkaus;`
+- `postgres=>\q`
 
 **MAC:**
 Luo tarvittu käyttäjä ja tietokanta Postgresql:iin: syötä seuraavat rivit komentoriviin:
-- psql postgres
+- `$ psql postgres`
 - Syötä salasanasi, jos sitä kysytään
-- CREATE ROLE taudinpurkaus WITH LOGIN PASSWORD 'kokeilu';
-- ALTER ROLE taudinpurkaus CREATEDB;
-- \q 
-- psql -d postgres -U taudinpurkaus 
+- `postgres=>CREATE ROLE taudinpurkaus WITH LOGIN PASSWORD 'kokeilu';`
+- `postgres=>ALTER ROLE taudinpurkaus CREATEDB;`
+- `postgres=>\q`  
+- `$ psql -d postgres -U taudinpurkaus`
 - syötä salasana (kokeilu)
-- CREATE DATABASE taudinpurkaus;
-- \q
+- `postgres=>CREATE DATABASE taudinpurkaus;`
+- `postgres=>\q`
+
+**LINUX:**
+Luo tarvittu käyttäjä ja tietokanta Postgresql:iin: syötä seuraavat rivit komentoriviin:
+- `$ sudo -i -u postgres psql`
+- Syötä salasanasi
+- `postgres=>CREATE ROLE taudinpurkaus WITH LOGIN PASSWORD 'kokeilu';`
+- `postgres=>ALTER ROLE taudinpurkaus CREATEDB;`
+- `postgres=>\q` 
+- `$ psql -U taudinpurkaus -h 127.0.0.1 postgres`
+- syötä salasana (kokeilu)
+- `postgres=>CREATE DATABASE taudinpurkaus;`
+- `postgres=>\q`
+
+HUOM! Mikäli ensimmäisestä komennosta jättää psql pois, vaihtaa se käyttäjän postgreksi (komentorivillä näkyy muodossa postgres@<koneen tunnus>). Takaisin omalle käyttäjälle (<käyttäjätunnus>@<koneen tunnus>) pääsee kirjoittamalla komentoriville exit.
+
 
 Lataa itse ohjelma/tämä branch
 
