@@ -1,12 +1,13 @@
-import http from "../http-common";
+/* eslint-disable class-methods-use-this */
+import http from '../http-common';
 
 class DiseaseDataService {
-create(data) {
-    return http.post("/diseases", data);
+  create(data) {
+    return http.post('/diseases', data);
   }
 
   getAll() {
-    return http.get("/diseases");
+    return http.get('/diseases');
   }
 
   get(id) {
@@ -22,7 +23,7 @@ create(data) {
   }
 
   deleteAll() {
-    return http.delete(`/diseases`);
+    return http.delete('/diseases');
   }
 
   findByTitle(title) {

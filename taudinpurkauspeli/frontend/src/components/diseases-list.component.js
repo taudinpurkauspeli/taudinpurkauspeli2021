@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import DiseaseDataService from "../services/disease.service";
-import { Link } from "react-router-dom";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import DiseaseDataService from '../services/disease.service';
 
 export default class DiseasesList extends Component {
   constructor(props) {
@@ -16,7 +16,7 @@ export default class DiseasesList extends Component {
       diseases: [],
       currentDisease: null,
       currentIndex: -1,
-      searchTitle: ""
+      searchTitle: '',
     };
   }
 
@@ -28,64 +28,67 @@ export default class DiseasesList extends Component {
     const searchTitle = e.target.value;
 
     this.setState({
-      searchTitle: searchTitle
-    });
-  }
-
-  retrieveDiseases() {
-    DiseaseDataService.getAll()
-      .then(response => {
-        this.setState({
-          diseases: response.data
-        });
-        console.log(response.data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  }
-
-  refreshList() {
-    this.retrieveDiseases();
-    this.setState({
-      currentDisease: null,
-      currentIndex: -1
+      searchTitle,
     });
   }
 
   setActiveDisease(disease, index) {
     this.setState({
       currentDisease: disease,
-      currentIndex: index
+      currentIndex: index,
     });
+  }
+
+  refreshList() {
+    this.retrieveDiseases();
+    this.setState({
+      currentDisease: null,
+      currentIndex: -1,
+    });
+  }
+
+  retrieveDiseases() {
+    DiseaseDataService.getAll()
+      .then((response) => {
+        this.setState({
+          diseases: response.data,
+        });
+        console.log(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }
 
   removeAllDiseases() {
     DiseaseDataService.deleteAll()
-      .then(response => {
+      .then((response) => {
         console.log(response.data);
         this.refreshList();
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
   }
 
   searchTitle() {
+    // eslint-disable-next-line react/destructuring-assignment
     DiseaseDataService.findByTitle(this.state.searchTitle)
-      .then(response => {
+      .then((response) => {
         this.setState({
-          diseases: response.data
+          diseases: response.data,
         });
         console.log(response.data);
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
   }
 
   render() {
-    const { searchTitle, diseases, currentDisease, currentIndex } = this.state;
+    const {
+      searchTitle, diseases, currentDisease, currentIndex,
+    } = this.state;
 
     return (
       <div className="list row">
@@ -113,21 +116,25 @@ export default class DiseasesList extends Component {
           <h4>Diseases List</h4>
 
           <ul className="list-group">
-            {diseases &&
-              diseases.map((disease, index) => (
-                <li
-                  className={
-                    "list-group-item " +
-                    (index === currentIndex ? "active" : "")
-                  }
-                  onClick={() => this.setActiveDisease(disease, index)}
-                  key={index}
-                >
-                  {disease.title}
-                </li>
-              ))}
+            {diseases
+            && diseases.map((disease, index) => (
+              <li
+                className={
+                  // eslint-disable-next-line prefer-template
+                  'list-group-item '
+                  + (index === currentIndex ? 'active' : '')
+                }
+                onClick={() => this.setActiveDisease(disease, index)}
+                aria-hidden="true"
+                // eslint-disable-next-line react/no-array-index-key
+                key={index}
+              >
+                {disease.title}
+              </li>
+            ))}
           </ul>
 
+          {/* eslint-disable-next-line react/button-has-type */}
           <button
             className="m-3 btn btn-sm btn-danger"
             onClick={this.removeAllDiseases}
@@ -140,27 +147,29 @@ export default class DiseasesList extends Component {
             <div>
               <h4>Tauti</h4>
               <div>
-                <label>
+                <p>
                   <strong>Category:</strong>
-                </label>{" "}
+                </p>
+                {' '}
                 {currentDisease.category}
               </div>
               <div>
-                <label>
+                <p>
                   <strong>Title:</strong>
-                </label>{" "}
+                </p>
+                {' '}
                 {currentDisease.title}
               </div>
               <div>
-                <label>
+                <p>
                   <strong>Description:</strong>
-                </label>{" "}
+                </p>
+                {' '}
                 {currentDisease.description}
               </div>
 
-
-              <Link 
-                to={"/diseases/" + currentDisease.id}
+              <Link
+                to={`/diseases/ ${currentDisease.id}`}
                 className="badge badge-warning"
               >
                 Edit

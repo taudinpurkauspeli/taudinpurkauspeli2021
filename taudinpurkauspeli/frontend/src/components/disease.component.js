@@ -1,5 +1,9 @@
-import React, { Component } from "react";
-import DiseaseDataService from "../services/disease.service";
+/* eslint-disable react/button-has-type */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/destructuring-assignment */
+import React, { Component } from 'react';
+import DiseaseDataService from '../services/disease.service';
 
 export default class Disease extends Component {
   constructor(props) {
@@ -14,64 +18,61 @@ export default class Disease extends Component {
     this.state = {
       currentDisease: {
         id: null,
-        category: "",
-        title: "",
-        description: "",
+        category: '',
+        title: '',
+        description: '',
       },
-      message: ""
+      message: '',
     };
   }
 
   componentDidMount() {
+    // eslint-disable-next-line react/prop-types
     this.getDisease(this.props.match.params.id);
   }
 
   onChangeCategory(e) {
     const category = e.target.value;
 
-    this.setState(function(prevState) {
-      return {
-        currentDisease: {
-          ...prevState.currentDisease,
-          category: category
-        }
-      };
-    });
+    this.setState((prevState) => ({
+      currentDisease: {
+        ...prevState.currentDisease,
+        category,
+      },
+    }));
   }
 
   onChangeTitle(e) {
     const title = e.target.value;
 
-    this.setState(function(prevState) {
-      return {
-        currentDisease: {
-          ...prevState.currentDisease,
-          title: title
-        }
-      };
-    });
+    this.setState((prevState) => ({
+      currentDisease: {
+        ...prevState.currentDisease,
+        title,
+      },
+    }));
   }
 
   onChangeDescription(e) {
     const description = e.target.value;
-    
-    this.setState(prevState => ({
+
+    this.setState((prevState) => ({
       currentDisease: {
         ...prevState.currentDisease,
-        description: description
-      }
+        description,
+      },
     }));
   }
 
   getDisease(id) {
     DiseaseDataService.get(id)
-      .then(response => {
+      .then((response) => {
         this.setState({
-          currentDisease: response.data
+          currentDisease: response.data,
         });
         console.log(response.data);
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
   }
@@ -79,26 +80,26 @@ export default class Disease extends Component {
   updateDisease() {
     DiseaseDataService.update(
       this.state.currentDisease.id,
-      this.state.currentDisease
+      this.state.currentDisease,
     )
-      .then(response => {
+      .then((response) => {
         console.log(response.data);
         this.setState({
-          message: "The disease was updated successfully!"
+          message: 'The disease was updated successfully!',
         });
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
   }
 
-  deleteDisease() {    
+  deleteDisease() {
     DiseaseDataService.delete(this.state.currentDisease.id)
-      .then(response => {
+      .then((response) => {
         console.log(response.data);
-        this.props.history.push('/diseases')
+        this.props.history.push('/diseases');
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
   }
@@ -112,7 +113,7 @@ export default class Disease extends Component {
           <div className="edit-form">
             <h4>Disease</h4>
             <form>
-            <div className="form-group">
+              <div className="form-group">
                 <label htmlFor="category">Category</label>
                 <input
                   type="text"
