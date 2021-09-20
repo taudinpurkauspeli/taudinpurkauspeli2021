@@ -90,7 +90,7 @@ Tehdään sama frontend- ja backend-kansioon:
 `npx eslint --init`
 
 Vastaa kysymyksiin:
-How would you like to use ESLint? -> 
+How would you like to use ESLint? -> TO check syntax, find problems, and enforce code style
 What type of modules does your project use? -> JavaScript modules (import/export)
 Which framework does your project use? -> React
 Does your project use TypeScript -> No
@@ -104,4 +104,4 @@ Yes
 Lisätään package.json -tiedostoon kohtaan  "scripts" uusi skripti:
 "lint": "eslint ."
 
-Nyt eslintin voi suorittaa komennolla npm run lint
+Nyt eslintin voi suorittaa komennolla `npm run lint`
