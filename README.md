@@ -83,7 +83,9 @@ Käynnistä ohjelma
 
 #### Eslint
 
-Tehdään sama frontend- ja backend-kansioon:
+Käytetään Airbnb:n eslint konfiguraatiota. Dokumentaatio löytyy [täältä](https://github.com/airbnb/javascript)
+
+(Asennus: Tehdään sama frontend- ja backend-kansioon.
 
 `npm install eslint --save-dev`
 
@@ -110,6 +112,6 @@ What format do you want your config file to be in? -> JSON
 Yes
 
 Lisätään package.json -tiedostoon kohtaan  "scripts" uusi skripti:
-"lint": "eslint ."
+"lint": "eslint .")
 
-Nyt eslintin voi suorittaa komennolla `npm run lint`
+Eslintin koodintarkistuksen voi suorittaa komennolla `npm run lint`
