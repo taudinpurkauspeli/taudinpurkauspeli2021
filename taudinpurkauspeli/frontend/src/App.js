@@ -7,23 +7,32 @@ import AddDisease from "./components/add-disease.component";
 import Disease from "./components/disease.component";
 import DiseasesList from "./components/diseases-list.component";
 
+// Import translations
+import { withTranslation } from 'react-i18next';
+
+
 class App extends Component {
   render() {
+    // Translations as props
+    const { t } = this.props;
+    
+
     return (
+      
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
           <a href="/diseases" className="navbar-brand">
-            Taudinpurkauspeli
+            {t('nameOfTheGame')}
           </a>
           <div className="navbar-nav mr-auto">
             <li className="nav-item">
               <Link to={"/diseases"} className="nav-link">
-                Taudit
+              {t('diseases')}
               </Link>
             </li>
             <li className="nav-item">
               <Link to={"/add"} className="nav-link">
-                Lisää tauti
+              {t('addDisease')}
               </Link>
             </li>
           </div>
@@ -41,4 +50,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withTranslation()(App);

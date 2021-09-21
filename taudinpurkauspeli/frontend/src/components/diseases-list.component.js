@@ -86,6 +86,7 @@ export default class DiseasesList extends Component {
 
   render() {
     const { searchTitle, diseases, currentDisease, currentIndex } = this.state;
+    
 
     return (
       <div className="list row">
@@ -94,7 +95,7 @@ export default class DiseasesList extends Component {
             <input
               type="text"
               className="form-control"
-              placeholder="Search by title"
+              placeholder="Search by name"
               value={searchTitle}
               onChange={this.onChangeSearchTitle}
             />
