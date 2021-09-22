@@ -1,5 +1,8 @@
-import React, { Component } from "react";
-import { Switch, Route, Link } from "react-router-dom";
+import React, { Image, useState, useEffect } from 'react'
+import {
+  BrowserRouter as Router,
+  Switch, Route, Link
+} from "react-router-dom"
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
@@ -8,46 +11,56 @@ import Disease from "./components/disease.component";
 import DiseasesList from "./components/diseases-list.component";
 
 // Import translations
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
+const useField = (type) => {
+  const [value, setValue] = useState('')
 
-class App extends Component {
-  render() {
-    // Translations as props
-    const { t } = this.props;
-    
+  const onChange = (event) => {
+    setValue(event.target.value)
+  }
 
-    return (
-      
-      <div>
-        <nav className="navbar navbar-expand navbar-dark bg-dark">
-          <a href="/diseases" className="navbar-brand">
-            {t('nameOfTheGame')}
-          </a>
-          <div className="navbar-nav mr-auto">
-            <li className="nav-item">
-              <Link to={"/diseases"} className="nav-link">
-              {t('diseases')}
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to={"/add"} className="nav-link">
-              {t('addDisease')}
-              </Link>
-            </li>
-          </div>
-        </nav>
-
-        <div className="container mt-3">
-          <Switch>
-            <Route exact path={["/", "/diseases"]} component={DiseasesList} />
-            <Route exact path="/add" component={AddDisease} />
-            <Route path="/diseases/:id" component={Disease} />
-          </Switch>
-        </div>
-      </div>
-    );
+  return {
+    type,
+    value,
+    onChange
   }
 }
 
-export default withTranslation()(App);
+const Kokeilu = () => {
+  return (
+    <div>JEEEEE</div>
+  )
+}
+
+const App = () => {
+  const category = useField('text')
+  const title = useField('text')
+  const description = useField('text')
+  const { t } = useTranslation
+
+  const padding = {
+    padding: 5
+  }
+
+    return (
+    <Router>
+      <div>
+        <Link style={padding} to="/">Taudit</Link>
+        <Link style={padding} to="/add">Lisää tauti</Link>
+      </div>
+
+      <Switch>
+        <Route path="/add">
+          <AddDisease category={category} title={title} description={description}/>
+        </Route>
+        <Route path="/">
+          <Kokeilu />
+        </Route>
+      </Switch>
+
+    </Router>
+  )
+}
+
+export default (App);

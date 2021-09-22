@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import DiseaseDataService from "../services/disease.service";
 import { Link } from "react-router-dom";
 
-export default class DiseasesList extends Component {
+const DiseasesList = () => {
   constructor(props) {
     super(props);
     this.onChangeSearchTitle = this.onChangeSearchTitle.bind(this);
