@@ -1,44 +1,110 @@
-
+import React, { useState } from "react"
 import DiseaseDataService from "../services/disease.service"
 
-const AddDisease = (props) => {
-  
+const AddDisease = () => {
+  const initialDiseaseState = {
+    id: null,
+    category: "",
+    title: "",
+    description: "",
+    published: false
+  }
+  const [disease, setDisease] = useState(initialDiseaseState);
+  const [submitted, setSubmitted] = useState(false);
 
-  const addDisease = (event) => {
-    event.preventDefault()
-    const diseaseObject = {
-      category: props.category.value,
-      title: props.title.value,
-      description: props.description.value
+  const handleInputChange = event => {
+    const { name, value } = event.target;
+    setDisease({ ...disease, [name]: value });
+  }
+
+  const saveDisease = () => {
+    var data = {
+      category: disease.category,
+      title: disease.title,
+      description: disease.description
     }
 
-    DiseaseDataService.create(diseaseObject)
-    .then(response => {
-      console.log(response.data)
-      document.getElementById('CATEGORY_ID').value=''
-      document.getElementById('TITLE_ID').value=''
-      document.getElementById('DESCRIPTION_ID').value=''
-    })
-    .catch(e => {
-      console.log(e);
-    })
+    DiseaseDataService.create(data)
+      .then(response => {
+        setDisease({
+          id: response.data.id,
+          category: response.data.category,
+          title: response.data.title,
+          description: response.data.description,
+        })
+        setSubmitted(true)
+        console.log(response.data)
+      })
+      .catch(e => {
+        console.log(e);
+      })
   }
 
+  const newDisease = () => {
+    setDisease(initialDiseaseState)
+    setSubmitted(false)
+  };
+
+
+
   
-    return (
-      <div>
-      <form onSubmit ={addDisease}>
-        <div>Category: <input {...props.category} id="CATEGORY_ID"/> 
+  return (
+    <div className="submit-form">
+      {submitted ? (
+        <div>
+          <h4>Tauti lisätty</h4>
+          <button className="btn btn-success" onClick={newDisease}>
+            Lisää tauti
+          </button>
         </div>
-        <div>Title: <input {...props.title} id="TITLE_ID"/>
+      ) : (
+        <div>
+          <div className="form-group">
+            <label htmlFor="category">Category</label>
+            <input
+              type="text"
+              className="form-control"
+              id="category"
+              required
+              value={disease.category}
+              onChange={handleInputChange}
+              name="category"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="title">Title</label>
+            <input
+              type="text"
+              className="form-control"
+              id="title"
+              required
+              value={disease.title}
+              onChange={handleInputChange}
+              name="title"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="description">Description</label>
+            <input
+              type="text"
+              className="form-control"
+              id="description"
+              required
+              value={disease.description}
+              onChange={handleInputChange}
+              name="description"
+            />
+          </div>
+
+          <button onClick={saveDisease} className="btn btn-success">
+            Submit
+          </button>
         </div>
-        <div>Description: <input {...props.description} id="DESCRIPTION_ID"/>
-        </div>
-        <div><button type="submit">add</button></div>
-      </form>
-      </div>
-      
-    );
-  }
+      )}
+    </div>
+  )
+}
 
   export default AddDisease

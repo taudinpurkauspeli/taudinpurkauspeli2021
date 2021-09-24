@@ -1,8 +1,5 @@
-import React, { Image, useState, useEffect } from 'react'
-import {
-  BrowserRouter as Router,
-  Switch, Route, Link
-} from "react-router-dom"
+import React from "react";
+import { Switch, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
@@ -13,67 +10,37 @@ import DiseasesList from "./components/diseases-list.component";
 // Import translations
 import { useTranslation } from 'react-i18next';
 
-const useField = (type) => {
-  const [value, setValue] = useState('')
-
-  const onChange = (event) => {
-    setValue(event.target.value)
-  }
-
-  const onCommand = (wantedValue) => {
-    setValue(wantedValue)
-  }
-
-  return {
-    type,
-    value,
-    onChange
-  }
-}
-
-const Kokeilu = () => {
-  return (
-    <div>JEEEEE</div>
-  )
-}
-
 const App = () => {
-  const category = useField('text')
-  const title = useField('text')
-  const description = useField('text')
-  const diseaseFilter = useField('text')
-  const [ diseases, setDiseases ] = useState([])
-  const currentDisease = useField('text')
-  const currentIndex = useField('number')
-
   const { t } = useTranslation
 
-  const padding = {
-    padding: 5
-  }
 
     return (
-      <div className="container">
-    <Router>
       <div>
-        <Link style={padding} to="/">Taudit</Link>
-        <Link style={padding} to="/add">Lisää tauti</Link>
-        <Link style={padding} to="/list">Lista taudeista</Link>
-      </div>
+        <nav className="navbar navbar-expand navbar-dark bg-dark">
+          <a href="/diseases" className="navbar-brand">
+            Taudinpurkauspeli
+          </a>
+          <div className="navbar-nav mr-auto">
+            <li className="nav-item">
+              <Link to={"/diseases"} className="nav-link">
+                Taudit
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to={"/add"} className="nav-link">
+                Lisää tauti
+              </Link>
+            </li>
+          </div>
+        </nav>
 
-      <Switch>
-        <Route path="/add">
-          <AddDisease category={category} title={title} description={description}/>
-        </Route>
-        <Route path="/list">
-          <DiseasesList diseases={diseases} setDiseases={setDiseases} diseaseFilter={diseaseFilter} currentDisease={currentDisease} currentIndex={currentIndex}/>
-        </Route>
-        <Route path="/">
-          <Kokeilu />
-        </Route>
-      </Switch>
-
-    </Router>
+        <div className="container mt-3">
+          <Switch>
+            <Route exact path="/add" component ={AddDisease} />
+            <Route exact path={["/", "/diseases"]} component = {DiseasesList} />
+            <Route path="/diseases/:id" component = {Disease} />
+          </Switch>
+        </div>
     </div>
   )
 }
