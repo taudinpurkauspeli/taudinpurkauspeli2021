@@ -1,109 +1,66 @@
-import React, { Component } from "react";
 import DiseaseDataService from "../services/disease.service";
 import { Link } from "react-router-dom";
 
-const DiseasesList = () => {
-  constructor(props) {
-    super(props);
-    this.onChangeSearchTitle = this.onChangeSearchTitle.bind(this);
-    this.retrieveDiseases = this.retrieveDiseases.bind(this);
-    this.refreshList = this.refreshList.bind(this);
-    this.setActiveDisease = this.setActiveDisease.bind(this);
-    this.removeAllDiseases = this.removeAllDiseases.bind(this);
-    this.searchTitle = this.searchTitle.bind(this);
+const DiseasesList = (props) => {
 
-    this.state = {
-      diseases: [],
-      currentDisease: null,
-      currentIndex: -1,
-      searchTitle: ""
-    };
-  }
-
-  componentDidMount() {
-    this.retrieveDiseases();
-  }
-
-  onChangeSearchTitle(e) {
-    const searchTitle = e.target.value;
-
-    this.setState({
-      searchTitle: searchTitle
-    });
-  }
-
-  retrieveDiseases() {
+  const retrieveDiseases = () => {
     DiseaseDataService.getAll()
       .then(response => {
-        this.setState({
-          diseases: response.data
-        });
-        console.log(response.data);
+        props.setDiseases(response.data)
+        console.log(response.data)
       })
       .catch(e => {
         console.log(e);
       });
   }
 
-  refreshList() {
-    this.retrieveDiseases();
-    this.setState({
-      currentDisease: null,
-      currentIndex: -1
-    });
+  const refreshList = () => {
+    retrieveDiseases()
+    props.currentDisease.onCommand(null)
+    props.currentIndex.onCommand(-1)
+    };
+
+  const setActiveDisease = (disease, index) => {
+    props.currentDisease.onCommand(disease)
+    props.currentIndex.onCommand(index)
   }
 
-  setActiveDisease(disease, index) {
-    this.setState({
-      currentDisease: disease,
-      currentIndex: index
-    });
-  }
-
-  removeAllDiseases() {
+  const removeAllDiseases = () => {
     DiseaseDataService.deleteAll()
       .then(response => {
-        console.log(response.data);
-        this.refreshList();
+        refreshList()
       })
       .catch(e => {
-        console.log(e);
+        console.log(e)
       });
   }
 
-  searchTitle() {
-    DiseaseDataService.findByTitle(this.state.searchTitle)
+  const searchTitle = () => {
+    DiseaseDataService.findByTitle(props.diseaseFilter)
       .then(response => {
-        this.setState({
-          diseases: response.data
-        });
-        console.log(response.data);
+        props.setDiseases(response.data)
+        console.log(response.data)
       })
       .catch(e => {
         console.log(e);
       });
   }
 
-  render() {
-    const { searchTitle, diseases, currentDisease, currentIndex } = this.state;
-    
-
+  
     return (
       <div className="list row">
         <div className="col-md-8">
           <div className="input-group mb-3">
             <input
-              type="text"
+              {...props.diseaseFilter}
               className="form-control"
               placeholder="Search by name"
-              value={searchTitle}
-              onChange={this.onChangeSearchTitle}
             />
             <div className="input-group-append">
               <button
                 className="btn btn-outline-secondary"
                 type="button"
-                onClick={this.searchTitle}
+                onClick={searchTitle}
               >
                 Search
               </button>
@@ -114,14 +71,14 @@ const DiseasesList = () => {
           <h4>Diseases List</h4>
 
           <ul className="list-group">
-            {diseases &&
-              diseases.map((disease, index) => (
+            {props.diseases &&
+              props.diseases.map((disease, index) => (
                 <li
                   className={
                     "list-group-item " +
-                    (index === currentIndex ? "active" : "")
+                    (index === props.currentIndex ? "active" : "")
                   }
-                  onClick={() => this.setActiveDisease(disease, index)}
+                  onClick={() => setActiveDisease(disease, index)}
                   key={index}
                 >
                   {disease.title}
@@ -131,37 +88,37 @@ const DiseasesList = () => {
 
           <button
             className="m-3 btn btn-sm btn-danger"
-            onClick={this.removeAllDiseases}
+            onClick={removeAllDiseases}
           >
             Remove All
           </button>
         </div>
         <div className="col-md-6">
-          {currentDisease ? (
+          {props.currentDisease ? (
             <div>
               <h4>Tauti</h4>
               <div>
                 <label>
                   <strong>Category:</strong>
                 </label>{" "}
-                {currentDisease.category}
+                {props.currentDisease.category}
               </div>
               <div>
                 <label>
                   <strong>Title:</strong>
                 </label>{" "}
-                {currentDisease.title}
+                {props.currentDisease.title}
               </div>
               <div>
                 <label>
                   <strong>Description:</strong>
                 </label>{" "}
-                {currentDisease.description}
+                {props.currentDisease.description}
               </div>
 
 
               <Link 
-                to={"/diseases/" + currentDisease.id}
+                to={"/diseases/" + props.currentDisease.id}
                 className="badge badge-warning"
               >
                 Edit
@@ -177,4 +134,5 @@ const DiseasesList = () => {
       </div>
     );
   }
-}
+
+  export default DiseasesList

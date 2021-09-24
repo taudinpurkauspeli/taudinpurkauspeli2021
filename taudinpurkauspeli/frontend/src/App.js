@@ -20,6 +20,10 @@ const useField = (type) => {
     setValue(event.target.value)
   }
 
+  const onCommand = (wantedValue) => {
+    setValue(wantedValue)
+  }
+
   return {
     type,
     value,
@@ -37,6 +41,11 @@ const App = () => {
   const category = useField('text')
   const title = useField('text')
   const description = useField('text')
+  const diseaseFilter = useField('text')
+  const [ diseases, setDiseases ] = useState([])
+  const currentDisease = useField('text')
+  const currentIndex = useField('number')
+
   const { t } = useTranslation
 
   const padding = {
@@ -44,15 +53,20 @@ const App = () => {
   }
 
     return (
+      <div className="container">
     <Router>
       <div>
         <Link style={padding} to="/">Taudit</Link>
         <Link style={padding} to="/add">Lisää tauti</Link>
+        <Link style={padding} to="/list">Lista taudeista</Link>
       </div>
 
       <Switch>
         <Route path="/add">
           <AddDisease category={category} title={title} description={description}/>
+        </Route>
+        <Route path="/list">
+          <DiseasesList diseases={diseases} setDiseases={setDiseases} diseaseFilter={diseaseFilter} currentDisease={currentDisease} currentIndex={currentIndex}/>
         </Route>
         <Route path="/">
           <Kokeilu />
@@ -60,6 +74,7 @@ const App = () => {
       </Switch>
 
     </Router>
+    </div>
   )
 }
 

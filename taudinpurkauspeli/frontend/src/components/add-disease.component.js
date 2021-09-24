@@ -1,7 +1,8 @@
-import React, { Image, useState, useEffect } from 'react'
+
 import DiseaseDataService from "../services/disease.service"
 
 const AddDisease = (props) => {
+  
 
   const addDisease = (event) => {
     event.preventDefault()
@@ -13,30 +14,25 @@ const AddDisease = (props) => {
 
     DiseaseDataService.create(diseaseObject)
     .then(response => {
-      this.setState({
-        id: response.data.id,
-        category: response.data.category,
-        title: response.data.title,
-        description: response.data.description,
-
-        submitted: true
-      });
-      console.log(response.data);
+      console.log(response.data)
+      document.getElementById('CATEGORY_ID').value=''
+      document.getElementById('TITLE_ID').value=''
+      document.getElementById('DESCRIPTION_ID').value=''
     })
     .catch(e => {
       console.log(e);
-    });
+    })
   }
 
   
     return (
       <div>
       <form onSubmit ={addDisease}>
-        <div>Category: <input {...props.category}/> 
+        <div>Category: <input {...props.category} id="CATEGORY_ID"/> 
         </div>
-        <div>Title: <input {...props.title}/>
+        <div>Title: <input {...props.title} id="TITLE_ID"/>
         </div>
-        <div>Description: <input {...props.description}/>
+        <div>Description: <input {...props.description} id="DESCRIPTION_ID"/>
         </div>
         <div><button type="submit">add</button></div>
       </form>
