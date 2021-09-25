@@ -1,5 +1,9 @@
-import React, { Component } from "react";
-import DiseaseDataService from "../services/disease.service";
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable react/button-has-type */
+/* eslint-disable react/no-unused-state */
+/* eslint-disable react/destructuring-assignment */
+import React, { Component } from 'react';
+import DiseaseDataService from '../services/disease.service';
 
 export default class AddDisease extends Component {
   constructor(props) {
@@ -11,53 +15,55 @@ export default class AddDisease extends Component {
     this.newDisease = this.newDisease.bind(this);
 
     this.state = {
+      // eslint-disable-next-line react/no-unused-state
       id: null,
-      category: "",
-      title: "",
-      description: "", 
+      category: '',
+      title: '',
+      description: '',
 
-      submitted: false
+      submitted: false,
     };
   }
 
   onChangeCategory(e) {
-      this.setState({
-          category: e.target.value
-      });
+    this.setState({
+      category: e.target.value,
+    });
   }
-  
+
   onChangeTitle(e) {
     this.setState({
-      title: e.target.value
+      title: e.target.value,
     });
   }
 
   onChangeDescription(e) {
     this.setState({
-      description: e.target.value
+      description: e.target.value,
     });
   }
 
   saveDisease() {
-    var data = {
+    const data = {
+      // eslint-disable-next-line react/destructuring-assignment
       category: this.state.category,
       title: this.state.title,
-      description: this.state.description
+      description: this.state.description,
     };
 
     DiseaseDataService.create(data)
-      .then(response => {
+      .then((response) => {
         this.setState({
           id: response.data.id,
           category: response.data.category,
           title: response.data.title,
           description: response.data.description,
 
-          submitted: true
+          submitted: true,
         });
         console.log(response.data);
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
   }
@@ -65,11 +71,11 @@ export default class AddDisease extends Component {
   newDisease() {
     this.setState({
       id: null,
-      category: "",
-      title: "",
-      description: "",
+      category: '',
+      title: '',
+      description: '',
 
-      submitted: false
+      submitted: false,
     });
   }
 
