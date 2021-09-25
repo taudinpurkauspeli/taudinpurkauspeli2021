@@ -5,15 +5,15 @@
   "listOfDiseases": "List of diseases",
   "addDisease": "Add disease",
   "diseaseAdded": "Disease added",
-  "submitNewDisease": "Submit",
   "category": "Category",
   "title": "Title",
   "description": "Description",
-  "search": "Search",
   "searchByTitle": "Search by title",
   "edit": "Edit",
-  "update": "Update",
-  "remove": "Remove",
-  "removeAll": "Remove all",
-  "clickTheDisease": "Click the disease"
+  "clickTheDisease": "Click the disease",
+  "button_submitNewDisease": "Submit",
+  "button_remove": "Remove",
+  "button_removeAll": "Remove all",
+  "button_update": "Update",
+  "button_search": "Search"
 }

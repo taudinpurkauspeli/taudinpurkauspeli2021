@@ -97,7 +97,7 @@ const Disease = props => {
           </form>
 
           <button className="badge badge-danger mr-2" onClick={deleteDisease}>
-          {t('remove')}
+          {t('button_remove')}
           </button>
 
           <button
@@ -105,7 +105,7 @@ const Disease = props => {
             className="badge badge-success"
             onClick={updateDisease}
           >
-            {t('update')}
+            {t('button_update')}
           </button>
           <p>{message}</p>
         </div>

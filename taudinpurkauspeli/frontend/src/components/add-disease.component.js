@@ -101,7 +101,7 @@ const AddDisease = () => {
           </div>
 
           <button onClick={saveDisease} className="btn btn-success">
-            {t('submitNewDisease')}
+            {t('button_submitNewDisease')}
           </button>
         </div>
       )}

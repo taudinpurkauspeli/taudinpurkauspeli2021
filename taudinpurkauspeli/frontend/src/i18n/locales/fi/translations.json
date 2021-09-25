@@ -5,15 +5,15 @@
     "listOfDiseases": "Tautilista",
     "addDisease": "Lisää tauti",
     "diseaseAdded": "Tauti lisätty",
-    "submitNewDisease": "Lisää",
     "category": "Kategoria",
     "title": "Nimi",
     "description": "Kuvaus",
-    "search": "Etsi",
     "searchByTitle": "Etsi nimellä",
     "edit": "Muokkaa",
-    "update": "Päivitä",
-    "remove": "Poista",
-    "removeAll": "Poista kaikki",
-    "clickTheDisease": "Klikkaa tautia"
+    "clickTheDisease": "Klikkaa tautia",
+    "button_submitNewDisease": "Lisää",
+    "button_remove": "Poista",
+    "button_removeAll": "Poista kaikki",
+    "button_update": "Päivitä",
+    "button_search": "Etsi"
   }

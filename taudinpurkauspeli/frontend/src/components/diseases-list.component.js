@@ -80,7 +80,7 @@ const DiseasesList = () => {
               type="button"
               onClick={findByTitle}
             >
-              {t('search')}
+              {t('button_search')}
             </button>
           </div>
         </div>
@@ -107,7 +107,7 @@ const DiseasesList = () => {
           className="m-3 btn btn-sm btn-danger"
           onClick={removeAllDiseases}
         >
-          {t('removeAll')}
+          {t('button_removeAll')}
         </button>
       </div>
       <div className="col-md-6">
