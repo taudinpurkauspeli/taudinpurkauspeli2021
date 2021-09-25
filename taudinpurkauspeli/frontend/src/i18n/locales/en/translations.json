@@ -1,7 +1,19 @@
 {
-  "helloworld": "Heippa maailma",
   "nameOfTheGame": "Taudinpurkauspeli",
   "diseases": "Diseases",
+  "disease": "Disease",
+  "listOfDiseases": "List of diseases",
   "addDisease": "Add disease",
-  "searchByTitle": "Search by title"
+  "diseaseAdded": "Disease added",
+  "submitNewDisease": "Submit",
+  "category": "Category",
+  "title": "Title",
+  "description": "Description",
+  "search": "Search",
+  "searchByTitle": "Search by title",
+  "edit": "Edit",
+  "update": "Update",
+  "remove": "Remove",
+  "removeAll": "Remove all",
+  "clickTheDisease": "Click the disease"
 }

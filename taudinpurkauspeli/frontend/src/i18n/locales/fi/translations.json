@@ -1,7 +1,19 @@
 {
-    "helloworld": "Heippa maailma",
     "nameOfTheGame": "Taudinpurkauspeli",
     "diseases": "Taudit",
+    "disease": "Tauti",
+    "listOfDiseases": "Tautilista",
     "addDisease": "Lisää tauti",
-    "searchByTitle": "Etsi nimellä"
+    "diseaseAdded": "Tauti lisätty",
+    "submitNewDisease": "Lisää",
+    "category": "Kategoria",
+    "title": "Nimi",
+    "description": "Kuvaus",
+    "search": "Etsi",
+    "searchByTitle": "Etsi nimellä",
+    "edit": "Muokkaa",
+    "update": "Päivitä",
+    "remove": "Poista",
+    "removeAll": "Poista kaikki",
+    "clickTheDisease": "Klikkaa tautia"
   }

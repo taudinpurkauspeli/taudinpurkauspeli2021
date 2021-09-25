@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
 import DiseaseDataService from "../services/disease.service"
+import { useTranslation } from 'react-i18next';
 
 const Disease = props => {
   const initialDiseaseState = {
@@ -10,6 +11,7 @@ const Disease = props => {
   }
   const [currentDisease, setCurrentDisease] = useState(initialDiseaseState);
   const [message, setMessage] = useState("")
+  const { t } = useTranslation()
 
   const getDisease = id => {
     DiseaseDataService.get(id)
@@ -60,7 +62,7 @@ const Disease = props => {
           <h4>Disease</h4>
           <form>
           <div className="form-group">
-              <label htmlFor="category">Category</label>
+              <label htmlFor="category">{t('category')}</label>
               <input
                 type="text"
                 className="form-control"
@@ -71,7 +73,7 @@ const Disease = props => {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="title">Title</label>
+              <label htmlFor="title">{t('title')}</label>
               <input
                 type="text"
                 className="form-control"
@@ -82,7 +84,7 @@ const Disease = props => {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="description">Description</label>
+              <label htmlFor="description">{t('description')}</label>
               <input
                 type="text"
                 className="form-control"
@@ -95,7 +97,7 @@ const Disease = props => {
           </form>
 
           <button className="badge badge-danger mr-2" onClick={deleteDisease}>
-            Delete
+          {t('remove')}
           </button>
 
           <button
@@ -103,14 +105,14 @@ const Disease = props => {
             className="badge badge-success"
             onClick={updateDisease}
           >
-            Päivitä
+            {t('update')}
           </button>
           <p>{message}</p>
         </div>
       ) : (
         <div>
           <br />
-          <p>Klikkaa tautia</p>
+          <p>{t('clickTheDisease')}</p>
         </div>
       )}
     </div>

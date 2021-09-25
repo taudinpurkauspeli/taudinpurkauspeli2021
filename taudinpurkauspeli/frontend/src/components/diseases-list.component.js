@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react"
 import DiseaseDataService from "../services/disease.service"
 import { Link } from "react-router-dom"
+import { useTranslation } from 'react-i18next';
 
 const DiseasesList = () => {
   const [diseases, setDiseases] = useState([])
   const [currentDisease, setCurrentDisease] = useState(null)
   const [currentIndex, setCurrentIndex] = useState(-1)
   const [searchTitle, setSearchTitle] = useState("")
+  const { t } = useTranslation()
 
   useEffect(() => {
     retrieveDiseases()
@@ -68,7 +70,7 @@ const DiseasesList = () => {
           <input
             type="text"
             className="form-control"
-            placeholder="Search by title"
+            placeholder={t('searchByTitle')}
             value={searchTitle}
             onChange={onChangeSearchTitle}
           />
@@ -78,13 +80,13 @@ const DiseasesList = () => {
               type="button"
               onClick={findByTitle}
             >
-              Search
+              {t('search')}
             </button>
           </div>
         </div>
       </div>
       <div className="col-md-6">
-        <h4>Tauti lista</h4>
+        <h4>{t('listOfDiseases')}</h4>
 
         <ul className="list-group">
           {diseases &&
@@ -105,28 +107,28 @@ const DiseasesList = () => {
           className="m-3 btn btn-sm btn-danger"
           onClick={removeAllDiseases}
         >
-          Remove All
+          {t('removeAll')}
         </button>
       </div>
       <div className="col-md-6">
         {currentDisease ? (
           <div>
-            <h4>Tauti</h4>
+            <h4>{t('disease')}</h4>
             <div>
               <label>
-                <strong>Category:</strong>
+                <strong>{t('category')}:</strong>
               </label>{" "}
               {currentDisease.category}
             </div>
             <div>
               <label>
-                <strong>Title:</strong>
+                <strong>{t('title')}:</strong>
               </label>{" "}
               {currentDisease.title}
             </div>
             <div>
               <label>
-                <strong>Description:</strong>
+                <strong>{t('description')}:</strong>
               </label>{" "}
               {currentDisease.description}
             </div>
@@ -135,13 +137,13 @@ const DiseasesList = () => {
               to={"/diseases/" + currentDisease.id}
               className="badge badge-warning"
             >
-              Edit
+              {t('edit')}
             </Link>
           </div>
         ) : (
           <div>
             <br />
-            <p>Klikkaa tautia</p>
+            <p>{t('clickTheDisease')}</p>
           </div>
         )}
       </div>

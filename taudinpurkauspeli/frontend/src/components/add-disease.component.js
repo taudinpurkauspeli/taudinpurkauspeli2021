@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import DiseaseDataService from "../services/disease.service"
+import { useTranslation } from 'react-i18next';
 
 const AddDisease = () => {
   const initialDiseaseState = {
@@ -11,6 +12,7 @@ const AddDisease = () => {
   }
   const [disease, setDisease] = useState(initialDiseaseState);
   const [submitted, setSubmitted] = useState(false);
+  const { t } = useTranslation()
 
   const handleInputChange = event => {
     const { name, value } = event.target;
@@ -52,15 +54,15 @@ const AddDisease = () => {
     <div className="submit-form">
       {submitted ? (
         <div>
-          <h4>Tauti lisätty</h4>
+          <h4>{t('diseaseAdded')}</h4>
           <button className="btn btn-success" onClick={newDisease}>
-            Lisää tauti
+            {t('addDisease')}
           </button>
         </div>
       ) : (
         <div>
           <div className="form-group">
-            <label htmlFor="category">Category</label>
+            <label htmlFor="category">{t('category')}</label>
             <input
               type="text"
               className="form-control"
@@ -73,7 +75,7 @@ const AddDisease = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="title">Title</label>
+            <label htmlFor="title">{t('title')}</label>
             <input
               type="text"
               className="form-control"
@@ -86,7 +88,7 @@ const AddDisease = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="description">Description</label>
+            <label htmlFor="description">{t('description')}</label>
             <input
               type="text"
               className="form-control"
@@ -99,7 +101,7 @@ const AddDisease = () => {
           </div>
 
           <button onClick={saveDisease} className="btn btn-success">
-            Submit
+            {t('submitNewDisease')}
           </button>
         </div>
       )}

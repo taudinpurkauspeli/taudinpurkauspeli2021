@@ -11,24 +11,23 @@ import DiseasesList from "./components/diseases-list.component";
 import { useTranslation } from 'react-i18next';
 
 const App = () => {
-  const { t } = useTranslation
-
+  const { t } = useTranslation()
 
     return (
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
           <a href="/diseases" className="navbar-brand">
-            Taudinpurkauspeli
+          {t('nameOfTheGame')}
           </a>
           <div className="navbar-nav mr-auto">
             <li className="nav-item">
               <Link to={"/diseases"} className="nav-link">
-                Taudit
+              {t('diseases')}
               </Link>
             </li>
             <li className="nav-item">
               <Link to={"/add"} className="nav-link">
-                Lisää tauti
+              {t('addDisease')}
               </Link>
             </li>
           </div>
