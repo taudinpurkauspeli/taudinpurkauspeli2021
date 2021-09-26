@@ -11,7 +11,7 @@ import DiseasesList from "./components/diseases-list.component";
 import { useTranslation } from 'react-i18next';
 
 const App = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
     return (
       <div>
