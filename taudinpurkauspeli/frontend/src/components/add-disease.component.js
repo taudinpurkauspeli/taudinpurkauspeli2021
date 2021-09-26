@@ -1,141 +1,112 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable react/button-has-type */
-/* eslint-disable react/no-unused-state */
-/* eslint-disable react/destructuring-assignment */
-import React, { Component } from 'react';
-import DiseaseDataService from '../services/disease.service';
+import React, { useState } from "react"
+import DiseaseDataService from "../services/disease.service"
+import { useTranslation } from 'react-i18next';
 
-export default class AddDisease extends Component {
-  constructor(props) {
-    super(props);
-    this.onChangeCategory = this.onChangeCategory.bind(this);
-    this.onChangeTitle = this.onChangeTitle.bind(this);
-    this.onChangeDescription = this.onChangeDescription.bind(this);
-    this.saveDisease = this.saveDisease.bind(this);
-    this.newDisease = this.newDisease.bind(this);
+const AddDisease = () => {
+  const initialDiseaseState = {
+    id: null,
+    category: "",
+    title: "",
+    description: "",
+    published: false
+  }
+  const [disease, setDisease] = useState(initialDiseaseState);
+  const [submitted, setSubmitted] = useState(false);
+  const { t } = useTranslation()
 
-    this.state = {
-      // eslint-disable-next-line react/no-unused-state
-      id: null,
-      category: '',
-      title: '',
-      description: '',
-
-      submitted: false,
-    };
+  const handleInputChange = event => {
+    const { name, value } = event.target;
+    setDisease({ ...disease, [name]: value });
   }
 
-  onChangeCategory(e) {
-    this.setState({
-      category: e.target.value,
-    });
-  }
-
-  onChangeTitle(e) {
-    this.setState({
-      title: e.target.value,
-    });
-  }
-
-  onChangeDescription(e) {
-    this.setState({
-      description: e.target.value,
-    });
-  }
-
-  saveDisease() {
-    const data = {
-      // eslint-disable-next-line react/destructuring-assignment
-      category: this.state.category,
-      title: this.state.title,
-      description: this.state.description,
-    };
+  const saveDisease = () => {
+    var data = {
+      category: disease.category,
+      title: disease.title,
+      description: disease.description
+    }
 
     DiseaseDataService.create(data)
-      .then((response) => {
-        this.setState({
+      .then(response => {
+        setDisease({
           id: response.data.id,
           category: response.data.category,
           title: response.data.title,
           description: response.data.description,
-
-          submitted: true,
-        });
-        console.log(response.data);
+        })
+        setSubmitted(true)
+        console.log(response.data)
       })
       .catch((e) => {
         console.log(e);
-      });
+      })
   }
 
-  newDisease() {
-    this.setState({
-      id: null,
-      category: '',
-      title: '',
-      description: '',
+  const newDisease = () => {
+    setDisease(initialDiseaseState)
+    setSubmitted(false)
+  };
 
-      submitted: false,
-    });
-  }
 
-  render() {
-    return (
-      <div className="submit-form">
-        {this.state.submitted ? (
-          <div>
-            <h4>Tauti lisätty!</h4>
-            <button className="btn btn-success" onClick={this.newDisease}>
-              Add
-            </button>
+
+  
+  return (
+    <div className="submit-form">
+      {submitted ? (
+        <div>
+          <h4>{t('diseaseAdded')}</h4>
+          <button className="btn btn-success" onClick={newDisease}>
+            {t('addDisease')}
+          </button>
+        </div>
+      ) : (
+        <div>
+          <div className="form-group">
+            <label htmlFor="category">{t('category')}</label>
+            <input
+              type="text"
+              className="form-control"
+              id="category"
+              required
+              value={disease.category}
+              onChange={handleInputChange}
+              name="category"
+            />
           </div>
-        ) : (
-          <div>
-            <div className="form-group">
-              <label htmlFor="category">Category</label>
-              <input
-                type="text"
-                className="form-control"
-                id="category"
-                required
-                value={this.state.category}
-                onChange={this.onChangeCategory}
-                name="category"
-              />
-            </div>
 
-            <div className="form-group">
-              <label htmlFor="title">Title</label>
-              <input
-                type="text"
-                className="form-control"
-                id="title"
-                required
-                value={this.state.title}
-                onChange={this.onChangeTitle}
-                name="title"
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="description">Description</label>
-              <input
-                type="text"
-                className="form-control"
-                id="description"
-                required
-                value={this.state.description}
-                onChange={this.onChangeDescription}
-                name="description"
-              />
-            </div>
-
-            <button onClick={this.saveDisease} className="btn btn-success">
-              Submit
-            </button>
+          <div className="form-group">
+            <label htmlFor="title">{t('title')}</label>
+            <input
+              type="text"
+              className="form-control"
+              id="title"
+              required
+              value={disease.title}
+              onChange={handleInputChange}
+              name="title"
+            />
           </div>
-        )}
-      </div>
-    );
-  }
+
+          <div className="form-group">
+            <label htmlFor="description">{t('description')}</label>
+            <input
+              type="text"
+              className="form-control"
+              id="description"
+              required
+              value={disease.description}
+              onChange={handleInputChange}
+              name="description"
+            />
+          </div>
+
+          <button onClick={saveDisease} className="btn btn-success">
+            {t('button_submitNewDisease')}
+          </button>
+        </div>
+      )}
+    </div>
+  )
 }
+
+  export default AddDisease

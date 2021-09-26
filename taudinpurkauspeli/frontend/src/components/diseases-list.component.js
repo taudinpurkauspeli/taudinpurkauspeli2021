@@ -1,188 +1,154 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import DiseaseDataService from '../services/disease.service';
+import React, { useState, useEffect } from "react"
+import DiseaseDataService from "../services/disease.service"
+import { Link } from "react-router-dom"
+import { useTranslation } from 'react-i18next';
 
-export default class DiseasesList extends Component {
-  constructor(props) {
-    super(props);
-    this.onChangeSearchTitle = this.onChangeSearchTitle.bind(this);
-    this.retrieveDiseases = this.retrieveDiseases.bind(this);
-    this.refreshList = this.refreshList.bind(this);
-    this.setActiveDisease = this.setActiveDisease.bind(this);
-    this.removeAllDiseases = this.removeAllDiseases.bind(this);
-    this.searchTitle = this.searchTitle.bind(this);
+const DiseasesList = () => {
+  const [diseases, setDiseases] = useState([])
+  const [currentDisease, setCurrentDisease] = useState(null)
+  const [currentIndex, setCurrentIndex] = useState(-1)
+  const [searchTitle, setSearchTitle] = useState("")
+  const { t } = useTranslation()
 
-    this.state = {
-      diseases: [],
-      currentDisease: null,
-      currentIndex: -1,
-      searchTitle: '',
-    };
-  }
+  useEffect(() => {
+    retrieveDiseases()
+  }, [])
 
-  componentDidMount() {
-    this.retrieveDiseases();
-  }
-
-  onChangeSearchTitle(e) {
+  const onChangeSearchTitle = e => {
     const searchTitle = e.target.value;
+    setSearchTitle(searchTitle);
+  };
 
-    this.setState({
-      searchTitle,
-    });
-  }
-
-  setActiveDisease(disease, index) {
-    this.setState({
-      currentDisease: disease,
-      currentIndex: index,
-    });
-  }
-
-  refreshList() {
-    this.retrieveDiseases();
-    this.setState({
-      currentDisease: null,
-      currentIndex: -1,
-    });
-  }
-
-  retrieveDiseases() {
+  const retrieveDiseases = () => {
     DiseaseDataService.getAll()
-      .then((response) => {
-        this.setState({
-          diseases: response.data,
-        });
+      .then(response => {
+        setDiseases(response.data);
+        console.log(response.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+
+  const refreshList = () => {
+    retrieveDiseases();
+    setCurrentDisease(null);
+    setCurrentIndex(-1);
+  };
+
+  const setActiveDisease = (disease, index) => {
+    setCurrentDisease(disease);
+    setCurrentIndex(index);
+  };
+
+  const removeAllDiseases = () => {
+    DiseaseDataService.removeAll()
+      .then(response => {
+        console.log(response.data);
+        refreshList();
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const findByTitle = () => {
+    DiseaseDataService.findByTitle(searchTitle)
+      .then(response => {
+        setDiseases(response.data);
         console.log(response.data);
       })
       .catch((e) => {
         console.log(e);
       });
-  }
+  };
 
-  removeAllDiseases() {
-    DiseaseDataService.deleteAll()
-      .then((response) => {
-        console.log(response.data);
-        this.refreshList();
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }
-
-  searchTitle() {
-    // eslint-disable-next-line react/destructuring-assignment
-    DiseaseDataService.findByTitle(this.state.searchTitle)
-      .then((response) => {
-        this.setState({
-          diseases: response.data,
-        });
-        console.log(response.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }
-
-  render() {
-    const {
-      searchTitle, diseases, currentDisease, currentIndex,
-    } = this.state;
-
-    return (
-      <div className="list row">
-        <div className="col-md-8">
-          <div className="input-group mb-3">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Search by title"
-              value={searchTitle}
-              onChange={this.onChangeSearchTitle}
-            />
-            <div className="input-group-append">
-              <button
-                className="btn btn-outline-secondary"
-                type="button"
-                onClick={this.searchTitle}
-              >
-                Search
-              </button>
-            </div>
+  return (
+    <div className="list row">
+      <div className="col-md-8">
+        <div className="input-group mb-3">
+          <input
+            type="text"
+            className="form-control"
+            placeholder={t('searchByTitle')}
+            value={searchTitle}
+            onChange={onChangeSearchTitle}
+          />
+          <div className="input-group-append">
+            <button
+              className="btn btn-outline-secondary"
+              type="button"
+              onClick={findByTitle}
+            >
+              {t('button_search')}
+            </button>
           </div>
         </div>
-        <div className="col-md-6">
-          <h4>Diseases List</h4>
+      </div>
+      <div className="col-md-6">
+        <h4>{t('listOfDiseases')}</h4>
 
-          <ul className="list-group">
-            {diseases
-            && diseases.map((disease, index) => (
+        <ul className="list-group">
+          {diseases &&
+            diseases.map((disease, index) => (
               <li
                 className={
-                  // eslint-disable-next-line prefer-template
-                  'list-group-item '
-                  + (index === currentIndex ? 'active' : '')
+                  "list-group-item " + (index === currentIndex ? "active" : "")
                 }
-                onClick={() => this.setActiveDisease(disease, index)}
-                aria-hidden="true"
-                // eslint-disable-next-line react/no-array-index-key
+                onClick={() => setActiveDisease(disease, index)}
                 key={index}
               >
                 {disease.title}
               </li>
             ))}
-          </ul>
+        </ul>
 
-          {/* eslint-disable-next-line react/button-has-type */}
-          <button
-            className="m-3 btn btn-sm btn-danger"
-            onClick={this.removeAllDiseases}
-          >
-            Remove All
-          </button>
-        </div>
-        <div className="col-md-6">
-          {currentDisease ? (
-            <div>
-              <h4>Tauti</h4>
-              <div>
-                <p>
-                  <strong>Category:</strong>
-                </p>
-                {' '}
-                {currentDisease.category}
-              </div>
-              <div>
-                <p>
-                  <strong>Title:</strong>
-                </p>
-                {' '}
-                {currentDisease.title}
-              </div>
-              <div>
-                <p>
-                  <strong>Description:</strong>
-                </p>
-                {' '}
-                {currentDisease.description}
-              </div>
-
-              <Link
-                to={`/diseases/ ${currentDisease.id}`}
-                className="badge badge-warning"
-              >
-                Edit
-              </Link>
-            </div>
-          ) : (
-            <div>
-              <br />
-              <p>Please click on a Disease...</p>
-            </div>
-          )}
-        </div>
+        <button
+          className="m-3 btn btn-sm btn-danger"
+          onClick={removeAllDiseases}
+        >
+          {t('button_removeAll')}
+        </button>
       </div>
-    );
-  }
-}
+      <div className="col-md-6">
+        {currentDisease ? (
+          <div>
+            <h4>{t('disease')}</h4>
+            <div>
+              <label>
+                <strong>{t('category')}:</strong>
+              </label>{" "}
+              {currentDisease.category}
+            </div>
+            <div>
+              <label>
+                <strong>{t('title')}:</strong>
+              </label>{" "}
+              {currentDisease.title}
+            </div>
+            <div>
+              <label>
+                <strong>{t('description')}:</strong>
+              </label>{" "}
+              {currentDisease.description}
+            </div>
+
+            <Link
+              to={"/diseases/" + currentDisease.id}
+              className="badge badge-warning"
+            >
+              {t('edit')}
+            </Link>
+          </div>
+        ) : (
+          <div>
+            <br />
+            <p>{t('clickTheDisease')}</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default DiseasesList;
