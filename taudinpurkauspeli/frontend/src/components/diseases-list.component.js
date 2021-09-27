@@ -91,15 +91,16 @@ const DiseasesList = () => {
         <ul className="list-group">
           {diseases
             && diseases.map((disease, index) => (
-              <li
+              <option
+                type="submit"
                 className={
-                  'list-group-item' + (index === currentIndex ? 'active' : '')
+                  `list-group-item${index === currentIndex ? 'active' : ''}`
                 }
                 onClick={() => setActiveDisease(disease, index)}
-                key={index}
+                key={disease.title}
               >
                 {disease.title}
-              </li>
+              </option>
             ))}
         </ul>
 
@@ -116,7 +117,7 @@ const DiseasesList = () => {
           <div>
             <h4>{t('disease')}</h4>
             <div>
-              <label>
+              <label htmlFor={t('category')}>
                 <strong>
                   {t('category')}
                   :
@@ -126,7 +127,7 @@ const DiseasesList = () => {
               {currentDisease.category}
             </div>
             <div>
-              <label>
+              <label htmlFor={t('title')}>
                 <strong>
                   {t('title')}
                   :
@@ -136,7 +137,7 @@ const DiseasesList = () => {
               {currentDisease.title}
             </div>
             <div>
-              <label>
+              <label htmlFor={t('description')}>
                 <strong>
                   {t('description')}
                   :
@@ -147,7 +148,7 @@ const DiseasesList = () => {
             </div>
 
             <Link
-              to={'/diseases/' + currentDisease.id}
+              to={`/diseases/${currentDisease.id}`}
               className="badge badge-warning"
             >
               {t('edit')}

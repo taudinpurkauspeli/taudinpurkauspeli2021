@@ -6,9 +6,11 @@ i18n.use(initReactI18next).init({
   lng: 'fi',
   resources: {
     fi: {
+      // eslint-disable-next-line global-require
       translations: require('./locales/fi/translations.json'),
     },
     en: {
+      // eslint-disable-next-line global-require
       translations: require('./locales/en/translations.json'),
     },
   },
