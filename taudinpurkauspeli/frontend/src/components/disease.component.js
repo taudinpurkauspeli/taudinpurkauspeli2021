@@ -1,59 +1,59 @@
-import React, { useState, useEffect } from "react"
-import DiseaseDataService from "../services/disease.service"
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import DiseaseDataService from '../services/disease.service';
 
-const Disease = props => {
+const Disease = (props) => {
   const initialDiseaseState = {
     id: null,
-    category: "",
-    title: "",
-    description: "",
-  }
+    category: '',
+    title: '',
+    description: '',
+  };
   const [currentDisease, setCurrentDisease] = useState(initialDiseaseState);
-  const [message, setMessage] = useState("")
-  const { t } = useTranslation()
+  const [message, setMessage] = useState('');
+  const { t } = useTranslation();
 
-  const getDisease = id => {
+  const getDisease = (id) => {
     DiseaseDataService.get(id)
-      .then(response => {
-        setCurrentDisease(response.data)
-        console.log(response.data)
+      .then((response) => {
+        setCurrentDisease(response.data);
+        console.log(response.data);
       })
       .catch((e) => {
         console.log(e);
-      })
-  }
+      });
+  };
 
   useEffect(() => {
-    getDisease(props.match.params.id)
-  }, [props.match.params.id])
+    getDisease(props.match.params.id);
+  }, [props.match.params.id]);
 
-  const handleInputChange = event => {
+  const handleInputChange = (event) => {
     const { name, value } = event.target;
     setCurrentDisease({ ...currentDisease, [name]: value });
   };
 
   const updateDisease = () => {
     DiseaseDataService.update(currentDisease.id, currentDisease)
-      .then(response => {
+      .then((response) => {
         console.log(response.data);
-        setMessage("Taudin tiedot päivitettiin!")
+        setMessage('Taudin tiedot päivitettiin!');
       })
-      .catch(e => {
-        console.log(e)
-      })
-  }
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
   const deleteDisease = () => {
     DiseaseDataService.delete(currentDisease.id)
-      .then(response => {
+      .then((response) => {
         console.log(response.data);
-        props.history.push("/diseases")
+        props.history.push('/diseases');
       })
-      .catch(e => {
-        console.log(e)
-      })
-  }
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
   return (
     <div>
@@ -61,7 +61,7 @@ const Disease = props => {
         <div className="edit-form">
           <h4>Disease</h4>
           <form>
-          <div className="form-group">
+            <div className="form-group">
               <label htmlFor="category">{t('category')}</label>
               <input
                 type="text"
@@ -96,8 +96,8 @@ const Disease = props => {
             </div>
           </form>
 
-          <button className="badge badge-danger mr-2" onClick={deleteDisease}>
-          {t('button_remove')}
+          <button type="submit" className="badge badge-danger mr-2" onClick={deleteDisease}>
+            {t('button_remove')}
           </button>
 
           <button
@@ -116,7 +116,7 @@ const Disease = props => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default Disease
+export default Disease;

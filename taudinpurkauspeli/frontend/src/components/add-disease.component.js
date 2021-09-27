@@ -1,61 +1,58 @@
-import React, { useState } from "react"
-import DiseaseDataService from "../services/disease.service"
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import DiseaseDataService from '../services/disease.service';
 
 const AddDisease = () => {
   const initialDiseaseState = {
     id: null,
-    category: "",
-    title: "",
-    description: "",
-    published: false
-  }
+    category: '',
+    title: '',
+    description: '',
+    published: false,
+  };
   const [disease, setDisease] = useState(initialDiseaseState);
   const [submitted, setSubmitted] = useState(false);
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const handleInputChange = event => {
+  const handleInputChange = (event) => {
     const { name, value } = event.target;
     setDisease({ ...disease, [name]: value });
-  }
+  };
 
   const saveDisease = () => {
-    var data = {
+    const data = {
       category: disease.category,
       title: disease.title,
-      description: disease.description
-    }
+      description: disease.description,
+    };
 
     DiseaseDataService.create(data)
-      .then(response => {
+      .then((response) => {
         setDisease({
           id: response.data.id,
           category: response.data.category,
           title: response.data.title,
           description: response.data.description,
-        })
-        setSubmitted(true)
-        console.log(response.data)
+        });
+        setSubmitted(true);
+        console.log(response.data);
       })
       .catch((e) => {
         console.log(e);
-      })
-  }
-
-  const newDisease = () => {
-    setDisease(initialDiseaseState)
-    setSubmitted(false)
+      });
   };
 
+  const newDisease = () => {
+    setDisease(initialDiseaseState);
+    setSubmitted(false);
+  };
 
-
-  
   return (
     <div className="submit-form">
       {submitted ? (
         <div>
           <h4>{t('diseaseAdded')}</h4>
-          <button className="btn btn-success" onClick={newDisease}>
+          <button type="submit" className="btn btn-success" onClick={newDisease}>
             {t('addDisease')}
           </button>
         </div>
@@ -100,13 +97,13 @@ const AddDisease = () => {
             />
           </div>
 
-          <button onClick={saveDisease} className="btn btn-success">
+          <button type="submit" onClick={saveDisease} className="btn btn-success">
             {t('button_submitNewDisease')}
           </button>
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-  export default AddDisease
+export default AddDisease;

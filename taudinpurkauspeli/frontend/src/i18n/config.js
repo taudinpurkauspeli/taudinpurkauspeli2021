@@ -6,14 +6,14 @@ i18n.use(initReactI18next).init({
   lng: 'fi',
   resources: {
     fi: {
-      translations: require('./locales/fi/translations.json')
+      translations: require('./locales/fi/translations.json'),
     },
     en: {
-      translations: require('./locales/en/translations.json')
-    }
+      translations: require('./locales/en/translations.json'),
+    },
   },
   ns: ['translations'],
-  defaultNS: 'translations'
+  defaultNS: 'translations',
 });
 
 i18n.languages = ['fi', 'en'];
