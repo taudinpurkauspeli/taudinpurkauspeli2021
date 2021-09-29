@@ -1,0 +1,19 @@
+{
+    "nameOfTheGame": "Taudinpurkauspeli",
+    "diseases": "Taudit",
+    "disease": "Tauti",
+    "listOfDiseases": "Tautilista",
+    "addDisease": "Lisää tauti",
+    "diseaseAdded": "Tauti lisätty",
+    "category": "Kategoria",
+    "title": "Nimi",
+    "description": "Kuvaus",
+    "searchByTitle": "Etsi nimellä",
+    "edit": "Muokkaa",
+    "clickTheDisease": "Klikkaa tautia",
+    "button_submitNewDisease": "Lisää",
+    "button_remove": "Poista",
+    "button_removeAll": "Poista kaikki",
+    "button_update": "Päivitä",
+    "button_search": "Etsi"
+  }
