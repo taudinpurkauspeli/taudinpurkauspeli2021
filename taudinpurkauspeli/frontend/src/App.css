@@ -13,3 +13,17 @@
   max-width: 300px;
   margin: auto;
 }
+
+.navbar {
+  background-color: rgb(27, 67, 50);
+}
+
+.navbar-brand {
+  color: rgb(183, 228, 199) !important;
+  font-weight: bold;
+  font-size: x-large;
+}
+
+.nav-link {
+  color: rgb(183, 228, 199) !important;
+}
