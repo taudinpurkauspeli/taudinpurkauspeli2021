@@ -2,7 +2,7 @@ FROM node:14
 
 WORKDIR /taudinpurkauspeli/backend
 
-COPY package*.json ./
+COPY package*.json /taudinpurkauspeli/backend
 
 RUN npm install
 
