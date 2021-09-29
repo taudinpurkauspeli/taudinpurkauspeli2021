@@ -4,6 +4,8 @@ WORKDIR /usr/src/app
 
 COPY . .
 
+WORKDIR /usr/src/app/taudinpurkauspeli/backend
+
 RUN npm install
 
 EXPOSE 8080
