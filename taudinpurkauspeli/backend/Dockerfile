@@ -1,10 +1,8 @@
-FROM alpine:3.11
-
-ENV NODE_VERSION 16.10.0
+FROM node:16
 
 WORKDIR /taudinpurkauspeli/backend
 
-COPY ./package*.json ./
+COPY ./package*.json /-/tree/main/taudinpurkauspeli/backend
 
 RUN npm install
 
