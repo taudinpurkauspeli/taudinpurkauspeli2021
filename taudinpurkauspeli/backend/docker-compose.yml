@@ -1,0 +1,23 @@
+db:
+  image: postgres:latest
+  environment:
+    POSTGRES_PASSWORD: route_admin
+    POSTGRES_USER: route_admin
+  expose:
+    - "5433"
+  ports:
+    - "5433"
+  volumes:
+    - ./backups:/home/backups
+   
+web:
+  build: .
+  command:  bash -c "sleep 5 && python -u application/manage.py runserver 0.0.0.0:8081"
+  volumes:
+    - .:/code
+  ports:
+    - "81:8081"
+  links:
+    - db
+  environment:
+    - PYTHONUNBUFFERED=0
