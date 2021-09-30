@@ -17,10 +17,6 @@ const Disease = (props) => {
     DiseaseDataService.get(id)
       .then((response) => {
         setCurrentDisease(response.data);
-        console.log(response.data);
-      })
-      .catch((e) => {
-        console.log(e);
       });
   };
 
@@ -35,23 +31,15 @@ const Disease = (props) => {
 
   const updateDisease = () => {
     DiseaseDataService.update(currentDisease.id, currentDisease)
-      .then((response) => {
-        console.log(response.data);
+      .then(() => {
         setMessage('Taudin tiedot päivitettiin!');
-      })
-      .catch((e) => {
-        console.log(e);
       });
   };
 
   const deleteDisease = () => {
     DiseaseDataService.delete(currentDisease.id)
-      .then((response) => {
-        console.log(response.data);
+      .then(() => {
         props.history.push('/diseases');
-      })
-      .catch((e) => {
-        console.log(e);
       });
   };
 

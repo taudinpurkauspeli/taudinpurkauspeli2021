@@ -35,10 +35,6 @@ const AddDisease = () => {
           description: response.data.description,
         });
         setSubmitted(true);
-        console.log(response.data);
-      })
-      .catch((e) => {
-        console.log(e);
       });
   };
 

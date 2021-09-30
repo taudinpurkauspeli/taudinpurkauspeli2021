@@ -14,10 +14,6 @@ const DiseasesList = () => {
     DiseaseDataService.getAll()
       .then((response) => {
         setDiseases(response.data);
-        console.log(response.data);
-      })
-      .catch((e) => {
-        console.log(e);
       });
   };
 
@@ -43,12 +39,8 @@ const DiseasesList = () => {
 
   const removeAllDiseases = () => {
     DiseaseDataService.removeAll()
-      .then((response) => {
-        console.log(response.data);
+      .then(() => {
         refreshList();
-      })
-      .catch((e) => {
-        console.log(e);
       });
   };
 
@@ -56,10 +48,6 @@ const DiseasesList = () => {
     DiseaseDataService.findByTitle(searchTitle)
       .then((response) => {
         setDiseases(response.data);
-        console.log(response.data);
-      })
-      .catch((e) => {
-        console.log(e);
       });
   };
 
