@@ -2,9 +2,9 @@ FROM node:16-alpine AS build
 
 WORKDIR /usr/src/app
 
-COPY ./taudinpurkauspeli/backend .
+COPY ./taudinpurkauspeli/frontend
 
-WORKDIR /usr/src/app/taudinpurkauspeli/backend
+WORKDIR /usr/src/app/taudinpurkauspeli/frontend
 
 RUN npm install
 
