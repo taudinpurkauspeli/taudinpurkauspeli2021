@@ -17,9 +17,12 @@
   "userProfile": "Profile",
   "userInformation": "Users",
   "fileBank": "Filebank",
+  "selectLanguage": "Select language",
   "button_submitNewDisease": "Submit",
   "button_remove": "Remove",
   "button_removeAll": "Remove all",
   "button_update": "Update",
-  "button_search": "Search"
+  "button_search": "Search",
+  "language_finnish": "Suomi",
+  "language_english": "English"
 }

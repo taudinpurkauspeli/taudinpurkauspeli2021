@@ -14,7 +14,7 @@
   margin: auto;
 }
 
-.navbar {
+.navbar, #selectLanguage {
   background-color: rgb(27, 67, 50);
 }
 
@@ -27,3 +27,12 @@
 .nav-link {
   color: rgb(183, 228, 199) !important;
 }
+
+#selectLanguage {
+  color: rgb(183, 228, 199) !important;
+  font-weight: bold;
+  margin-top:.9em;
+  margin-right:.7em;
+  font-size:80%;
+}
+

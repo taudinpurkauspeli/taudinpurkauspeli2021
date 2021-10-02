@@ -17,9 +17,12 @@
     "userProfile": "Käyttäjätiedot",
     "userInformation": "Käyttäjien seuranta",
     "fileBank": "Tiedostopankki",
+    "selectLanguage": "Valitse kieli",
     "button_submitNewDisease": "Lisää",
     "button_remove": "Poista",
     "button_removeAll": "Poista kaikki",
     "button_update": "Päivitä",
-    "button_search": "Etsi"
+    "button_search": "Etsi",
+    "language_finnish": "Suomi",
+    "language_english": "English"
   }

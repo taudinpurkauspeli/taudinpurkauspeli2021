@@ -18,6 +18,11 @@ const admin = false;
 
 const App = () => {
   const { t } = useTranslation();
+  const { i18n } = useTranslation();
+
+  function changeLanguage(e) {
+    i18n.changeLanguage(e.target.value);
+  }
 
   return (
     <Router>
@@ -26,6 +31,13 @@ const App = () => {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="ml-auto">
+            <Nav.Item>
+              <select onChange={changeLanguage} id="selectLanguage">
+                <option selected="selected">{t('selectLanguage')}</option>
+                <option value="fi">{t('language_finnish')}</option>
+                <option value="en">{t('language_english')}</option>
+              </select>
+            </Nav.Item>
             { user && admin && (
               <Nav.Item>
                 <NavLink as={Link} to="/users">{t('userInformation')}</NavLink>
