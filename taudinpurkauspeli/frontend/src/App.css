@@ -36,3 +36,35 @@
   font-size:80%;
 }
 
+#wrapper {
+  padding:1.5em;
+  margin-left:250px;
+  white-space: pre-line;
+}
+
+#sidebar {
+  padding-right:1em;
+  padding-bottom:1em;
+  padding-top:0;
+  padding-left:0;
+  color: #d8f3dc;
+  position: fixed;
+  z-index: 1;
+  background-color: #d8f3dc;
+  overflow-x: hidden;
+  width:250px;
+  height:100%;
+  border-right: 1px solid #a9c9ae;
+}
+
+
+#dropdown-basic {
+  color: #d8f3dc;
+  font-weight: bold;
+  background:#2d6a4f;
+  box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.4);
+  border:0;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  border-top-right-radius: 0px;
+}
