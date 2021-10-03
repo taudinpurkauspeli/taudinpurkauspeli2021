@@ -1,46 +1,78 @@
 import React from 'react';
-import { Switch, Route, Link } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import {
+  BrowserRouter as Router,
+  Switch, Route, Link,
+} from 'react-router-dom';
 import './App.css';
+import { Navbar, Nav, NavLink } from 'react-bootstrap';
 
 // Import translations
 import { useTranslation } from 'react-i18next';
 
 // Import components
 import AddDisease from './components/add-disease.component';
-import Disease from './components/disease.component';
 import DiseasesList from './components/diseases-list.component';
+
+const user = true;
+const admin = false;
 
 const App = () => {
   const { t } = useTranslation();
-  return (
-    <div>
-      <nav className="navbar navbar-expand navbar-dark bg-dark">
-        <a href="/diseases" className="navbar-brand">
-          {t('nameOfTheGame')}
-        </a>
-        <div className="navbar-nav mr-auto">
-          <li className="nav-item">
-            <Link to="/diseases" className="nav-link">
-              {t('diseases')}
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/add" className="nav-link">
-              {t('addDisease')}
-            </Link>
-          </li>
-        </div>
-      </nav>
+  const { i18n } = useTranslation();
 
-      <div className="container mt-3">
-        <Switch>
-          <Route exact path="/add" component={AddDisease} />
-          <Route exact path={['/', '/diseases']} component={DiseasesList} />
-          <Route path="/diseases/:id" component={Disease} />
-        </Switch>
-      </div>
-    </div>
+  function changeLanguage(e) {
+    i18n.changeLanguage(e.target.value);
+  }
+
+  return (
+    <Router>
+      <Navbar collapseOnSelect expand="lg" variant="dark">
+        <Navbar.Brand as={Link} to="/">{t('nameOfTheGame')}</Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="ml-auto">
+            <Nav.Item>
+              <select onChange={changeLanguage} id="selectLanguage">
+                <option selected="selected">{t('selectLanguage')}</option>
+                <option value="fi">{t('language_finnish')}</option>
+                <option value="en">{t('language_english')}</option>
+              </select>
+            </Nav.Item>
+            { user && admin && (
+              <Nav.Item>
+                <NavLink as={Link} to="/users">{t('userInformation')}</NavLink>
+              </Nav.Item>
+            )}
+            { user && admin && (
+              <Nav.Item>
+                <NavLink as={Link} to="/files">{t('fileBank')}</NavLink>
+              </Nav.Item>
+            )}
+            { user && !admin && (
+              <Nav.Item>
+                <NavLink as={Link} to="/howtoplay">{t('howToPlay')}</NavLink>
+              </Nav.Item>
+            )}
+            { user && (
+              <Nav.Item>
+                <NavLink as={Link} to="/profile">{t('userProfile')}</NavLink>
+              </Nav.Item>
+            )}
+            <Nav.Item>
+              { user
+                ? <NavLink as={Link} to="/logout">{t('logOut')}</NavLink>
+                : <NavLink as={Link} to="/login">{t('logIn')}</NavLink> }
+            </Nav.Item>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+
+      <Switch>
+        <Route path="/howtoplay" component={AddDisease} />
+        <Route exact path="/profile" component={DiseasesList} />
+        <Route path="/" component={DiseasesList} />
+      </Switch>
+    </Router>
   );
 };
 

@@ -11,9 +11,18 @@
     "searchByTitle": "Etsi nimellä",
     "edit": "Muokkaa",
     "clickTheDisease": "Klikkaa tautia",
+    "logIn": "Kirjaudu sisään",
+    "logOut": "Kirjaudu ulos",
+    "howToPlay": "Peliohjeet",
+    "userProfile": "Käyttäjätiedot",
+    "userInformation": "Käyttäjien seuranta",
+    "fileBank": "Tiedostopankki",
+    "selectLanguage": "Valitse kieli",
     "button_submitNewDisease": "Lisää",
     "button_remove": "Poista",
     "button_removeAll": "Poista kaikki",
     "button_update": "Päivitä",
-    "button_search": "Etsi"
+    "button_search": "Etsi",
+    "language_finnish": "Suomi",
+    "language_english": "English"
   }

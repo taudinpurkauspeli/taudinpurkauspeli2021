@@ -13,3 +13,26 @@
   max-width: 300px;
   margin: auto;
 }
+
+.navbar, #selectLanguage {
+  background-color: rgb(27, 67, 50);
+}
+
+.navbar-brand {
+  color: rgb(183, 228, 199) !important;
+  font-weight: bold;
+  font-size: x-large;
+}
+
+.nav-link {
+  color: rgb(183, 228, 199) !important;
+}
+
+#selectLanguage {
+  color: rgb(183, 228, 199) !important;
+  font-weight: bold;
+  margin-top:.9em;
+  margin-right:.7em;
+  font-size:80%;
+}
+
