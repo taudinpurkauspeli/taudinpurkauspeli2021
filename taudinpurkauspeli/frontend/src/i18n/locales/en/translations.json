@@ -23,6 +23,9 @@
   "button_removeAll": "Remove all",
   "button_update": "Update",
   "button_search": "Search",
+  "button_selectCase": "Select case:",
   "language_finnish": "Suomi",
-  "language_english": "English"
+  "language_english": "English",
+  "frontpage_title": "Front page",
+  "frontpage_text": "(Samma på engelska!) Lorem ipsum dolor sit amet, \n\n consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 }
