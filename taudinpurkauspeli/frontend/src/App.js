@@ -4,7 +4,12 @@ import {
   Switch, Route, Link,
 } from 'react-router-dom';
 import './App.css';
-import { Navbar, Nav, NavLink } from 'react-bootstrap';
+import {
+  Navbar,
+  Nav,
+  NavLink,
+  Dropdown,
+} from 'react-bootstrap';
 
 // Import translations
 import { useTranslation } from 'react-i18next';
@@ -12,6 +17,7 @@ import { useTranslation } from 'react-i18next';
 // Import components
 import AddDisease from './components/add-disease.component';
 import DiseasesList from './components/diseases-list.component';
+import Frontpage from './components/frontpage.component';
 
 const user = true;
 const admin = false;
@@ -67,10 +73,24 @@ const App = () => {
         </Navbar.Collapse>
       </Navbar>
 
+      <div id="sidebar">
+        <Dropdown>
+          <Dropdown.Toggle variant="success" id="dropdown-basic">
+            {t('button_selectCase')}
+          </Dropdown.Toggle>
+
+          <Dropdown.Menu variant="#a9c9ae">
+            <Dropdown.Item href="#/action-1">Case 1</Dropdown.Item>
+            <Dropdown.Item href="#/action-2">Case 2</Dropdown.Item>
+            <Dropdown.Item href="#/action-3">Case 3</Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+      </div>
+
       <Switch>
-        <Route path="/howtoplay" component={AddDisease} />
-        <Route exact path="/profile" component={DiseasesList} />
-        <Route path="/" component={DiseasesList} />
+        <Route path="/addDisease" component={AddDisease} />
+        <Route exact path="/diseasesList" component={DiseasesList} />
+        <Route path="/" component={Frontpage} />
       </Switch>
     </Router>
   );
