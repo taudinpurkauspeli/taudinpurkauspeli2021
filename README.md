@@ -100,3 +100,25 @@ Clientin asennuksen jälkeen kirjautumaan pääsee:
 `oc login https://api.ocp-test-0.k8s.it.helsinki.fi:6443`
 
 Komentorivi herjaa API tokenin puuttumisesta ja antaa linkin sen saamiseen. Avaa linkki ja mene Helsingin yliopiston kirjautumiseen ja syötä hy-tunnukset. Aja token komentorivillä, jonka jälkeen client osaa ottaa yhteyden oikeaan Openshiftiin.
+
+### Testaaminen
+
+#### Frontendin yksikkötestit
+
+Testit ajetaan komennolla `CI=true npm test`
+
+Testikattavuus saadaan selville komennolla `CI=true npm test -- --coverage`
+
+Frontendin testaamisessa noudatetaan [Fullstack-kurssin ohjeita frontendin yksikkötesteistä](https://fullstackopen.com/osa5/react_sovellusten_testaaminen)
+
+Testit tehdään kansioon frontend/src/tests
+
+Testit nimetään komponenentin mukaan eli esimerkiksi komponenttia components/disease.js vastaa testitiedosto tests/disease.test.js
+
+Kehitysaikaiseksi riippuvuudeksi on määritelty [react-testing-library](https://github.com/testing-library/react-testing-library) ja [jest-dom](https://github.com/testing-library/jest-dom)
+
+##### Pulmatilanteita
+
+- OSX-käyttäjien kannattaa ladata [Watchman](https://facebook.github.io/watchman/)
+- renderin palauttaman olion metodi [debug](https://testing-library.com/docs/react-testing-library/api/#debug) tulostaa komponentin HTML:n konsoliin
+- jos halutaan debugata komponentin osaa, voidaan tulostaa `console.log(prettyDOM(komponentin osa))`
