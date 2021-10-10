@@ -5,7 +5,7 @@ import Navigationbar from './components/Navbar';
 
 const App = () => {
   const user = true;
-  const admin = false;
+  const admin = true;
 
   return (
     <Navigationbar user={user} admin={admin} />
