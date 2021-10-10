@@ -22,5 +22,6 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.diseases = require('./disease.model')(sequelize, Sequelize);
+db.cases = require('./case.model')(sequelize, Sequelize);
 
 module.exports = db;
