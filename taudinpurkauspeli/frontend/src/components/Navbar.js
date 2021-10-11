@@ -53,6 +53,11 @@ const Navigationbar = ({ user, admin }) => {
               <NavLink as={Link} to="/howtoplay">{t('howToPlay')}</NavLink>
             </Nav.Item>
             )}
+            { user && admin && (
+            <Nav.Item>
+              <NavLink as={Link} to="/cases">{t('cases')}</NavLink>
+            </Nav.Item>
+            )}
             { user && (
             <Nav.Item>
               <NavLink as={Link} to="/profile">{t('userProfile')}</NavLink>

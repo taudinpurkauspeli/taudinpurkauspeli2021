@@ -11,5 +11,4 @@ const Frontpage = () => {
     </div>
   );
 };
-
 export default Frontpage;
