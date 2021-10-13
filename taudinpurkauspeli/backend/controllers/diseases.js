@@ -1,10 +1,11 @@
+const diseaseRouter = require('express').Router();
 const db = require('../models');
 
 const Disease = db.diseases;
 const { Op } = db.Sequelize;
 
 // Save a new disease
-exports.create = (req, res) => {
+diseaseRouter.post('/', (req, res) => {
   // Validate request - title
   if (!req.body.title) {
     res.status(400).send({
@@ -31,10 +32,10 @@ exports.create = (req, res) => {
             err.message || 'Unknown error occurred while creating the disease. Try again.',
       });
     });
-};
+});
 
 // Retrieve all diseases
-exports.findAll = (req, res) => {
+diseaseRouter.get('/', (req, res) => {
   const { title } = req.query;
   const condition = title ? { title: { [Op.iLike]: `%${title}%` } } : null;
 
@@ -48,10 +49,10 @@ exports.findAll = (req, res) => {
           err.message || 'Unknown error occurred while retrieving diseases. Try again.',
       });
     });
-};
+});
 
 // Find a single disease (by id)
-exports.findOne = (req, res) => {
+diseaseRouter.get('/:id', (req, res) => {
   const { id } = req.params;
 
   Disease.findByPk(id)
@@ -64,10 +65,10 @@ exports.findOne = (req, res) => {
         message: `Error retrieving disease with id=${id}`,
       });
     });
-};
+});
 
 // Update a disease (by id)
-exports.update = (req, res) => {
+diseaseRouter.put('/:id', (req, res) => {
   const { id } = req.params;
 
   Disease.update(req.body, {
@@ -90,10 +91,10 @@ exports.update = (req, res) => {
         message: `Error updating disease with id=${id}`,
       });
     });
-};
+});
 
 // Delete a disease (by id)
-exports.delete = (req, res) => {
+diseaseRouter.delete('/:id', (req, res) => {
   const { id } = req.params;
 
   Disease.destroy({
@@ -116,10 +117,10 @@ exports.delete = (req, res) => {
         message: `Could not delete disease with id=${id}`,
       });
     });
-};
+});
 
 // Delete all diseases
-exports.deleteAll = (req, res) => {
+diseaseRouter.delete('/', (req, res) => {
   Disease.destroy({
     where: {},
     truncate: false,
@@ -133,10 +134,10 @@ exports.deleteAll = (req, res) => {
             err.message || 'Some error occurred while removing all diseases.',
       });
     });
-};
+});
 
 // Find all spesified type of diseases
-exports.findAllCategory = (req, res) => {
+diseaseRouter.get('/category', (req, res) => {
   // eslint-disable-next-line no-undef
   Disease.findAll({ where: { category } })
     .then((data) => {
@@ -148,4 +149,6 @@ exports.findAllCategory = (req, res) => {
             err.message || 'Some error occurred while retrieving diseases.',
       });
     });
-};
+});
+
+module.exports = diseaseRouter;
