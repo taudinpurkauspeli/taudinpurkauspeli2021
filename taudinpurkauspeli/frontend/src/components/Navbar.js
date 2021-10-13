@@ -16,6 +16,7 @@ import i18n from '../i18n/config';
 
 // Import components
 import Frontpage from './Frontpage';
+import GuestFrontpage from './GuestFrontpage';
 import Sidebar from './Sidebar';
 import HowToPlay from './HowToPlay';
 import Profile from './Profile';
@@ -79,7 +80,9 @@ const Navigationbar = ({
         </Navbar.Collapse>
       </Navbar>
 
-      <Sidebar />
+      { guest
+        ? ' '
+        : <Sidebar /> }
 
       <Switch>
         <Route path="/howtoplay">
@@ -89,7 +92,9 @@ const Navigationbar = ({
           <Profile />
         </Route>
         <Route path="/">
-          <Frontpage />
+          { guest
+            ? <GuestFrontpage />
+            : <Frontpage /> }
         </Route>
       </Switch>
     </Router>

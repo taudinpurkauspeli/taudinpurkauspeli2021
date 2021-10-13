@@ -32,5 +32,7 @@
   "selectUser": "Select user in charge",
   "guest": "guest",
   "student": "student",
-  "teacher": "teacher"
+  "teacher": "teacher",
+  "GuestFrontpageTitle": "Welcome to Taudinpurkauspeli!",
+    "GuestFrontpageText": "This is the veterinary faculty's epidemiology courses taudinpurkaus-games frontpage. \n The instructions can be found behind the game instructions link. If you want to play the game, sign in with your university log-in details!"
 }

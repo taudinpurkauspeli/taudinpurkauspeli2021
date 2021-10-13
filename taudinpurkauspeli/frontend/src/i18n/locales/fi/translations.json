@@ -32,5 +32,7 @@
     "selectUser": "Valitse käyttäjämuoto",
     "guest": "vierailija",
     "student": "opiskelija",
-    "teacher": "opettaja"
+    "teacher": "opettaja",
+    "GuestFrontpageTitle": "Tervetuloa taudinpurkauspelin pariin!",
+    "GuestFrontpageText": "Tämä on eläinlääketieteellisen tiedekunnan epidemiologian kurssin taudinpurkauspelin etusivu. \n Peliohjeet löytyvät peliohjeet-linkin takaa. Mikäli haluat pelata peliä, kirjaudu sisään yliopiston käyttäjätunnuksilla!"
   }
