@@ -20,6 +20,7 @@ modelin nimi on tietokantataulun nimi yksikössä ja pienillä kirjaimilla
 
 ### Requests
 Sisältää VS codeen saatavan ![REST-client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) -pluginin testitiedostot. Pluginin avulla on helppo testata tietokantaoperaatioiden toimintaa ilman frontendia
+Nimentä: esimerkki_nimestä.rest
 
 ### Utils
 sisältää sovelluksen konfiguraatioita (ympäristömuuttujien hakeminen tiedostosta ja tietokanta), loggerin ja itse määriteltyjä middlewareja
