@@ -9,18 +9,20 @@ Serverin toimintaan liittyvät asiat.
 
 ![Backendin tiedostorakenne.](images/backend-plan.png)
 
-### App/Config
-Serverin pakollisten asioiden määrittäminen (käyttäjä/salasana/tietokanta/pool)
+### Controllers
+Määritellään routet ja niihin liittyvät tietokantojen taulukoiden toiminnallisuudet
+Nimentä: camelCase (controllerin nimi sama kuin siihen viittaava service frontendissa)
 
-### App/Controllers
-Määritellään tietokantojen taulukoiden toiminnallisuudet
-
-### App/Models
+### Models
 Määritellään tietokantojen taulukot
+Nimentä: modelin_nimi.model.js
+modelin nimi on tietokantataulun nimi yksikössä ja pienillä kirjaimilla
 
-### App/Routes
-Määritellään toiminnot, joiden avulla päästään käsiksi tietokannan tietoihin frontendistä
+### Requests
+Sisältää VS codeen saatavan ![REST-client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) -pluginin testitiedostot. Pluginin avulla on helppo testata tietokantaoperaatioiden toimintaa ilman frontendia
 
+### Utils
+sisältää sovelluksen konfiguraatioita (ympäristömuuttujien hakeminen tiedostosta ja tietokanta), loggerin ja itse määriteltyjä middlewareja
 
 ## Frontend
 
