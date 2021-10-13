@@ -1,10 +1,7 @@
 module.exports = (sequelize, Sequelize) => {
 // In previous version this table was called "exercise"
   const Case = sequelize.define('case', {
-    category: {
-      type: Sequelize.INTEGER,
-    },
-    name: {
+    title: {
       type: Sequelize.STRING,
     },
     hidden: {

@@ -19,6 +19,7 @@ import Frontpage from './Frontpage';
 import Sidebar from './Sidebar';
 import HowToPlay from './HowToPlay';
 import Profile from './Profile';
+import AddCase from './AddCase';
 
 const Navigationbar = ({ user, admin }) => {
   const { t } = useTranslation();
@@ -80,6 +81,9 @@ const Navigationbar = ({ user, admin }) => {
         </Route>
         <Route path="/profile">
           <Profile />
+        </Route>
+        <Route path="/cases">
+          <AddCase />
         </Route>
         <Route path="/">
           <Frontpage />
