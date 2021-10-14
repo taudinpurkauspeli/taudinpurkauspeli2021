@@ -17,6 +17,7 @@ const AddCase = () => {
         setCases(initialCases);
       })
       .catch((error) => {
+        // eslint-disable-next-line
         console.log(error);
       });
   }, []);
@@ -42,7 +43,11 @@ const AddCase = () => {
     <div id="wrapper">
       <h2>{t('cases')}</h2>
       <ul>
-        {cases.map((case1) => <li key={case1.id}>{case1.title}</li>)}
+        {cases.map((case1) => (
+          <li key={case1.id}>
+            {case1.title}
+          </li>
+        ))}
       </ul>
 
       <form onSubmit={addCase}>

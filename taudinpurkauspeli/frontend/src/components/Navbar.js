@@ -82,9 +82,11 @@ const Navigationbar = ({ user, admin }) => {
         <Route path="/profile">
           <Profile />
         </Route>
+        { user && admin && (
         <Route path="/cases">
           <AddCase />
         </Route>
+        )}
         <Route path="/">
           <Frontpage />
         </Route>
