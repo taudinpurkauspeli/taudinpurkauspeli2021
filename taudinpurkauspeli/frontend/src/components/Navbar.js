@@ -16,11 +16,14 @@ import i18n from '../i18n/config';
 
 // Import components
 import Frontpage from './Frontpage';
+import GuestFrontpage from './GuestFrontpage';
 import Sidebar from './Sidebar';
 import HowToPlay from './HowToPlay';
 import Profile from './Profile';
 
-const Navigationbar = ({ user, admin }) => {
+const Navigationbar = ({
+  user, admin, guest, changeUser, changeAdmin, changeGuest,
+}) => {
   const { t } = useTranslation();
 
   const changeLanguage = (language) => {
@@ -34,21 +37,26 @@ const Navigationbar = ({ user, admin }) => {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="ml-auto">
+            <NavDropdown title={t('selectUser')}>
+              <NavDropdown.Item onClick={() => changeGuest()} eventKey="guest">{t('guest')}</NavDropdown.Item>
+              <NavDropdown.Item onClick={() => changeUser()} eventKey="student">{t('student')}</NavDropdown.Item>
+              <NavDropdown.Item onClick={() => changeAdmin()} eventKey="teacher">{t('teacher')}</NavDropdown.Item>
+            </NavDropdown>
             <NavDropdown title={t('selectLanguage')}>
               <NavDropdown.Item onClick={() => changeLanguage('fi')} eventKey="fi">{t('language_finnish')}</NavDropdown.Item>
               <NavDropdown.Item onClick={() => changeLanguage('en')} eventKey="en">{t('language_english')}</NavDropdown.Item>
             </NavDropdown>
-            { user && admin && (
+            { admin && (
             <Nav.Item>
               <NavLink as={Link} to="/users">{t('userInformation')}</NavLink>
             </Nav.Item>
             )}
-            { user && admin && (
+            { admin && (
             <Nav.Item>
               <NavLink as={Link} to="/files">{t('fileBank')}</NavLink>
             </Nav.Item>
             )}
-            { user && !admin && (
+            { (user || guest || admin) && (
             <Nav.Item>
               <NavLink as={Link} to="/howtoplay">{t('howToPlay')}</NavLink>
             </Nav.Item>
@@ -64,7 +72,7 @@ const Navigationbar = ({ user, admin }) => {
             </Nav.Item>
             )}
             <Nav.Item>
-              { user
+              { (user || admin)
                 ? <NavLink as={Link} to="/logout">{t('logOut')}</NavLink>
                 : <NavLink as={Link} to="/login">{t('logIn')}</NavLink> }
             </Nav.Item>
@@ -72,7 +80,9 @@ const Navigationbar = ({ user, admin }) => {
         </Navbar.Collapse>
       </Navbar>
 
-      <Sidebar />
+      { guest
+        ? ' '
+        : <Sidebar /> }
 
       <Switch>
         <Route path="/howtoplay">
@@ -82,7 +92,9 @@ const Navigationbar = ({ user, admin }) => {
           <Profile />
         </Route>
         <Route path="/">
-          <Frontpage />
+          { guest
+            ? <GuestFrontpage />
+            : <Frontpage /> }
         </Route>
       </Switch>
     </Router>
