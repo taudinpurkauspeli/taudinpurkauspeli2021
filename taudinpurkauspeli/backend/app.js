@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const diseaseRouter = require('./controllers/diseases');
+const caseRouter = require('./controllers/cases');
 const middleware = require('./utils/middleware');
 const logger = require('./utils/logger');
 const db = require('./models');
@@ -31,6 +32,7 @@ app.use(express.json());
 app.use(middleware.requestLogger);
 
 app.use('/api/diseases', diseaseRouter);
+app.use('/api/cases', caseRouter);
 
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);

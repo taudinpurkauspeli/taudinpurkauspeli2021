@@ -20,6 +20,7 @@ import GuestFrontpage from './GuestFrontpage';
 import Sidebar from './Sidebar';
 import HowToPlay from './HowToPlay';
 import Profile from './Profile';
+import AddCase from './AddCase';
 
 const Navigationbar = ({
   user, admin, guest, changeUser, changeAdmin, changeGuest,
@@ -91,6 +92,11 @@ const Navigationbar = ({
         <Route path="/profile">
           <Profile />
         </Route>
+        { user && admin && (
+        <Route path="/cases">
+          <AddCase />
+        </Route>
+        )}
         <Route path="/">
           { guest
             ? <GuestFrontpage />
