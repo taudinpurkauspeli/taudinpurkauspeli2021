@@ -22,7 +22,7 @@ describe('cases', () => {
   beforeAll(async () => {
     // adds a DROP TABLE IF EXISTS before trying to create the table 'Case'
     try {
-      await Case.sequelize.sync({ force: true })
+      await Case.destroy({ truncate: true })
       await Case.bulkCreate(initialCases)
     } catch (err) {
       console.log(err)
@@ -31,9 +31,13 @@ describe('cases', () => {
   })
 
   test('there are two cases', async () => {
-    const response = await api.get('/api/cases')
+    try {
+      var response = await api.get('/api/cases')
+    } catch (err) {
+      console.log(err)
+    }
 
-    expect(response.body).toHaveLength(2)
+    expect(response.body).toHaveLength(initialCases.length)
   })
 })
 
