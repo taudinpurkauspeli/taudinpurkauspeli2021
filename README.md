@@ -122,3 +122,17 @@ Kehitysaikaiseksi riippuvuudeksi on määritelty [react-testing-library](https:/
 - OSX-käyttäjien kannattaa ladata [Watchman](https://facebook.github.io/watchman/)
 - renderin palauttaman olion metodi [debug](https://testing-library.com/docs/react-testing-library/api/#debug) tulostaa komponentin HTML:n konsoliin
 - jos halutaan debugata komponentin osaa, voidaan tulostaa `console.log(prettyDOM(komponentin osa))`
+
+#### Backendin integraatiotestit
+
+**HUOM! Esimerkkiestien suorittaminen poistaa lokaaliin tietokannan lisätyt caset ja lisää siihen esimerkkicaseja**
+
+Testit ajetaan komennolla `npm test`
+
+Backendin testaamisessa noudatetaan [Fullstack-kurssin ohjeita backendin integraatiotesteistä](https://fullstackopen.com/osa4/backendin_testaaminen)
+
+Testit tehdään kansioon backend/tests
+
+Testit nimetään controllerin mukaan eli esimerkiksi controlleria controllers/cases.js vastaa testitiedosto tests/case_api.test.js
+
+Testeissä käytetään apuna [jestiä](https://jestjs.io/) ja [SuperTestiä](https://github.com/visionmedia/supertest)
