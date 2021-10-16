@@ -2,7 +2,6 @@ const supertest = require('supertest')
 const app = require('../app')
 const api = supertest(app)
 const db = require('../models/');
-const { requestLogger } = require('../utils/middleware');
 const Case = db.cases;
 
 const initialCases = [
@@ -19,23 +18,15 @@ const initialCases = [
 ]
 
 describe('cases', () => {
-  beforeAll(async () => {
-    // adds a DROP TABLE IF EXISTS before trying to create the table 'Case'
-    try {
-      await Case.destroy({ truncate: true })
-      await Case.bulkCreate(initialCases)
-    } catch (err) {
-      console.log(err)
-    }
-
+  beforeEach(async () => {
+    // deletes the content from the table 'cases'
+    await Case.destroy({ truncate: true })
+    // inserts test cases in the table 'cases'
+    await Case.bulkCreate(initialCases)
   })
 
   test('there are two cases', async () => {
-    try {
-      var response = await api.get('/api/cases')
-    } catch (err) {
-      console.log(err)
-    }
+    const response = await api.get('/api/cases')
 
     expect(response.body).toHaveLength(initialCases.length)
   })
