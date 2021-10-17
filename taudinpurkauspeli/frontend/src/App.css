@@ -28,6 +28,14 @@
   color: rgb(183, 228, 199) !important;
 }
 
+.btn-primary {
+  background:#2d6a4f !important;
+}
+
+.card-footer {
+  background:#a9c9ae !important;
+}
+
 #selectLanguage {
   color: rgb(183, 228, 199) !important;
   font-weight: bold;
