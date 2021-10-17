@@ -7,6 +7,7 @@
    - [Definition of done](dod.md)
    - [Ohjelman alustava rakenne](anatomy.md)
    - [Käyttöliittymäsuunnitelmia](uiplans.md)
+   - [Testaus](testing.md)
 * Vanha peli
    - [Toiminnallisuuksien dokumentaatio](oldgame.md)
    - [Lähdekoodista](sourcecode-doc.md)
