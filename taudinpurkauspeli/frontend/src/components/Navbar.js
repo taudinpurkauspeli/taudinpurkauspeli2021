@@ -62,7 +62,7 @@ const Navigationbar = ({
               <NavLink as={Link} to="/howtoplay">{t('howToPlay')}</NavLink>
             </Nav.Item>
             )}
-            { user && admin && (
+            { admin && (
             <Nav.Item>
               <NavLink as={Link} to="/cases">{t('cases')}</NavLink>
             </Nav.Item>
@@ -92,7 +92,7 @@ const Navigationbar = ({
         <Route path="/profile">
           <Profile />
         </Route>
-        { user && admin && (
+        { admin && (
         <Route path="/cases">
           <AddCase />
         </Route>
