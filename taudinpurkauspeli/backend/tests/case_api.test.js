@@ -20,18 +20,25 @@ const initialCases = [
 describe('cases', () => {
   beforeEach(async () => {
     // deletes the content from the table 'cases'
-    await Case.destroy({ truncate: true })
+    await db.sequelize.sync({ force: true })
     // inserts test cases in the table 'cases'
     await Case.bulkCreate(initialCases)
   })
 
-  test('there are two cases', async () => {
+  test('all cases are returned', async () => {
     const response = await api.get('/api/cases')
 
     expect(response.body).toHaveLength(initialCases.length)
   })
+
+  test('a specific case is within the returned cases', async () => {
+    const response = await api.get('/api/cases')
+    const contents = response.body.map(r => r.title)
+
+    expect(contents).toContain('TestCase2')
+  })
 })
 
-afterAll(() => {
-  db.sequelize.close()
+afterAll(async () => {
+  await db.sequelize.close()
 })

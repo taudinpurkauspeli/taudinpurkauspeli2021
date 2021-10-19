@@ -21,4 +21,4 @@ Toimivuus on testattu selaimen avulla kieliparilla suomi-englanti.
 
 ### Ohjelmoidut testit
 
-- Case: (lisätietoa)
+- Case: Testattu, että kaikki halutut caset palautuvat tietokannasta, ja että tietty case on palautettujen casejen joukossa

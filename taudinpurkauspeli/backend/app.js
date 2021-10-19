@@ -1,4 +1,5 @@
 const express = require('express');
+require('express-async-errors')
 const app = express();
 const cors = require('cors');
 const diseaseRouter = require('./controllers/diseases');
@@ -20,11 +21,13 @@ db.sequelize
     logger.error('Unable to connect to the database:', error.message);
   });
 
-db.sequelize
+if (process.env.NODE_ENV !== 'test') {
+  db.sequelize
   .sync({ alter: true })
   .then(() => {
     logger.info('altered the tables');
   });
+}
 
 app.use(cors());
 app.use(express.json());
