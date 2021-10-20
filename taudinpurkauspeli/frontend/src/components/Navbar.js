@@ -100,7 +100,7 @@ const Navigationbar = ({
         <Route path="/">
           { guest
             ? <GuestFrontpage />
-            : <Frontpage /> }
+            : <Frontpage admin={admin} /> }
         </Route>
       </Switch>
     </Router>
