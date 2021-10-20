@@ -1,29 +1,17 @@
 /* eslint-disable array-callback-return */
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Col,
   Row,
+  Button,
 } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
-import service from '../services/cases';
 import CaseCard from './CaseCard';
 
-const Frontpage = ({ admin }) => {
+const Frontpage = ({ cases, admin }) => {
   const { t } = useTranslation();
-  const [cases, setCases] = useState([]);
-
-  useEffect(() => {
-    service
-      .getAll()
-      .then((initialCases) => {
-        setCases(initialCases);
-      })
-      .catch((error) => {
-        // eslint-disable-next-line
-        console.log(error);
-      });
-  }, []);
 
   return (
     <div id="wrapper">
@@ -31,8 +19,9 @@ const Frontpage = ({ admin }) => {
       <p>{t('frontpage_text')}</p>
       {admin && (
         <div>
+          <Button as={Link} to="/cases">{t('button_newCase')}</Button>
           <br />
-          <h3>Opiskelijoilta piilotetut caset</h3>
+          <h3>{t('case_hidden')}</h3>
           <hr />
         </div>
       )}
@@ -40,18 +29,18 @@ const Frontpage = ({ admin }) => {
         {admin && (
           cases.filter((c) => c.hidden).map((c) => (
             <Col key={c.id}>
-              <CaseCard title={c.title} description={c.anamnesis} />
+              <CaseCard c={c} admin={admin} />
             </Col>
           ))
         )}
       </Row>
       <br />
-      <h3>Pelattavissa olevat caset</h3>
+      <h3>{t('case_playable')}</h3>
       <hr />
       <Row xs="auto" md="auto" className="g-4">
         {cases.filter((c) => !c.hidden).map((c) => (
           <Col key={c.id}>
-            <CaseCard title={c.title} description={c.anamnesis} />
+            <CaseCard c={c} admin={admin} />
           </Col>
         ))}
       </Row>

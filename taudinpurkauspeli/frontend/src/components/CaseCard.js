@@ -5,16 +5,23 @@ import {
   Button,
   ProgressBar,
 } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
-const CaseCard = ({ title, description }) => {
+const CaseCard = ({ c, admin }) => {
   const { t } = useTranslation();
 
   return (
-    <Card style={{ width: '18rem' }} className="caseCard">
+    <Card as={Link} to={`/cases/${c.id}`} style={{ width: '20rem', cursor: 'pointer' }} className="caseCard">
       <Card.Body>
-        <Card.Title>{title}</Card.Title>
-        <Card.Text>{description}</Card.Text>
-        <Button>{t('button_play')}</Button>
+        <Card.Title>{c.title}</Card.Title>
+        <Card.Text>{c.anamnesis}</Card.Text>
+        { admin && (
+          <div>
+            <Button size="sm">{t('copy')}</Button>
+            {' '}
+            <Button size="sm" variant="danger">{t('button_remove')}</Button>
+          </div>
+        )}
       </Card.Body>
       <Card.Footer>
         <ProgressBar className="progsbar" variant="success" now={25} label={`${25}%`} />
