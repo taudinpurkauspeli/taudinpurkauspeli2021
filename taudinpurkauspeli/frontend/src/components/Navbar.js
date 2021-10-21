@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   BrowserRouter as Router,
   Switch, Route, Link,
@@ -31,7 +31,7 @@ const Navigationbar = ({
   const { t } = useTranslation();
   const [cases, setCases] = useState([]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     service
       .getAll()
       .then((initialCases) => {
