@@ -51,10 +51,6 @@ jobs:
 
     - name: Run the tests
       run: npm test
-      env:
-        DB_HOST: ${{ secrets.DB_HOST }}
-        DB_USERNAME: ${{ secrets.DB_USERNAME }}
-        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
 
     - name: Build
       run: npm run build
