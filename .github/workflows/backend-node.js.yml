@@ -26,6 +26,7 @@ jobs:
         # Provide the password for postgres
         env:
           POSTGRES_PASSWORD: root
+          POSTGRES_DB: taudinpurkaus
         # Set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready
