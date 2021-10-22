@@ -49,8 +49,8 @@ jobs:
       run: npm install
       env:
         DB_HOST: localhost
-        DB_USERNAME: 'taudinpurkaus'
-        DB_PASSWORD: 'kokeilu'
+        DB_USERNAME: taudinpurkaus
+        DB_PASSWORD: kokeilu
 
     - name: Run the tests
       run: npm test
