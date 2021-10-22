@@ -1,18 +1,29 @@
+/* eslint-disable no-undef */
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import CaseCard from '../components/CaseCard';
 
 const caseCard = {
+  id: 1,
   title: 'Koirat sairaina',
-  description: 'Koirilla on havaittu kuume, sinun täytyy selvittää syy',
+  anamnesis: 'Koirilla on havaittu kuume, sinun täytyy selvittää syy',
+  hidden: false,
 };
 
 let component;
+const admin = true;
+
+jest.mock('react-i18next', () => ({
+  useTranslation: () => ({ t: (key) => key }),
+}));
 
 beforeEach(() => {
   component = render(
-    <CaseCard title={caseCard.title} description={caseCard.description} />,
+    <MemoryRouter>
+      <CaseCard c={caseCard} admin={admin} />
+    </MemoryRouter>,
   );
 });
 

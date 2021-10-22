@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   BrowserRouter as Router,
   Switch, Route, Link,
@@ -20,12 +20,27 @@ import GuestFrontpage from './GuestFrontpage';
 import Sidebar from './Sidebar';
 import HowToPlay from './HowToPlay';
 import Profile from './Profile';
+import Case from './Case';
+import service from '../services/cases';
 import NewCase from './NewCase';
 
 const Navigationbar = ({
   user, admin, guest, changeUser, changeAdmin, changeGuest,
 }) => {
   const { t } = useTranslation();
+  const [cases, setCases] = useState([]);
+
+  React.useEffect(() => {
+    service
+      .getAll()
+      .then((initialCases) => {
+        setCases(initialCases);
+      })
+      .catch((error) => {
+        // eslint-disable-next-line
+        console.log(error);
+      });
+  }, []);
 
   const changeLanguage = (language) => {
     i18n.changeLanguage(language);
@@ -62,11 +77,6 @@ const Navigationbar = ({
               <NavLink as={Link} to="/howtoplay">{t('howToPlay')}</NavLink>
             </Nav.Item>
             )}
-            { admin && (
-            <Nav.Item>
-              <NavLink as={Link} to="/newcase">{t('addCase')}</NavLink>
-            </Nav.Item>
-            )}
             { user && (
             <Nav.Item>
               <NavLink as={Link} to="/profile">{t('userProfile')}</NavLink>
@@ -92,7 +102,9 @@ const Navigationbar = ({
         <Route path="/profile">
           <Profile />
         </Route>
-
+        <Route path="/cases/:id">
+          <Case cases={cases} />
+        </Route>
         { admin && (
         <Route path="/newcase">
           <NewCase />
@@ -102,7 +114,7 @@ const Navigationbar = ({
         <Route path="/">
           { guest
             ? <GuestFrontpage />
-            : <Frontpage /> }
+            : <Frontpage admin={admin} cases={cases} /> }
         </Route>
       </Switch>
     </Router>

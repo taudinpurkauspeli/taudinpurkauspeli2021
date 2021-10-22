@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { render } from '@testing-library/react';
 import Navigationbar from '../components/Navbar';
+import service from '../services/cases';
 
 function TestingNavbar({ userValue, adminValue, guestValue }) {
   const [user, setUser] = useState(userValue);
@@ -38,6 +39,9 @@ function TestingNavbar({ userValue, adminValue, guestValue }) {
     />
   );
 }
+
+jest.spyOn(React, 'useEffect').mockImplementation((f) => f());
+jest.spyOn(service, 'getAll');
 
 test('frontpage is valid for guest', () => {
   const thisIsTrue = true;
