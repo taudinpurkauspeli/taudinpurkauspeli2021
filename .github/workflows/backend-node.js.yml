@@ -16,7 +16,6 @@ jobs:
   runner-job:
     # You must use a Linux environment when using service containers or container jobs
     runs-on: ubuntu-latest
-    environment: DB
 
     # Service containers to run with `runner-job`
     services:
@@ -51,6 +50,10 @@ jobs:
 
     - name: Run the tests
       run: npm test
+      env:
+         DB_HOST: 127.0.0.1 
+         DB_USERNAME: taudinpurkaus
+         DB_PASSWORD: kokeilu
 
     - name: Build
       run: npm run build
