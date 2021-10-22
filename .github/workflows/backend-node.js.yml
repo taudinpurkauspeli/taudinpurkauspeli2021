@@ -25,8 +25,7 @@ jobs:
         image: postgres
         # Provide the password for postgres
         env:
-          POSTGRES_PASSWORD: root
-          POSTGRES_DB: taudinpurkaus
+          POSTGRES_PASSWORD: postgres
         # Set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready
@@ -53,8 +52,8 @@ jobs:
       run: npm test
       env:
          DB_HOST: 127.0.0.1 
-         DB_USERNAME: taudinpurkaus
-         DB_PASSWORD: kokeilu
+         DB_USERNAME: postgres
+         DB_PASSWORD: postgres
 
     - name: Build
       run: npm run build
