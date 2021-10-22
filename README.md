@@ -1,5 +1,6 @@
 # Taudinpurkaus
-
+![Frontend](https://github.com/taudinpurkauspeli/taudinpurkauspeli2021/actions/workflows/node.js.yml/badge.svg)
+![Backend](https://github.com/taudinpurkauspeli/taudinpurkauspeli2021/actions/workflows/backend-node.js.yml/badge.svg)
 
 ## Dokumentaatio
 
