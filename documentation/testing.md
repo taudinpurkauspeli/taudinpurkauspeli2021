@@ -5,6 +5,7 @@
 ### Ohjelmoidut testit
 
 - Navbar: (lisätietoa)
+- NewCase: testattu, että lomake toimii toivotusti. Ks. tiedosto NewCase.test.js.
 
 
 ### Käytännön testit
