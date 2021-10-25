@@ -19,7 +19,7 @@ const Frontpage = ({ cases, admin }) => {
       <p>{t('frontpage_text')}</p>
       {admin && (
         <div>
-          <Button as={Link} to="/cases">{t('button_newCase')}</Button>
+          <Button as={Link} to="/newcase">{t('button_newCase')}</Button>
           <br />
           <h3>{t('case_hidden')}</h3>
           <hr />
