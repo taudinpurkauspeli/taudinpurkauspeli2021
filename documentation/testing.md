@@ -12,7 +12,7 @@
 
 #### Ohjelman kielen vaihtaminen
 
-Kun käyttäjä valitsee kielen käyttöliittymässä olevasta dropdown-valikosta, ohjelman käyttöliittymän kieli vaihtuu.
+Kun käyttäjä valitsee kielen käyttöliittymässä olevasta dropdown-valikosta, ohjelman käyttöliittymän kieli vaihtuu. Kieli pysyy myös, kun selain päivittää sivun, tai sivu suljetaan, ja avataan uudelleen.
 
 Toimivuus on testattu selaimen avulla kieliparilla suomi-englanti.
 
