@@ -17,9 +17,9 @@ const CaseCard = ({ c, admin }) => {
         <Card.Text>{c.anamnesis}</Card.Text>
         { admin && (
           <div>
-            <Button size="sm">{t('copy')}</Button>
+            <Button className="copyButton" size="sm">{t('copy')}</Button>
             {' '}
-            <Button size="sm" variant="danger">{t('button_remove')}</Button>
+            <Button className="removeButton" size="sm" variant="danger">{t('button_remove')}</Button>
           </div>
         )}
       </Card.Body>
