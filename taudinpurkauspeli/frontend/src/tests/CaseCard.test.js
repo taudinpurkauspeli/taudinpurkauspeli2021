@@ -13,7 +13,6 @@ const caseCard = {
 };
 
 let component;
-const admin = true;
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key) => key }),
@@ -22,7 +21,7 @@ jest.mock('react-i18next', () => ({
 beforeEach(() => {
   component = render(
     <MemoryRouter>
-      <CaseCard c={caseCard} admin={admin} />
+      <CaseCard c={caseCard} admin={false} />
     </MemoryRouter>,
   );
 });
@@ -42,5 +41,28 @@ test('renders description', () => {
 test('renders progressbar', () => {
   expect(
     component.container.querySelector('.progsbar'),
+  ).toBeDefined();
+});
+
+test('user does not see the delete and copy buttons', () => {
+  expect(
+    component.queryByText('button_remove'),
+  ).toBeNull();
+  expect(
+    component.queryByText('copy'),
+  ).toBeNull();
+});
+
+test('renders delete and copy buttons for teacher', () => {
+  const teacherComponent = render(
+    <MemoryRouter>
+      <CaseCard c={caseCard} admin />
+    </MemoryRouter>,
+  );
+  expect(
+    teacherComponent.getByText('button_remove'),
+  ).toBeDefined();
+  expect(
+    teacherComponent.getByText('copy'),
   ).toBeDefined();
 });

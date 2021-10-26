@@ -4,6 +4,10 @@ import '@testing-library/jest-dom/extend-expect';
 import { render, fireEvent } from '@testing-library/react';
 import NewCase from '../components/NewCase';
 
+jest.mock('react-i18next', () => ({
+  useTranslation: () => ({ t: (key) => key }),
+}));
+
 test('<AddCase /> updates parent state and calls onSubmit', () => {
   const addCase = jest.fn();
 
