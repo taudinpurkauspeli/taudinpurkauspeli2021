@@ -50,7 +50,9 @@ jobs:
       run: npm install
 
     - name: Run the tests
-      run: npm test
+      run: npm test -- ---coverage
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v1
       env:
          DB_HOST: 127.0.0.1 
          DB_USERNAME: postgres
