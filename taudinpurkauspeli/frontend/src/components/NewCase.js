@@ -31,14 +31,13 @@ const newCase = ({ addCaseFunc }) => {
 
     if (addCaseFunc != null) {
       addCaseFunc(caseObject);
-    } else {
-      service.create(caseObject)
-        .then(() => {
-          setNewTitle('');
-          setNewAnamnesis('');
-          setNewHidden(false);
-        });
     }
+    service.create(caseObject)
+      .then(() => {
+        setNewTitle('');
+        setNewAnamnesis('');
+        setNewHidden(false);
+      });
   };
 
   return (
