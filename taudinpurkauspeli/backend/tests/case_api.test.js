@@ -25,6 +25,26 @@ describe('cases', () => {
     await Case.bulkCreate(initialCases)
   })
 
+  test('cases are returned as json', async () => {
+    await api
+      .get('/api/cases')
+      .expect(200)
+      .expect('Content-Type', /application\/json/)
+  })
+
+  test('all cases are returned', async () => {
+    const response = await api.get('/api/cases')
+
+    expect(response.body).toHaveLength(initialCases.length)
+  })
+
+  test('a specific case is within the returned cases', async () => {
+    const response = await api.get('/api/cases')
+    const titles = response.body.map(r => r.title)
+
+    expect(titles).toContain('TestCase2')
+  })
+
   test('a valid case can be added ', async () => {
     const newCase = {
       title: "NewTitle1",
@@ -47,10 +67,9 @@ describe('cases', () => {
     expect(titles).toContain('NewTitle1')
     expect(anamnesiss).toContain('NewAnamnesis1')
   })
-
+  
   test('case without title is not added', async () => {
     const newCase = {
-      title: "",
       hidden: true,
       anamnesis: "NewAnamnesis",
     }  
@@ -64,18 +83,6 @@ describe('cases', () => {
     expect(response.body).toHaveLength(initialCases.length)
   })
 
-  test('all cases are returned', async () => {
-    const response = await api.get('/api/cases')
-
-    expect(response.body).toHaveLength(initialCases.length)
-  })
-
-  test('a specific case is within the returned cases', async () => {
-    const response = await api.get('/api/cases')
-    const titles = response.body.map(r => r.title)
-
-    expect(titles).toContain('TestCase2')
-  })
 })
 
 afterAll(async () => {
