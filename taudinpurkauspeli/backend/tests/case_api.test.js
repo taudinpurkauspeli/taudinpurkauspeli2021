@@ -25,6 +25,22 @@ describe('cases', () => {
     await Case.bulkCreate(initialCases)
   })
 
+  test('case without title is not added', async () => {
+    const newCase = {
+      title: "",
+      hidden: true,
+      anamnesis: "newAnamnesis",
+    }  
+    await api
+      .post('/api/cases')
+      .send(newCase)
+      .expect(400)
+  
+    const response = await api.get('/api/cases')
+  
+    expect(response.body).toHaveLength(initialCases.length)
+  })
+
   test('all cases are returned', async () => {
     const response = await api.get('/api/cases')
 
