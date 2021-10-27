@@ -25,11 +25,34 @@ describe('cases', () => {
     await Case.bulkCreate(initialCases)
   })
 
+  test('a valid case can be added ', async () => {
+    const newCase = {
+      title: "NewTitle1",
+      hidden: true,
+      anamnesis: "NewAnamnesis1",
+    }  
+  
+    await api
+      .post('/api/cases')
+      .send(newCase)
+      .expect(200)
+      .expect('Content-Type', /application\/json/)
+  
+    const response = await api.get('/api/cases')
+  
+    const titles = response.body.map(r => r.title)
+    const anamnesiss = response.body.map(r => r.anamnesis)
+  
+    expect(response.body).toHaveLength(initialCases.length + 1)
+    expect(titles).toContain('NewTitle1')
+    expect(anamnesiss).toContain('NewAnamnesis1')
+  })
+
   test('case without title is not added', async () => {
     const newCase = {
       title: "",
       hidden: true,
-      anamnesis: "newAnamnesis",
+      anamnesis: "NewAnamnesis",
     }  
     await api
       .post('/api/cases')
@@ -49,9 +72,9 @@ describe('cases', () => {
 
   test('a specific case is within the returned cases', async () => {
     const response = await api.get('/api/cases')
-    const contents = response.body.map(r => r.title)
+    const titles = response.body.map(r => r.title)
 
-    expect(contents).toContain('TestCase2')
+    expect(titles).toContain('TestCase2')
   })
 })
 
