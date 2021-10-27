@@ -25,6 +25,8 @@
   "addCase": "Add case",
   "caseTitle": "Case title",
   "caseAnamnesis": "Anemnesis",
+  "caseProcedures": "Procedures",
+  "caseDifferentials": "Differentials",
   "hideCase": "Hide from students",
   "button_submitNewCase": "Add case",
   "button_submitNewDisease": "Submit",

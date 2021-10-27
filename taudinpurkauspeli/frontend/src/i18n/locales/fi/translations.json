@@ -25,6 +25,8 @@
     "addCase": "Lisää case",
     "caseTitle": "Casen nimi",
     "caseAnamnesis": "Anemneesi",
+    "caseProcedures": "Toimenpiteet",
+    "caseDifferentials": "Diffit",
     "hideCase": "Piilota opiskelijoilta",
     "button_submitNewCase": "Lisää case",
     "button_submitNewDisease": "Lisää",
