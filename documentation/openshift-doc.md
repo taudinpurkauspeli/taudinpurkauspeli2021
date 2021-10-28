@@ -5,14 +5,14 @@
 #### YAML
 
 kind: Pod  
-apiVersion: v1
-metadata:
-  generateName: backendv4-4-
-  annotations:
-    k8s.v1.cni.cncf.io/network-status: |-
-      [{
-          "name": "",
-          "interface": "eth0",
+apiVersion: v1  
+metadata:  
+  generateName: backendv4-4-  
+  annotations:  
+    k8s.v1.cni.cncf.io/network-status: |-  
+      [{  
+          "name": "",  
+          "interface": "eth0",  
           "ips": [
               "10.15.2.196"
           ],
