@@ -4,7 +4,8 @@
 
 #### YAML
 
-kind: Pod/
+kind: Pod
+
 apiVersion: v1
 metadata:
   generateName: backendv4-4-
