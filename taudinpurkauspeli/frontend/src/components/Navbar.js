@@ -49,7 +49,7 @@ const Navigationbar = ({
 
   return (
     <Router>
-      <Navbar collapseOnSelect expand="lg" variant="dark">
+      <Navbar collapseOnSelect expand="lg" variant="dark" sticky="top">
         <Navbar.Brand as={Link} to="/">{t('nameOfTheGame')}</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
