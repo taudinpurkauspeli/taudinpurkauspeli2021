@@ -7,20 +7,21 @@ import {
 import { Button } from 'react-bootstrap';
 
 const Anamnesis = ({ c }) => (
-  <div id="wrapper">
+  <div>
+    <p>Casen tiedot löytyvät täältä</p>
     <h2>{c.title}</h2>
     <p>{c.anamnesis}</p>
   </div>
 );
 
 const Procedures = () => (
-  <div id="wrapper">
+  <div>
     <p>Toimenpiteet löytyvät täältä</p>
   </div>
 );
 
 const Differentials = () => (
-  <div id="wrapper">
+  <div>
     <p>Diffit löytyvät täältä</p>
   </div>
 );
@@ -37,19 +38,20 @@ const Case = ({ cases }) => {
         <Button as={Link} to={baseUrl}>{t('caseAnamnesis')}</Button>
         <Button as={Link} to={`${baseUrl}/procedures`}>{t('caseProcedures')}</Button>
         <Button as={Link} to={`${baseUrl}/differentials`}>{t('caseDifferentials')}</Button>
-      </div>
 
-      <Switch>
-        <Route path={`${baseUrl}/procedures`}>
-          <Procedures />
-        </Route>
-        <Route path={`${baseUrl}/differentials`}>
-          <Differentials />
-        </Route>
-        <Route path={baseUrl}>
-          <Anamnesis c={c} />
-        </Route>
-      </Switch>
+        <Switch>
+          <Route path={`${baseUrl}/procedures`}>
+            <Procedures />
+          </Route>
+          <Route path={`${baseUrl}/differentials`}>
+            <Differentials />
+          </Route>
+          <Route path={baseUrl}>
+            <Anamnesis c={c} />
+          </Route>
+        </Switch>
+
+      </div>
 
     </Router>
   );
