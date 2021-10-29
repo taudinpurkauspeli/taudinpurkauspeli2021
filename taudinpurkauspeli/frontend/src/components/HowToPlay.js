@@ -7,6 +7,7 @@ const HowToPlay = () => {
   return (
     <div id="wrapper">
       <h2>{t('howToPlay')}</h2>
+      <p>{t('gameInstructions')}</p>
     </div>
   );
 };
