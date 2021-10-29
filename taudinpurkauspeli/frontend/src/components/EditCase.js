@@ -5,7 +5,7 @@ import {
 } from 'react-router-dom';
 import service from '../services/cases';
 
-const EditCase = ({ cases }) => {
+const EditCase = ({ cases, editCaseFunc }) => {
   const { id } = useParams();
   const c = cases.find((a) => a.id === Number(id));
   const [newHidden, setNewHidden] = useState(c.hidden);
@@ -21,6 +21,9 @@ const EditCase = ({ cases }) => {
       hidden: newHidden,
     });
 
+    if (editCaseFunc != null) {
+      editCaseFunc(caseObject);
+    }
     service.update(id, caseObject);
   };
 
