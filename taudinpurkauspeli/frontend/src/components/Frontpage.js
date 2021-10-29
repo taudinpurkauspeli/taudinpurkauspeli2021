@@ -9,14 +9,19 @@ import {
 import { Link } from 'react-router-dom';
 
 import CaseCard from './CaseCard';
+import Search from './Search';
 
-const Frontpage = ({ cases, admin }) => {
+const Frontpage = ({
+  cases, admin, newSearch, searchCases,
+}) => {
   const { t } = useTranslation();
 
   return (
     <div id="wrapper">
       <h2>{t('frontpage_title')}</h2>
       <p>{t('frontpage_text')}</p>
+      <Search newSearch={newSearch} searchCases={searchCases} />
+      <br />
       {admin && (
         <div>
           <Button as={Link} to="/newcase">{t('button_newCase')}</Button>
