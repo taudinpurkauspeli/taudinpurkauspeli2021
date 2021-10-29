@@ -29,7 +29,6 @@ const Navigationbar = ({
 }) => {
   const { t } = useTranslation();
   const [cases, setCases] = useState([]);
-  const [newSearch, setNewSearch] = useState('');
 
   React.useEffect(() => {
     service
@@ -46,13 +45,6 @@ const Navigationbar = ({
   const changeLanguage = (language) => {
     i18n.changeLanguage(language);
   };
-
-  const searchCases = (event) => {
-    setNewSearch(event.target.value);
-  };
-
-  const casesToShow = !newSearch
-    ? cases : cases.filter((c) => c.title.toLowerCase().includes(newSearch.toLowerCase()));
 
   return (
     <Router>
@@ -111,7 +103,7 @@ const Navigationbar = ({
           <Profile />
         </Route>
         <Route path="/cases/:id">
-          <Case cases={casesToShow} />
+          <Case cases={cases} />
         </Route>
         { admin && (
         <Route path="/newcase">
@@ -123,12 +115,7 @@ const Navigationbar = ({
           { guest
             ? <GuestFrontpage />
             : (
-              <Frontpage
-                admin={admin}
-                cases={casesToShow}
-                newSearch={newSearch}
-                searchCases={searchCases}
-              />
+              <Frontpage admin={admin} cases={cases} />
             ) }
         </Route>
       </Switch>

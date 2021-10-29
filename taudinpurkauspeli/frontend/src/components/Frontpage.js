@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Col,
@@ -11,10 +11,16 @@ import { Link } from 'react-router-dom';
 import CaseCard from './CaseCard';
 import Search from './Search';
 
-const Frontpage = ({
-  cases, admin, newSearch, searchCases,
-}) => {
+const Frontpage = ({ cases, admin }) => {
   const { t } = useTranslation();
+  const [newSearch, setNewSearch] = useState('');
+
+  const searchCases = (event) => {
+    setNewSearch(event.target.value);
+  };
+
+  const casesToShow = !newSearch
+    ? cases : cases.filter((c) => c.title.toLowerCase().includes(newSearch.toLowerCase()));
 
   return (
     <div id="wrapper">
@@ -32,7 +38,7 @@ const Frontpage = ({
       )}
       <Row xs="auto" md="auto" className="g-4">
         {admin && (
-          cases.filter((c) => c.hidden).map((c) => (
+          casesToShow.filter((c) => c.hidden).map((c) => (
             <Col key={c.id}>
               <CaseCard c={c} admin={admin} />
             </Col>
@@ -43,7 +49,7 @@ const Frontpage = ({
       <h3>{t('case_playable')}</h3>
       <hr />
       <Row xs="auto" md="auto" className="g-4">
-        {cases.filter((c) => !c.hidden).map((c) => (
+        {casesToShow.filter((c) => !c.hidden).map((c) => (
           <Col key={c.id}>
             <CaseCard c={c} admin={admin} />
           </Col>
