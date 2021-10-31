@@ -11,22 +11,26 @@ const CaseCard = ({ c, admin }) => {
   const { t } = useTranslation();
 
   return (
-    <Card as={Link} to={`/cases/${c.id}`} style={{ width: '20rem', cursor: 'pointer' }} className="caseCard">
-      <Card.Body>
-        <Card.Title>{c.title}</Card.Title>
-        <Card.Text>{c.anamnesis}</Card.Text>
-        { admin && (
-          <div>
-            <Button className="copyButton" size="sm">{t('copy')}</Button>
-            {' '}
-            <Button className="removeButton" size="sm" variant="danger">{t('buttonRemove')}</Button>
-          </div>
-        )}
-      </Card.Body>
-      <Card.Footer>
-        <ProgressBar className="progsbar" variant="success" now={25} label={`${25}%`} />
-      </Card.Footer>
-    </Card>
+    <div>
+      <Card as={Link} to={`/cases/${c.id}`} style={{ width: '20rem', cursor: 'pointer' }} className="caseCard">
+        <Card.Body>
+          <Card.Title>{c.title}</Card.Title>
+          <Card.Text>{c.anamnesis}</Card.Text>
+        </Card.Body>
+        <Card.Footer>
+          <ProgressBar className="progsbar" variant="success" now={25} label={`${25}%`} />
+        </Card.Footer>
+      </Card>
+
+      { admin && (
+        <div className="cardButtons">
+          <Button as={Link} to={`/editcase/${c.id}`} className="editButton" size="sm">{t('buttonEdit')}</Button>
+          <Button className="copyButton" size="sm" variant="warning">{t('copy')}</Button>
+          <Button className="removeButton" size="sm" variant="danger">{t('buttonRemove')}</Button>
+          <Button className="playButton" size="sm" variant="secondary">{t('buttonPlay')}</Button>
+        </div>
+      )}
+    </div>
   );
 };
 

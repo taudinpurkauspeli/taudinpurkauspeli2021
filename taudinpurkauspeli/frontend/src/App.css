@@ -37,6 +37,10 @@ a:hover {
   text-decoration: none;
 }
 
+.cardButtons button {
+  margin: 1%;
+}
+
 .btn-primary {
   background:#2d6a4f !important;
 }
