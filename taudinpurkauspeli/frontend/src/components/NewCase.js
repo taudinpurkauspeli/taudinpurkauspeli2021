@@ -40,7 +40,9 @@ const newCase = ({ addCaseFunc }) => {
         setNewAnamnesis('');
         setNewHidden(false);
       });
-    history.push('/');
+    if (addCaseFunc == null) {
+      history.push('/');
+    }
   };
 
   return (

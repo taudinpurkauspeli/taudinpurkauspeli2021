@@ -26,7 +26,9 @@ const EditCase = ({ cases, editCaseFunc }) => {
       editCaseFunc(caseObject);
     }
     service.update(id, caseObject);
-    history.push('/');
+    if (editCaseFunc == null) {
+      history.push('/');
+    }
   };
 
   const handleHiddenChange = () => {
