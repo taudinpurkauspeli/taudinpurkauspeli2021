@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  useParams,
+  useParams, useHistory,
 } from 'react-router-dom';
 import service from '../services/cases';
 
@@ -11,6 +11,7 @@ const EditCase = ({ cases }) => {
   const [newHidden, setNewHidden] = useState(c.hidden);
   // const baseUrl = `/editcase/${id}`;
   const { t } = useTranslation();
+  const history = useHistory();
 
   const editCase = (event) => {
     event.preventDefault();
@@ -22,6 +23,7 @@ const EditCase = ({ cases }) => {
     });
 
     service.update(id, caseObject);
+    history.push('/');
   };
 
   const handleHiddenChange = () => {
