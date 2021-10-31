@@ -36,6 +36,7 @@ const EditCase = ({ cases, editCaseFunc }) => {
       <h2>{t('addCase')}</h2>
 
       <form onSubmit={editCase}>
+        {/*
         <p>
           <label htmlFor="title">
             {t('caseTitle')}
@@ -56,6 +57,7 @@ const EditCase = ({ cases, editCaseFunc }) => {
             value={c.anamnesis}
           />
         </p>
+         */}
         <p>
           <label htmlFor="hidden">{t('hideCase')}</label>
           <br />
