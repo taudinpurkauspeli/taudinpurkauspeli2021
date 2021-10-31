@@ -69,7 +69,7 @@ const EditCase = ({ cases, editCaseFunc }) => {
             id="hidden"
             checked={newHidden}
             type="checkbox"
-            onClick={handleHiddenChange}
+            onChange={handleHiddenChange}
           />
         </p>
         <p>
