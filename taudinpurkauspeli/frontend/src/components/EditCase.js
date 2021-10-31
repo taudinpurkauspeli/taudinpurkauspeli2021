@@ -71,7 +71,7 @@ const EditCase = ({ cases, editCaseFunc }) => {
           />
         </p>
         <p>
-          <input type="submit" id="submit" value={t('button_edit')} />
+          <input type="submit" id="submit" value={t('buttonEdit')} />
         </p>
       </form>
     </div>

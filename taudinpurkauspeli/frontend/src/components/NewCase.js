@@ -83,7 +83,7 @@ const newCase = ({ addCaseFunc }) => {
           />
         </p>
         <p>
-          <input type="submit" id="submit" value={t('button_submitNewCase')} />
+          <input type="submit" id="submit" value={t('buttonSubmitNewCase')} />
         </p>
       </form>
 
