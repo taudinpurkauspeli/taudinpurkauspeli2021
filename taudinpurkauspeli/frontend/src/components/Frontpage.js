@@ -21,7 +21,7 @@ const Frontpage = ({ cases, admin }) => {
         <div>
           <Button as={Link} to="/newcase">{t('buttonNewCase')}</Button>
           <br />
-          <h3>{t('casehidden')}</h3>
+          <h3>{t('caseHidden')}</h3>
           <hr />
         </div>
       )}
