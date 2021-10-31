@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  useParams,
+  useParams, useHistory,
 } from 'react-router-dom';
 import service from '../services/cases';
 
@@ -11,6 +11,7 @@ const EditCase = ({ cases, editCaseFunc }) => {
   const [newHidden, setNewHidden] = useState(c.hidden);
   // const baseUrl = `/editcase/${id}`;
   const { t } = useTranslation();
+  const history = useHistory();
 
   const editCase = (event) => {
     event.preventDefault();
@@ -25,6 +26,9 @@ const EditCase = ({ cases, editCaseFunc }) => {
       editCaseFunc(caseObject);
     }
     service.update(id, caseObject);
+    if (editCaseFunc == null) {
+      history.push('/');
+    }
   };
 
   const handleHiddenChange = () => {
@@ -69,7 +73,7 @@ const EditCase = ({ cases, editCaseFunc }) => {
           />
         </p>
         <p>
-          <input type="submit" id="submit" value={t('button_edit')} />
+          <input type="submit" id="submit" value={t('buttonEdit')} />
         </p>
       </form>
     </div>

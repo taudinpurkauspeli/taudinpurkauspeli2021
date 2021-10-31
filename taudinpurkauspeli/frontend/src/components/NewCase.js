@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router-dom';
 import service from '../services/cases';
 
 const newCase = ({ addCaseFunc }) => {
@@ -7,6 +8,7 @@ const newCase = ({ addCaseFunc }) => {
   const [newTitle, setNewTitle] = useState('');
   const [newAnamnesis, setNewAnamnesis] = useState('');
   const [newHidden, setNewHidden] = useState(false);
+  const history = useHistory();
 
   const handleTitleChange = (event) => {
     setNewTitle(event.target.value);
@@ -38,6 +40,9 @@ const newCase = ({ addCaseFunc }) => {
         setNewAnamnesis('');
         setNewHidden(false);
       });
+    if (addCaseFunc == null) {
+      history.push('/');
+    }
   };
 
   return (
@@ -78,7 +83,7 @@ const newCase = ({ addCaseFunc }) => {
           />
         </p>
         <p>
-          <input type="submit" id="submit" value={t('button_submitNewCase')} />
+          <input type="submit" id="submit" value={t('buttonSubmitNewCase')} />
         </p>
       </form>
 

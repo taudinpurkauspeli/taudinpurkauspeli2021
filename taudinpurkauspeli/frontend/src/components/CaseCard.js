@@ -24,10 +24,10 @@ const CaseCard = ({ c, admin }) => {
 
       { admin && (
         <div className="cardButtons">
-          <Button as={Link} to={`/editcase/${c.id}`} className="editButton" size="sm">{t('button_edit')}</Button>
+          <Button as={Link} to={`/editcase/${c.id}`} className="editButton" size="sm">{t('buttonEdit')}</Button>
           <Button className="copyButton" size="sm" variant="warning">{t('copy')}</Button>
-          <Button className="removeButton" size="sm" variant="danger">{t('button_remove')}</Button>
-          <Button className="playButton" size="sm" variant="secondary">{t('button_play')}</Button>
+          <Button className="removeButton" size="sm" variant="danger">{t('buttonRemove')}</Button>
+          <Button className="playButton" size="sm" variant="secondary">{t('buttonPlay')}</Button>
         </div>
       )}
     </div>
