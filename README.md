@@ -5,6 +5,21 @@
 
 ## Dokumentaatio
 
+# Aikakirjanpito 
+
+[Aikakirjanpito](https://docs.google.com/spreadsheets/d/e/2PACX-1vT-c9lv_qbbtI2iUYnYm3j4XEcGpK-cvejJRi9k49gu4HiQ41ATS_wnY1VlinJPRadF8myDc4ngpZzG/pubhtml?gid=1080780808&single=true)
+
+# Product backlog
+
+[Product backlog](https://docs.google.com/spreadsheets/d/e/2PACX-1vT-c9lv_qbbtI2iUYnYm3j4XEcGpK-cvejJRi9k49gu4HiQ41ATS_wnY1VlinJPRadF8myDc4ngpZzG/pubhtml?gid=1772045149&single=true)
+
+# Sprintit
+
+[Sprint 0]()
+[Sprint 1]()
+[Sprint 2]()
+[Sprint 3]()
+
 [Backlog ja aikakirjanpito](https://docs.google.com/spreadsheets/d/e/2PACX-1vT-c9lv_qbbtI2iUYnYm3j4XEcGpK-cvejJRi9k49gu4HiQ41ATS_wnY1VlinJPRadF8myDc4ngpZzG/pubhtml)
 
 
