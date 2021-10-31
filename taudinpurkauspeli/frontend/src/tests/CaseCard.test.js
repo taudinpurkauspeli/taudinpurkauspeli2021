@@ -46,7 +46,7 @@ test('renders progressbar', () => {
 
 test('user does not see the delete and copy buttons', () => {
   expect(
-    component.queryByText('button_remove'),
+    component.queryByText('buttonRemove'),
   ).toBeNull();
   expect(
     component.queryByText('copy'),
@@ -60,7 +60,7 @@ test('renders delete and copy buttons for teacher', () => {
     </MemoryRouter>,
   );
   expect(
-    teacherComponent.getByText('button_remove'),
+    teacherComponent.getByText('buttonRemove'),
   ).toBeDefined();
   expect(
     teacherComponent.getByText('copy'),
