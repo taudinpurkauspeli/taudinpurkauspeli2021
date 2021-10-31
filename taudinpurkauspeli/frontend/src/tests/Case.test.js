@@ -5,6 +5,7 @@ import { createMemoryHistory } from 'history';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { MemoryRouter, Router } from 'react-router-dom';
+import '@testing-library/dom';
 
 import '@testing-library/jest-dom/extend-expect';
 import Case from '../components/Case';
