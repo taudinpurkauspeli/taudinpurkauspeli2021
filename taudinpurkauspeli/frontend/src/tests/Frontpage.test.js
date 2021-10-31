@@ -34,7 +34,7 @@ beforeEach(() => {
 
 test('frontpage header is rendered', () => {
   expect(component.container).toHaveTextContent(
-    'frontpage_title',
+    'frontpageTitle',
   );
 });
 
@@ -45,12 +45,12 @@ test('add new case -button can be found by teacher', () => {
     </MemoryRouter>,
   );
 
-  const newCaseButton = adminFrontpage.getByText('button_newCase');
+  const newCaseButton = adminFrontpage.getByText('buttonNewCase');
   expect(newCaseButton).toBeDefined();
 });
 
 test('add new case -button cannot be found by student', () => {
-  const newCaseButton = component.queryByText('button_newCase');
+  const newCaseButton = component.queryByText('buttonNewCase');
   expect(newCaseButton).toBeNull();
 });
 

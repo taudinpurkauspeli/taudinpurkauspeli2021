@@ -59,8 +59,8 @@ const Navigationbar = ({
               <NavDropdown.Item onClick={() => changeAdmin()} eventKey="teacher">{t('teacher')}</NavDropdown.Item>
             </NavDropdown>
             <NavDropdown title={t('selectLanguage')}>
-              <NavDropdown.Item onClick={() => changeLanguage('fi')} eventKey="fi">{t('language_finnish')}</NavDropdown.Item>
-              <NavDropdown.Item onClick={() => changeLanguage('en')} eventKey="en">{t('language_english')}</NavDropdown.Item>
+              <NavDropdown.Item onClick={() => changeLanguage('fi')} eventKey="fi">{t('languageFinnish')}</NavDropdown.Item>
+              <NavDropdown.Item onClick={() => changeLanguage('en')} eventKey="en">{t('languageEnglish')}</NavDropdown.Item>
             </NavDropdown>
             { admin && (
             <Nav.Item>
