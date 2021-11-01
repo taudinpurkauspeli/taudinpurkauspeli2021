@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import {
   useParams, useHistory,
 } from 'react-router-dom';
-import service from '../services/cases';
+import service from '../../services/cases';
 
 const EditCase = ({ cases, editCaseFunc }) => {
   const { id } = useParams();

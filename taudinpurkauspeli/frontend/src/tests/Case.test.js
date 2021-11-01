@@ -8,7 +8,7 @@ import { MemoryRouter, Router } from 'react-router-dom';
 import '@testing-library/dom';
 
 import '@testing-library/jest-dom/extend-expect';
-import Case from '../components/Case';
+import Case from '../components/case/Case';
 
 const cases = [{
   id: 1,
