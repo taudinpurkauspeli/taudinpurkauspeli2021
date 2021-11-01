@@ -27,8 +27,6 @@
 
 ## DoD-määritelmä
 
-Dod-määritelmä (täsmentyy vielä 0 sprintin aikana):
-
 - koodi toimii kriteerien mukaisesti
 - testikattavuus väh. 80 %
 - koodin laatu on varmistettu (katselmoitu)
