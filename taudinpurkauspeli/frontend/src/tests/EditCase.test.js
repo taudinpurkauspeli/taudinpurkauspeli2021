@@ -2,7 +2,7 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { render, fireEvent } from '@testing-library/react';
-import EditCase from '../components/EditCase';
+import EditCase from '../components/case/EditCase';
 
 const cases = [{
   id: 1,

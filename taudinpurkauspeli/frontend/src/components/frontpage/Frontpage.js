@@ -8,7 +8,7 @@ import {
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-import CaseCard from './CaseCard';
+import CaseCard from '../case/CaseCard';
 
 const Frontpage = ({ cases, admin }) => {
   const { t } = useTranslation();

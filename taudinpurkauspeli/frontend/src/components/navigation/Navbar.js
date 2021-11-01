@@ -12,18 +12,18 @@ import {
 
 // Import translations
 import { useTranslation } from 'react-i18next';
-import i18n from '../i18n/config';
+import i18n from '../../i18n/config';
 
 // Import components
-import Frontpage from './Frontpage';
-import GuestFrontpage from './GuestFrontpage';
+import Frontpage from '../frontpage/Frontpage';
+import GuestFrontpage from '../frontpage/GuestFrontpage';
 import Sidebar from './Sidebar';
-import HowToPlay from './HowToPlay';
-import Profile from './Profile';
-import Case from './Case';
-import EditCase from './EditCase';
-import service from '../services/cases';
-import NewCase from './NewCase';
+import HowToPlay from '../instructions/HowToPlay';
+import Profile from '../user/Profile';
+import Case from '../case/Case';
+import EditCase from '../case/EditCase';
+import service from '../../services/cases';
+import NewCase from '../case/NewCase';
 
 const Navigationbar = ({
   user, admin, guest, changeUser, changeAdmin, changeGuest,

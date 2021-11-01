@@ -2,7 +2,7 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { render, fireEvent } from '@testing-library/react';
-import NewCase from '../components/NewCase';
+import NewCase from '../components/case/NewCase';
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key) => key }),
