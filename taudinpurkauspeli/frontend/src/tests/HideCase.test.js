@@ -23,20 +23,24 @@ jest.mock('react-router-dom', () => ({
   useRouteMatch: () => ({ url: '/hidecase/id' }),
 }));
 
-// Checking if hidden checkbox works as intended
 test('<HideCase /> updates parent state and calls onSubmit', () => {
   const hideCase = jest.fn();
 
   const component = render(
-    <HideCase cases={cases} hideCaseFunc={hideCase} />,
+    <HideCase caseToBeHidden={cases} hideCaseFunc={hideCase} />,
   );
 
-  const hidden = component.container.querySelector('#hidden');
   const form = component.container.querySelector('form');
+  const hidden = component.container.querySelector('#submit');
 
   fireEvent.click(hidden);
   fireEvent.submit(form);
 
+  // Ongelma: jos klikataan buttonia ja sitten submitataan lomake,
+  // tallennetaan KAKSI oliota. Niissä on eri hidden-arvot.
+  // Jos vain toinen toteutetaan, niin silloin testaus ei myöskään
+  // toimi.
+  console.log(hideCase.mock.calls);
   expect(hideCase.mock.calls).toHaveLength(1);
-  expect(hideCase.mock.calls[0][0].hidden).toEqual(true);
+  expect(hideCase.mock.calls[1][0].hidden).toEqual(true);
 });
