@@ -89,3 +89,14 @@ a:hover {
   border-bottom-left-radius: 0px;
   border-top-right-radius: 0px;
 }
+
+.hidden {
+  visibility: hidden;
+}
+
+.buttonLeft input {
+  float:left;
+  background-color: #d8f3dc;
+  border-radius:5px;
+  border: 1px solid #2d6a4f;
+}

@@ -5,11 +5,14 @@ import {
   Switch, Route, Link, useParams,
 } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
+// eslint-disable-next-line import/no-named-as-default
+import HideCase from './HideCase';
 
 const Anamnesis = ({ c }) => (
   <div>
     <p>Casen tiedot löytyvät täältä</p>
     <h2>{c.title}</h2>
+    <HideCase caseToBeHidden={c} />
     <p>{c.anamnesis}</p>
   </div>
 );
