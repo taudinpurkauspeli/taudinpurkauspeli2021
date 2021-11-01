@@ -8,20 +8,20 @@ import {
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-import CaseCard from './CaseCard';
+import CaseCard from '../case/CaseCard';
 
 const Frontpage = ({ cases, admin }) => {
   const { t } = useTranslation();
 
   return (
     <div id="wrapper">
-      <h2>{t('frontpage_title')}</h2>
-      <p>{t('frontpage_text')}</p>
+      <h2>{t('frontpageTitle')}</h2>
+      <p>{t('frontpageText')}</p>
       {admin && (
         <div>
-          <Button as={Link} to="/newcase">{t('button_newCase')}</Button>
+          <Button as={Link} to="/newcase">{t('buttonNewCase')}</Button>
           <br />
-          <h3>{t('case_hidden')}</h3>
+          <h3>{t('caseHidden')}</h3>
           <hr />
         </div>
       )}
@@ -35,7 +35,7 @@ const Frontpage = ({ cases, admin }) => {
         )}
       </Row>
       <br />
-      <h3>{t('case_playable')}</h3>
+      <h3>{t('casePlayable')}</h3>
       <hr />
       <Row xs="auto" md="auto" className="g-4">
         {cases.filter((c) => !c.hidden).map((c) => (

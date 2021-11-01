@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { render } from '@testing-library/react';
-import Navigationbar from '../components/Navbar';
+import Navigationbar from '../components/navigation/Navbar';
 import service from '../services/cases';
 
 function TestingNavbar({ userValue, adminValue, guestValue }) {

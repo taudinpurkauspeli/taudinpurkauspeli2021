@@ -3,7 +3,7 @@ import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { render } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import CaseCard from '../components/CaseCard';
+import CaseCard from '../components/case/CaseCard';
 
 const caseCard = {
   id: 1,
@@ -46,7 +46,7 @@ test('renders progressbar', () => {
 
 test('user does not see the delete and copy buttons', () => {
   expect(
-    component.queryByText('button_remove'),
+    component.queryByText('buttonRemove'),
   ).toBeNull();
   expect(
     component.queryByText('copy'),
@@ -60,7 +60,7 @@ test('renders delete and copy buttons for teacher', () => {
     </MemoryRouter>,
   );
   expect(
-    teacherComponent.getByText('button_remove'),
+    teacherComponent.getByText('buttonRemove'),
   ).toBeDefined();
   expect(
     teacherComponent.getByText('copy'),

@@ -48,7 +48,7 @@ describe('cases', () => {
   test('a valid case can be added ', async () => {
     const newCase = {
       title: "NewTitle1",
-      hidden: true,
+      hidden: false,
       anamnesis: "NewAnamnesis1",
     }  
   
@@ -61,10 +61,12 @@ describe('cases', () => {
     const response = await api.get('/api/cases')
   
     const titles = response.body.map(r => r.title)
+    const hiddens = response.body.map(r => r.hidden)
     const anamnesiss = response.body.map(r => r.anamnesis)
   
     expect(response.body).toHaveLength(initialCases.length + 1)
     expect(titles).toContain('NewTitle1')
+    expect(hiddens).toContain(false)
     expect(anamnesiss).toContain('NewAnamnesis1')
   })
   
