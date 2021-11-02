@@ -21,7 +21,6 @@ import Sidebar from './Sidebar';
 import HowToPlay from '../instructions/HowToPlay';
 import Profile from '../user/Profile';
 import Case from '../case/Case';
-import EditCase from '../case/EditCase';
 import service from '../../services/cases';
 import NewCase from '../case/NewCase';
 
@@ -104,11 +103,11 @@ const Navigationbar = ({
           <Profile />
         </Route>
         <Route path="/cases/:id">
-          <Case cases={cases} />
+          <Case cases={cases} admin={admin} />
         </Route>
         { admin && (
-        <Route path="/editcase/:id">
-          <EditCase cases={cases} />
+        <Route path="/casehidden/:id">
+          <casehidden cases={cases} />
         </Route>
         )}
         { admin && (
