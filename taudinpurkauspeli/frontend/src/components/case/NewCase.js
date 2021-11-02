@@ -1,45 +1,36 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
+import { Form, Button } from 'react-bootstrap';
 import service from '../../services/cases';
 
 const newCase = ({ addCaseFunc }) => {
   const { t } = useTranslation();
-  const [newTitle, setNewTitle] = useState('');
-  const [newAnamnesis, setNewAnamnesis] = useState('');
-  const [newHidden, setNewHidden] = useState(false);
   const history = useHistory();
 
-  const handleTitleChange = (event) => {
-    setNewTitle(event.target.value);
-  };
+  const newCaseSchema = Yup.object().shape({
+    title: Yup.string()
+      .min(2, t('warningShort'))
+      .max(999, t('warningLong'))
+      .required(t('warningRequired')),
+    anamnesis: Yup.string(),
+    hidden: Yup.bool(),
+  });
 
-  const handleAnamnesisChange = (event) => {
-    setNewAnamnesis(event.target.value);
-  };
-
-  const handleHiddenChange = (event) => {
-    setNewHidden(event.target.value);
-  };
-
-  const addCase = (event) => {
-    event.preventDefault();
+  const addCase = (values) => {
     // eslint-disable-next-line no-param-reassign
     const caseObject = ({
-      title: newTitle,
-      anamnesis: newAnamnesis,
-      hidden: newHidden,
+      title: values.title,
+      anamnesis: values.anamnesis,
+      hidden: values.hidden,
     });
 
     if (addCaseFunc != null) {
       addCaseFunc(caseObject);
     }
-    service.create(caseObject)
-      .then(() => {
-        setNewTitle('');
-        setNewAnamnesis('');
-        setNewHidden(false);
-      });
+    service.create(caseObject);
     if (addCaseFunc == null) {
       history.push('/');
     }
@@ -49,44 +40,58 @@ const newCase = ({ addCaseFunc }) => {
     <div id="wrapper">
       <h2>{t('addCase')}</h2>
 
-      <form onSubmit={addCase}>
-        <p>
-          <label htmlFor="title">
-            {t('caseTitle')}
-          </label>
-          <br />
-          <input
-            id="title"
-            type="text"
-            value={newTitle}
-            onChange={handleTitleChange}
-          />
-        </p>
-        <p>
-          <label htmlFor="anamnesis">{t('caseAnamnesis')}</label>
-          <br />
-          <textarea
-            id="anamnesis"
-            type="textarea"
-            value={newAnamnesis}
-            onChange={handleAnamnesisChange}
-          />
-        </p>
-        <p>
-          <label htmlFor="hidden">{t('hideCase')}</label>
-          <br />
-          <input
-            id="hidden"
-            value={newHidden}
-            type="checkbox"
-            onClick={handleHiddenChange}
-          />
-        </p>
-        <p>
-          <input type="submit" id="submit" value={t('buttonSubmitNewCase')} />
-        </p>
-      </form>
-
+      <Formik
+        initialValues={{
+          title: '',
+          anamnesis: '',
+          hidden: false,
+        }}
+        validationSchema={newCaseSchema}
+        onSubmit={addCase}
+      >
+        {({
+          handleSubmit,
+          handleChange,
+          values,
+          errors,
+        }) => (
+          <Form noValidate onSubmit={handleSubmit}>
+            <Form.Group md="6" controlId="title">
+              <Form.Label>{t('caseTitle')}</Form.Label>
+              <Form.Control
+                type="text"
+                name="title"
+                value={values.title}
+                onChange={handleChange}
+                isInvalid={!!errors.title}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.title}
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="anamnesis">
+              <Form.Label>{t('caseAnamnesis')}</Form.Label>
+              <Form.Control
+                as="textarea"
+                name="anamnesis"
+                rows={3}
+                value={values.anamnesis}
+                onChange={handleChange}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="hidden">
+              <Form.Check
+                required
+                name="hidden"
+                label={t('hideCase')}
+                value={values.hidden}
+                onChange={handleChange}
+              />
+            </Form.Group>
+            <Button type="submit">{t('buttonSubmitNewCase')}</Button>
+          </Form>
+        )}
+      </Formik>
     </div>
   );
 };

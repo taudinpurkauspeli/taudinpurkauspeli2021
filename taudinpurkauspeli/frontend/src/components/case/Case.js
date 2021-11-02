@@ -29,7 +29,8 @@ const Anamnesis = ({ c, admin }) => {
           text={title}
           editButton
           editControls
-          placeholder="Type here"
+          inputMinLength={2}
+          inputMaxLength={999}
           cb={handleTitleUpdate}
         />
       )}

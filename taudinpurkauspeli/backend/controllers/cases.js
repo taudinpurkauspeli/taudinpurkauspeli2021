@@ -5,15 +5,7 @@ const Case = db.cases;
 const { Op } = db.Sequelize;
 
 // Save a new case
-caseRouter.post('/', (req, res) => {
-  // Validate request - title
-  if (!req.body.title) {
-    res.status(400).send({
-      message: 'The case has to have a name!',
-    });
-    return;
-  }
-
+caseRouter.post('/', (req, res, next) => {
   // Create a case
   const case1 = {
     title: req.body.title,
@@ -26,12 +18,7 @@ caseRouter.post('/', (req, res) => {
     .then((data) => {
       res.send(data);
     })
-    .catch((err) => {
-      res.status(500).send({
-        message:
-            err.message || 'Unknown error occurred while creating the case. Try again.',
-      });
-    });
+    .catch((error) => next(error))
 });
 
 // Retrieve all cases
@@ -68,7 +55,7 @@ caseRouter.get('/:id', (req, res) => {
 });
 
 // Update a disease (by id)
-caseRouter.put('/:id', (req, res) => {
+caseRouter.put('/:id', (req, res, next) => {
   const { id } = req.params;
 
   Case.update(req.body, {
@@ -86,11 +73,7 @@ caseRouter.put('/:id', (req, res) => {
       }
     })
   // eslint-disable-next-line no-unused-vars
-    .catch((err) => {
-      res.status(500).send({
-        message: `Error updating case with id=${id}`,
-      });
-    });
+    .catch((error) => next(error))
 });
 
 // Delete a case (by id)
