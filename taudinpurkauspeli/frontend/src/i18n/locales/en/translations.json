@@ -1,5 +1,6 @@
 {
   "addCase": "Add case",
+  "addProcedure": "Add procedure",
   "addDisease": "Add disease",
   "buttonEdit": "Edit",
   "buttonNewCase": "+ Add new case",
@@ -10,6 +11,7 @@
   "buttonSelectCase": "Select case:",
   "buttonSubmitNewCase": "Add case",
   "buttonSubmitNewDisease": "Submit",
+  "buttonSubmitNewProcedure": "Add procedure",
   "buttonUpdate": "Update",
   "caseAnamnesis": "Anemnesis",
   "caseDifferentials": "Differentials",
@@ -41,6 +43,7 @@
   "logIn": "Log in",
   "logOut": "Log out",
   "nameOfTheGame": "Taudinpurkauspeli",
+  "procedureTitle": "Procedure title",
   "searchByTitle": "Search by title",
   "selectLanguage": "Select language",
   "selectUser": "Select user in charge",

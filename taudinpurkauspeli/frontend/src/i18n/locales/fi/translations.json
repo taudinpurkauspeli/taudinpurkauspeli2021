@@ -1,5 +1,6 @@
 {
   "addCase": "Lisää case",
+  "addProcedure": "Lisää toimenpide",
   "addDisease": "Lisää tauti",
   "buttonEdit": "Muokkaa",
   "buttonNewCase": "+ Lisää uusi case",
@@ -10,6 +11,7 @@
   "buttonSelectCase": "Valitse case:",
   "buttonSubmitNewCase": "Lisää case",
   "buttonSubmitNewDisease": "Lisää",
+  "buttonSubmitNewProcedure": "Lisää toimenpide",
   "buttonUpdate": "Päivitä",
   "caseAnamnesis": "Anemneesi",
   "caseDifferentials": "Diffit",
@@ -41,6 +43,7 @@
   "logIn": "Kirjaudu sisään",
   "logOut": "Kirjaudu ulos",
   "nameOfTheGame": "Taudinpurkauspeli",
+  "procedureTitle": "Toimenpiteen nimi",
   "searchByTitle": "Etsi nimellä",
   "selectLanguage": "Valitse kieli",
   "selectUser": "Valitse käyttäjämuoto",

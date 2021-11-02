@@ -35,6 +35,8 @@ app.use(middleware.requestLogger);
 
 app.use('/api/diseases', diseaseRouter);
 app.use('/api/cases', caseRouter);
+app.use('/api/procedures', proceduresRouter);
+app.use('/api/proceduresUnderCases', proceduresUnderCasesRouter);
 
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);
