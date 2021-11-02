@@ -103,7 +103,7 @@ const Navigationbar = ({
           <Profile />
         </Route>
         <Route path="/cases/:id">
-          <Case cases={cases} />
+          <Case cases={cases} admin={admin} />
         </Route>
         { admin && (
         <Route path="/casehidden/:id">

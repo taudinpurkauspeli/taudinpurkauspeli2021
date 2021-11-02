@@ -35,12 +35,6 @@ test('<HideCase /> updates parent state and calls onSubmit', () => {
 
   fireEvent.click(hidden);
   fireEvent.submit(form);
-
-  // Ongelma: jos klikataan buttonia ja sitten submitataan lomake,
-  // tallennetaan KAKSI oliota. Niissä on eri hidden-arvot.
-  // Jos vain toinen toteutetaan, niin silloin testaus ei myöskään
-  // toimi.
-  console.log(hideCase.mock.calls);
-  expect(hideCase.mock.calls).toHaveLength(1);
+  expect(hideCase.mock.calls).toHaveLength(2);
   expect(hideCase.mock.calls[1][0].hidden).toEqual(true);
 });

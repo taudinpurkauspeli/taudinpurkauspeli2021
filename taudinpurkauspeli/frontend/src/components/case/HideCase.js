@@ -11,7 +11,6 @@ const HideCase = ({ caseToBeHidden, hideCaseFunc }) => {
   }
 
   const [newHidden, setNewHidden] = useState(hideStatus);
-  // const baseUrl = `/editcase/${id}`;
   const { t } = useTranslation();
 
   const hideCase = (event) => {
@@ -23,11 +22,11 @@ const HideCase = ({ caseToBeHidden, hideCaseFunc }) => {
       hidden: newHidden,
     });
 
-    service.update(c.id, caseObject);
-
     if (hideCaseFunc != null) {
       hideCaseFunc(caseObject);
     }
+
+    service.update(c.id, caseObject);
   };
 
   const handleHiddenChange = () => {
@@ -37,7 +36,7 @@ const HideCase = ({ caseToBeHidden, hideCaseFunc }) => {
   return (
     <div>
       <form onSubmit={hideCase} className="buttonLeft">
-        <label htmlFor="submit" className="submit">{newHidden ? t('buttonShowCaseToStudents') : t('buttonHideCaseFromStudents')}</label>
+        <label htmlFor="submit" className="hidden">{newHidden ? t('buttonShowCaseToStudents') : t('buttonHideCaseFromStudents')}</label>
         <input type="submit" onClick={handleHiddenChange} id="submit" value={newHidden ? t('buttonShowCaseToStudents') : t('buttonHideCaseFromStudents')} />
       </form>
     </div>
