@@ -39,6 +39,6 @@ app.use('/api/cases', caseRouter);
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);
 
-app.use(express.static('build'))
+app.use(express.static('build'));
 
 module.exports = app;
