@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   BrowserRouter as Router,
   Switch, Route, Link, useParams,
 } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
+import NewProcedure from './NewProcedure';
+import serviceUnderCases from '../../services/proceduresUnderCase';
 
 const Anamnesis = ({ c }) => (
   <div>
@@ -14,11 +16,27 @@ const Anamnesis = ({ c }) => (
   </div>
 );
 
-const Procedures = () => (
-  <div>
-    <p>Toimenpiteet löytyvät täältä</p>
-  </div>
-);
+const Procedures = ({ id }) => {
+  const [procedures, setProcedures] = useState([]);
+
+  useEffect(() => {
+    serviceUnderCases
+      .getAll(id)
+      .then((procedureList) => {
+        setProcedures(procedureList);
+      });
+  }, []);
+
+  return (
+    <div>
+      <p>Toimenpiteet löytyvät täältä</p>
+      <NewProcedure id={id} />
+      <ul>
+        {procedures.map((p) => <li>{p.procedureId}</li>)}
+      </ul>
+    </div>
+  );
+};
 
 const Differentials = () => (
   <div>
@@ -41,7 +59,7 @@ const Case = ({ cases }) => {
 
         <Switch>
           <Route path={`${baseUrl}/procedures`}>
-            <Procedures />
+            <Procedures id={id} />
           </Route>
           <Route path={`${baseUrl}/differentials`}>
             <Differentials />

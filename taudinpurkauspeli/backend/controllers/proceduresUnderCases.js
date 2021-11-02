@@ -2,7 +2,7 @@ const proceduresUnderCasesRouter = require('express').Router();
 const db = require('../models');
 
 const ProcedureUnderCase = db.proceduresUnderCases;
-// const { Op } = db.Sequelize;
+const { Op } = db.Sequelize;
 
 // Save a new procedure under case
 proceduresUnderCasesRouter.post('/', (req, res) => {
@@ -31,6 +31,23 @@ proceduresUnderCasesRouter.post('/', (req, res) => {
       res.status(500).send({
         message:
             err.message || 'Unknown error occurred while adding the procedure under the case. Try again.',
+      });
+    });
+});
+
+// Retrieve all procedures
+proceduresUnderCasesRouter.get('/', (req, res) => {
+  const { caseId } = req.params;
+  const condition = caseId ? { caseId: { [Op.iLike]: `%${caseId}%` } } : null;
+
+  ProcedureUnderCase.findAll({ where: condition })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+            err.message || 'Unknown error occurred while retrieving procedures under case. Try again.',
       });
     });
 });

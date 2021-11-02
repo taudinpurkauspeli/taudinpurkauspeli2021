@@ -3,7 +3,8 @@ import { useTranslation } from 'react-i18next';
 import service from '../../services/procedures';
 import serviceUnderCases from '../../services/proceduresUnderCase';
 
-const newProcedure = ({ case, addProcedureFunc }) => {
+// eslint-disable-next-line no-unused-vars
+const newProcedure = ({ id, addProcedureFunc }) => {
   const { t } = useTranslation();
   const [newTitle, setNewTitle] = useState('');
 
@@ -18,6 +19,12 @@ const newProcedure = ({ case, addProcedureFunc }) => {
       title: newTitle,
     });
 
+    const procedureUnderCaseObject = ({
+      caseId: id,
+      procedureId: 1,
+      priority: 1,
+    });
+
     if (addProcedureFunc != null) {
       addProcedureFunc(procedureObject);
     }
@@ -26,6 +33,8 @@ const newProcedure = ({ case, addProcedureFunc }) => {
       .then(() => {
         setNewTitle('');
       });
+
+    serviceUnderCases.create(procedureUnderCaseObject);
   };
 
   return (
