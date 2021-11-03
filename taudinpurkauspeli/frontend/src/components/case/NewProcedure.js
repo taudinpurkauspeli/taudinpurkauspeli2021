@@ -7,38 +7,48 @@ import serviceUnderCases from '../../services/proceduresUnderCase';
 const newProcedure = ({ id, addProcedureFunc }) => {
   const { t } = useTranslation();
   const [newTitle, setNewTitle] = useState('');
+  //  const [procedures, setProcedures] = useState([]);
+
+  /*   useEffect(() => {
+    service
+      .getAll()
+      .then((proceduresList) => {
+        setProcedures(proceduresList);
+      });
+  }); */
 
   const handleTitleChange = (event) => {
     setNewTitle(event.target.value);
   };
 
-  const addProcedure = (event) => {
+  const addProcedure = async (event) => {
     event.preventDefault();
-    // eslint-disable-next-line no-param-reassign
+
     const procedureObject = ({
       title: newTitle,
-    });
-
-    const procedureUnderCaseObject = ({
-      caseId: id,
-      procedureId: 1,
-      priority: 1,
     });
 
     if (addProcedureFunc != null) {
       addProcedureFunc(procedureObject);
     }
 
-    service.create(procedureObject)
-      .then(() => {
+    const receivedID = await service.create(procedureObject)
+      .then((data) => {
         setNewTitle('');
+        return data.id;
       });
+
+    const procedureUnderCaseObject = ({
+      caseId: id,
+      procedureId: receivedID,
+      priority: 1,
+    });
 
     serviceUnderCases.create(procedureUnderCaseObject);
   };
 
   return (
-    <div id="wrapper">
+    <div>
       <h2>{t('addProcedure')}</h2>
 
       <form onSubmit={addProcedure}>
