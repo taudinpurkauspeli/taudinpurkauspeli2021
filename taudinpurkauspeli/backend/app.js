@@ -31,6 +31,7 @@ if (process.env.NODE_ENV !== 'test') {
 
 app.use(cors());
 app.use(express.json());
+app.use(express.static('build'));
 app.use(middleware.requestLogger);
 
 app.use('/api/diseases', diseaseRouter);
@@ -38,7 +39,5 @@ app.use('/api/cases', caseRouter);
 
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);
-
-app.use(express.static('build'));
 
 module.exports = app;
