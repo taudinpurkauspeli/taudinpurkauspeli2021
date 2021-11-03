@@ -1,21 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import serviceUnderCases from '../../services/proceduresUnderCase';
+import service from '../../services/procedures';
 
 const ProcedureList = ({ id }) => {
-  const [procedures, setProcedures] = useState([]);
+  const [proceduresHook, setProceduresHook] = useState([]);
 
   useEffect(() => {
-    serviceUnderCases
+    service
       .getAll(id)
       .then((procedureList) => {
-        setProcedures(procedureList);
+        setProceduresHook(procedureList);
       });
   }, []);
+
+  console.log(proceduresHook);
 
   return (
     <div>
       <ul>
-        {procedures.map((p) => <li>{p.procedureId}</li>)}
+        {proceduresHook.map((p) => <li>{p.title}</li>)}
       </ul>
     </div>
   );

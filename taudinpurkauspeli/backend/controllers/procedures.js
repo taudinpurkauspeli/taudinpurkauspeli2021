@@ -2,6 +2,7 @@ const proceduresRouter = require('express').Router();
 const db = require('../models');
 
 const Procedure = db.procedures;
+const Case = db.cases;
 // const { Op } = db.Sequelize;
 
 // Save a new procedure under case
@@ -33,13 +34,37 @@ proceduresRouter.post('/', (req, res) => {
 });
 
 // Retrieve all procedures
-proceduresRouter.get('/', (req, res) => {
-  const { title } = req.query;
+proceduresRouter.get('/:id', (req, res) => {
+  const { id } = req.params;
+  /* const { title } = req.query;
   const condition = title ? { title: { [Op.iLike]: `%${title}%` } } : null;
 
   Procedure.findAll({ where: condition })
     .then((data) => {
       res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+            err.message || 'Unknown error occurred while retrieving procedures. Try again.',
+      });
+    });
+  */
+
+  Case.findAll({
+      include: [{
+        model: Procedure,
+        through: {
+          attributes: [],
+        },
+      }],
+      where: {
+        id: id,
+      }
+    })
+    .then((data) => {
+      res.send(data);
+      console.log(JSON.stringify(data, null, 2))
     })
     .catch((err) => {
       res.status(500).send({

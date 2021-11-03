@@ -2,7 +2,12 @@ const proceduresUnderCasesRouter = require('express').Router();
 const db = require('../models');
 
 const ProcedureUnderCase = db.proceduresUnderCases;
+const Procedure = db.procedures;
+const Case = db.cases;
 const { Op } = db.Sequelize;
+
+Procedure.belongsToMany(Case, { through: ProcedureUnderCase });
+Case.belongsToMany(Procedure, { through: ProcedureUnderCase });
 
 // Save a new procedure under case
 proceduresUnderCasesRouter.post('/', (req, res) => {

@@ -2,8 +2,8 @@ import axios from 'axios';
 
 const baseUrl = 'http://localhost:8080/api/procedures';
 
-const getAll = () => {
-  const request = axios.get(baseUrl);
+const getAll = (id) => {
+  const request = axios.get(`${baseUrl}/${id}`);
   return request.then((response) => response.data);
 };
 
