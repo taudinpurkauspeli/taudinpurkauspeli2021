@@ -4,335 +4,335 @@
 
 #### YAML
 
-kind: Pod
-apiVersion: v1
-metadata:
-  generateName: backendv4-4-
-  annotations:
-    k8s.v1.cni.cncf.io/network-status: |-
-      [{
-          "name": "",
-          "interface": "eth0",
-          "ips": [
-              "10.15.2.196"
-          ],
-          "default": true,
-          "dns": {}
-      }]
-    k8s.v1.cni.cncf.io/networks-status: |-
-      [{
-          "name": "",
-          "interface": "eth0",
-          "ips": [
-              "10.15.2.196"
-          ],
-          "default": true,
-          "dns": {}
-      }]
-    kubernetes.io/limit-ranger: >-
-      LimitRanger plugin set: cpu, memory request for container backendv4; cpu,
-      memory limit for container backendv4
-    openshift.io/deployment-config.latest-version: '4'
-    openshift.io/deployment-config.name: backendv4
-    openshift.io/deployment.name: backendv4-4
-    openshift.io/scc: restricted
-  selfLink: /api/v1/namespaces/taudinpurkauspeli2021/pods/backendv4-4-q5hrv
-  resourceVersion: '253542775'
-  name: backendv4-4-q5hrv
-  uid: 6cef9824-4f66-4407-b283-e58191475daf
-  creationTimestamp: '2021-10-26T11:40:43Z'
-  managedFields:
-    - manager: kube-controller-manager
-      operation: Update
-      apiVersion: v1
-      time: '2021-10-26T11:40:43Z'
-      fieldsType: FieldsV1
-      fieldsV1:
-        'f:metadata':
-          'f:annotations':
-            .: {}
-            'f:openshift.io/deployment-config.latest-version': {}
-            'f:openshift.io/deployment-config.name': {}
-            'f:openshift.io/deployment.name': {}
-          'f:generateName': {}
-          'f:labels':
-            .: {}
-            'f:app': {}
-            'f:deployment': {}
-            'f:deploymentconfig': {}
-          'f:ownerReferences':
-            .: {}
-            'k:{"uid":"c215e803-5a3b-49fe-9eba-0cc306bb7f40"}':
-              .: {}
-              'f:apiVersion': {}
-              'f:blockOwnerDeletion': {}
-              'f:controller': {}
-              'f:kind': {}
-              'f:name': {}
-              'f:uid': {}
-        'f:spec':
-          'f:containers':
-            'k:{"name":"backendv4"}':
-              .: {}
-              'f:image': {}
-              'f:imagePullPolicy': {}
-              'f:name': {}
-              'f:ports':
-                .: {}
-                'k:{"containerPort":8080,"protocol":"TCP"}':
-                  .: {}
-                  'f:containerPort': {}
-                  'f:protocol': {}
-              'f:resources': {}
-              'f:terminationMessagePath': {}
-              'f:terminationMessagePolicy': {}
-          'f:dnsPolicy': {}
-          'f:enableServiceLinks': {}
-          'f:restartPolicy': {}
-          'f:schedulerName': {}
-          'f:securityContext': {}
-          'f:terminationGracePeriodSeconds': {}
-    - manager: multus
-      operation: Update
-      apiVersion: v1
-      time: '2021-10-26T11:40:45Z'
-      fieldsType: FieldsV1
-      fieldsV1:
-        'f:metadata':
-          'f:annotations':
-            'f:k8s.v1.cni.cncf.io/network-status': {}
-            'f:k8s.v1.cni.cncf.io/networks-status': {}
-    - manager: kubelet
-      operation: Update
-      apiVersion: v1
-      time: '2021-10-26T11:40:46Z'
-      fieldsType: FieldsV1
-      fieldsV1:
-        'f:status':
-          'f:conditions':
-            'k:{"type":"ContainersReady"}':
-              .: {}
-              'f:lastProbeTime': {}
-              'f:lastTransitionTime': {}
-              'f:status': {}
-              'f:type': {}
-            'k:{"type":"Initialized"}':
-              .: {}
-              'f:lastProbeTime': {}
-              'f:lastTransitionTime': {}
-              'f:status': {}
-              'f:type': {}
-            'k:{"type":"Ready"}':
-              .: {}
-              'f:lastProbeTime': {}
-              'f:lastTransitionTime': {}
-              'f:status': {}
-              'f:type': {}
-          'f:containerStatuses': {}
-          'f:hostIP': {}
-          'f:phase': {}
-          'f:podIP': {}
-          'f:podIPs':
-            .: {}
-            'k:{"ip":"10.15.2.196"}':
-              .: {}
-              'f:ip': {}
-          'f:startTime': {}
-  namespace: taudinpurkauspeli2021
-  ownerReferences:
-    - apiVersion: v1
-      kind: ReplicationController
-      name: backendv4-4
-      uid: c215e803-5a3b-49fe-9eba-0cc306bb7f40
-      controller: true
-      blockOwnerDeletion: true
-  labels:
-    app: backendv4
-    deployment: backendv4-4
-    deploymentconfig: backendv4
-spec:
-  nodeSelector:
-    node-role.kubernetes.io/app: ''
-  restartPolicy: Always
-  serviceAccountName: default
-  imagePullSecrets:
+kind: Pod  
+apiVersion: v1  
+metadata:  
+  generateName: backendv4-4-  
+  annotations:  
+    k8s.v1.cni.cncf.io/network-status: |-  
+      [{  
+          "name": "",  
+          "interface": "eth0",  
+          "ips": [  
+              "10.15.2.196"  
+          ],  
+          "default": true,  
+          "dns": {}  
+      }]  
+    k8s.v1.cni.cncf.io/networks-status: |-  
+      [{  
+          "name": "",  
+          "interface": "eth0",  
+          "ips": [  
+              "10.15.2.196"  
+          ],  
+          "default": true,  
+          "dns": {}  
+      }]  
+    kubernetes.io/limit-ranger: >-  
+      LimitRanger plugin set: cpu, memory request for container backendv4; cpu,  
+      memory limit for container backendv4  
+    openshift.io/deployment-config.latest-version: '4'  
+    openshift.io/deployment-config.name: backendv4  
+    openshift.io/deployment.name: backendv4-4  
+    openshift.io/scc: restricted  
+  selfLink: /api/v1/namespaces/taudinpurkauspeli2021/pods/backendv4-4-q5hrv  
+  resourceVersion: '253542775'  
+  name: backendv4-4-q5hrv  
+  uid: 6cef9824-4f66-4407-b283-e58191475daf  
+  creationTimestamp: '2021-10-26T11:40:43Z'  
+  managedFields:  
+    - manager: kube-controller-manager  
+      operation: Update  
+      apiVersion: v1  
+      time: '2021-10-26T11:40:43Z'  
+      fieldsType: FieldsV1  
+      fieldsV1:  
+        'f:metadata':  
+          'f:annotations':  
+            .: {}  
+            'f:openshift.io/deployment-config.latest-version': {}  
+            'f:openshift.io/deployment-config.name': {}  
+            'f:openshift.io/deployment.name': {}  
+          'f:generateName': {}  
+          'f:labels':  
+            .: {}  
+            'f:app': {}  
+            'f:deployment': {}  
+            'f:deploymentconfig': {}  
+          'f:ownerReferences':  
+            .: {}  
+            'k:{"uid":"c215e803-5a3b-49fe-9eba-0cc306bb7f40"}':  
+              .: {}  
+              'f:apiVersion': {}  
+              'f:blockOwnerDeletion': {}  
+              'f:controller': {}  
+              'f:kind': {}  
+              'f:name': {}  
+              'f:uid': {}  
+        'f:spec':  
+          'f:containers':  
+            'k:{"name":"backendv4"}':  
+              .: {}  
+              'f:image': {}  
+              'f:imagePullPolicy': {}  
+              'f:name': {}  
+              'f:ports':  
+                .: {}  
+                'k:{"containerPort":8080,"protocol":"TCP"}':  
+                  .: {}  
+                  'f:containerPort': {}  
+                  'f:protocol': {}  
+              'f:resources': {}  
+              'f:terminationMessagePath': {}  
+              'f:terminationMessagePolicy': {}  
+          'f:dnsPolicy': {}  
+          'f:enableServiceLinks': {}  
+          'f:restartPolicy': {}  
+          'f:schedulerName': {}  
+          'f:securityContext': {}  
+          'f:terminationGracePeriodSeconds': {}  
+    - manager: multus  
+      operation: Update  
+      apiVersion: v1  
+      time: '2021-10-26T11:40:45Z'  
+      fieldsType: FieldsV1  
+      fieldsV1:  
+        'f:metadata':  
+          'f:annotations':  
+            'f:k8s.v1.cni.cncf.io/network-status': {}  
+            'f:k8s.v1.cni.cncf.io/networks-status': {}  
+    - manager: kubelet  
+      operation: Update  
+      apiVersion: v1  
+      time: '2021-10-26T11:40:46Z'  
+      fieldsType: FieldsV1  
+      fieldsV1:  
+        'f:status':  
+          'f:conditions':  
+            'k:{"type":"ContainersReady"}':  
+              .: {}  
+              'f:lastProbeTime': {}  
+              'f:lastTransitionTime': {}  
+              'f:status': {}  
+              'f:type': {}  
+            'k:{"type":"Initialized"}':  
+              .: {}  
+              'f:lastProbeTime': {}  
+              'f:lastTransitionTime': {}  
+              'f:status': {}  
+              'f:type': {}  
+            'k:{"type":"Ready"}':  
+              .: {}  
+              'f:lastProbeTime': {}  
+              'f:lastTransitionTime': {}  
+              'f:status': {}  
+              'f:type': {}  
+          'f:containerStatuses': {}  
+          'f:hostIP': {}  
+          'f:phase': {}  
+          'f:podIP': {}  
+          'f:podIPs':  
+            .: {}  
+            'k:{"ip":"10.15.2.196"}':  
+              .: {}  
+              'f:ip': {}  
+          'f:startTime': {}  
+  namespace: taudinpurkauspeli2021  
+  ownerReferences:  
+    - apiVersion: v1  
+      kind: ReplicationController  
+      name: backendv4-4  
+      uid: c215e803-5a3b-49fe-9eba-0cc306bb7f40  
+      controller: true  
+      blockOwnerDeletion: true  
+  labels:  
+    app: backendv4  
+    deployment: backendv4-4  
+    deploymentconfig: backendv4  
+spec:  
+  nodeSelector:  
+    node-role.kubernetes.io/app: ''  
+  restartPolicy: Always  
+  serviceAccountName: default  
+  imagePullSecrets:  
     - name: default-dockercfg-c6kmz
-  priority: 0
-  schedulerName: default-scheduler
-  enableServiceLinks: true
-  terminationGracePeriodSeconds: 30
-  preemptionPolicy: PreemptLowerPriority
-  nodeName: worker-0.ocp-prod-0.k8s.it.helsinki.fi
-  securityContext:
-    seLinuxOptions:
-      level: 's0:c31,c25'
-    fsGroup: 1000980000
-  containers:
-    - resources:
-        limits:
-          cpu: 500m
-          memory: 500Mi
-        requests:
-          cpu: 10m
-          memory: 100Mi
-      terminationMessagePath: /dev/termination-log
-      name: backendv4
-      securityContext:
-        capabilities:
-          drop:
-            - KILL
-            - MKNOD
-            - SETGID
-            - SETUID
-        runAsUser: 1000980000
-      ports:
-        - containerPort: 8080
-          protocol: TCP
-      imagePullPolicy: Always
-      volumeMounts:
-        - name: default-token-tszlj
-          readOnly: true
-          mountPath: /var/run/secrets/kubernetes.io/serviceaccount
-      terminationMessagePolicy: File
-      image: >-
-        image-registry.openshift-image-registry.svc:5000/taudinpurkauspeli2021/backendv4@sha256:fd4f463fcbb6b1e93ac58a83ada28ce5d5c19be5c218ce5dcd01290ffa6fed78
-  serviceAccount: default
-  volumes:
-    - name: default-token-tszlj
-      secret:
-        secretName: default-token-tszlj
-        defaultMode: 420
-  dnsPolicy: ClusterFirst
-  tolerations:
-    - key: node.kubernetes.io/not-ready
-      operator: Exists
-      effect: NoExecute
-      tolerationSeconds: 300
-    - key: node.kubernetes.io/unreachable
-      operator: Exists
-      effect: NoExecute
-      tolerationSeconds: 300
-    - key: node.kubernetes.io/memory-pressure
-      operator: Exists
-      effect: NoSchedule
-status:
-  phase: Running
-  conditions:
-    - type: Initialized
-      status: 'True'
-      lastProbeTime: null
-      lastTransitionTime: '2021-10-26T11:40:43Z'
-    - type: Ready
-      status: 'True'
-      lastProbeTime: null
-      lastTransitionTime: '2021-10-26T11:40:46Z'
-    - type: ContainersReady
-      status: 'True'
-      lastProbeTime: null
-      lastTransitionTime: '2021-10-26T11:40:46Z'
-    - type: PodScheduled
-      status: 'True'
-      lastProbeTime: null
-      lastTransitionTime: '2021-10-26T11:40:43Z'
-  hostIP: 128.214.137.9
-  podIP: 10.15.2.196
-  podIPs:
-    - ip: 10.15.2.196
-  startTime: '2021-10-26T11:40:43Z'
-  containerStatuses:
-    - restartCount: 0
-      started: true
-      ready: true
-      name: backendv4
-      state:
-        running:
-          startedAt: '2021-10-26T11:40:46Z'
-      imageID: >-
-        image-registry.openshift-image-registry.svc:5000/taudinpurkauspeli2021/backendv4@sha256:fd4f463fcbb6b1e93ac58a83ada28ce5d5c19be5c218ce5dcd01290ffa6fed78
-      image: >-
-        image-registry.openshift-image-registry.svc:5000/taudinpurkauspeli2021/backendv4@sha256:fd4f463fcbb6b1e93ac58a83ada28ce5d5c19be5c218ce5dcd01290ffa6fed78
-      lastState: {}
-      containerID: 'cri-o://2cd44d6b2fe8583cd7e78d543a6a0a8fad845f60d22e97058529f257a44a48e8'
-  qosClass: Burstable
+  priority: 0  
+  schedulerName: default-scheduler  
+  enableServiceLinks: true  
+  terminationGracePeriodSeconds: 30  
+  preemptionPolicy: PreemptLowerPriority  
+  nodeName: worker-0.ocp-prod-0.k8s.it.helsinki.fi  
+  securityContext:  
+    seLinuxOptions:  
+      level: 's0:c31,c25'  
+    fsGroup: 1000980000  
+  containers:  
+    - resources:  
+        limits:  
+          cpu: 50 0m  
+          memory: 500Mi  
+        requests:  
+          cpu: 10m  
+          memory: 100Mi  
+      terminationMessagePath: /dev/termination-log  
+      name: backendv4  
+      securityContext:  
+        capabilities:  
+          drop:  
+            - KILL  
+            - MKNOD  
+            - SETGID  
+            - SETUID  
+        runAsUser: 1000980000  
+      ports:  
+        - containerPort: 8080  
+          protocol: TCP  
+      imagePullPolicy: Always  
+      volumeMounts:  
+        - name: default-token-tszlj  
+          readOnly: true  
+          mountPath: /var/run/secrets/kubernetes.io/serviceaccount  
+      terminationMessagePolicy: File  
+      image: >-  
+        image-registry.openshift-image-registry.svc:5000/taudinpurkauspeli2021/backendv4@sha256:fd4f463fcbb6b1e93ac58a83ada28ce5d5c19be5c218ce5dcd01290ffa6fed78  
+  serviceAccount: default  
+  volumes:  
+    - name: default-token-tszlj  
+      secret:  
+        secretName: default-token-tszlj  
+        defaultMode: 420  
+  dnsPolicy: ClusterFirst  
+  tolerations:  
+    - key: node.kubernetes.io/not-ready  
+      operator: Exists  
+      effect: NoExecute  
+      tolerationSeconds: 300  
+    - key: node.kubernetes.io/unreachable  
+      operator: Exists  
+      effect: NoExecute  
+      tolerationSeconds: 300  
+    - key: node.kubernetes.io/memory-pressure  
+      operator: Exists  
+      effect: NoSchedule  
+status:  
+  phase: Running  
+  conditions:  
+    - type: Initialized  
+      status: 'True'  
+      lastProbeTime: null  
+      lastTransitionTime: '2021-10-26T11:40:43Z'  
+    - type: Ready  
+      status: 'True'  
+      lastProbeTime: null  
+      lastTransitionTime: '2021-10-26T11:40:46Z'  
+    - type: ContainersReady  
+      status: 'True'  
+      lastProbeTime: null  
+      lastTransitionTime: '2021-10-26T11:40:46Z'  
+    - type: PodScheduled  
+      status: 'True'  
+      lastProbeTime: null  
+      lastTransitionTime: '2021-10-26T11:40:43Z'  
+  hostIP: 128.214.137.9  
+  podIP: 10.15.2.196  
+  podIPs:  
+    - ip: 10.15.2.196  
+  startTime: '2021-10-26T11:40:43Z'  
+  containerStatuses:  
+    - restartCount: 0  
+      started: true  
+      ready: true  
+      name: backendv4  
+      state:  
+        running:  
+          startedAt: '2021-10-26T11:40:46Z'  
+      imageID: >-  
+        image-registry.openshift-image-registry.svc:5000/taudinpurkauspeli2021/backendv4@sha256:fd4f463fcbb6b1e93ac58a83ada28ce5d5c19be5c218ce5dcd01290ffa6fed78  
+      image: >-  
+        image-registry.openshift-image-registry.svc:5000/taudinpurkauspeli2021/backendv4@sha256:fd4f463fcbb6b1e93ac58a83ada28ce5d5c19be5c218ce5dcd01290ffa6fed78  
+      lastState: {}  
+      containerID: 'cri-o://2cd44d6b2fe8583cd7e78d543a6a0a8fad845f60d22e97058529f257a44a48e8'  
+  qosClass: Burstable  
 
 ### Service
 
 #### YAML
 
-kind: Service
-apiVersion: v1
-metadata:
-  annotations:
-    app.openshift.io/vcs-ref: ''
-    app.openshift.io/vcs-uri: 'https://github.com/taudinpurkauspeli/taudinpurkauspeli2021/'
-    openshift.io/generated-by: OpenShiftWebConsole
-  selfLink: /api/v1/namespaces/taudinpurkauspeli2021/services/backendv4
-  resourceVersion: '251069080'
-  name: backendv4
-  uid: 2c564187-c20b-4fe8-9ec7-ea9f5c23cdc0
-  creationTimestamp: '2021-10-21T09:57:45Z'
-  managedFields:
-    - manager: Mozilla
-      operation: Update
-      apiVersion: v1
-      time: '2021-10-21T09:57:45Z'
-      fieldsType: FieldsV1
-      fieldsV1:
-        'f:metadata':
-          'f:annotations':
-            .: {}
-            'f:app.openshift.io/vcs-ref': {}
-            'f:app.openshift.io/vcs-uri': {}
-            'f:openshift.io/generated-by': {}
-          'f:labels':
-            .: {}
-            'f:app': {}
-            'f:app.kubernetes.io/component': {}
-            'f:app.kubernetes.io/instance': {}
-            'f:app.kubernetes.io/name': {}
-            'f:app.kubernetes.io/part-of': {}
-            'f:app.openshift.io/runtime': {}
-            'f:app.openshift.io/runtime-version': {}
-        'f:spec':
-          'f:ports':
-            .: {}
-            'k:{"port":8080,"protocol":"TCP"}':
-              .: {}
-              'f:name': {}
-              'f:port': {}
-              'f:protocol': {}
-              'f:targetPort': {}
-          'f:selector':
-            .: {}
-            'f:app': {}
-            'f:deploymentconfig': {}
-          'f:sessionAffinity': {}
-          'f:type': {}
-  namespace: taudinpurkauspeli2021
-  labels:
-    app: backendv4
-    app.kubernetes.io/component: backendv4
-    app.kubernetes.io/instance: backendv4
-    app.kubernetes.io/name: nodejs
-    app.kubernetes.io/part-of: appv4
-    app.openshift.io/runtime: nodejs
-    app.openshift.io/runtime-version: 14-ubi7
-spec:
-  ports:
-    - name: 8080-tcp
-      protocol: TCP
-      port: 8080
-      targetPort: 8080
-  selector:
-    app: backendv4
-    deploymentconfig: backendv4
-  clusterIP: 172.30.195.18
-  clusterIPs:
-    - 172.30.195.18
-  type: ClusterIP
-  sessionAffinity: None
-status:
-  loadBalancer: {}
+kind: Service  
+apiVersion: v1  
+metadata:  
+  annotations:  
+    app.openshift.io/vcs-ref: ''  
+    app.openshift.io/vcs-uri: 'https://github.com/taudinpurkauspeli/taudinpurkauspeli2021/'  
+    openshift.io/generated-by: OpenShiftWebConsole  
+  selfLink: /api/v1/namespaces/taudinpurkauspeli2021/services/backendv4  
+  resourceVersion: '251069080'  
+  name: backendv4  
+  uid: 2c564187-c20b-4fe8-9ec7-ea9f5c23cdc0  
+  creationTimestamp: '2021-10-21T09:57:45Z'  
+  managedFields:  
+    - manager: Mozilla  
+      operation: Update  
+      apiVersion: v1  
+      time: '2021-10-21T09:57:45Z'  
+      fieldsType: FieldsV1  
+      fieldsV1:  
+        'f:metadata':  
+          'f:annotations':  
+            .: {}  
+            'f:app.openshift.io/vcs-ref': {}  
+            'f:app.openshift.io/vcs-uri': {}  
+            'f:openshift.io/generated-by': {}  
+          'f:labels':  
+            .: {}  
+            'f:app': {}  
+            'f:app.kubernetes.io/component': {}  
+            'f:app.kubernetes.io/instance': {}  
+            'f:app.kubernetes.io/name': {}  
+            'f:app.kubernetes.io/part-of': {}  
+            'f:app.openshift.io/runtime': {}  
+            'f:app.openshift.io/runtime-version': {}  
+        'f:spec':  
+          'f:ports':  
+            .: {}  
+            'k:{"port":8080,"protocol":"TCP"}':  
+              .: {}  
+              'f:name': {}  
+              'f:port': {}  
+              'f:protocol': {}  
+              'f:targetPort': {}  
+          'f:selector':  
+            .: {}  
+            'f:app': {}  
+            'f:deploymentconfig': {}  
+          'f:sessionAffinity': {}  
+          'f:type': {}  
+  namespace: taudinpurkauspeli2021  
+  labels:  
+    app: backendv4  
+    app.kubernetes.io/component: backendv4  
+    app.kubernetes.io/instance: backendv4  
+    app.kubernetes.io/name: nodejs  
+    app.kubernetes.io/part-of: appv4  
+    app.openshift.io/runtime: nodejs  
+    app.openshift.io/runtime-version: 14-ubi7  
+spec:  
+  ports:  
+    - name: 8080-tcp  
+      protocol: TCP  
+      port: 8080  
+      targetPort: 8080  
+  selector:  
+    app: backendv4  
+    deploymentconfig: backendv4  
+  clusterIP: 172.30.195.18  
+  clusterIPs:  
+    - 172.30.195.18  
+  type: ClusterIP  
+  sessionAffinity: None  
+status:  
+  loadBalancer: {}  
 
 ### Route
 

@@ -12,17 +12,17 @@ import {
 
 // Import translations
 import { useTranslation } from 'react-i18next';
-import i18n from '../i18n/config';
+import i18n from '../../i18n/config';
 
 // Import components
-import Frontpage from './Frontpage';
-import GuestFrontpage from './GuestFrontpage';
+import Frontpage from '../frontpage/Frontpage';
+import GuestFrontpage from '../frontpage/GuestFrontpage';
 import Sidebar from './Sidebar';
-import HowToPlay from './HowToPlay';
-import Profile from './Profile';
-import Case from './Case';
-import service from '../services/cases';
-import NewCase from './NewCase';
+import HowToPlay from '../instructions/HowToPlay';
+import Profile from '../user/Profile';
+import Case from '../case/Case';
+import service from '../../services/cases';
+import NewCase from '../case/NewCase';
 
 const Navigationbar = ({
   user, admin, guest, changeUser, changeAdmin, changeGuest,
@@ -48,7 +48,7 @@ const Navigationbar = ({
 
   return (
     <Router>
-      <Navbar collapseOnSelect expand="lg" variant="dark">
+      <Navbar collapseOnSelect expand="lg" variant="dark" sticky="top">
         <Navbar.Brand as={Link} to="/">{t('nameOfTheGame')}</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
@@ -59,8 +59,8 @@ const Navigationbar = ({
               <NavDropdown.Item onClick={() => changeAdmin()} eventKey="teacher">{t('teacher')}</NavDropdown.Item>
             </NavDropdown>
             <NavDropdown title={t('selectLanguage')}>
-              <NavDropdown.Item onClick={() => changeLanguage('fi')} eventKey="fi">{t('language_finnish')}</NavDropdown.Item>
-              <NavDropdown.Item onClick={() => changeLanguage('en')} eventKey="en">{t('language_english')}</NavDropdown.Item>
+              <NavDropdown.Item onClick={() => changeLanguage('fi')} eventKey="fi">{t('languageFinnish')}</NavDropdown.Item>
+              <NavDropdown.Item onClick={() => changeLanguage('en')} eventKey="en">{t('languageEnglish')}</NavDropdown.Item>
             </NavDropdown>
             { admin && (
             <Nav.Item>
@@ -103,8 +103,13 @@ const Navigationbar = ({
           <Profile />
         </Route>
         <Route path="/cases/:id">
-          <Case cases={cases} />
+          <Case cases={cases} admin={admin} />
         </Route>
+        { admin && (
+        <Route path="/casehidden/:id">
+          <casehidden cases={cases} />
+        </Route>
+        )}
         { admin && (
         <Route path="/newcase">
           <NewCase />
