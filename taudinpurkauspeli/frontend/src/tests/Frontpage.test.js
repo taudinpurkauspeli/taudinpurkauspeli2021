@@ -1,8 +1,9 @@
 /* eslint-disable no-undef */
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
+import { screen } from '@testing-library/dom';
 import Frontpage from '../components/Frontpage';
 
 let component;
@@ -18,6 +19,12 @@ const cases = [{
   title: 'Lehmät levällään',
   anamnesis: 'Lehmät laiskottelee, eikä jaksa tehdä mitään',
   hidden: true,
+},
+{
+  id: 3,
+  title: 'Hepat hirnumassa',
+  anamnesis: 'Hepat ovat karkuteillä, hae porkkanoita',
+  hidden: false,
 }];
 
 jest.mock('react-i18next', () => ({
@@ -76,4 +83,16 @@ test('teacher can see all cases', () => {
   expect(
     adminFrontpage.queryByText('Lehmät levällään'),
   ).toBeDefined();
+});
+
+test('student sees correct cases as search results', () => {
+  const inputElement = screen.getByLabelText('searchByTitle');
+  fireEvent.change(inputElement, { target: { value: 'Hepat' } });
+
+  expect(
+    component.queryByText('Hepat hirnumassa'),
+  ).toBeDefined();
+  expect(
+    component.queryByText('Koirat sairaina'),
+  ).toBeNull();
 });
