@@ -55,7 +55,7 @@ proceduresRouter.get('/:id', (req, res) => {
       include: [{
         model: Procedure,
         through: {
-          attributes: [],
+          attributes: ['priority'],
         },
       }],
       where: {
