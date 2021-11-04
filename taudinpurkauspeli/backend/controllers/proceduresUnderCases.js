@@ -57,4 +57,30 @@ proceduresUnderCasesRouter.get('/', (req, res) => {
     });
 });
 
+// Update a procedure (by id)
+proceduresUnderCasesRouter.put('/:id', (req, res) => {
+  const { id } = req.params;
+
+  ProcedureUnderCase.update(req.body, {
+    where: { id },
+  })
+    .then((num) => {
+      if (num === 1) {
+        res.send({
+          message: 'Procedure was updated successfully.',
+        });
+      } else {
+        res.send({
+          message: `Cannot update procedure with id=${id}. Possible causes: procedure title wrong or procedure not found!`,
+        });
+      }
+    })
+  // eslint-disable-next-line no-unused-vars
+    .catch((err) => {
+      res.status(500).send({
+        message: `Error updating case with id=${id}`,
+      });
+    });
+});
+
 module.exports = proceduresUnderCasesRouter;
