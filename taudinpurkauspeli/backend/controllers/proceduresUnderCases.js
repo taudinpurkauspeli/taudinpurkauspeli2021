@@ -62,7 +62,7 @@ proceduresUnderCasesRouter.put('/:id', (req, res) => {
   const { id } = req.params;
 
   ProcedureUnderCase.update(req.body, {
-    where: { id },
+    where: { procedureId : id },
   })
     .then((num) => {
       if (num === 1) {

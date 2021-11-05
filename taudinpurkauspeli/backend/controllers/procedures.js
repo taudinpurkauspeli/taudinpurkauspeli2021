@@ -1,4 +1,5 @@
 const proceduresRouter = require('express').Router();
+const { procedures } = require('../models');
 const db = require('../models');
 
 const Procedure = db.procedures;
@@ -54,9 +55,6 @@ proceduresRouter.get('/:id', (req, res) => {
   Case.findAll({
       include: [{
         model: Procedure,
-        through: {
-          attributes: ['priority', 'id'],
-        },
       }],
       where: {
         id: id,
@@ -70,6 +68,32 @@ proceduresRouter.get('/:id', (req, res) => {
       res.status(500).send({
         message:
             err.message || 'Unknown error occurred while retrieving procedures. Try again.',
+      });
+    });
+});
+
+// Update a procedure (by id)
+proceduresRouter.put('/:id', (req, res) => {
+  const { id } = req.params;
+
+  Procedure.update(req.body, {
+    where: { id },
+  })
+    .then((num) => {
+      if (num === 1) {
+        res.send({
+          message: 'Procedure was updated successfully.',
+        });
+      } else {
+        res.send({
+          message: `Cannot update procedure with id=${id}. Possible causes: procedure title wrong or procedure not found!`,
+        });
+      }
+    })
+  // eslint-disable-next-line no-unused-vars
+    .catch((err) => {
+      res.status(500).send({
+        message: `Error updating case with id=${id}`,
       });
     });
 });

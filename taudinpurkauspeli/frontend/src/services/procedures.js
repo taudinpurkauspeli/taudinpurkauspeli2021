@@ -12,7 +12,10 @@ const create = (newObject) => {
   return request.then((response) => response.data);
 };
 
+const update = (id, newObject) => axios.put(`${baseUrl}/${id}`, newObject);
+
 export default {
   create,
   getAll,
+  update,
 };

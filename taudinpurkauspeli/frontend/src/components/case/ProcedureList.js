@@ -2,12 +2,18 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-one-expression-per-line */
 import React, { useState, useRef, useEffect } from 'react';
+import { Button } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import service from '../../services/procedures';
+import EditProcedure from './EditProcedure';
 
 const ProcedureList = ({ id }) => {
+  const { t } = useTranslation();
   const draggingItem = useRef();
   const dragOverItem = useRef();
   const [proceduresHook, setProceduresHook] = useState([]);
+  const [editId, setEditId] = useState(-1);
+  const [procedureToEdit, setProcedureToEdit] = useState({});
 
   useEffect(() => {
     service
@@ -17,6 +23,12 @@ const ProcedureList = ({ id }) => {
       });
   }, []);
   console.log(proceduresHook);
+
+  const handleEditId = (p) => {
+    console.log(p.value);
+    setEditId(p.value.id);
+    setProcedureToEdit(p.value);
+  };
 
   const handleDragStart = (e, position) => {
     draggingItem.current = position;
@@ -38,17 +50,22 @@ const ProcedureList = ({ id }) => {
       {
         proceduresHook
         && proceduresHook.map((p, index) => (
-          <li
+          <h4
             onDragStart={(e) => handleDragStart(e, index)}
             onDragOver={(e) => e.preventDefault()}
             onDragEnter={(e) => handleDragEnter(e, index)}
             key={index}
             draggable
           >
-            {p.proceduresUnderCase.priority} {p.title}
-          </li>
+            <div className="procedureButtons">
+              {p.proceduresUnderCase.priority} {p.title} <Button className="editButton" size="sm" value={p} onClick={handleEditId}>{t('buttonEdit') }</Button>
+            </div>
+          </h4>
         ))
         }
+      {editId !== -1 && (
+        <EditProcedure procedure={procedureToEdit} />
+      )}
     </>
   );
 };
