@@ -9,14 +9,16 @@ const removeCase = ({ caseToBeRemoved, removeCaseFunc }) => {
 
   const deleteCase = (event) => {
     event.preventDefault();
-    // eslint-disable-next-line no-alert
-    const confirmBox = window.confirm(t('deleteCaseConfirmation'));
-    if (confirmBox === true) {
-      if (removeCaseFunc != null) {
-        removeCaseFunc(caseToBeRemoved.id);
-      }
-      service.remove(caseToBeRemoved.id);
+
+    if (removeCaseFunc != null) {
+      removeCaseFunc(caseToBeRemoved.id);
     }
+    // eslint-disable-next-line no-alert
+    // const confirmBox = window.confirm(t('deleteCaseConfirmation'));
+    // if (confirmBox === true) {
+    const status = service.remove(caseToBeRemoved.id);
+    return status;
+    // }
   };
 
   return (

@@ -102,11 +102,11 @@ caseRouter.delete('/:id', (req, res) => {
   })
     .then((num) => {
       if (num === 1) {
-        res.send({
+        res.status(200).send({
           message: 'Case was deleted successfully!',
         });
       } else {
-        res.send({
+        res.status(404).send({
           message: `Cannot delete case with id=${id}. Possible causes: case title wrong or case not found!`,
         });
       }
