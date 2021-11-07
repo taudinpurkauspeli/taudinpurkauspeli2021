@@ -1,7 +1,11 @@
+
+  
 {
   "addCase": "Add case",
   "addDisease": "Add disease",
   "buttonEdit": "Edit",
+  "buttonHideCaseFromStudents": "Hide case from students",
+  "buttonShowCaseToStudents": "Show case to students",
   "buttonNewCase": "+ Add new case",
   "buttonPlay": "Play",
   "buttonRemove": "Remove",

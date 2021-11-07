@@ -2,6 +2,8 @@
   "addCase": "Lisää case",
   "addDisease": "Lisää tauti",
   "buttonEdit": "Muokkaa",
+  "buttonHideCaseFromStudents": "Piilota case opiskelijoilta",
+  "buttonShowCaseToStudents": "Näytä case opiskelijoille",
   "buttonNewCase": "+ Lisää uusi case",
   "buttonPlay": "Pelaa",
   "buttonRemove": "Poista",

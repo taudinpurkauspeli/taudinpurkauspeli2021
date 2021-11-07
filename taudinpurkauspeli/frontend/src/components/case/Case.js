@@ -5,11 +5,16 @@ import {
   Switch, Route, Link, useParams,
 } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
+// eslint-disable-next-line import/no-named-as-default
+import HideCase from './HideCase';
 
-const Anamnesis = ({ c }) => (
+const Anamnesis = ({ c, admin }) => (
   <div>
     <p>Casen tiedot löytyvät täältä</p>
     <h2>{c.title}</h2>
+    {admin && (
+      <HideCase caseToBeHidden={c} />
+    )}
     <p>{c.anamnesis}</p>
   </div>
 );
@@ -26,7 +31,7 @@ const Differentials = () => (
   </div>
 );
 
-const Case = ({ cases }) => {
+const Case = ({ cases, admin }) => {
   const { id } = useParams();
   const c = cases.find((a) => a.id === Number(id));
   const baseUrl = `/cases/${id}`;
@@ -47,7 +52,7 @@ const Case = ({ cases }) => {
             <Differentials />
           </Route>
           <Route path={baseUrl}>
-            <Anamnesis c={c} />
+            <Anamnesis c={c} admin={admin} />
           </Route>
         </Switch>
 
