@@ -12,6 +12,8 @@ const cases = [{
 },
 ];
 
+jest.spyOn(RemoveCase, 'handleDelete');
+
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key) => key }),
 }));
@@ -24,14 +26,13 @@ jest.mock('react-router-dom', () => ({
   useRouteMatch: () => ({ url: '/removecase/id' }),
 }));
 
-test('<RemoveCase /> updates parent state and calls onSubmit', () => {
-  const removeCase = jest.fn();
+test('<RemoveCase /> deletes case when clicked', () => {
+  const handleRemove = jest.fn();
   const component = render(
-    <RemoveCase caseToBeRemoved={cases[0]} removeCaseFunc={removeCase} />,
+    <RemoveCase caseToBeRemoved={cases[0]} removeCaseFunc={handleRemove} />,
   );
   const button = component.container.querySelector('.removeButton');
-  console.log(button);
-  const status = fireEvent.click(button);
-  console.log(status);
-  // expect(removeCase.mock.calls).toHaveLength(0);
+  fireEvent.click(button);
+
+  expect(handleRemove).toHaveBeenCalledTimes(1);
 });

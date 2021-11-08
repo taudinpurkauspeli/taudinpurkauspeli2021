@@ -7,7 +7,7 @@ import service from '../../services/cases';
 const removeCase = ({ caseToBeRemoved, removeCaseFunc }) => {
   const { t } = useTranslation();
 
-  const deleteCase = (event) => {
+  const handleDelete = (event) => {
     event.preventDefault();
 
     if (removeCaseFunc != null) {
@@ -16,13 +16,13 @@ const removeCase = ({ caseToBeRemoved, removeCaseFunc }) => {
     // eslint-disable-next-line no-alert
     // const confirmBox = window.confirm(t('deleteCaseConfirmation'));
     // if (confirmBox === true) {
-    const status = service.remove(caseToBeRemoved.id);
-    return status;
+    service.remove(caseToBeRemoved.id)
+      .then((response) => (response.message));
     // }
   };
 
   return (
-    <Button className="removeButton" size="sm" variant="danger" onClick={deleteCase}>{t('buttonRemove')}</Button>
+    <Button className="removeButton" size="sm" variant="danger" onClick={handleDelete}>{t('buttonRemove')}</Button>
   );
 };
 
