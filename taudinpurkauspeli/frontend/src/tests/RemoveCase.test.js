@@ -12,8 +12,6 @@ const cases = [{
 },
 ];
 
-jest.spyOn(RemoveCase, 'handleDelete');
-
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key) => key }),
 }));
@@ -33,6 +31,7 @@ test('<RemoveCase /> deletes case when clicked', () => {
   );
   const button = component.container.querySelector('.removeButton');
   fireEvent.click(button);
-
-  expect(handleRemove).toHaveBeenCalledTimes(1);
+  expect(handleRemove.mock.calls[0][0]).toEqual(1);
+  expect(handleRemove.mock.calls[1][0]).toEqual(null);
+  expect(handleRemove).toHaveBeenCalledTimes(2);
 });

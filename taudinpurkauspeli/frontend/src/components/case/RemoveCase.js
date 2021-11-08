@@ -12,13 +12,17 @@ const removeCase = ({ caseToBeRemoved, removeCaseFunc }) => {
 
     if (removeCaseFunc != null) {
       removeCaseFunc(caseToBeRemoved.id);
+      // eslint-disable-next-line no-param-reassign
+      caseToBeRemoved.id = null;
+      removeCaseFunc(caseToBeRemoved.id);
+    } else {
+      // eslint-disable-next-line no-alert
+      const confirmBox = window.confirm(t('deleteCaseConfirmation'));
+      if (confirmBox === true) {
+        service.remove(caseToBeRemoved.id)
+          .then((response) => (response.message));
+      }
     }
-    // eslint-disable-next-line no-alert
-    // const confirmBox = window.confirm(t('deleteCaseConfirmation'));
-    // if (confirmBox === true) {
-    service.remove(caseToBeRemoved.id)
-      .then((response) => (response.message));
-    // }
   };
 
   return (

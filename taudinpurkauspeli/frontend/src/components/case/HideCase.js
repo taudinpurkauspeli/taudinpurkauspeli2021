@@ -24,9 +24,9 @@ const HideCase = ({ caseToBeHidden, hideCaseFunc }) => {
 
     if (hideCaseFunc != null) {
       hideCaseFunc(caseObject);
+    } else {
+      service.update(c.id, caseObject);
     }
-
-    service.update(c.id, caseObject);
   };
 
   const handleHiddenChange = () => {
