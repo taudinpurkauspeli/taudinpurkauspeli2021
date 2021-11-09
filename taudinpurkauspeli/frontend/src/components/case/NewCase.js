@@ -20,18 +20,16 @@ const newCase = ({ addCaseFunc }) => {
   });
 
   const addCase = (values) => {
-    // eslint-disable-next-line no-param-reassign
     const caseObject = ({
       title: values.title,
       anamnesis: values.anamnesis,
       hidden: values.hidden,
     });
 
-    if (addCaseFunc != null) {
+    if (addCaseFunc !== undefined) {
       addCaseFunc(caseObject);
-    }
-    service.create(caseObject);
-    if (addCaseFunc == null) {
+    } else {
+      service.create(caseObject);
       history.push('/');
     }
   };

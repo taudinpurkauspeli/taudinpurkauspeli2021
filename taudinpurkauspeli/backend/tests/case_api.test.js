@@ -17,13 +17,14 @@ const initialCases = [
   },
 ]
 
-describe('cases', () => {
-  beforeEach(async () => {
-    // deletes the content from the table 'cases'
-    await db.sequelize.sync({ force: true })
-    // inserts test cases in the table 'cases'
-    await Case.bulkCreate(initialCases)
-  })
+beforeEach(async () => {
+  // deletes the content from the table 'cases'
+  await db.sequelize.sync({ force: true })
+  // inserts test cases in the table 'cases'
+  await Case.bulkCreate(initialCases)
+})
+
+describe('Getting cases from database', () => {
 
   test('cases are returned as json', async () => {
     await api
@@ -37,6 +38,9 @@ describe('cases', () => {
 
     expect(response.body).toHaveLength(initialCases.length)
   })
+})
+
+describe('Adding a case to database', () => {
 
   test('a specific case is within the returned cases', async () => {
     const response = await api.get('/api/cases')
@@ -84,7 +88,45 @@ describe('cases', () => {
   
     expect(response.body).toHaveLength(initialCases.length)
   })
+})
 
+describe('Updating a case in database', () => {
+  test('hidden value can be changed', async () => {
+    await api
+      .put('/api/cases/1')
+      .send({
+        title: "TestCase1",
+        hidden: false,
+        anamnesis: "TestCase1Anamnesis",
+      })
+    const responseCheck = await api.get('/api/cases/1')
+    expect(responseCheck.body.hidden).toEqual(false)
+  })
+
+  test('title can be changed to another valid title', async () => {
+    await api
+      .put('/api/cases/1')
+      .send({
+        title: "updatedTestCase",
+        hidden: true,
+        anamnesis: "TestCase1Anamnesis",
+      })
+    const responseCheck = await api.get('/api/cases/1')
+    expect(responseCheck.body.title).toEqual('updatedTestCase')
+  })
+
+  test('invalid title is not updated', async () => {
+    await api
+      .put('/api/cases/1')
+      .send({
+        title: "t",
+        hidden: true,
+        anamnesis: "TestCase1Anamnesis",
+      })
+      .expect(400)
+    const responseCheck = await api.get('/api/cases/1')
+    expect(responseCheck.body.title).toEqual('TestCase1')
+  })
 })
 
 afterAll(async () => {

@@ -16,7 +16,7 @@ caseRouter.post('/', (req, res, next) => {
   // Save case in the database
   Case.create(case1)
     .then((data) => {
-      res.send(data);
+      res.json(data);
     })
     .catch((error) => next(error))
 });
@@ -28,14 +28,9 @@ caseRouter.get('/', (req, res) => {
 
   Case.findAll({ where: condition })
     .then((data) => {
-      res.send(data);
+      res.json(data);
     })
-    .catch((err) => {
-      res.status(500).send({
-        message:
-            err.message || 'Unknown error occurred while retrieving cases. Try again.',
-      });
-    });
+    .catch((error) => next(error))
 });
 
 // Find a single case (by id)
@@ -44,14 +39,9 @@ caseRouter.get('/:id', (req, res) => {
 
   Case.findByPk(id)
     .then((data) => {
-      res.send(data);
+      res.json(data);
     })
-  // eslint-disable-next-line no-unused-vars
-    .catch((err) => {
-      res.status(500).send({
-        message: `Error retrieving case with id=${id}`,
-      });
-    });
+    .catch((error) => next(error))
 });
 
 // Update a disease (by id)
@@ -62,17 +52,12 @@ caseRouter.put('/:id', (req, res, next) => {
     where: { id },
   })
     .then((num) => {
-      if (num === 1) {
+      if (Number(num) === 1) {
         res.send({
           message: 'Case was updated successfully.',
         });
-      } else {
-        res.send({
-          message: `Cannot update case with id=${id}. Possible causes: case title wrong or case not found!`,
-        });
-      }
+      } 
     })
-  // eslint-disable-next-line no-unused-vars
     .catch((error) => next(error))
 });
 
@@ -84,22 +69,11 @@ caseRouter.delete('/:id', (req, res) => {
     where: { id },
   })
     .then((num) => {
-      if (num === 1) {
-        res.send({
-          message: 'Case was deleted successfully!',
-        });
-      } else {
-        res.send({
-          message: `Cannot delete case with id=${id}. Possible causes: case title wrong or case not found!`,
-        });
+      if (Number(num) === 1) {
+        res.status(204).end()
       }
     })
-  // eslint-disable-next-line no-unused-vars
-    .catch((err) => {
-      res.status(500).send({
-        message: `Could not delete case with id=${id}`,
-      });
-    });
+    .catch((error) => next(error))
 });
 
 // Delete all cases
@@ -109,14 +83,9 @@ caseRouter.delete('/', (req, res) => {
     truncate: false,
   })
     .then((nums) => {
-      res.send({ message: `${nums} cases were deleted successfully!` });
+      res.status(204).end()
     })
-    .catch((err) => {
-      res.status(500).send({
-        message:
-              err.message || 'Some error occurred while removing all cases.',
-      });
-    });
+    .catch((error) => next(error))
 });
 
 module.exports = caseRouter;

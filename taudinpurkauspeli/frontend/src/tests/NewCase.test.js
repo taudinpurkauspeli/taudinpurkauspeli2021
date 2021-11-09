@@ -26,7 +26,7 @@ test('<AddCase /> updates parent state and calls onSubmit', async () => {
   }));
 });
 
-test('<AddCase /> updates parent state and calls onSubmit', async () => {
+test('Case with invalid name cannot be created', async () => {
   const addCase = jest.fn();
 
   render(<NewCase addCaseFunc={addCase} />);

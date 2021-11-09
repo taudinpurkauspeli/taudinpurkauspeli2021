@@ -4,35 +4,81 @@ import {
   BrowserRouter as Router,
   Switch, Route, Link, useParams,
 } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
-import Editable from 'react-editable-title';
+import { Button, Form, Alert } from 'react-bootstrap';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 import service from '../../services/cases';
 
-const Anamnesis = ({ c, admin }) => {
+const Anamnesis = ({ c, admin, updateCaseFunc }) => {
   const [title, setTitle] = useState(c.title);
+  const [alertMessage, setAlertMessage] = useState(null);
+  const { t } = useTranslation();
 
-  const handleTitleUpdate = (current) => {
-    const updatedCase = {
-      title: current,
+  const caseSchema = Yup.object().shape({
+    title: Yup.string()
+      .min(2, t('warningShort'))
+      .max(999, t('warningLong'))
+      .required(t('warningRequired')),
+  });
+
+  const handleTitleUpdate = (values) => {
+    const updatedCase = ({
+      title: values.title,
       anamnesis: c.anamnesis,
       hidden: c.hidden,
-    };
-    service.update(c.id, updatedCase);
-    setTitle(current);
+    });
+
+    if (updateCaseFunc !== undefined) {
+      updateCaseFunc(updatedCase);
+    } else {
+      service.update(c.id, updatedCase);
+      setTitle(values.title);
+      setAlertMessage(t('caseUpdateSuccess'));
+      setTimeout(() => {
+        setAlertMessage(null);
+      }, 5000);
+    }
   };
 
   return (
     <div>
+      { alertMessage !== null && (
+        <Alert variant="success">{alertMessage}</Alert>
+      )}
       <p>Casen tiedot löytyvät täältä</p>
       { admin && (
-        <Editable
-          text={title}
-          editButton
-          editControls
-          inputMinLength={2}
-          inputMaxLength={999}
-          cb={handleTitleUpdate}
-        />
+        <Formik
+          initialValues={{
+            title,
+          }}
+          validationSchema={caseSchema}
+          onSubmit={handleTitleUpdate}
+        >
+          {({
+            handleSubmit,
+            handleChange,
+            values,
+            errors,
+          }) => (
+            <Form noValidate onSubmit={handleSubmit}>
+              <Form.Group className="mb-3" controlId="updateTitle">
+                <Form.Control
+                  type="text"
+                  name="title"
+                  value={values.title}
+                  onChange={handleChange}
+                  isInvalid={!!errors.title}
+                />
+                <Form.Text className="text-muted">
+                  {t('caseTitleInstruction')}
+                </Form.Text>
+                <Form.Control.Feedback type="invalid" role="alert" aria-label="from feedback">
+                  {errors.title}
+                </Form.Control.Feedback>
+              </Form.Group>
+            </Form>
+          )}
+        </Formik>
       )}
       { !admin && (
         <p>{c.title}</p>
@@ -54,7 +100,7 @@ const Differentials = () => (
   </div>
 );
 
-const Case = ({ cases, admin }) => {
+const Case = ({ cases, admin, updateCaseFunc }) => {
   const { id } = useParams();
   const c = cases.find((a) => a.id === Number(id));
   const baseUrl = `/cases/${id}`;
@@ -75,7 +121,7 @@ const Case = ({ cases, admin }) => {
             <Differentials />
           </Route>
           <Route path={baseUrl}>
-            <Anamnesis c={c} admin={admin} />
+            <Anamnesis c={c} admin={admin} updateCaseFunc={updateCaseFunc} />
           </Route>
         </Switch>
 
