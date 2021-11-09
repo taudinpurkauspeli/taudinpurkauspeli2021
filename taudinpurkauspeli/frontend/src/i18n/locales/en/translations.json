@@ -1,7 +1,11 @@
+
+  
 {
   "addCase": "Add case",
   "addDisease": "Add disease",
   "buttonEdit": "Edit",
+  "buttonHideCaseFromStudents": "Hide case from students",
+  "buttonShowCaseToStudents": "Show case to students",
   "buttonNewCase": "+ Add new case",
   "buttonPlay": "Play",
   "buttonRemove": "Remove",
@@ -24,6 +28,7 @@
   "clickTheDisease": "Click the disease",
   "copy": "Copy",
   "description": "Description",
+  "deleteCaseConfirmation": "Are you sure you want to delete this case?",
   "disease": "Disease",
   "diseases": "Diseases",
   "diseaseAdded": "Disease added",

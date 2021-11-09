@@ -114,7 +114,7 @@ Varmista että olet yliopiston sisä / eteisverkossa, esim VPN.
 
 Clientin asennuksen jälkeen kirjautumaan pääsee:
 
-`oc login https://api.ocp-test-0.k8s.it.helsinki.fi:6443`
+`oc login https://api.ocp-prod-0.k8s.it.helsinki.fi:6443`
 
 Komentorivi herjaa API tokenin puuttumisesta ja antaa linkin sen saamiseen. Avaa linkki ja mene Helsingin yliopiston kirjautumiseen ja syötä hy-tunnukset. Aja token komentorivillä, jonka jälkeen client osaa ottaa yhteyden oikeaan Openshiftiin.
 
@@ -153,3 +153,11 @@ Testit tehdään kansioon backend/tests
 Testit nimetään controllerin mukaan eli esimerkiksi controlleria controllers/cases.js vastaa testitiedosto tests/case_api.test.js
 
 Testeissä käytetään apuna [jestiä](https://jestjs.io/) ja [SuperTestiä](https://github.com/visionmedia/supertest)
+
+## Tuotantoon vieminen
+
+Ominaisuuksien vieminen tuotantoon vaatii production buildin luomisen frontendistä ja sen kopioinnin backendiin. 
+
+Suoritetaan `npm run build` frontendin juuressa.
+
+Kopioidaan syntynyt kansio build backendin juureen.

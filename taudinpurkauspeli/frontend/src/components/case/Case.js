@@ -7,6 +7,7 @@ import {
 import { Button, Form, Alert } from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import HideCase from './HideCase';
 import service from '../../services/cases';
 
 const Anamnesis = ({ c, admin, updateCaseFunc }) => {
@@ -47,38 +48,41 @@ const Anamnesis = ({ c, admin, updateCaseFunc }) => {
       )}
       <p>Casen tiedot löytyvät täältä</p>
       { admin && (
-        <Formik
-          initialValues={{
-            title,
-          }}
-          validationSchema={caseSchema}
-          onSubmit={handleTitleUpdate}
-        >
-          {({
-            handleSubmit,
-            handleChange,
-            values,
-            errors,
-          }) => (
-            <Form noValidate onSubmit={handleSubmit}>
-              <Form.Group className="mb-3" controlId="updateTitle">
-                <Form.Control
-                  type="text"
-                  name="title"
-                  value={values.title}
-                  onChange={handleChange}
-                  isInvalid={!!errors.title}
-                />
-                <Form.Text className="text-muted">
-                  {t('caseTitleInstruction')}
-                </Form.Text>
-                <Form.Control.Feedback type="invalid" role="alert" aria-label="from feedback">
-                  {errors.title}
-                </Form.Control.Feedback>
-              </Form.Group>
-            </Form>
-          )}
-        </Formik>
+        <div>
+          <Formik
+            initialValues={{
+              title,
+            }}
+            validationSchema={caseSchema}
+            onSubmit={handleTitleUpdate}
+          >
+            {({
+              handleSubmit,
+              handleChange,
+              values,
+              errors,
+            }) => (
+              <Form noValidate onSubmit={handleSubmit}>
+                <Form.Group className="mb-3" controlId="updateTitle">
+                  <Form.Control
+                    type="text"
+                    name="title"
+                    value={values.title}
+                    onChange={handleChange}
+                    isInvalid={!!errors.title}
+                  />
+                  <Form.Text className="text-muted">
+                    {t('caseTitleInstruction')}
+                  </Form.Text>
+                  <Form.Control.Feedback type="invalid" role="alert" aria-label="from feedback">
+                    {errors.title}
+                  </Form.Control.Feedback>
+                </Form.Group>
+              </Form>
+            )}
+          </Formik>
+          <HideCase caseToBeHidden={c} />
+        </div>
       )}
       { !admin && (
         <p>{c.title}</p>
