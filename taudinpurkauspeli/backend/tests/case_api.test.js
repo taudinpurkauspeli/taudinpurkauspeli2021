@@ -129,6 +129,23 @@ describe('Updating a case in database', () => {
   })
 })
 
+describe('Removing a case from database', () => {
+  test('Case can be deleted', async () => {
+    await api
+      .delete('/api/cases/1')
+      .expect(204)
+
+    const responseCheck = await api.get('/api/cases')
+    expect(responseCheck.body).toHaveLength(1)
+  })
+
+  test('Case cannot be deleted', async () => {
+    await api
+      .delete('/api/cases/5')
+      .expect(404)
+  })
+})
+
 afterAll(async () => {
   await db.sequelize.close()
 })

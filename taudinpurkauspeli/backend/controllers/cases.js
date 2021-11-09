@@ -71,6 +71,8 @@ caseRouter.delete('/:id', (req, res) => {
     .then((num) => {
       if (Number(num) === 1) {
         res.status(204).end()
+      } else {
+        res.status(404).end()
       }
     })
     .catch((error) => next(error))
