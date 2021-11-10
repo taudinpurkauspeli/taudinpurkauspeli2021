@@ -3,9 +3,14 @@ module.exports = (sequelize, Sequelize) => {
   const Case = sequelize.define('case', {
     title: {
       type: Sequelize.STRING,
+      allowNull: false,
+      validate: {
+        len: [2,999],
+      }
     },
     hidden: {
       type: Sequelize.BOOLEAN,
+      allowNull: false,
     },
     anamnesis: {
       type: Sequelize.TEXT,

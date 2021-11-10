@@ -15,13 +15,15 @@
   "buttonSubmitNewCase": "Add case",
   "buttonSubmitNewDisease": "Submit",
   "buttonUpdate": "Update",
-  "caseAnamnesis": "Anemnesis",
+  "caseAnamnesis": "Anamnesis",
   "caseDifferentials": "Differentials",
   "caseHidden": "Cases hidden from students",
   "casePlayable": "Playable cases",
   "caseProcedures": "Procedures",
-  "cases": "Cases",
   "caseTitle": "Case title",
+  "caseTitleInstruction": "After editing the title, press Enter to save",
+  "caseUpdateSuccess": "Case updated successfully",
+  "cases": "Cases",
   "category": "Category",
   "clickTheDisease": "Click the disease",
   "copy": "Copy",
@@ -53,5 +55,8 @@
   "teacher": "teacher",
   "title": "Title",
   "userInformation": "Users",
-  "userProfile": "Profile"
+  "userProfile": "Profile",
+  "warningShort": "Too short",
+  "warningLong": "Too long",
+  "warningRequired": "Required information"
 }

@@ -5,15 +5,7 @@ const Case = db.cases;
 const { Op } = db.Sequelize;
 
 // Save a new case
-caseRouter.post('/', (req, res) => {
-  // Validate request - title
-  if (!req.body.title) {
-    res.status(400).send({
-      message: 'The case has to have a name!',
-    });
-    return;
-  }
-
+caseRouter.post('/', (req, res, next) => {
   // Create a case
   const case1 = {
     title: req.body.title,
@@ -24,14 +16,9 @@ caseRouter.post('/', (req, res) => {
   // Save case in the database
   Case.create(case1)
     .then((data) => {
-      res.send(data);
+      res.json(data);
     })
-    .catch((err) => {
-      res.status(500).send({
-        message:
-            err.message || 'Unknown error occurred while creating the case. Try again.',
-      });
-    });
+    .catch((error) => next(error))
 });
 
 // Retrieve all cases
@@ -41,14 +28,9 @@ caseRouter.get('/', (req, res) => {
 
   Case.findAll({ where: condition })
     .then((data) => {
-      res.send(data);
+      res.json(data);
     })
-    .catch((err) => {
-      res.status(500).send({
-        message:
-            err.message || 'Unknown error occurred while retrieving cases. Try again.',
-      });
-    });
+    .catch((error) => next(error))
 });
 
 // Find a single case (by id)
@@ -57,40 +39,26 @@ caseRouter.get('/:id', (req, res) => {
 
   Case.findByPk(id)
     .then((data) => {
-      res.send(data);
+      res.json(data);
     })
-  // eslint-disable-next-line no-unused-vars
-    .catch((err) => {
-      res.status(500).send({
-        message: `Error retrieving case with id=${id}`,
-      });
-    });
+    .catch((error) => next(error))
 });
 
 // Update a disease (by id)
-caseRouter.put('/:id', (req, res) => {
+caseRouter.put('/:id', (req, res, next) => {
   const { id } = req.params;
 
   Case.update(req.body, {
     where: { id },
   })
     .then((num) => {
-      if (num === 1) {
+      if (Number(num) === 1) {
         res.send({
           message: 'Case was updated successfully.',
         });
-      } else {
-        res.send({
-          message: `Cannot update case with id=${id}. Possible causes: case title wrong or case not found!`,
-        });
-      }
+      } 
     })
-  // eslint-disable-next-line no-unused-vars
-    .catch((err) => {
-      res.status(500).send({
-        message: `Error updating case with id=${id}`,
-      });
-    });
+    .catch((error) => next(error))
 });
 
 // Delete a case (by id)
@@ -101,22 +69,13 @@ caseRouter.delete('/:id', (req, res) => {
     where: { id },
   })
     .then((num) => {
-      if (num === 1) {
-        res.status(200).send({
-          message: 'Case was deleted successfully!',
-        });
+      if (Number(num) === 1) {
+        res.status(204).end()
       } else {
-        res.status(404).send({
-          message: `Cannot delete case with id=${id}. Possible causes: case title wrong or case not found!`,
-        });
+        res.status(404).end()
       }
     })
-  // eslint-disable-next-line no-unused-vars
-    .catch((err) => {
-      res.status(500).send({
-        message: `Could not delete case with id=${id}`,
-      });
-    });
+    .catch((error) => next(error))
 });
 
 // Delete all cases
@@ -126,14 +85,9 @@ caseRouter.delete('/', (req, res) => {
     truncate: false,
   })
     .then((nums) => {
-      res.send({ message: `${nums} cases were deleted successfully!` });
+      res.status(204).end()
     })
-    .catch((err) => {
-      res.status(500).send({
-        message:
-              err.message || 'Some error occurred while removing all cases.',
-      });
-    });
+    .catch((error) => next(error))
 });
 
 module.exports = caseRouter;

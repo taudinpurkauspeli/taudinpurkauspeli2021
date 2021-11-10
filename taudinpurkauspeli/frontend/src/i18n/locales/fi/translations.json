@@ -13,12 +13,14 @@
   "buttonSubmitNewCase": "Lisää case",
   "buttonSubmitNewDisease": "Lisää",
   "buttonUpdate": "Päivitä",
-  "caseAnamnesis": "Anemneesi",
+  "caseAnamnesis": "Anamneesi",
   "caseDifferentials": "Diffit",
   "caseHidden": "Opiskelijoilta piilotetut caset",
   "casePlayable": "Pelattavissa olevat caset",
   "caseProcedures": "Toimenpiteet",
   "caseTitle": "Casen nimi",
+  "caseUpdateSuccess": "Case päivitetty onnistuneesti",
+  "caseTitleInstruction": "Muokattuasi otsikkoa, paina Enteria tallentaaksesi muutokset",
   "cases": "Caset",
   "category": "Kategoria",
   "clickTheDisease": "Klikkaa tautia",  
@@ -51,5 +53,8 @@
   "teacher": "opettaja",
   "title": "Nimi",
   "userInformation": "Käyttäjien seuranta",
-  "userProfile": "Käyttäjätiedot"
+  "userProfile": "Käyttäjätiedot",
+  "warningShort": "Liian lyhyt",
+  "warningLong": "Liian pitkä",
+  "warningRequired": "Vaadittu tieto"
   }
