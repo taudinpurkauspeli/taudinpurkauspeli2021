@@ -2,10 +2,12 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-one-expression-per-line */
 import React, { useState, useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import service from '../../services/procedures';
 import EditProcedure from './EditProcedure';
+import serviceUnderProcedure from '../../services/proceduresUnderCase';
 
 const ProcedureList = ({ id }) => {
   const { t } = useTranslation();
@@ -13,21 +15,23 @@ const ProcedureList = ({ id }) => {
   const dragOverItem = useRef();
   const [proceduresHook, setProceduresHook] = useState([]);
   const [editId, setEditId] = useState(-1);
-  const [procedureToEdit, setProcedureToEdit] = useState({});
+  const [procedureToEdit, setProcedureToEdit] = useState({ id: '', title: '' });
 
   useEffect(() => {
     service
       .getAll(id)
       .then((procedureList) => {
-        setProceduresHook(procedureList[0].procedures);
+        const list = procedureList[0].procedures;
+        list.sort((a, b) => a.proceduresUnderCase.priority - b.proceduresUnderCase.priority);
+        setProceduresHook(list);
       });
   }, []);
   console.log(proceduresHook);
 
   const handleEditId = (p) => {
-    console.log(p.value);
-    setEditId(p.value.id);
-    setProcedureToEdit(p.value);
+    console.log(p);
+    /* setEditId(p.value.proceduresUnderCase.id);
+    setProcedureToEdit(p.value); */
   };
 
   const handleDragStart = (e, position) => {
@@ -45,26 +49,43 @@ const ProcedureList = ({ id }) => {
     setProceduresHook(listCopy);
   };
 
+  const editProcedure = (givenProcedure, index) => {
+    // eslint-disable-next-line no-param-reassign
+    const procedureUnderCaseObject = ({
+      caseId: givenProcedure.proceduresUnderCase.caseId,
+      procedureId: givenProcedure.proceduresUnderCase.procedureId,
+      priority: index + 1,
+    });
+    // eslint-disable-next-line max-len
+    serviceUnderProcedure.update(givenProcedure.proceduresUnderCase.procedureId, procedureUnderCaseObject);
+    console.log(givenProcedure);
+  };
+
+  const handleDragEnd = () => {
+    proceduresHook.map((p, index) => (
+      editProcedure(p, index)
+    ));
+  };
+
   return (
     <>
-      {
-        proceduresHook
+      { proceduresHook
         && proceduresHook.map((p, index) => (
           <h4
             onDragStart={(e) => handleDragStart(e, index)}
-            onDragOver={(e) => e.preventDefault()}
+            onDragEnd={() => handleDragEnd()}
             onDragEnter={(e) => handleDragEnter(e, index)}
             key={index}
             draggable
           >
-            <div className="procedureButtons">
-              {p.proceduresUnderCase.priority} {p.title} <Button className="editButton" size="sm" value={p} onClick={handleEditId}>{t('buttonEdit') }</Button>
+            <div>
+              <Button className="procedureButton"> {p.proceduresUnderCase.priority} {p.title} </Button>
+              <Button className="editButton" size="sm" onClick={handleEditId(p)}>{t('buttonEdit') }</Button>
             </div>
           </h4>
-        ))
-        }
+        ))}
       {editId !== -1 && (
-        <EditProcedure procedure={procedureToEdit} />
+        <>uggabugga</>
       )}
     </>
   );

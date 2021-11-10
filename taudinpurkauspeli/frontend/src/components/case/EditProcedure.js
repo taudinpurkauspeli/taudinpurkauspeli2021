@@ -14,8 +14,8 @@ const EditProcedure = ({ procedure, editProcedureFunc }) => {
     event.preventDefault();
     // eslint-disable-next-line no-param-reassign
     const procedureUnderCaseObject = ({
-      caseId: procedure.caseId,
-      procedureId: procedure.procedureId,
+      caseId: procedure.proceduresUnderCase.caseId,
+      procedureId: procedure.proceduresUnderCase.procedureId,
       priority: newPriority,
     });
 
@@ -34,11 +34,11 @@ const EditProcedure = ({ procedure, editProcedureFunc }) => {
   };
 
   const handlePriorityChange = (event) => {
-    setNewPriority(event.value);
+    setNewPriority(event.target.value);
   };
 
   const handleTitleChange = (event) => {
-    setNewProcedureTitle(event.value);
+    setNewProcedureTitle(event.target.value);
   };
 
   return (
