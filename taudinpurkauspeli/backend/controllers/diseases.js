@@ -5,33 +5,17 @@ const Disease = db.diseases;
 const { Op } = db.Sequelize;
 
 // Save a new disease
-diseaseRouter.post('/', (req, res) => {
-  // Validate request - title
-  if (!req.body.title) {
-    res.status(400).send({
-      message: 'The disease has to have a name!',
-    });
-    return;
-  }
-
+diseaseRouter.post('/', (req, res, next) => {
   // Create a disease
   const disease = {
-    category: req.body.category,
-    title: req.body.title,
-    description: req.body.description,
-  };
-
+    name: req.body.name,
+  }
   // Save disease in the database
   Disease.create(disease)
     .then((data) => {
-      res.send(data);
+      res.json(data);
     })
-    .catch((err) => {
-      res.status(500).send({
-        message:
-            err.message || 'Unknown error occurred while creating the disease. Try again.',
-      });
-    });
+    .catch((error) => next(error))
 });
 
 // Retrieve all diseases
@@ -41,56 +25,37 @@ diseaseRouter.get('/', (req, res) => {
 
   Disease.findAll({ where: condition })
     .then((data) => {
-      res.send(data);
+      res.json(data);
     })
-    .catch((err) => {
-      res.status(500).send({
-        message:
-          err.message || 'Unknown error occurred while retrieving diseases. Try again.',
-      });
-    });
+    .catch((error) => next(error))
 });
 
-// Find a single disease (by id)
+// Find a single case (by id)
 diseaseRouter.get('/:id', (req, res) => {
   const { id } = req.params;
 
   Disease.findByPk(id)
     .then((data) => {
-      res.send(data);
+      res.json(data);
     })
-    // eslint-disable-next-line no-unused-vars
-    .catch((err) => {
-      res.status(500).send({
-        message: `Error retrieving disease with id=${id}`,
-      });
-    });
+    .catch((error) => next(error))
 });
 
 // Update a disease (by id)
-diseaseRouter.put('/:id', (req, res) => {
+diseaseRouter.put('/:id', (req, res, next) => {
   const { id } = req.params;
 
   Disease.update(req.body, {
     where: { id },
   })
     .then((num) => {
-      if (num === 1) {
+      if (Number(num) === 1) {
         res.send({
           message: 'Disease was updated successfully.',
         });
-      } else {
-        res.send({
-          message: `Cannot update disease with id=${id}. Possible causes: disease title wrong or disease not found!`,
-        });
-      }
+      } 
     })
-    // eslint-disable-next-line no-unused-vars
-    .catch((err) => {
-      res.status(500).send({
-        message: `Error updating disease with id=${id}`,
-      });
-    });
+    .catch((error) => next(error))
 });
 
 // Delete a disease (by id)
@@ -101,54 +66,25 @@ diseaseRouter.delete('/:id', (req, res) => {
     where: { id },
   })
     .then((num) => {
-      if (num === 1) {
-        res.send({
-          message: 'Disease was deleted successfully!',
-        });
+      if (Number(num) === 1) {
+        res.status(204).end()
       } else {
-        res.send({
-          message: `Cannot delete disease with id=${id}. Possible causes: disease title wrong or disease not found!`,
-        });
+        res.status(404).end()
       }
     })
-    // eslint-disable-next-line no-unused-vars
-    .catch((err) => {
-      res.status(500).send({
-        message: `Could not delete disease with id=${id}`,
-      });
-    });
+    .catch((error) => next(error))
 });
 
-// Delete all diseases
+// Delete all cases
 diseaseRouter.delete('/', (req, res) => {
   Disease.destroy({
     where: {},
     truncate: false,
   })
     .then((nums) => {
-      res.send({ message: `${nums} diseases were deleted successfully!` });
+      res.status(204).end()
     })
-    .catch((err) => {
-      res.status(500).send({
-        message:
-            err.message || 'Some error occurred while removing all diseases.',
-      });
-    });
-});
-
-// Find all spesified type of diseases
-diseaseRouter.get('/category', (req, res) => {
-  // eslint-disable-next-line no-undef
-  Disease.findAll({ where: { category } })
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message:
-            err.message || 'Some error occurred while retrieving diseases.',
-      });
-    });
+    .catch((error) => next(error))
 });
 
 module.exports = diseaseRouter;

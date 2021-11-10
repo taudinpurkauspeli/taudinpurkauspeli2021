@@ -2,14 +2,12 @@
 
 module.exports = (sequelize, Sequelize) => {
   const Disease = sequelize.define('disease', {
-    category: {
+    name: {
       type: Sequelize.STRING,
-    },
-    title: {
-      type: Sequelize.STRING,
-    },
-    description: {
-      type: Sequelize.STRING,
+      allowNull: false,
+      validate: {
+        len: [2,999],
+      }
     },
   });
 

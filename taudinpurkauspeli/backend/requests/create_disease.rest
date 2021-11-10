@@ -2,7 +2,5 @@ POST http://localhost:8080/api/diseases
 Content-Type: application/json
 
 {
-    "category": "kategoria",
-    "title": "otsikko",
-    "description": "selite"
+    "name": "Influenssa"
 }
