@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-one-expression-per-line */
@@ -9,13 +10,35 @@ import service from '../../services/procedures';
 import EditProcedure from './EditProcedure';
 import serviceUnderProcedure from '../../services/proceduresUnderCase';
 
+const DragNDropList = ({
+  proceduresHook, handleDragStart, handleDragEnd, handleDragEnter, t, submitForm,
+}) => (
+  proceduresHook
+    && proceduresHook.map((p, index) => (
+      <h4
+        onDragStart={(e) => handleDragStart(e, index)}
+        onDragEnd={() => handleDragEnd()}
+        onDragEnter={(e) => handleDragEnter(e, index)}
+        key={index}
+        draggable
+      >
+        <div>
+          <Button className="procedureButton"> {p.proceduresUnderCase.priority} {p.title} </Button>
+          <form onSubmit={(e) => submitForm(p, e)} className="handleEdits">
+            <Button type="submit" className="editButton" key={index} size="sm">{t('buttonEdit') }</Button>
+          </form>
+        </div>
+      </h4>
+    ))
+);
+
 const ProcedureList = ({ id }) => {
   const { t } = useTranslation();
   const draggingItem = useRef();
   const dragOverItem = useRef();
   const [proceduresHook, setProceduresHook] = useState([]);
-  const [editId, setEditId] = useState(-1);
-  const [procedureToEdit, setProcedureToEdit] = useState({ id: '', title: '' });
+  const [editIdFromList, setEditId] = useState(-1);
+  const [procedureToEdit, setProcedureToEdit] = useState({ proceduresUnderCase: { priority: 9 } });
 
   useEffect(() => {
     service
@@ -26,12 +49,17 @@ const ProcedureList = ({ id }) => {
         setProceduresHook(list);
       });
   }, []);
-  console.log(proceduresHook);
 
   const handleEditId = (p) => {
     console.log(p);
-    /* setEditId(p.value.proceduresUnderCase.id);
-    setProcedureToEdit(p.value); */
+    setEditId(p.id);
+    setProcedureToEdit(p);
+  };
+
+  const submitForm = (p, e) => {
+    e.preventDefault();
+    handleEditId(p);
+    console.log(p);
   };
 
   const handleDragStart = (e, position) => {
@@ -49,7 +77,7 @@ const ProcedureList = ({ id }) => {
     setProceduresHook(listCopy);
   };
 
-  const editProcedure = (givenProcedure, index) => {
+  const dragDropEditProcedure = (givenProcedure, index) => {
     // eslint-disable-next-line no-param-reassign
     const procedureUnderCaseObject = ({
       caseId: givenProcedure.proceduresUnderCase.caseId,
@@ -58,34 +86,26 @@ const ProcedureList = ({ id }) => {
     });
     // eslint-disable-next-line max-len
     serviceUnderProcedure.update(givenProcedure.proceduresUnderCase.procedureId, procedureUnderCaseObject);
-    console.log(givenProcedure);
   };
 
   const handleDragEnd = () => {
     proceduresHook.map((p, index) => (
-      editProcedure(p, index)
+      dragDropEditProcedure(p, index)
     ));
   };
 
   return (
     <>
-      { proceduresHook
-        && proceduresHook.map((p, index) => (
-          <h4
-            onDragStart={(e) => handleDragStart(e, index)}
-            onDragEnd={() => handleDragEnd()}
-            onDragEnter={(e) => handleDragEnter(e, index)}
-            key={index}
-            draggable
-          >
-            <div>
-              <Button className="procedureButton"> {p.proceduresUnderCase.priority} {p.title} </Button>
-              <Button className="editButton" size="sm" onClick={handleEditId(p)}>{t('buttonEdit') }</Button>
-            </div>
-          </h4>
-        ))}
-      {editId !== -1 && (
-        <>uggabugga</>
+      <DragNDropList
+        proceduresHook={proceduresHook}
+        handleDragStart={handleDragStart}
+        handleDragEnd={handleDragEnd}
+        handleDragEnter={handleDragEnter}
+        t={t}
+        submitForm={submitForm}
+      />
+      {editIdFromList !== -1 && (
+        <EditProcedure procedure={procedureToEdit} />
       )}
     </>
   );

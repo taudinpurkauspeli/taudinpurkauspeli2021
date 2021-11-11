@@ -12,6 +12,7 @@ const EditProcedure = ({ procedure, editProcedureFunc }) => {
 
   const editProcedure = (event) => {
     event.preventDefault();
+    console.log(procedure.proceduresUnderCase.priority);
     // eslint-disable-next-line no-param-reassign
     const procedureUnderCaseObject = ({
       caseId: procedure.proceduresUnderCase.caseId,
@@ -67,7 +68,7 @@ const EditProcedure = ({ procedure, editProcedureFunc }) => {
             id="title"
             type="integer"
             onChange={handlePriorityChange}
-            value={procedure.priority}
+            value={newPriority}
           />
         </p>
         <p>
