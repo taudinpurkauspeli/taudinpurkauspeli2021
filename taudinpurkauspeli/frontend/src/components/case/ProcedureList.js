@@ -37,8 +37,7 @@ const ProcedureList = ({ id }) => {
   const draggingItem = useRef();
   const dragOverItem = useRef();
   const [proceduresHook, setProceduresHook] = useState([]);
-  const [editIdFromList, setEditId] = useState(-1);
-  const [procedureToEdit, setProcedureToEdit] = useState({ proceduresUnderCase: { priority: 9 } });
+  const [procedureToEdit, setProcedureToEdit] = useState(null);
 
   useEffect(() => {
     service
@@ -51,15 +50,12 @@ const ProcedureList = ({ id }) => {
   }, []);
 
   const handleEditId = (p) => {
-    console.log(p);
-    setEditId(p.id);
     setProcedureToEdit(p);
   };
 
   const submitForm = (p, e) => {
     e.preventDefault();
     handleEditId(p);
-    console.log(p);
   };
 
   const handleDragStart = (e, position) => {
@@ -104,8 +100,10 @@ const ProcedureList = ({ id }) => {
         t={t}
         submitForm={submitForm}
       />
-      {editIdFromList !== -1 && (
+      { procedureToEdit ? (
         <EditProcedure procedure={procedureToEdit} />
+      ) : (
+        <p> </p>
       )}
     </>
   );
