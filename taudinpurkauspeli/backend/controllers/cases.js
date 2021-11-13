@@ -22,7 +22,7 @@ caseRouter.post('/', (req, res, next) => {
 });
 
 // Retrieve all cases
-caseRouter.get('/', (req, res) => {
+caseRouter.get('/', (req, res, next) => {
   const { title } = req.query;
   const condition = title ? { title: { [Op.iLike]: `%${title}%` } } : null;
 
@@ -34,7 +34,7 @@ caseRouter.get('/', (req, res) => {
 });
 
 // Find a single case (by id)
-caseRouter.get('/:id', (req, res) => {
+caseRouter.get('/:id', (req, res, next) => {
   const { id } = req.params;
 
   Case.findByPk(id)
@@ -62,7 +62,7 @@ caseRouter.put('/:id', (req, res, next) => {
 });
 
 // Delete a case (by id)
-caseRouter.delete('/:id', (req, res) => {
+caseRouter.delete('/:id', (req, res, next) => {
   const { id } = req.params;
 
   Case.destroy({
@@ -79,7 +79,7 @@ caseRouter.delete('/:id', (req, res) => {
 });
 
 // Delete all cases
-caseRouter.delete('/', (req, res) => {
+caseRouter.delete('/', (req, res, next) => {
   Case.destroy({
     where: {},
     truncate: false,

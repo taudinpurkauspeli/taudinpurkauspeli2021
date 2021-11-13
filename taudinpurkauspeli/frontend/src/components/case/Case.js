@@ -8,6 +8,7 @@ import { Button, Form, Alert } from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import HideCase from './HideCase';
+import Differential from '../differential/Differential';
 import service from '../../services/cases';
 
 const Anamnesis = ({ c, admin, updateCaseFunc }) => {
@@ -98,12 +99,6 @@ const Procedures = () => (
   </div>
 );
 
-const Differentials = () => (
-  <div>
-    <p>Diffit löytyvät täältä</p>
-  </div>
-);
-
 const Case = ({ cases, admin, updateCaseFunc }) => {
   const { id } = useParams();
   const c = cases.find((a) => a.id === Number(id));
@@ -122,7 +117,7 @@ const Case = ({ cases, admin, updateCaseFunc }) => {
             <Procedures />
           </Route>
           <Route path={`${baseUrl}/differentials`}>
-            <Differentials />
+            <Differential admin={admin} caseId={c.id} />
           </Route>
           <Route path={baseUrl}>
             <Anamnesis c={c} admin={admin} updateCaseFunc={updateCaseFunc} />

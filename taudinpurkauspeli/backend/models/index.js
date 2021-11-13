@@ -21,7 +21,8 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.diseases = require('./disease.model')(sequelize, Sequelize);
 db.cases = require('./case.model')(sequelize, Sequelize);
+db.differentials = require('./differential.model')(sequelize, Sequelize);
+db.differentalsUnderCases = require('./differentialsUnderCase.model')(sequelize, Sequelize);
 
 module.exports = db;
