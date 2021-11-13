@@ -42,9 +42,6 @@ const Differential = ({ admin, addDifferentialFunc, caseId }) => {
       });
   }, []);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
   const newDfferentialSchema = Yup.object().shape({
     name: Yup.string()
       .min(2, t('warningShort'))
@@ -53,7 +50,30 @@ const Differential = ({ admin, addDifferentialFunc, caseId }) => {
     description: Yup.string(),
   });
 
-  const addDifferential = (values) => {
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const handleSuccess = () => {
+    setNewDifferential('');
+    setShow(false);
+    setAlertMessage(t('differentialUpdateSuccess'));
+    setTimeout(() => {
+      setAlertMessage(null);
+    }, 5000);
+  };
+
+  const handleError = (error) => {
+    // eslint-disable-next-line no-console
+    console.log(error);
+    setNewDifferential('');
+    setShow(false);
+    setErrorMessage(t('differentialUpdateError'));
+    setTimeout(() => {
+      setErrorMessage(null);
+    }, 5000);
+  };
+
+  const handleDifferentialAdd = (values) => {
     const differentialObject = ({
       name: values.name,
     });
@@ -70,31 +90,9 @@ const Differential = ({ admin, addDifferentialFunc, caseId }) => {
             description: values.description,
           };
           serviceUnderCases.create(ducObject)
-            .then((response) => {
-              console.log(response);
-              setNewDifferential('');
-              setShow(false);
-              setAlertMessage(t('differentialUpdateSuccess'));
-              setTimeout(() => {
-                setAlertMessage(null);
-              }, 5000);
-            })
-            .catch((error) => {
-              console.log(error);
-              setNewDifferential('');
-              setShow(false);
-              setErrorMessage(t('differentialUpdateError'));
-              setTimeout(() => {
-                setErrorMessage(null);
-              }, 5000);
-            });
+            .then(() => handleSuccess())
+            .catch((error) => handleError(error));
         });
-      setNewDifferential('');
-      setShow(false);
-      setAlertMessage(t('differentialUpdateSuccess'));
-      setTimeout(() => {
-        setAlertMessage(null);
-      }, 5000);
     }
   };
 
@@ -111,24 +109,8 @@ const Differential = ({ admin, addDifferentialFunc, caseId }) => {
       addDifferentialFunc(ducObject);
     } else {
       serviceUnderCases.create(ducObject)
-        .then(() => {
-          setNewDifferential('');
-          setShow(false);
-          setAlertMessage(t('differentialUpdateSuccess'));
-          setTimeout(() => {
-            setAlertMessage(null);
-          }, 5000);
-        })
-        .catch((error) => {
-          // eslint-disable-next-line no-console
-          console.log(error);
-          setNewDifferential('');
-          setShow(false);
-          setErrorMessage(t('differentialUpdateError'));
-          setTimeout(() => {
-            setErrorMessage(null);
-          }, 5000);
-        });
+        .then(() => handleSuccess())
+        .catch((error) => handleError(error));
     }
   };
 
@@ -152,7 +134,7 @@ const Differential = ({ admin, addDifferentialFunc, caseId }) => {
             keyboard={false}
           >
             <Modal.Header closeButton>
-              <Modal.Title>{t('addDifferential')}</Modal.Title>
+              <Modal.Title>{t('handleDifferentialAdd')}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <Tabs defaultActiveKey="select" id="uncontrolled-tab-example" className="mb-3">
@@ -189,7 +171,7 @@ const Differential = ({ admin, addDifferentialFunc, caseId }) => {
                       description: '',
                     }}
                     validationSchema={newDfferentialSchema}
-                    onSubmit={addDifferential}
+                    onSubmit={handleDifferentialAdd}
                   >
                     {({
                       handleSubmit,
@@ -199,7 +181,7 @@ const Differential = ({ admin, addDifferentialFunc, caseId }) => {
                     }) => (
                       <Form noValidate onSubmit={handleSubmit}>
                         <Form.Group md="6" controlId="name">
-                          <Form.Label>{t('addDifferential')}</Form.Label>
+                          <Form.Label>{t('handleDifferentialAdd')}</Form.Label>
                           <Form.Control
                             type="text"
                             name="name"
