@@ -34,6 +34,7 @@ const EditProcedure = ({ procedure, editProcedureFunc }) => {
     const procedureObject = ({
       title: event.target[0].value,
     });
+    console.log(procedure);
 
     if (editProcedureFunc != null) {
       editProcedureFunc(procedureUnderCaseObject);
@@ -68,7 +69,7 @@ const EditProcedure = ({ procedure, editProcedureFunc }) => {
           </label>
           <br />
           <input
-            id="title"
+            id="priority"
             type="integer"
             onChange={handlePriorityChange}
             defaultValue={procedure.proceduresUnderCase.priority}
