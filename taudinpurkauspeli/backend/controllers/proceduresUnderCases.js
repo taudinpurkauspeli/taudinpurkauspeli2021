@@ -11,14 +11,6 @@ Case.belongsToMany(Procedure, { through: ProcedureUnderCase });
 
 // Save a new procedure under case
 proceduresUnderCasesRouter.post('/', (req, res) => {
-  /* Validate request - title
-  if (!req.body.title) {
-    res.status(400).send({
-      message: 'The case has to have a name!',
-    });
-    return;
-  }
-  */
 
   // Create a procedure under case
   const procedureUnderCase = {

@@ -35,9 +35,8 @@ proceduresRouter.post('/', (req, res) => {
 });
 
 // Retrieve all procedures
-proceduresRouter.get('/:id', (req, res) => {
-  const { id } = req.params;
-  /* const { title } = req.query;
+proceduresRouter.get('/', (req, res) => {
+  const { title } = req.query;
   const condition = title ? { title: { [Op.iLike]: `%${title}%` } } : null;
 
   Procedure.findAll({ where: condition })
@@ -47,10 +46,14 @@ proceduresRouter.get('/:id', (req, res) => {
     .catch((err) => {
       res.status(500).send({
         message:
-            err.message || 'Unknown error occurred while retrieving procedures. Try again.',
+            err.message || 'Unknown error occurred while retrieving procedure. Try again.',
       });
     });
-  */
+});
+
+// Retrieve all procedures including procedure under cases
+proceduresRouter.get('/:id', (req, res) => {
+  const { id } = req.params;
 
   Case.findAll({
       include: [{
@@ -62,7 +65,6 @@ proceduresRouter.get('/:id', (req, res) => {
     })
     .then((data) => {
       res.send(data);
-      console.log(JSON.stringify(data, null, 2))
     })
     .catch((err) => {
       res.status(500).send({
