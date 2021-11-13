@@ -40,4 +40,6 @@ jobs:
       uses: codecov/codecov-action@v1
 
     - name: Build
-      run: npm run build
+      run: |
+           npm run build
+           cp -r build ../backend/build
