@@ -43,4 +43,4 @@ jobs:
       run: npm run build
 
     - name: Copy front to back
-      run: cp -r build ../backend/run
+      run: cp -r build ../backend/build
