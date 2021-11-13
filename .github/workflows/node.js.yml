@@ -41,6 +41,13 @@ jobs:
 
     - name: Build
       run: npm run build
-      
-    - name: Copy frontend to backend
-      run: cp -r build ../backend/build
+    
+    - name: Copy file
+      uses: canastro/copy-action@0.0.2
+
+    - uses: actions/checkout@master
+    - name: copy file
+      uses: canastro/copy-file-action@master
+      with:
+        source: "build"
+        target: "../backend/build"
