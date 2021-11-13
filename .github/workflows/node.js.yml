@@ -41,3 +41,11 @@ jobs:
 
     - name: Build
       run: npm run build
+
+    - name: copy front build to backend
+      uses: actions/checkout@master
+    - name: copy file
+      uses: canastro/copy-file-action@master
+      with:
+        source: "build"
+        target: "../backend"
