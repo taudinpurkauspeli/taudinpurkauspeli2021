@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-unused-expressions */
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
@@ -10,18 +12,27 @@ const EditProcedure = ({ procedure, editProcedureFunc }) => {
   const { t } = useTranslation();
   const history = useHistory();
 
+  const handlePriorityChange = (event) => {
+    setNewPriority(event.target.value);
+  };
+
+  const handleTitleChange = (event) => {
+    setNewProcedureTitle(event.target.value);
+  };
+
   const editProcedure = (event) => {
     event.preventDefault();
-    console.log(procedure.proceduresUnderCase.priority);
+    setNewProcedureTitle(event.target[0].value);
+    setNewPriority(event.target[1].value);
     // eslint-disable-next-line no-param-reassign
     const procedureUnderCaseObject = ({
       caseId: procedure.proceduresUnderCase.caseId,
       procedureId: procedure.proceduresUnderCase.procedureId,
-      priority: newPriority,
+      priority: event.target[1].value,
     });
 
     const procedureObject = ({
-      title: newProcedureTitle,
+      title: event.target[0].value,
     });
 
     if (editProcedureFunc != null) {
@@ -34,19 +45,11 @@ const EditProcedure = ({ procedure, editProcedureFunc }) => {
     }
   };
 
-  const handlePriorityChange = (event) => {
-    setNewPriority(event.target.value);
-  };
-
-  const handleTitleChange = (event) => {
-    setNewProcedureTitle(event.target.value);
-  };
-
   return (
-    <div id="wrapper">
+    <div id="wrapper" key={procedure.proceduresUnderCase.priority}>
       <h2>{t('editProcedure')}</h2>
 
-      <form onSubmit={editProcedure}>
+      <form onSubmit={(e) => editProcedure(e)}>
         <p>
           <label htmlFor="title">
             {t('procedureTitle')}
@@ -55,7 +58,7 @@ const EditProcedure = ({ procedure, editProcedureFunc }) => {
           <input
             id="title"
             type="text"
-            value={newProcedureTitle}
+            defaultValue={procedure.title}
             onChange={handleTitleChange}
           />
         </p>
@@ -68,7 +71,7 @@ const EditProcedure = ({ procedure, editProcedureFunc }) => {
             id="title"
             type="integer"
             onChange={handlePriorityChange}
-            value={newPriority}
+            defaultValue={procedure.proceduresUnderCase.priority}
           />
         </p>
         <p>
