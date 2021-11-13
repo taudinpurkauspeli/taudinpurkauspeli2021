@@ -43,4 +43,4 @@ jobs:
       run: npm run build
       
     - name: Copy frontend to backend
-      run: \cp -r build ../backend/build
+      run: cp -r build ../backend/build
