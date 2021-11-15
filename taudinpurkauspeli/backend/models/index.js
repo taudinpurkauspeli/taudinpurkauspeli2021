@@ -24,5 +24,7 @@ db.sequelize = sequelize;
 db.cases = require('./case.model')(sequelize, Sequelize);
 db.differentials = require('./differential.model')(sequelize, Sequelize);
 db.differentalsUnderCases = require('./differentialsUnderCase.model')(sequelize, Sequelize);
+db.procedures = require('./procedure.model')(sequelize, Sequelize);
+db.proceduresUnderCases = require('./proceduresUnderCase.model')(sequelize, Sequelize);
 
 module.exports = db;

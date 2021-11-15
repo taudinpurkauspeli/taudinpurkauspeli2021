@@ -10,6 +10,8 @@ import * as Yup from 'yup';
 import HideCase from './HideCase';
 import Differential from '../differential/Differential';
 import service from '../../services/cases';
+import NewProcedure from './NewProcedure';
+import ProcedureList from './ProcedureList';
 
 const Anamnesis = ({ c, admin, updateCaseFunc }) => {
   const [title, setTitle] = useState(c.title);
@@ -93,9 +95,11 @@ const Anamnesis = ({ c, admin, updateCaseFunc }) => {
   );
 };
 
-const Procedures = () => (
+const Procedures = ({ id }) => (
   <div>
     <p>Toimenpiteet löytyvät täältä</p>
+    <NewProcedure id={id} />
+    <ProcedureList id={id} />
   </div>
 );
 
@@ -114,7 +118,7 @@ const Case = ({ cases, admin, updateCaseFunc }) => {
 
         <Switch>
           <Route path={`${baseUrl}/procedures`}>
-            <Procedures />
+            <Procedures id={id} />
           </Route>
           <Route path={`${baseUrl}/differentials`}>
             <Differential admin={admin} caseId={c.id} />

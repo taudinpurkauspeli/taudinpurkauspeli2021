@@ -49,6 +49,12 @@ a:hover {
   background:#a9c9ae !important;
 }
 
+.procedureButton {
+  color: black !important;
+  background: #95d5b2 !important;
+  margin-right:.50em;
+}
+
 #selectLanguage {
   color: rgb(183, 228, 199) !important;
   font-weight: bold;

@@ -89,7 +89,6 @@ const App = () => {
           <NewCase />
         </Route>
         )}
-
         <Route path="/">
           { guest
             ? <GuestFrontpage />
