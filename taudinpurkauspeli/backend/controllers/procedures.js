@@ -7,15 +7,7 @@ const Case = db.cases;
 // const { Op } = db.Sequelize;
 
 // Save a new procedure under case
-proceduresRouter.post('/', (req, res) => {
-  // Validate request - title
-  if (!req.body.title) {
-    res.status(400).send({
-      message: 'The procedure has to have a name!',
-    });
-    return;
-  }
-
+proceduresRouter.post('/', (req, res, next) => {
   // Create a procedure under case
   const procedureObject = {
     title: req.body.title,
@@ -24,31 +16,21 @@ proceduresRouter.post('/', (req, res) => {
   // Save procedure in the database
   Procedure.create(procedureObject)
     .then((data) => {
-      res.send(data);
+      res.json(data);
     })
-    .catch((err) => {
-      res.status(500).send({
-        message:
-            err.message || 'Unknown error occurred while adding the procedure. Try again.',
-      });
-    });
+    .catch((error) => next(error))
 });
 
 // Retrieve all procedures
-proceduresRouter.get('/', (req, res) => {
+proceduresRouter.get('/', (req, res, next) => {
   const { title } = req.query;
   const condition = title ? { title: { [Op.iLike]: `%${title}%` } } : null;
 
   Procedure.findAll({ where: condition })
     .then((data) => {
-      res.send(data);
+      res.json(data);
     })
-    .catch((err) => {
-      res.status(500).send({
-        message:
-            err.message || 'Unknown error occurred while retrieving procedure. Try again.',
-      });
-    });
+    .catch((error) => next(error))
 });
 
 // Retrieve all procedures including procedure under cases
@@ -64,14 +46,9 @@ proceduresRouter.get('/:id', (req, res) => {
       }
     })
     .then((data) => {
-      res.send(data);
+      res.json(data);
     })
-    .catch((err) => {
-      res.status(500).send({
-        message:
-            err.message || 'Unknown error occurred while retrieving procedures. Try again.',
-      });
-    });
+    .catch((error) => next(error))
 });
 
 // Update a procedure (by id)
@@ -82,22 +59,13 @@ proceduresRouter.put('/:id', (req, res) => {
     where: { id },
   })
     .then((num) => {
-      if (num === 1) {
+      if (Number(num) === 1) {
         res.send({
           message: 'Procedure was updated successfully.',
         });
-      } else {
-        res.send({
-          message: `Cannot update procedure with id=${id}. Possible causes: procedure title wrong or procedure not found!`,
-        });
-      }
+      } 
     })
-  // eslint-disable-next-line no-unused-vars
-    .catch((err) => {
-      res.status(500).send({
-        message: `Error updating case with id=${id}`,
-      });
-    });
+    .catch((error) => next(error))
 });
 
 module.exports = proceduresRouter;

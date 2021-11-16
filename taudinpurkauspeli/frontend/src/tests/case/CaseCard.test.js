@@ -3,7 +3,7 @@ import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { render } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import CaseCard from '../components/case/CaseCard';
+import CaseCard from '../../components/case/CaseCard';
 
 const caseCard = {
   id: 1,

@@ -21,7 +21,6 @@ const initialDifferentials = [
   })
   
   describe('Getting differentials from database', () => {
-
     test('differentials are returned as json', async () => {
       await api
         .get('/api/differentials')
@@ -34,9 +33,6 @@ const initialDifferentials = [
   
       expect(response.body).toHaveLength(initialDifferentials.length)
     })
-  })
-
-  describe('Adding a differential to database', () => {
 
     test('a specific differential is within the returned differential', async () => {
       const response = await api.get('/api/differentials')
@@ -44,8 +40,16 @@ const initialDifferentials = [
   
       expect(names).toContain('TestDisease2')
     })
-  
-    test('a valid disease can be added ', async () => {
+
+    test('correct differential is returned when retrieved with id', async () => {
+      const response = await api.get('/api/differentials/1')
+
+      expect(response.body.name).toEqual('TestDisease1')
+    })
+  })
+
+  describe('Adding a differential to database', () => {
+    test('a valid differential can be added ', async () => {
       const newDifferential = {
         name: "NewTitle1",
       }  

@@ -2,7 +2,7 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { render, fireEvent } from '@testing-library/react';
-import RemoveCase from '../components/case/RemoveCase';
+import RemoveCase from '../../components/case/RemoveCase';
 
 const cases = [{
   id: 1,

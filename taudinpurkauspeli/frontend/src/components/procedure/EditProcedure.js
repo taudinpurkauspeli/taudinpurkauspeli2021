@@ -34,7 +34,6 @@ const EditProcedure = ({ procedure, editProcedureFunc }) => {
     const procedureObject = ({
       title: event.target[0].value,
     });
-    console.log(procedure);
 
     if (editProcedureFunc != null) {
       editProcedureFunc(procedureUnderCaseObject);

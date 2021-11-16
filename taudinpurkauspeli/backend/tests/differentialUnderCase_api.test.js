@@ -29,16 +29,21 @@ const initialDifferentials = [
   ]
 
   const initialDifferentialsUnderCases = [
-      {
-          caseId: 1,
-          differentialId: 2,
-          description: "Testi1",
-      },
-      {
-          caseId: 2,
-          differentialId: 1,
-          description: "Testi2"
-      },
+    {
+      caseId: 1,
+      differentialId: 2,
+      description: "Testi1",
+    },
+    {
+      caseId: 2,
+      differentialId: 1,
+      description: "Testi2"
+    },
+    {
+      caseId: 1,
+      differentialId: 1,
+      description: "Testi3"
+    }
   ]
 
   beforeEach(async () => {
@@ -54,15 +59,15 @@ const initialDifferentials = [
 
     test('case-diff-pairs are returned as json', async () => {
       await api
-        .get('/api/differentialsUnderCases')
+        .get('/api/differentialsUnderCases/2')
         .expect(200)
         .expect('Content-Type', /application\/json/)
     })
   
     test('all entries are returned', async () => {
-      const response = await api.get('/api/differentialsUnderCases')
+      const response = await api.get('/api/differentialsUnderCases/1')
   
-      expect(response.body).toHaveLength(initialDifferentialsUnderCases.length)
+      expect(response.body).toHaveLength(2)
     })
   })
 

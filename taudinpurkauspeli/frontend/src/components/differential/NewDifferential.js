@@ -1,22 +1,20 @@
-/* eslint-disable array-callback-return */
-import React, { useState, useImperativeHandle } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Formik } from 'formik';
-import * as Yup from 'yup';
 import {
-  Form, Button, Modal, Tabs, Tab,
+  Button, Modal, Tabs, Tab, Alert,
 } from 'react-bootstrap';
-import { Typeahead } from 'react-bootstrap-typeahead';
 import service from '../../services/differentials';
+import serviceUnderCases from '../../services/differentialsUnderCases';
+import AddDifferentialForm from './AddDifferentialForm';
+import SelectDifferentialForm from './SelectDifferentialForm';
 
-const NewDifferential = React.forwardRef(({ addDifferential, chooseDifferential, caseId }, ref) => {
+const NewDifferential = ({ caseId }) => {
   const { t } = useTranslation();
 
+  const [alertMessage, setAlertMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
   const [show, setShow] = useState(false);
   const [differentials, setDifferentials] = useState([]);
-  const [newDifferential, setNewDifferential] = useState('');
-  const [selectedDiff, setSelectedDiff] = useState([]);
-  const [description, setDescription] = useState('');
 
   React.useEffect(() => {
     service.getAll()
@@ -29,46 +27,53 @@ const NewDifferential = React.forwardRef(({ addDifferential, chooseDifferential,
       });
   }, []);
 
-  const newDifferentialSchema = Yup.object().shape({
-    name: Yup.string()
-      .min(2, t('warningShort'))
-      .max(999, t('warningLong'))
-      .required(t('warningRequired')),
-    description: Yup.string(),
-  });
-
-  const handleDifferentialAdd = (values) => {
-    addDifferential({
-      name: values.name,
-      description: values.description,
-    });
-
-    setNewDifferential('');
-    setDescription('');
-  };
-
-  const handleDifferentialChoose = (event) => {
-    event.preventDefault();
-    const differential = differentials.filter((d) => d.name === selectedDiff[0])[0];
-    chooseDifferential({
-      caseId,
-      differentialId: differential.id,
-      description,
-    });
-
-    setNewDifferential('');
-    setDescription('');
-  };
-
   const toggleVisibility = () => setShow(!show);
 
-  useImperativeHandle(ref, () => ({
-    toggleVisibility,
-  }));
+  const handleSuccess = () => {
+    toggleVisibility();
+    setAlertMessage(t('differentialUpdateSuccess'));
+    setTimeout(() => {
+      setAlertMessage(null);
+    }, 3000);
+  };
+
+  const handleError = (error) => {
+    // eslint-disable-next-line no-console
+    console.log(error);
+    toggleVisibility();
+    setErrorMessage(t('differentialUpdateError'));
+    setTimeout(() => {
+      setErrorMessage(null);
+    }, 3000);
+  };
+
+  const handleDifferentialSelection = (ducObject) => {
+    serviceUnderCases.create(ducObject)
+      .then(() => handleSuccess())
+      .catch((error) => handleError(error));
+  };
+
+  const handleDifferentialAdd = (differentialObject) => {
+    service.create({ name: differentialObject.name })
+      .then((res) => {
+        const differentialId = res[0].id;
+        handleDifferentialSelection({
+          caseId,
+          differentialId,
+          description: differentialObject.description,
+        });
+      });
+  };
 
   return (
     <div>
-      <Button variant="primary" onClick={toggleVisibility}>
+      { alertMessage !== null && (
+      <Alert variant="success">{alertMessage}</Alert>
+      )}
+      { errorMessage !== null && (
+      <Alert variant="danger">{errorMessage}</Alert>
+      )}
+      <Button variant="primary" onClick={toggleVisibility} id="addNew">
         {t('buttonNewDifferential')}
       </Button>
       <Modal
@@ -81,83 +86,22 @@ const NewDifferential = React.forwardRef(({ addDifferential, chooseDifferential,
           <Modal.Title>{t('addDifferential')}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Tabs defaultActiveKey="select" id="uncontrolled-tab-example" className="mb-3">
+          <Tabs defaultActiveKey="select" id="differentials" className="mb-3">
             <Tab eventKey="select" title={t('selectExisting')}>
-              <Form onSubmit={handleDifferentialChoose}>
-                <Form.Group>
-                  <Form.Label>{t('selectExistingDifferential')}</Form.Label>
-                  <Typeahead
-                    id="basic-typeahead-single"
-                    labelKey="name"
-                    options={differentials.map((d) => d.name)}
-                    placeholder={t('selectDifferential')}
-                    onChange={setSelectedDiff}
-                    selected={selectedDiff}
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="description">
-                  <Form.Label>{t('description')}</Form.Label>
-                  <Form.Control
-                    as="textarea"
-                    name="description"
-                    rows={3}
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                  />
-                </Form.Group>
-                <Button type="submit">{t('buttonSubmitNewDifferential')}</Button>
-              </Form>
+              <SelectDifferentialForm
+                differentials={differentials}
+                selectDifferential={handleDifferentialSelection}
+                caseId={caseId}
+              />
             </Tab>
             <Tab eventKey="add" title={t('addNewDifferential2')}>
-              <Formik
-                initialValues={{
-                  name: newDifferential,
-                  description: '',
-                }}
-                validationSchema={newDifferentialSchema}
-                onSubmit={handleDifferentialAdd}
-              >
-                {({
-                  handleSubmit,
-                  handleChange,
-                  values,
-                  errors,
-                }) => (
-                  <Form noValidate onSubmit={handleSubmit}>
-                    <Form.Group md="6" controlId="name">
-                      <Form.Label>{t('addDifferential')}</Form.Label>
-                      <Form.Control
-                        type="text"
-                        name="name"
-                        placeholder={t('write')}
-                        value={values.name}
-                        onChange={handleChange}
-                        isInvalid={!!errors.name}
-                      />
-                      <Form.Control.Feedback type="invalid">
-                        {errors.name}
-                      </Form.Control.Feedback>
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="description">
-                      <Form.Label>{t('description')}</Form.Label>
-                      <Form.Control
-                        as="textarea"
-                        name="description"
-                        rows={3}
-                        value={values.description}
-                        onChange={handleChange}
-                      />
-                    </Form.Group>
-                    <Button type="submit">{t('buttonSubmitNewDifferential')}</Button>
-                  </Form>
-                )}
-              </Formik>
+              <AddDifferentialForm addDifferential={handleDifferentialAdd} />
             </Tab>
           </Tabs>
         </Modal.Body>
       </Modal>
     </div>
   );
-});
+};
 
 export default NewDifferential;
