@@ -28,7 +28,7 @@ test('New differential can be added', async () => {
   }));
 });
 
-test('Differential with invalid name cannot be created', async () => {
+test('Differential with a too short name cannot be created', async () => {
   userEvent.type(screen.getByLabelText(/addDifferential/i), 't');
   userEvent.type(screen.getByLabelText(/description/i), 'testDescription');
   userEvent.click(screen.getByRole('button', { name: /submit/i }));
@@ -39,7 +39,7 @@ test('Differential with invalid name cannot be created', async () => {
   expect(addDifferentialFunc.mock.calls).toHaveLength(0);
 });
 
-test('Differential with invalid name cannot be created', async () => {
+test('Differential with no name cannot be created', async () => {
   userEvent.type(screen.getByLabelText(/addDifferential/i), '');
   userEvent.type(screen.getByLabelText(/description/i), 'testDescription');
   userEvent.click(screen.getByRole('button', { name: /submit/i }));
