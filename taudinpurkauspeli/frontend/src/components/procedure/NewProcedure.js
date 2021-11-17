@@ -30,21 +30,21 @@ const newProcedure = ({ id, addProcedureFunc }) => {
 
     if (addProcedureFunc != null) {
       addProcedureFunc(procedureObject);
-    }
+    } else {
+      const receivedID = await service.create(procedureObject)
+        .then((data) => {
+          setNewTitle('');
+          return data.id;
+        });
 
-    const receivedID = await service.create(procedureObject)
-      .then((data) => {
-        setNewTitle('');
-        return data.id;
+      const procedureUnderCaseObject = ({
+        caseId: id,
+        procedureId: receivedID,
+        priority: 1,
       });
 
-    const procedureUnderCaseObject = ({
-      caseId: id,
-      procedureId: receivedID,
-      priority: 1,
-    });
-
-    serviceUnderCases.create(procedureUnderCaseObject);
+      serviceUnderCases.create(procedureUnderCaseObject);
+    }
   };
 
   return (
