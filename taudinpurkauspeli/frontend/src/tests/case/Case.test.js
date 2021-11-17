@@ -1,16 +1,11 @@
 /* eslint-disable no-undef */
 // https://testing-library.com/docs/example-react-router/
-import {
-  render, screen, waitFor,
-} from '@testing-library/react';
-import { createMemoryHistory } from 'history';
-import userEvent from '@testing-library/user-event';
+import { render } from '@testing-library/react';
 import React from 'react';
-import { MemoryRouter, Router } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 import '@testing-library/dom';
 import '@testing-library/jest-dom/extend-expect';
 import Case from '../../components/case/Case';
-import serviceUnderCases from '../../services/differentialsUnderCases';
 
 const cases = [{
   id: 1,
@@ -31,9 +26,6 @@ jest.mock('react-router-dom', () => ({
   useRouteMatch: () => ({ url: '/cases/id/differentials' }),
 }));
 
-jest.spyOn(React, 'useEffect').mockImplementation((f) => f());
-jest.spyOn(serviceUnderCases, 'getAll');
-
 describe('Case pages', () => {
   test('case is rendered', () => {
     render(
@@ -53,28 +45,5 @@ describe('Case pages', () => {
     expect(caseView.getByText('caseAnamnesis')).toBeInTheDocument();
     expect(caseView.getByText('caseProcedures')).toBeInTheDocument();
     expect(caseView.getByText('caseDifferentials')).toBeInTheDocument();
-  });
-
-  test('case navigating works', async () => {
-    const history = createMemoryHistory();
-
-    render(
-      <Router history={history}>
-        <Case cases={cases} />
-      </Router>,
-    );
-
-    const leftClick = { button: 0 };
-    userEvent.click(screen.getByText('caseDifferentials'), leftClick);
-
-    await waitFor(() => expect(screen.getByText('Differentials')).toBeInTheDocument());
-
-    userEvent.click(screen.getByText('caseProcedures'), leftClick);
-
-    await waitFor(() => expect(screen.getByText(/Toimenpiteet löytyvät/i)).toBeInTheDocument());
-
-    userEvent.click(screen.getByText('caseAnamnesis'), leftClick);
-
-    await waitFor(() => expect(screen.getByText(/Koirat/i)).toBeInTheDocument());
   });
 });
