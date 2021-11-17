@@ -12,7 +12,6 @@ jest.mock('react-i18next', () => ({
 
 jest.spyOn(React, 'useEffect').mockImplementation((f) => f());
 jest.spyOn(service, 'getAll');
-jest.spyOn(service, 'create');
 
 beforeEach(() => {
   render(

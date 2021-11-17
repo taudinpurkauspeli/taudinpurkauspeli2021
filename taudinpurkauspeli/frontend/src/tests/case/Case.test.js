@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 // https://testing-library.com/docs/example-react-router/
 import {
-  render, screen,
+  render, screen, waitFor,
 } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import userEvent from '@testing-library/user-event';
@@ -10,6 +10,7 @@ import { MemoryRouter, Router } from 'react-router-dom';
 import '@testing-library/dom';
 import '@testing-library/jest-dom/extend-expect';
 import Case from '../../components/case/Case';
+import serviceUnderCases from '../../services/differentialsUnderCases';
 
 const cases = [{
   id: 1,
@@ -30,45 +31,50 @@ jest.mock('react-router-dom', () => ({
   useRouteMatch: () => ({ url: '/cases/id/differentials' }),
 }));
 
-test('case is rendered', () => {
-  render(
-    <MemoryRouter>
-      <Case cases={cases} />
-    </MemoryRouter>,
-  );
-});
+jest.spyOn(React, 'useEffect').mockImplementation((f) => f());
+jest.spyOn(serviceUnderCases, 'getAll');
 
-test('case view includes navigation for anamnesis, procedures and differentials', () => {
-  const caseView = render(
-    <MemoryRouter>
-      <Case cases={cases} />
-    </MemoryRouter>,
-  );
+describe('Case pages', () => {
+  test('case is rendered', () => {
+    render(
+      <MemoryRouter>
+        <Case cases={cases} />
+      </MemoryRouter>,
+    );
+  });
 
-  expect(caseView.getByText('caseAnamnesis')).toBeInTheDocument();
-  expect(caseView.getByText('caseProcedures')).toBeInTheDocument();
-  expect(caseView.getByText('caseDifferentials')).toBeInTheDocument();
-});
+  test('case view includes navigation for anamnesis, procedures and differentials', () => {
+    const caseView = render(
+      <MemoryRouter>
+        <Case cases={cases} />
+      </MemoryRouter>,
+    );
 
-test('case navigating works', () => {
-  const history = createMemoryHistory();
+    expect(caseView.getByText('caseAnamnesis')).toBeInTheDocument();
+    expect(caseView.getByText('caseProcedures')).toBeInTheDocument();
+    expect(caseView.getByText('caseDifferentials')).toBeInTheDocument();
+  });
 
-  render(
-    <Router history={history}>
-      <Case cases={cases} />
-    </Router>,
-  );
+  test('case navigating works', async () => {
+    const history = createMemoryHistory();
 
-  const leftClick = { button: 0 };
-  userEvent.click(screen.getByText('caseDifferentials'), leftClick);
+    render(
+      <Router history={history}>
+        <Case cases={cases} />
+      </Router>,
+    );
 
-  expect(screen.getByText('Differentials')).toBeInTheDocument();
+    const leftClick = { button: 0 };
+    userEvent.click(screen.getByText('caseDifferentials'), leftClick);
 
-  userEvent.click(screen.getByText('caseProcedures'), leftClick);
+    await waitFor(() => expect(screen.getByText('Differentials')).toBeInTheDocument());
 
-  expect(screen.getByText(/Toimenpiteet löytyvät/i)).toBeInTheDocument();
+    userEvent.click(screen.getByText('caseProcedures'), leftClick);
 
-  userEvent.click(screen.getByText('caseAnamnesis'), leftClick);
+    await waitFor(() => expect(screen.getByText(/Toimenpiteet löytyvät/i)).toBeInTheDocument());
 
-  expect(screen.getByText(/Koirat/i)).toBeInTheDocument();
+    userEvent.click(screen.getByText('caseAnamnesis'), leftClick);
+
+    await waitFor(() => expect(screen.getByText(/Koirat/i)).toBeInTheDocument());
+  });
 });
