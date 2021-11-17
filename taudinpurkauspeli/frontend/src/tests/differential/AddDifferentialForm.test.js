@@ -18,35 +18,37 @@ beforeEach(() => {
   );
 });
 
-test('New differential can be added', async () => {
-  userEvent.type(screen.getByLabelText(/addDifferential/i), 'testDifferential');
-  userEvent.type(screen.getByLabelText(/description/i), 'testDescription');
-  userEvent.click(screen.getByRole('button', { name: /submit/i }));
+describe('Adding a new differential', () => {
+  test('New differential can be added', async () => {
+    userEvent.type(screen.getByLabelText(/addDifferential/i), 'testDifferential');
+    userEvent.type(screen.getByLabelText(/description/i), 'testDescription');
+    userEvent.click(screen.getByRole('button', { name: /submit/i }));
 
-  await waitFor(() => expect(addDifferentialFunc).toHaveBeenCalledWith({
-    name: 'testDifferential',
-    description: 'testDescription',
-  }));
-});
+    await waitFor(() => expect(addDifferentialFunc).toHaveBeenCalledWith({
+      name: 'testDifferential',
+      description: 'testDescription',
+    }));
+  });
 
-test('Differential with a too short name cannot be created', async () => {
-  userEvent.type(screen.getByLabelText(/addDifferential/i), 't');
-  userEvent.type(screen.getByLabelText(/description/i), 'testDescription');
-  userEvent.click(screen.getByRole('button', { name: /submit/i }));
+  test('Differential with a too short name cannot be created', async () => {
+    userEvent.type(screen.getByLabelText(/addDifferential/i), 't');
+    userEvent.type(screen.getByLabelText(/description/i), 'testDescription');
+    userEvent.click(screen.getByRole('button', { name: /submit/i }));
 
-  const alert = await screen.findByRole('alert', { name: /From Feedback/i });
-  expect(alert).toBeInTheDocument();
-  expect(alert).toHaveTextContent('warningShort');
-  expect(addDifferentialFunc.mock.calls).toHaveLength(0);
-});
+    const alert = await screen.findByRole('alert', { name: /From Feedback/i });
+    expect(alert).toBeInTheDocument();
+    expect(alert).toHaveTextContent('warningShort');
+    expect(addDifferentialFunc.mock.calls).toHaveLength(0);
+  });
 
-test('Differential with no name cannot be created', async () => {
-  userEvent.type(screen.getByLabelText(/addDifferential/i), '');
-  userEvent.type(screen.getByLabelText(/description/i), 'testDescription');
-  userEvent.click(screen.getByRole('button', { name: /submit/i }));
+  test('Differential with no name cannot be created', async () => {
+    userEvent.type(screen.getByLabelText(/addDifferential/i), '');
+    userEvent.type(screen.getByLabelText(/description/i), 'testDescription');
+    userEvent.click(screen.getByRole('button', { name: /submit/i }));
 
-  const alert = await screen.findByRole('alert', { name: /From Feedback/i });
-  expect(alert).toBeInTheDocument();
-  expect(alert).toHaveTextContent('warningRequired');
-  expect(addDifferentialFunc.mock.calls).toHaveLength(0);
+    const alert = await screen.findByRole('alert', { name: /From Feedback/i });
+    expect(alert).toBeInTheDocument();
+    expect(alert).toHaveTextContent('warningRequired');
+    expect(addDifferentialFunc.mock.calls).toHaveLength(0);
+  });
 });
