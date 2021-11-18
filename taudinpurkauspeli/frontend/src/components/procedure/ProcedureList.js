@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable no-restricted-globals */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable no-unused-vars */

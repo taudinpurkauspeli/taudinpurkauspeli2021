@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Formik } from 'formik';

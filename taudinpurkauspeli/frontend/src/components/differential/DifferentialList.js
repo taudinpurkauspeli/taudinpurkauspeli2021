@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import React, { useState } from 'react';
 import { Accordion } from 'react-bootstrap';
 import serviceUnderCases from '../../services/differentialsUnderCases';

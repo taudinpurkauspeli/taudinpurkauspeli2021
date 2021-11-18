@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable no-undef */
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
