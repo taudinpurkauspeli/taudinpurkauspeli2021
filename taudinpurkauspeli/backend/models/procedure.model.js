@@ -3,6 +3,7 @@ module.exports = (sequelize, Sequelize) => {
   const Procedure = sequelize.define('procedure', {
     title: {
       type: Sequelize.STRING,
+      allowNull: false,
     },
   });
 

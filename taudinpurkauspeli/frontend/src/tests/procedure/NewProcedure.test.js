@@ -2,7 +2,7 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { render, fireEvent } from '@testing-library/react';
-import NewProcedure from '../components/case/NewProcedure';
+import NewProcedure from '../../components/procedure/NewProcedure';
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key) => key }),

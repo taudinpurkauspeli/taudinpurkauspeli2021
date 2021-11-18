@@ -19,7 +19,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [16.x]
 
     steps:
     - name: Checkout repository
@@ -41,3 +41,6 @@ jobs:
 
     - name: Build
       run: npm run build
+
+    - name: Copy front to back
+      run: cp -r build ../backend/build

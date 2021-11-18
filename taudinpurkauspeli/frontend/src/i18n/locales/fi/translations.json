@@ -37,6 +37,7 @@
   "copy": "Kopioi",
   "description": "Kuvaus",
   "deleteCaseConfirmation": "Haluatko varmasti poistaa tämän casen?",
+  "Differentials": "Diffit",
   "differentialUpdateSuccess": "Diffi lisätty onnistuneesti",
   "differentialUpdateError": "VIRHE! Valittu diffi on jo aiemmin lisätty caseen.",
   "disease": "Tauti",

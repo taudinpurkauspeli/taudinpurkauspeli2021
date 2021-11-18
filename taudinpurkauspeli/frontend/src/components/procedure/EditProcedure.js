@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-unused-expressions */
 import React, { useState } from 'react';
@@ -34,7 +35,6 @@ const EditProcedure = ({ procedure, editProcedureFunc }) => {
     const procedureObject = ({
       title: event.target[0].value,
     });
-    console.log(procedure);
 
     if (editProcedureFunc != null) {
       editProcedureFunc(procedureUnderCaseObject);

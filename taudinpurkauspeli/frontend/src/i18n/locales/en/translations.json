@@ -39,6 +39,7 @@
   "copy": "Copy",
   "description": "Description",
   "deleteCaseConfirmation": "Are you sure you want to delete this case?",
+  "Differentials": "Differentials",
   "differentialUpdateSuccess": "Differential was added succesfully",
   "differentialUpdateError": "ERROR! The differential already exists in this case.",
   "disease": "Disease",

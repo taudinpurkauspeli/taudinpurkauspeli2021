@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable array-callback-return */
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -9,7 +10,7 @@ import {
 import { Link } from 'react-router-dom';
 
 import CaseCard from '../case/CaseCard';
-import Search from '../Search';
+import Search from './Search';
 
 const Frontpage = ({ cases, admin }) => {
   const { t } = useTranslation();

@@ -24,12 +24,7 @@ proceduresUnderCasesRouter.post('/', (req, res) => {
     .then((data) => {
       res.send(data);
     })
-    .catch((err) => {
-      res.status(500).send({
-        message:
-            err.message || 'Unknown error occurred while adding the procedure under the case. Try again.',
-      });
-    });
+    .catch((error) => next(error));
 });
 
 // Retrieve all procedures
@@ -39,14 +34,9 @@ proceduresUnderCasesRouter.get('/', (req, res) => {
 
   ProcedureUnderCase.findAll({ where: condition })
     .then((data) => {
-      res.send(data);
+      res.json(data);
     })
-    .catch((err) => {
-      res.status(500).send({
-        message:
-            err.message || 'Unknown error occurred while retrieving procedures under case. Try again.',
-      });
-    });
+    .catch((error) => next(error))
 });
 
 // Update a procedure (by id)
@@ -57,22 +47,13 @@ proceduresUnderCasesRouter.put('/:id', (req, res) => {
     where: { procedureId : id },
   })
     .then((num) => {
-      if (num === 1) {
+      if (Number(num) === 1) {
         res.send({
           message: 'Procedure was updated successfully.',
         });
-      } else {
-        res.send({
-          message: `Cannot update procedure with id=${id}. Possible causes: procedure title wrong or procedure not found!`,
-        });
-      }
+      } 
     })
-  // eslint-disable-next-line no-unused-vars
-    .catch((err) => {
-      res.status(500).send({
-        message: `Error updating case with id=${id}`,
-      });
-    });
+    .catch((error) => next(error))
 });
 
 module.exports = proceduresUnderCasesRouter;

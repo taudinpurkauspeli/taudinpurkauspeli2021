@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import axios from 'axios';
 
 const baseUrl = 'http://localhost:8080/api/differentials';
@@ -19,15 +20,9 @@ const remove = (id) => {
   return request.then((response) => response.data);
 };
 
-const getByName = (name) => {
-  const request = axios.get(`${baseUrl}/${name}`);
-  return request.then((response) => response.data.id);
-};
-
 export default {
   getAll,
   create,
   update,
   remove,
-  getByName,
 };

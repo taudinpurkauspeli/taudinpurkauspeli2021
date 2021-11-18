@@ -1,11 +1,11 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable no-undef */
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { fireEvent, render } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import Frontpage from '../components/frontpage/Frontpage';
 import { screen } from '@testing-library/dom';
-import Frontpage from '../components/Frontpage';
+import Frontpage from '../../components/frontpage/Frontpage';
 
 let component;
 

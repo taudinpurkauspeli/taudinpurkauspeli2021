@@ -59,23 +59,11 @@ differentialRouter.put('/:id', (req, res, next) => {
     .then((num) => {
       if (Number(num) === 1) {
         res.send({
-          message: 'differential was updated successfully.',
+          message: 'Differential was updated successfully.',
         });
       } 
     })
     .catch((error) => next(error))
-});
-
-// Find a single differential (by name)
-differentialRouter.get('/:name', (req, res, next) => {
-  const { name } = req.params;
-
-  Differential.findOne({ where: { name: name }
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((error) => next(error))
-  });
 });
 
 // Delete a differential (by id)
