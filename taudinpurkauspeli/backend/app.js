@@ -2,8 +2,11 @@ const express = require('express');
 require('express-async-errors')
 const app = express();
 const cors = require('cors');
-const diseaseRouter = require('./controllers/diseases');
+const differentialRouter = require('./controllers/differentials');
 const caseRouter = require('./controllers/cases');
+const differentialUnderCaseRouter = require('./controllers/differentialsUnderCases');
+const proceduresRouter = require('./controllers/procedures');
+const proceduresUnderCasesRouter = require('./controllers/proceduresUnderCases');
 const middleware = require('./utils/middleware');
 const logger = require('./utils/logger');
 const db = require('./models');
@@ -34,8 +37,11 @@ app.use(express.json());
 app.use(express.static('build'));
 app.use(middleware.requestLogger);
 
-app.use('/api/diseases', diseaseRouter);
 app.use('/api/cases', caseRouter);
+app.use('/api/differentials', differentialRouter);
+app.use('/api/differentialsUnderCases', differentialUnderCaseRouter);
+app.use('/api/procedures', proceduresRouter);
+app.use('/api/proceduresUnderCases', proceduresUnderCasesRouter);
 
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);

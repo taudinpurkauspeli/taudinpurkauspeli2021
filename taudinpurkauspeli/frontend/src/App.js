@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import React, { useState } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -77,7 +78,7 @@ const App = () => {
           <Profile />
         </Route>
         <Route path="/cases/:id">
-          <Case cases={cases} />
+          <Case cases={cases} admin={admin} />
         </Route>
         { admin && (
         <Route path="/editcase/:id">
@@ -89,7 +90,6 @@ const App = () => {
           <NewCase />
         </Route>
         )}
-
         <Route path="/">
           { guest
             ? <GuestFrontpage />
