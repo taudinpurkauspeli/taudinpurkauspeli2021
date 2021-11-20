@@ -8,7 +8,7 @@ import {
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import RemoveCase from './RemoveCase';
-// import RemoveCase from './RemoveCase';
+import CopyCase from './CopyCase';
 
 const CaseCard = ({ c, admin }) => {
   const { t } = useTranslation();
@@ -28,7 +28,7 @@ const CaseCard = ({ c, admin }) => {
       { admin && (
         <div className="cardButtons">
           <Button as={Link} to={`/cases/${c.id}`} className="editButton" size="sm">{t('buttonEdit')}</Button>
-          <Button className="copyButton" size="sm" variant="warning">{t('copy')}</Button>
+          <CopyCase caseToBeCopied={c} />
           <RemoveCase caseToBeRemoved={c} />
         </div>
       )}
