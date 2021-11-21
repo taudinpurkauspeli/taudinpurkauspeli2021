@@ -5,6 +5,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import caseService from '../../services/cases';
 import ducService from '../../services/differentialsUnderCases';
+import pucService from '../../services/proceduresUnderCase';
 
 const copyCase = ({ caseToBeCopied, copyCaseFunc }) => {
   const { t } = useTranslation();
@@ -29,8 +30,7 @@ const copyCase = ({ caseToBeCopied, copyCaseFunc }) => {
     }
     ducService.getAll(oldCaseId)
       .then((result) => {
-        // eslint-disable-next-line no-plusplus
-        for (let i = 0; i < result.length; i++) {
+        for (let i = 0; i < result.length; i += 1) {
           const { id, description } = result[i];
           const object = {
             caseId: newCopyId,
@@ -38,6 +38,18 @@ const copyCase = ({ caseToBeCopied, copyCaseFunc }) => {
             description,
           };
           ducService.create(object);
+        }
+      });
+    pucService.getAll()
+      .then((result) => {
+        for (let i = 0; i < result.length; i += 1) {
+          const { procedureId, priority } = result[i];
+          const object = {
+            caseId: newCopyId,
+            procedureId,
+            priority,
+          };
+          pucService.create(object);
         }
       });
   };
