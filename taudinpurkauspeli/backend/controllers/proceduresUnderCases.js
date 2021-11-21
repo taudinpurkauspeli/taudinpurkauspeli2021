@@ -29,11 +29,13 @@ proceduresUnderCasesRouter.post('/', (req, res, next) => {
 });
 
 // Retrieve all procedures
-proceduresUnderCasesRouter.get('/', (req, res, next) => {
-  const { caseId } = req.params;
-  const condition = caseId ? { caseId: { [Op.iLike]: `%${caseId}%` } } : null;
+proceduresUnderCasesRouter.get('/:id', (req, res, next) => {
+  const { id } = req.params;
 
-  ProcedureUnderCase.findAll({ where: condition })
+  ProcedureUnderCase.findAll({ where: {
+      caseId: id
+    }
+  })
     .then((data) => {
       res.json(data);
     })
