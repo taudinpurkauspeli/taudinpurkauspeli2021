@@ -22,7 +22,6 @@ const copyCase = ({ caseToBeCopied, copyCaseFunc }) => {
         description,
       };
       ducService.create(object);
-      console.log('Yksi diffi kopioitu');
     }
   };
 
@@ -34,9 +33,7 @@ const copyCase = ({ caseToBeCopied, copyCaseFunc }) => {
         procedureId,
         priority,
       };
-      console.log(object);
       pucService.create(object);
-      console.log('Yksi toimenpide kopioitu');
     }
   };
 

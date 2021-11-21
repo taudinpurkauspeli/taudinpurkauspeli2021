@@ -28,7 +28,7 @@ proceduresUnderCasesRouter.post('/', (req, res, next) => {
     .catch((error) => next(error));
 });
 
-// Retrieve all procedures
+// Retrieve all procedures related to case based on id
 proceduresUnderCasesRouter.get('/:id', (req, res, next) => {
   const { id } = req.params;
 
@@ -47,7 +47,7 @@ proceduresUnderCasesRouter.put('/:id', (req, res, next) => {
   const { id } = req.params;
 
   ProcedureUnderCase.update(req.body, {
-    where: { procedureId : id },
+    where: { procedureId : id, caseId: req.body.caseId },
   })
     .then((num) => {
       if (Number(num) === 1) {
