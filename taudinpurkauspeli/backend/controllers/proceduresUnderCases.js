@@ -1,3 +1,4 @@
+
 const proceduresUnderCasesRouter = require('express').Router();
 const db = require('../models');
 
@@ -10,7 +11,7 @@ Procedure.belongsToMany(Case, { through: ProcedureUnderCase });
 Case.belongsToMany(Procedure, { through: ProcedureUnderCase });
 
 // Save a new procedure under case
-proceduresUnderCasesRouter.post('/', (req, res) => {
+proceduresUnderCasesRouter.post('/', (req, res, next) => {
 
   // Create a procedure under case
   const procedureUnderCase = {
@@ -28,7 +29,7 @@ proceduresUnderCasesRouter.post('/', (req, res) => {
 });
 
 // Retrieve all procedures
-proceduresUnderCasesRouter.get('/', (req, res) => {
+proceduresUnderCasesRouter.get('/', (req, res, next) => {
   const { caseId } = req.params;
   const condition = caseId ? { caseId: { [Op.iLike]: `%${caseId}%` } } : null;
 
@@ -40,7 +41,7 @@ proceduresUnderCasesRouter.get('/', (req, res) => {
 });
 
 // Update a procedure (by id)
-proceduresUnderCasesRouter.put('/:id', (req, res) => {
+proceduresUnderCasesRouter.put('/:id', (req, res, next) => {
   const { id } = req.params;
 
   ProcedureUnderCase.update(req.body, {

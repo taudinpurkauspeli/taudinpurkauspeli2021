@@ -13,6 +13,33 @@ const copyCase = ({ caseToBeCopied, copyCaseFunc }) => {
   // eslint-disable-next-line no-unused-vars
   let newCopyId = 0;
 
+  const createDifferentials = (copyId, result) => {
+    for (let i = 0; i < result.length; i += 1) {
+      const { id, description } = result[i];
+      const object = {
+        caseId: copyId,
+        differentialId: id,
+        description,
+      };
+      ducService.create(object);
+      console.log('Yksi diffi kopioitu');
+    }
+  };
+
+  const createProcedures = (copyId, result) => {
+    for (let i = 0; i < result.length; i += 1) {
+      const { procedureId, priority } = result[i];
+      const object = {
+        caseId: copyId,
+        procedureId,
+        priority,
+      };
+      console.log(object);
+      pucService.create(object);
+      console.log('Yksi toimenpide kopioitu');
+    }
+  };
+
   const handleCopy = (event) => {
     event.preventDefault();
     const caseObject = ({
@@ -26,32 +53,20 @@ const copyCase = ({ caseToBeCopied, copyCaseFunc }) => {
       caseService.create(caseObject)
         .then((copy) => {
           newCopyId = copy.id;
+        })
+        .then(() => {
+          ducService.getAll(oldCaseId)
+            .then((result) => {
+              createDifferentials(newCopyId, result);
+            });
+        })
+        .then(() => {
+          pucService.getAll(oldCaseId)
+            .then((result) => {
+              createProcedures(newCopyId, result);
+            });
         });
     }
-    ducService.getAll(oldCaseId)
-      .then((result) => {
-        for (let i = 0; i < result.length; i += 1) {
-          const { id, description } = result[i];
-          const object = {
-            caseId: newCopyId,
-            differentialId: id,
-            description,
-          };
-          ducService.create(object);
-        }
-      });
-    pucService.getAll()
-      .then((result) => {
-        for (let i = 0; i < result.length; i += 1) {
-          const { procedureId, priority } = result[i];
-          const object = {
-            caseId: newCopyId,
-            procedureId,
-            priority,
-          };
-          pucService.create(object);
-        }
-      });
   };
 
   return (
