@@ -2,14 +2,17 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
 import HideCase from '../case/HideCase';
 import service from '../../services/cases';
 import UpdateCaseTitle from '../case/UpdateCaseTitle';
 
-const Anamnesis = ({ c, admin }) => {
+const Anamnesis = ({ cases, admin }) => {
   const { t } = useTranslation();
-
   const [alertMessage, setAlertMessage] = useState(null);
+
+  const { id } = useParams();
+  const c = cases.find((a) => a.id === Number(id));
 
   const handleTitleUpdate = (updatedCase) => {
     service.update(c.id, updatedCase);
@@ -20,7 +23,7 @@ const Anamnesis = ({ c, admin }) => {
   };
 
   return (
-    <div>
+    <div id="wrapper">
       { alertMessage !== null && (
         <Alert variant="success">{alertMessage}</Alert>
       )}

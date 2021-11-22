@@ -18,6 +18,9 @@ import Profile from './components/user/Profile';
 import Case from './components/case/Case';
 import HideCase from './components/case/HideCase';
 import NewCase from './components/case/NewCase';
+import Procedures from './components/procedure/Procedures';
+import Differentials from './components/differential/Differentials';
+import Anamnesis from './components/anamnesis/Anamnesis';
 
 const App = () => {
   const [user, setUser] = useState(false);
@@ -77,8 +80,17 @@ const App = () => {
         <Route path="/profile">
           <Profile />
         </Route>
+        <Route path="/cases/:id/procedures">
+          <Case cases={cases} admin={admin} />
+          <Procedures />
+        </Route>
+        <Route path="/cases/:id/differentials">
+          <Case cases={cases} admin={admin} />
+          <Differentials admin={admin} />
+        </Route>
         <Route path="/cases/:id">
           <Case cases={cases} admin={admin} />
+          <Anamnesis cases={cases} admin={admin} />
         </Route>
         { admin && (
         <Route path="/editcase/:id">

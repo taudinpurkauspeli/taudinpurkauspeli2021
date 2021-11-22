@@ -1,14 +1,19 @@
 /* eslint-disable linebreak-style */
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import NewProcedure from './NewProcedure';
 import ProcedureList from './ProcedureList';
 
-const Procedures = ({ id }) => (
-  <div>
-    <p>Toimenpiteet löytyvät täältä</p>
-    <NewProcedure id={id} />
-    <ProcedureList id={id} />
-  </div>
-);
+const Procedures = () => {
+  const { id } = useParams();
+
+  return (
+    <div id="wrapper">
+      <p>Toimenpiteet löytyvät täältä</p>
+      <NewProcedure id={id} />
+      <ProcedureList id={id} />
+    </div>
+  );
+};
 
 export default Procedures;
