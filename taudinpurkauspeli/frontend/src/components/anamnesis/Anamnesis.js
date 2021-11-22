@@ -28,16 +28,18 @@ const Anamnesis = ({ cases, admin }) => {
         <Alert variant="success">{alertMessage}</Alert>
       )}
       <p>Casen tiedot löytyvät täältä</p>
-      { admin && (
+      { admin && c && (
         <div>
           <UpdateCaseTitle c={c} updateCaseTitle={handleTitleUpdate} />
           <HideCase caseToBeHidden={c} />
         </div>
       )}
-      { !admin && (
+      { !admin && c && (
         <p>{c.title}</p>
       )}
-      <p>{c.anamnesis}</p>
+      { c && (
+        <p>{c.anamnesis}</p>
+      )}
     </div>
   );
 };
