@@ -1,20 +1,23 @@
 /* eslint-disable no-undef */
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
-import { render, fireEvent } from '@testing-library/react';
-import DiseaseExample from '../components/disease-example';
+import { render } from '@testing-library/react';
+import HowToPlay from '../../components/instructions/HowToPlay';
 
-test('renders content', () => {
-  const note = {
-    content: 'Test the content of instructions',
-    important: true,
-  };
+let component;
 
-  const component = render(
-    <DiseaseExample note={note} />,
+jest.mock('react-i18next', () => ({
+  useTranslation: () => ({ t: (key) => key }),
+}));
+
+beforeEach(() => {
+  component = render(
+    <HowToPlay />,
   );
+});
 
+test('renders instructions', () => {
   expect(component.container).toHaveTextContent(
-    'Pelin tarkoitus on opetella taudinpurkaukseen tarvittavaa ajattelumallia.',
+    'howToPlay',
   );
 });
