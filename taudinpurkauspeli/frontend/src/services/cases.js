@@ -6,6 +6,7 @@ const baseUrl = 'http://localhost:8080/api/cases';
 const getAll = () => {
   const request = axios.get(baseUrl);
   return request.then((response) => {
+    // eslint-disable-next-line no-console
     console.log('frontend headers', response.headers);
     return (response.data);
   });
