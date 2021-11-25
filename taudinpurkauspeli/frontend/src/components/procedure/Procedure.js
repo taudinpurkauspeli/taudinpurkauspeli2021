@@ -1,19 +1,20 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable array-callback-return */
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
+/* import {
   useParams,
-} from 'react-router-dom';
-import NewSubProcedure from '../subprocedure/NewSubProcedure';
+} from 'react-router-dom'; */
+import { Button } from 'react-bootstrap';
 /* import SubProcedureList from '../subprocedure/SubProcedureList'; */
 
 const Procedure = ({ admin }) => {
   const { t } = useTranslation();
-  // eslint-disable-next-line no-unused-vars
-  const { id } = useParams();
-  // eslint-disable-next-line no-console
-  console.log(admin);
+  /* const { id } = useParams(); */
+  const [show, setShow] = useState(false);
+
+  /* const hideWhenVisible = { display: show ? 'none' : '' }; */
+  const showWhenVisible = { display: show ? '' : 'none' };
 
   return (
 
@@ -23,7 +24,15 @@ const Procedure = ({ admin }) => {
       </h2>
       {admin && (
         <div>
-          <NewSubProcedure />
+          <Button variant="primary" onClick={() => setShow(true)} id="addNew">
+            {t('buttonNewSubProcedure')}
+          </Button>
+          <div style={showWhenVisible}>
+            <Button variant="primary" className="editButton" size="sm">{t('buttonAddNewText')}</Button>
+            <Button variant="primary" className="editButton" size="sm">{t('buttonAddNewQuestion')}</Button>
+            <Button variant="primary" className="editButton" size="sm">{t('buttonAddNewMultiChoice')}</Button>
+            <Button variant="primary" className="editButton" size="sm">{t('buttonAddFinalDiagnosis')}</Button>
+          </div>
         </div>
       )}
     </div>
