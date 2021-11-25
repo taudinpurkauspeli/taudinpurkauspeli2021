@@ -42,6 +42,18 @@ proceduresUnderCasesRouter.get('/:id', (req, res, next) => {
     .catch((error) => next(error))
 });
 
+// Retrieve all procedures
+proceduresUnderCasesRouter.get('/', (req, res) => {
+  const { caseId } = req.params;
+  const condition = caseId ? { caseId: { [Op.iLike]: `%${caseId}%` } } : null;
+
+  ProcedureUnderCase.findAll({ where: condition })
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((error) => next(error))
+});
+
 // Update a procedure (by id)
 proceduresUnderCasesRouter.put('/:id', (req, res, next) => {
   const { id } = req.params;
