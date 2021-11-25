@@ -23,7 +23,7 @@ differentialGroupsUnderCasesRouter.post('/', (req, res, next) => {
         .catch((error) => next(error));
 })
 
-// Retrieve all differentials
+// Retrieve all groups associated to a specific case
 differentialGroupsUnderCasesRouter.get('/:id', (req, res, next) => {
     const { id } = req.params;
 

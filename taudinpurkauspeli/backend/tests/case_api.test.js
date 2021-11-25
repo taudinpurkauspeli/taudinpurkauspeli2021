@@ -2,26 +2,14 @@ const supertest = require('supertest')
 const app = require('../app')
 const api = supertest(app)
 const db = require('../models/');
+const helper = require('./test_helper');
 const Case = db.cases;
-
-const initialCases = [
-  {
-    title: "TestCase1",
-    hidden: true,
-    anamnesis: "TestCase1Anamnesis",
-  },
-  {
-    title: "TestCase2",
-    hidden: true,
-    anamnesis: "TestCase2Anamnesis",
-  },
-]
 
 beforeEach(async () => {
   // deletes the content from the table 'cases'
   await db.sequelize.sync({ force: true })
   // inserts test cases in the table 'cases'
-  await Case.bulkCreate(initialCases)
+  await Case.bulkCreate(helper.initialCases)
 })
 
 describe('Getting cases from database', () => {
@@ -36,7 +24,7 @@ describe('Getting cases from database', () => {
   test('all cases are returned', async () => {
     const response = await api.get('/api/cases')
 
-    expect(response.body).toHaveLength(initialCases.length)
+    expect(response.body).toHaveLength(helper.initialCases.length)
   })
 })
 
@@ -68,7 +56,7 @@ describe('Adding a case to database', () => {
     const hiddens = response.body.map(r => r.hidden)
     const anamnesiss = response.body.map(r => r.anamnesis)
   
-    expect(response.body).toHaveLength(initialCases.length + 1)
+    expect(response.body).toHaveLength(helper.initialCases.length + 1)
     expect(titles).toContain('NewTitle1')
     expect(hiddens).toContain(false)
     expect(anamnesiss).toContain('NewAnamnesis1')
@@ -86,7 +74,7 @@ describe('Adding a case to database', () => {
   
     const response = await api.get('/api/cases')
   
-    expect(response.body).toHaveLength(initialCases.length)
+    expect(response.body).toHaveLength(helper.initialCases.length)
   })
 })
 
