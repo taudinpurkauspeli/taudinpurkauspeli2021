@@ -25,24 +25,28 @@ const App = () => {
   const [guest, setGuest] = useState(true);
   const [cases, setCases] = useState([]);
 
+  /* istanbul ignore next */
   const changeUser = () => {
     setUser(true);
     setGuest(false);
     setAdmin(false);
   };
 
+  /* istanbul ignore next */
   const changeGuest = () => {
     setUser(false);
     setGuest(true);
     setAdmin(false);
   };
 
+  /* istanbul ignore next */
   const changeAdmin = () => {
     setUser(false);
     setGuest(false);
     setAdmin(true);
   };
 
+  /* istanbul ignore next */
   React.useEffect(() => {
     service
       .getAll()

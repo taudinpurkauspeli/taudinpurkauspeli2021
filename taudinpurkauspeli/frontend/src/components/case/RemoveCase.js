@@ -11,6 +11,7 @@ const removeCase = ({ caseToBeRemoved, removeCaseFunc }) => {
   const handleDelete = (event) => {
     event.preventDefault();
 
+    /* istanbul ignore else */
     if (removeCaseFunc != null) {
       removeCaseFunc(caseToBeRemoved.id);
       // eslint-disable-next-line no-param-reassign
