@@ -9,6 +9,7 @@ import { Button } from 'react-bootstrap';
 import Differentials from '../differential/Differentials';
 import Anamnesis from '../anamnesis/Anamnesis';
 import Procedures from '../procedure/Procedures';
+import Procedure from '../procedure/Procedure';
 
 const Case = ({ cases, admin }) => {
   const { t } = useTranslation();
@@ -30,6 +31,9 @@ const Case = ({ cases, admin }) => {
           </Route>
           <Route path={`${baseUrl}/differentials`}>
             <Differentials admin={admin} caseId={id} />
+          </Route>
+          <Route path={`${baseUrl}/procedure/:id`}>
+            <Procedure admin={admin} />
           </Route>
           <Route path={baseUrl}>
             <Anamnesis c={c} admin={admin} />
