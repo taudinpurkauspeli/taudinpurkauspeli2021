@@ -4,12 +4,12 @@ import { useTranslation } from 'react-i18next';
 import {
   Button, Modal, Tabs, Tab, Alert,
 } from 'react-bootstrap';
-import service from '../../services/differentials';
-import serviceUnderCases from '../../services/differentialsUnderCases';
+import service from '../../services/differentials/differentials';
+import serviceUnderCases from '../../services/differentials/differentialsUnderCases';
 import AddDifferentialForm from './AddDifferentialForm';
 import SelectDifferentialForm from './SelectDifferentialForm';
 
-const NewDifferential = ({ caseId }) => {
+const NewDifferential = ({ diffGroupCaseId }) => {
   const { t } = useTranslation();
 
   const [alertMessage, setAlertMessage] = useState(null);
@@ -59,7 +59,7 @@ const NewDifferential = ({ caseId }) => {
       .then((res) => {
         const differentialId = res[0].id;
         handleDifferentialSelection({
-          caseId,
+          diffGroupCaseId,
           differentialId,
           description: differentialObject.description,
         });
@@ -92,7 +92,7 @@ const NewDifferential = ({ caseId }) => {
               <SelectDifferentialForm
                 differentials={differentials}
                 selectDifferential={handleDifferentialSelection}
-                caseId={caseId}
+                diffGroupCaseId={diffGroupCaseId}
               />
             </Tab>
             <Tab eventKey="add" title={t('addNewDifferential2')}>
