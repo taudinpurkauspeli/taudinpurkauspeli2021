@@ -6,6 +6,7 @@ import serviceUnderCases from '../../services/proceduresUnderCase';
 
 // eslint-disable-next-line no-unused-vars
 const newProcedure = ({ id, addProcedureFunc }) => {
+  /* istanbul ignore next */
   const { t } = useTranslation();
   const [newTitle, setNewTitle] = useState('');
   //  const [procedures, setProcedures] = useState([]);
@@ -29,6 +30,7 @@ const newProcedure = ({ id, addProcedureFunc }) => {
       title: newTitle,
     });
 
+    /* istanbul ignore else */
     if (addProcedureFunc != null) {
       addProcedureFunc(procedureObject);
     } else {

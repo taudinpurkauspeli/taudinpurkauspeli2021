@@ -5,6 +5,7 @@ import serviceUnderCases from '../../services/differentialsUnderCases';
 import Differential from './Differential';
 
 const DifferentialList = ({ caseId }) => {
+  /* istanbul ignore next */
   const [caseDifferentials, setCaseDifferentials] = useState([]);
 
   React.useEffect(() => {

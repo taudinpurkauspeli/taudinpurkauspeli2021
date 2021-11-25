@@ -7,6 +7,7 @@ const HideCase = ({ caseToBeHidden, hideCaseFunc }) => {
   const c = caseToBeHidden;
   let hideStatus = false;
 
+  /* istanbul ignore next */
   if (hideCaseFunc == null) {
     hideStatus = c.hidden;
   }
@@ -23,6 +24,7 @@ const HideCase = ({ caseToBeHidden, hideCaseFunc }) => {
       hidden: newHidden,
     });
 
+    /* istanbul ignore else */
     if (hideCaseFunc != null) {
       hideCaseFunc(caseObject);
     } else {
