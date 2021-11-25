@@ -1,4 +1,4 @@
-POST http://localhost:8080/api/diseases
+POST http://localhost:8080/api/differentials
 Content-Type: application/json
 
 {

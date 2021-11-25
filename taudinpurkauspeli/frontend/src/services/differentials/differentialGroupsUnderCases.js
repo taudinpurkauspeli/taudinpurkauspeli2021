@@ -1,7 +1,7 @@
 /* eslint-disable linebreak-style */
 import axios from 'axios';
 
-const baseUrl = 'http://localhost:8080/api/differentialsUnderCases';
+const baseUrl = 'http://localhost:8080/api/differentialGroupsUnderCases';
 
 const getAll = (caseId) => {
   const request = axios.get(`${baseUrl}/${caseId}`);
@@ -13,10 +13,7 @@ const create = (newObject) => {
   return request.then((response) => response.data);
 };
 
-const update = (id, newObject) => axios.put(`${baseUrl}/${id}`, newObject);
-
 export default {
   getAll,
   create,
-  update,
 };
