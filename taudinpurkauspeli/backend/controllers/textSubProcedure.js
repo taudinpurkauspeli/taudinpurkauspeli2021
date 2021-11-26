@@ -58,4 +58,4 @@ textSubProcedureRouter.put('/:id', (req, res) => {
     .catch((error) => next(error))
 });
 
-module.exports = proceduresUnderCasesRouter;
+module.exports = textSubProcedureRouter;

@@ -1,6 +1,4 @@
 const db = require('../models');
-const SubProcedure = db.subProcedures;
-const ProceduresUnderCase = db.proceduresUnderCases;
 
 module.exports = (sequelize, Sequelize) => {
 // In previous version this table was called "exercise"
@@ -8,14 +6,14 @@ module.exports = (sequelize, Sequelize) => {
     totalSubId: {
         type: Sequelize.INTEGER,
         references: {
-          model: SubProcedure,
+          model: 'subProcedures',
           key: 'id'
         }
     },
     procedureId: {
         type: Sequelize.INTEGER,
         references: {
-          model: ProceduresUnderCase,
+          model: 'proceduresUnderCases',
           key: 'procedureId'
         }
     },
@@ -24,7 +22,7 @@ module.exports = (sequelize, Sequelize) => {
       allowNull: false,
     },
     Text: {
-      type: Sequelize.Text,
+      type: Sequelize.TEXT,
     },
   });
 
