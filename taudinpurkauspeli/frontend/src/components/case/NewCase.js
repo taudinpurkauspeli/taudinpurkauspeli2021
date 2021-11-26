@@ -1,99 +1,55 @@
 /* eslint-disable linebreak-style */
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
-import { Formik } from 'formik';
-import * as Yup from 'yup';
-import { Form, Button } from 'react-bootstrap';
+import {
+  Button, Modal,
+} from 'react-bootstrap';
+
 import service from '../../services/cases';
+import NewCaseForm from './NewCaseForm';
+import { setSuccess, setError } from '../utils/MessageBanner';
 
-const newCase = ({ addCaseFunc }) => {
+const NewCase = () => {
   const { t } = useTranslation();
-  const history = useHistory();
 
-  const newCaseSchema = Yup.object().shape({
-    title: Yup.string()
-      .min(2, t('warningShort'))
-      .max(999, t('warningLong'))
-      .required(t('warningRequired')),
-    anamnesis: Yup.string(),
-    hidden: Yup.bool(),
-  });
+  const [show, setShow] = useState(false);
 
-  const addCase = (values) => {
-    const caseObject = ({
-      title: values.title,
-      anamnesis: values.anamnesis,
-      hidden: values.hidden,
-    });
+  const toggleVisibility = () => setShow(!show);
 
-    /* istanbul ignore else */
-    if (addCaseFunc !== undefined) {
-      addCaseFunc(caseObject);
-    } else {
-      service.create(caseObject);
-      history.push('/');
-    }
+  const handleCaseAdd = (newCase) => {
+    service.create(newCase)
+      .then(() => {
+        toggleVisibility();
+        setSuccess(t('caseAddSuccess'));
+      })
+      .catch((error) => {
+        // eslint-disable-next-line no-console
+        console.log(error);
+        toggleVisibility();
+        setError(t('caseAddError'));
+      });
   };
 
   return (
-    <div id="wrapper">
-      <h2>{t('addCase')}</h2>
-
-      <Formik
-        initialValues={{
-          title: '',
-          anamnesis: '',
-          hidden: false,
-        }}
-        validationSchema={newCaseSchema}
-        onSubmit={addCase}
+    <div>
+      <Button variant="primary" onClick={toggleVisibility} id="addNew">
+        {t('buttonNewCase')}
+      </Button>
+      <Modal
+        show={show}
+        onHide={toggleVisibility}
+        backdrop="static"
+        keyboard={false}
       >
-        {({
-          handleSubmit,
-          handleChange,
-          values,
-          errors,
-        }) => (
-          <Form noValidate onSubmit={handleSubmit}>
-            <Form.Group md="6" controlId="title">
-              <Form.Label>{t('caseTitle')}</Form.Label>
-              <Form.Control
-                type="text"
-                name="title"
-                value={values.title}
-                onChange={handleChange}
-                isInvalid={!!errors.title}
-              />
-              <Form.Control.Feedback type="invalid">
-                {errors.title}
-              </Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="anamnesis">
-              <Form.Label>{t('caseAnamnesis')}</Form.Label>
-              <Form.Control
-                as="textarea"
-                name="anamnesis"
-                rows={3}
-                value={values.anamnesis}
-                onChange={handleChange}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="hidden">
-              <Form.Check
-                required
-                name="hidden"
-                label={t('hideCase')}
-                value={values.hidden}
-                onChange={handleChange}
-              />
-            </Form.Group>
-            <Button type="submit">{t('buttonSubmitNewCase')}</Button>
-          </Form>
-        )}
-      </Formik>
+        <Modal.Header closeButton>
+          <Modal.Title>{t('addCase')}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <NewCaseForm addCase={handleCaseAdd} />
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };
 
-export default newCase;
+export default NewCase;

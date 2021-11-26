@@ -30,6 +30,8 @@
   "casePlayable": "Pelattavissa olevat caset",
   "caseProcedures": "Toimenpiteet",
   "caseTitle": "Casen nimi",
+  "caseAddError": "VIRHE! Uutta casea ei voitu luoda",
+  "caseAddSuccess": "Case luotu onnistuneesti",
   "caseUpdateSuccess": "Case päivitetty onnistuneesti",
   "caseTitleInstruction": "Muokattuasi otsikkoa, paina Enteria tallentaaksesi muutokset",
   "cases": "Caset",

@@ -33,6 +33,8 @@
   "caseProcedures": "Procedures",
   "caseTitle": "Case title",
   "caseTitleInstruction": "After editing the title, press Enter to save",
+  "caseAddError": "ERROR! Could not add the case",
+  "caseAddSuccess": "Case added successfully",
   "caseUpdateSuccess": "Case updated successfully",
   "cases": "Cases",
   "category": "Category",
