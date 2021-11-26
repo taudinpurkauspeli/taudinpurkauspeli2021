@@ -38,20 +38,6 @@ differentialRouter.get('/', (req, res, next) => {
     .catch((error) => next(error))
 });
 
-// Find a single differential (by id)
-differentialRouter.get('/:id', (req, res, next) => {
-  const { id } = req.params;
-
-  Differential.findByPk(id)
-    .then((data) => {
-      if (data === null) {
-        res.send(404).end()
-      }
-      res.json(data);
-    })
-    .catch((error) => next(error))
-});
-
 // Update a differential (by id)
 differentialRouter.put('/:id', (req, res, next) => {
   const { id } = req.params;

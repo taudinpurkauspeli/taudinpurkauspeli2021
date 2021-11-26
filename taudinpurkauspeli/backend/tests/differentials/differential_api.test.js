@@ -32,18 +32,6 @@ beforeEach(async () => {
   
       expect(names).toContain('TestDisease2')
     })
-
-    test('correct differential is returned when retrieved with id', async () => {
-      const response = await api.get('/api/differentials/1')
-
-      expect(response.body.name).toEqual('TestDisease1')
-    })
-
-    test('throws error when trying to get differential with non-existent id', async () => {
-      await api
-        .get('/api/differentials/5')
-        .expect(404)
-    })
   })
 
   describe('Adding a differential to database', () => {

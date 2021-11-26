@@ -26,6 +26,12 @@ describe('Getting cases from database', () => {
 
     expect(response.body).toHaveLength(helper.initialCases.length)
   })
+
+  test('throws error when trying to get case with non-existent id', async () => {
+    await api
+      .get('/api/cases/5')
+      .expect(404)
+  })
 })
 
 describe('Adding a case to database', () => {
