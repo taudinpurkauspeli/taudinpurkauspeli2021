@@ -6,6 +6,7 @@ import NewDifferential from './NewDifferential';
 import DifferentialList from './DifferentialList';
 
 const Differentials = ({ admin, caseId }) => {
+  /* istanbul ignore next */
   const { t } = useTranslation();
 
   return (
