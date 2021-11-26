@@ -7,8 +7,9 @@ import { useTranslation } from 'react-i18next';
 } from 'react-router-dom'; */
 import { Button } from 'react-bootstrap';
 /* import SubProcedureList from '../subprocedure/SubProcedureList'; */
+import NewTextSubProcedure from '../subprocedure/NewTextSubProcedure';
 
-const Procedure = ({ admin }) => {
+const Procedure = ({ admin, caseId }) => {
   const { t } = useTranslation();
   /* const { id } = useParams(); */
   const [show, setShow] = useState(false);
@@ -28,6 +29,7 @@ const Procedure = ({ admin }) => {
             {t('buttonNewSubProcedure')}
           </Button>
           <div style={showWhenVisible}>
+            <NewTextSubProcedure caseId={caseId} />
             <Button variant="primary" className="editButton" size="sm">{t('buttonAddNewText')}</Button>
             <Button variant="primary" className="editButton" size="sm">{t('buttonAddNewQuestion')}</Button>
             <Button variant="primary" className="editButton" size="sm">{t('buttonAddNewMultiChoice')}</Button>

@@ -1,23 +1,19 @@
 const db = require('../models');
-const Procedure = db.procedures;
-
 
 module.exports = (sequelize, Sequelize) => {
 // In previous version this table was called "exercise"
   const subProcedures= sequelize.define('subProcedures', {
-    procedureId: {
-      type: Sequelize.INTEGER,
-      references: {
-        model: Procedure,
-        key: 'id'
-      }
-    },
     priority: {
       type: Sequelize.INTEGER,
+      allowNull: false,
+    },
+    type: {
+      type: Sequelize.STRING,
+      allowNull: false,
     },
   });
 
-  return proceduresUnderCase;
+  return subProcedures;
 };
 
 

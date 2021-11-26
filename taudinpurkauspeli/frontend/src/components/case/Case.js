@@ -33,7 +33,7 @@ const Case = ({ cases, admin }) => {
             <Differentials admin={admin} caseId={id} />
           </Route>
           <Route path={`${baseUrl}/procedure/:id`}>
-            <Procedure admin={admin} />
+            <Procedure admin={admin} caseId={id} />
           </Route>
           <Route path={baseUrl}>
             <Anamnesis c={c} admin={admin} />
