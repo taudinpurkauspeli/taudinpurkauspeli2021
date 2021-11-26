@@ -7,6 +7,7 @@ import DifferentialGroupList from './differentialGroup/DifferentialGroupList';
 import NewDifferentialGroup from './differentialGroup/NewDifferentialGroup';
 
 const Differentials = ({ admin, caseId }) => {
+  /* istanbul ignore next */
   const { t } = useTranslation();
 
   return (

@@ -27,6 +27,7 @@ const newCase = ({ addCaseFunc }) => {
       hidden: values.hidden,
     });
 
+    /* istanbul ignore else */
     if (addCaseFunc !== undefined) {
       addCaseFunc(caseObject);
     } else {

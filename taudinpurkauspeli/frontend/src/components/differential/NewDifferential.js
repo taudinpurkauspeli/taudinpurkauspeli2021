@@ -17,6 +17,7 @@ const NewDifferential = ({ diffGroupCaseId }) => {
   const [show, setShow] = useState(false);
   const [differentials, setDifferentials] = useState([]);
 
+  /* istanbul ignore next */
   React.useEffect(() => {
     service.getAll()
       .then((initialDifferentials) => {
@@ -30,6 +31,7 @@ const NewDifferential = ({ diffGroupCaseId }) => {
 
   const toggleVisibility = () => setShow(!show);
 
+  /* istanbul ignore next */
   const handleSuccess = () => {
     toggleVisibility();
     setAlertMessage(t('differentialUpdateSuccess'));
@@ -38,6 +40,7 @@ const NewDifferential = ({ diffGroupCaseId }) => {
     }, 3000);
   };
 
+  /* istanbul ignore next */
   const handleError = (error) => {
     // eslint-disable-next-line no-console
     console.log(error);
