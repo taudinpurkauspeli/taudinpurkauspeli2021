@@ -7,6 +7,8 @@ const caseRouter = require('./controllers/cases');
 const differentialUnderCaseRouter = require('./controllers/differentialsUnderCases');
 const proceduresRouter = require('./controllers/procedures');
 const proceduresUnderCasesRouter = require('./controllers/proceduresUnderCases');
+const subProceduresRouter = require('./controllers/subProcedures');
+const textSubProcedureRouter = require('./controllers/textSubProcedure');
 const middleware = require('./utils/middleware');
 const logger = require('./utils/logger');
 const db = require('./models');
@@ -41,6 +43,9 @@ app.use('/api/cases', caseRouter);
 app.use('/api/differentials', differentialRouter);
 app.use('/api/differentialsUnderCases', differentialUnderCaseRouter);
 app.use('/api/procedures', proceduresRouter);
+app.use('/api/proceduresUnderCases', proceduresUnderCasesRouter);
+app.use('/api/subProcedures', subProceduresRouter);
+app.use('api/textSubProcedures', textSubProcedureRouter);
 app.use('/api/proceduresUnderCases', proceduresUnderCasesRouter);
 
 app.use(middleware.unknownEndpoint);
