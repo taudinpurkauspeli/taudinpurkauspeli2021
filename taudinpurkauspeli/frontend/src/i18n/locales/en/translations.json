@@ -70,6 +70,8 @@
   "logOut": "Log out",
   "nameOfTheGame": "Taudinpurkauspeli",
   "noDifferentialsYet": "No differentials yet",
+  "procedureAddError": "ERROR! Could not add a procedure",
+  "procedureAddSuccess": "Procedure added successfully",
   "procedurePriority": "Procedure priority",
   "procedureTitle": "Procedure title",
   "searchByTitle": "Search by title",

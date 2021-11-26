@@ -68,6 +68,8 @@
   "logOut": "Kirjaudu ulos",
   "nameOfTheGame": "Taudinpurkauspeli",
   "noDifferentialsYet": "Ei vielä diffejä",
+  "procedureAddError": "VIRHE! Toimenpiteen lisäys epäonnistui",
+  "procedureAddSuccess": "Toimenpiteen lisäys onnistui",
   "procedurePriority": "Toimenpiteen tärkeysaste",
   "procedureTitle": "Toimenpiteen nimi",
   "searchByTitle": "Etsi nimellä",
