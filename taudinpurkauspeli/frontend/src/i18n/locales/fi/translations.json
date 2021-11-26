@@ -32,6 +32,7 @@
   "caseTitle": "Casen nimi",
   "caseAddError": "VIRHE! Uutta casea ei voitu luoda",
   "caseAddSuccess": "Case luotu onnistuneesti",
+  "caseUpdateError": "VIRHE! Casen päivittäminen epäonnistui",
   "caseUpdateSuccess": "Case päivitetty onnistuneesti",
   "caseTitleInstruction": "Muokattuasi otsikkoa, paina Enteria tallentaaksesi muutokset",
   "cases": "Caset",

@@ -2,18 +2,17 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  Button, Modal, Tabs, Tab, Alert,
+  Button, Modal, Tabs, Tab,
 } from 'react-bootstrap';
 import service from '../../services/differentials/differentials';
 import serviceUnderCases from '../../services/differentials/differentialsUnderCases';
 import AddDifferentialForm from './AddDifferentialForm';
 import SelectDifferentialForm from './SelectDifferentialForm';
+import { setSuccess, setError } from '../utils/MessageBanner';
 
 const NewDifferential = ({ diffGroupCaseId }) => {
   const { t } = useTranslation();
 
-  const [alertMessage, setAlertMessage] = useState(null);
-  const [errorMessage, setErrorMessage] = useState(null);
   const [show, setShow] = useState(false);
   const [differentials, setDifferentials] = useState([]);
 
@@ -31,30 +30,18 @@ const NewDifferential = ({ diffGroupCaseId }) => {
 
   const toggleVisibility = () => setShow(!show);
 
-  /* istanbul ignore next */
-  const handleSuccess = () => {
-    toggleVisibility();
-    setAlertMessage(t('differentialUpdateSuccess'));
-    setTimeout(() => {
-      setAlertMessage(null);
-    }, 3000);
-  };
-
-  /* istanbul ignore next */
-  const handleError = (error) => {
-    // eslint-disable-next-line no-console
-    console.log(error);
-    toggleVisibility();
-    setErrorMessage(t('differentialUpdateError'));
-    setTimeout(() => {
-      setErrorMessage(null);
-    }, 3000);
-  };
-
   const handleDifferentialSelection = (ducObject) => {
     serviceUnderCases.create(ducObject)
-      .then(() => handleSuccess())
-      .catch((error) => handleError(error));
+      .then(() => {
+        toggleVisibility();
+        setSuccess(t('differentialUpdateSuccess'));
+      })
+      .catch((error) => {
+      // eslint-disable-next-line no-console
+        console.log(error);
+        toggleVisibility();
+        setError(t('differentialUpdateError'));
+      });
   };
 
   const handleDifferentialAdd = (differentialObject) => {
@@ -71,12 +58,6 @@ const NewDifferential = ({ diffGroupCaseId }) => {
 
   return (
     <div>
-      { alertMessage !== null && (
-      <Alert variant="success">{alertMessage}</Alert>
-      )}
-      { errorMessage !== null && (
-      <Alert variant="danger">{errorMessage}</Alert>
-      )}
       <Button variant="primary" onClick={toggleVisibility} id="addNew">
         {t('buttonNewDifferential')}
       </Button>

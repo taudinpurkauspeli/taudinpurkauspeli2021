@@ -2,18 +2,18 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  Button, Modal, Tabs, Tab, Alert,
+  Button, Modal, Tabs, Tab,
 } from 'react-bootstrap';
+
 import serviceUnderCases from '../../../services/differentials/differentialGroupsUnderCases';
 import service from '../../../services/differentials/differentialGroups';
 import AddDifferentialGroupForm from './AddDifferentialGroupForm';
 import SelectDifferentialGroupForm from './SelectDifferentialGroupForm';
+import { setSuccess, setError } from '../../utils/MessageBanner';
 
 const NewDifferentialGroup = ({ caseId }) => {
   const { t } = useTranslation();
 
-  const [alertMessage, setAlertMessage] = useState(null);
-  const [errorMessage, setErrorMessage] = useState(null);
   const [show, setShow] = useState(false);
   const [differentialGroups, setDifferentialGroups] = useState([]);
 
@@ -30,28 +30,18 @@ const NewDifferentialGroup = ({ caseId }) => {
 
   const toggleVisibility = () => setShow(!show);
 
-  const handleSuccess = () => {
-    toggleVisibility();
-    setAlertMessage(t('differentialGroupUpdateSuccess'));
-    setTimeout(() => {
-      setAlertMessage(null);
-    }, 3000);
-  };
-
-  const handleError = (error) => {
-    // eslint-disable-next-line no-console
-    console.log(error);
-    toggleVisibility();
-    setErrorMessage(t('differentialGroupUpdateError'));
-    setTimeout(() => {
-      setErrorMessage(null);
-    }, 3000);
-  };
-
   const handleDifferentialGroupSelection = (newObject) => {
     serviceUnderCases.create(newObject)
-      .then(() => handleSuccess())
-      .catch((error) => handleError(error));
+      .then(() => {
+        toggleVisibility();
+        setSuccess(t('differentialGroupUpdateSuccess'));
+      })
+      .catch((error) => {
+        // eslint-disable-next-line no-console
+        console.log(error);
+        toggleVisibility();
+        setError(t('differentialGroupUpdateError'));
+      });
   };
 
   const handleDifferentialGroupAdd = (differentialGroupObject) => {
@@ -67,12 +57,6 @@ const NewDifferentialGroup = ({ caseId }) => {
 
   return (
     <div>
-      { alertMessage !== null && (
-      <Alert variant="success">{alertMessage}</Alert>
-      )}
-      { errorMessage !== null && (
-      <Alert variant="danger">{errorMessage}</Alert>
-      )}
       <Button variant="primary" onClick={toggleVisibility} id="addNew">
         {t('buttonNewDifferentialGroup')}
       </Button>

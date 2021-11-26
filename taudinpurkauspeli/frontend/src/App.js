@@ -17,7 +17,7 @@ import HowToPlay from './components/instructions/HowToPlay';
 import Profile from './components/user/Profile';
 import Case from './components/case/Case';
 import HideCase from './components/case/HideCase';
-import NewCase from './components/case/NewCase';
+import MessageBanner from './components/utils/MessageBanner';
 
 const App = () => {
   const [user, setUser] = useState(false);
@@ -74,6 +74,8 @@ const App = () => {
         ? ' '
         : <Sidebar /> }
 
+      <MessageBanner />
+
       <Switch>
         <Route path="/howtoplay">
           <HowToPlay />
@@ -85,14 +87,9 @@ const App = () => {
           <Case cases={cases} admin={admin} />
         </Route>
         { admin && (
-        <Route path="/editcase/:id">
-          <HideCase cases={cases} />
-        </Route>
-        )}
-        { admin && (
-        <Route path="/newcase">
-          <NewCase />
-        </Route>
+          <Route path="/editcase/:id">
+            <HideCase cases={cases} />
+          </Route>
         )}
         <Route path="/">
           { guest
