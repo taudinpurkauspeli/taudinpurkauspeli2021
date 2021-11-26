@@ -7,7 +7,7 @@ import NewDifferential from '../NewDifferential';
 const DifferentialGroup = ({
   diffGroupCaseId, name, admin,
 }) => (
-  <Card>
+  <Card style={{ width: '60rem' }}>
     <Card.Header>{name}</Card.Header>
     <Card.Body>
       <DifferentialList diffGroupCaseId={diffGroupCaseId} />

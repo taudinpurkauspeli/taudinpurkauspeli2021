@@ -57,7 +57,7 @@ const NewDifferential = ({ diffGroupCaseId }) => {
   };
 
   return (
-    <div>
+    <div id="newDifferential">
       <Button variant="primary" onClick={toggleVisibility} id="addNew">
         {t('buttonNewDifferential')}
       </Button>
