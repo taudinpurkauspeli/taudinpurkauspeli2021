@@ -5,46 +5,44 @@ import {
   render, waitFor, fireEvent, screen,
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import SelectDifferentialForm from '../../components/differential/SelectDifferentialForm';
+import SelectDifferentialForm from '../../../components/differential/differentialGroup/SelectDifferentialGroupForm';
 
-const initialDifferentials = [{
+const initialDifferentialGroups = [{
   id: 1,
-  name: 'testDifferential1',
+  name: 'testDifferentialGroup1',
 },
 {
   id: 2,
-  name: 'testDifferential2',
+  name: 'testDifferentialGroup2',
 }];
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key) => key }),
 }));
 
-const selectDifferentialFunc = jest.fn();
+const selectDifferentialGroupFunc = jest.fn();
 
 beforeEach(() => {
   render(
     <SelectDifferentialForm
-      differentials={initialDifferentials}
-      selectDifferential={selectDifferentialFunc}
-      diffGroupCaseId={1}
+      differentialGroups={initialDifferentialGroups}
+      selectDifferentialGroup={selectDifferentialGroupFunc}
+      caseId={1}
     />,
   );
 });
 
-test('New differential can be selected', async () => {
+test('New differential group can be selected', async () => {
   const selectField = screen.getByRole('combobox');
   selectField.focus();
   await waitFor(() => fireEvent.change(selectField, { target: { value: 't' } }));
   await waitFor(() => fireEvent.keyDown(selectField, { key: 'ArrowDown' }));
   await waitFor(() => fireEvent.keyDown(selectField, { key: 'Enter' }));
 
-  userEvent.type(screen.getByLabelText(/description/i), 'testDescription');
   userEvent.click(screen.getByRole('button', { name: /submit/i }));
 
-  await waitFor(() => expect(selectDifferentialFunc).toHaveBeenCalledWith({
-    diffGroupCaseId: 1,
-    differentialId: 1,
-    description: 'testDescription',
+  await waitFor(() => expect(selectDifferentialGroupFunc).toHaveBeenCalledWith({
+    caseId: 1,
+    differentialGroupId: 1,
   }));
 });
