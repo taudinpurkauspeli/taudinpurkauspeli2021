@@ -10,6 +10,7 @@ const Anamnesis = ({ c, admin }) => {
   const { t } = useTranslation();
   const [currentCase, setCurrentCase] = useState(c);
 
+  /* istanbul ignore next */
   const handleCaseUpdate = (updatedCase) => {
     service.update(c.id, updatedCase)
       .then(() => {

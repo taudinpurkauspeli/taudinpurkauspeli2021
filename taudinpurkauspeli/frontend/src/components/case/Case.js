@@ -12,7 +12,6 @@ import Procedures from '../procedure/Procedures';
 
 const Case = ({ cases, admin }) => {
   const { t } = useTranslation();
-
   const { id } = useParams();
   const c = cases.find((a) => a.id === Number(id));
   const baseUrl = `/cases/${id}`;

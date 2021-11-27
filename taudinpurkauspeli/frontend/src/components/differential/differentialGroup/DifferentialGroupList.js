@@ -18,7 +18,7 @@ const DifferentialGroupList = ({ caseId, admin }) => {
   }, []);
 
   return (
-    <div>
+    <div data-testid="diffGroupList">
       {caseDifferentialGroups.map((d) => (
         <DifferentialGroup
           key={d.id}
