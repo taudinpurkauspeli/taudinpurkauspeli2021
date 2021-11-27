@@ -2,8 +2,9 @@
 /* eslint-disable array-callback-return */
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import NewDifferential from './NewDifferential';
-import DifferentialList from './DifferentialList';
+// import NewDifferential from './NewDifferential';
+import DifferentialGroupList from './differentialGroup/DifferentialGroupList';
+import NewDifferentialGroup from './differentialGroup/NewDifferentialGroup';
 
 const Differentials = ({ admin, caseId }) => {
   /* istanbul ignore next */
@@ -16,10 +17,10 @@ const Differentials = ({ admin, caseId }) => {
       </h2>
       {admin && (
         <div>
-          <NewDifferential caseId={caseId} />
+          <NewDifferentialGroup caseId={caseId} />
         </div>
       )}
-      <DifferentialList caseId={caseId} />
+      <DifferentialGroupList caseId={caseId} admin={admin} />
     </div>
   );
 };

@@ -40,6 +40,9 @@ caseRouter.get('/:id', (req, res, next) => {
 
   Case.findByPk(id)
     .then((data) => {
+      if (data === null) {
+        res.send(404).end()
+      }
       res.json(data);
     })
     .catch((error) => next(error))

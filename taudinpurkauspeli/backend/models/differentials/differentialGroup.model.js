@@ -1,7 +1,5 @@
-// create basic info for disease in diseases table - enables usage of sequelize options.
-
 module.exports = (sequelize, Sequelize) => {
-  const Differential = sequelize.define('differential', {
+  const DifferentialGroup = sequelize.define('differentialGroup', {
     name: {
       type: Sequelize.STRING,
       unique: true,
@@ -12,5 +10,5 @@ module.exports = (sequelize, Sequelize) => {
     },
   });
 
-  return Differential;
+  return DifferentialGroup;
 };

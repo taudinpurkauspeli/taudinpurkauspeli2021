@@ -1,18 +1,19 @@
 const differentialsUnderCasesRouter = require('express').Router();
-const db = require('../models');
+const db = require('../../models');
 
 const DifferentialUnderCase = db.differentalsUnderCases;
-const Case = db.cases;
-const Differential = db.differentials
+const Differential = db.differentials;
+const DifferentialGroupUnderCase = db.differentialGroupsUnderCase;
 const { Op } = db.Sequelize;
 
-Case.belongsToMany(Differential, { through: DifferentialUnderCase });
-Differential.belongsToMany(Case, { through: DifferentialUnderCase });
+DifferentialGroupUnderCase.belongsToMany(Differential, { through: DifferentialUnderCase });
+Differential.belongsToMany(DifferentialGroupUnderCase, { through: DifferentialUnderCase });
+
 
 // Create differential under case
 differentialsUnderCasesRouter.post('/', (req, res, next) => {
     const duc = {
-        caseId: req.body.caseId,
+        differentialGroupsUnderCaseId: req.body.diffGroupCaseId,
         differentialId: req.body.differentialId,
         description: req.body.description,
     };
@@ -28,7 +29,7 @@ differentialsUnderCasesRouter.post('/', (req, res, next) => {
 differentialsUnderCasesRouter.get('/:id', (req, res, next) => {
     const { id } = req.params;
 
-    Case.findOne({
+    DifferentialGroupUnderCase.findOne({
         where: {
             id
         },

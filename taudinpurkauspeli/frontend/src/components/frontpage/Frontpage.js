@@ -5,10 +5,9 @@ import { useTranslation } from 'react-i18next';
 import {
   Col,
   Row,
-  Button,
 } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 
+import NewCase from '../case/NewCase';
 import CaseCard from '../case/CaseCard';
 import Search from './Search';
 
@@ -31,7 +30,7 @@ const Frontpage = ({ cases, admin }) => {
       <br />
       {admin && (
         <div>
-          <Button as={Link} to="/newcase">{t('buttonNewCase')}</Button>
+          <NewCase />
           <br />
           <h3>{t('caseHidden')}</h3>
           <hr />

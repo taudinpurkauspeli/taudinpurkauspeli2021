@@ -1,40 +1,41 @@
 /* eslint-disable linebreak-style */
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Alert } from 'react-bootstrap';
 import HideCase from '../case/HideCase';
 import service from '../../services/cases';
 import UpdateCaseTitle from '../case/UpdateCaseTitle';
+import { setSuccess, setError } from '../utils/MessageBanner';
 
 const Anamnesis = ({ c, admin }) => {
   const { t } = useTranslation();
+  const [currentCase, setCurrentCase] = useState(c);
 
-  const [alertMessage, setAlertMessage] = useState(null);
-
-  const handleTitleUpdate = (updatedCase) => {
-    service.update(c.id, updatedCase);
-    setAlertMessage(t('caseUpdateSuccess'));
-    setTimeout(() => {
-      setAlertMessage(null);
-    }, 3000);
+  const handleCaseUpdate = (updatedCase) => {
+    service.update(c.id, updatedCase)
+      .then(() => {
+        setCurrentCase(updatedCase);
+        setSuccess(t('caseUpdateSuccess'));
+      })
+      .catch((error) => {
+        // eslint-disable-next-line no-console
+        console.log(error);
+        setError(t('caseUpdateError'));
+      });
   };
 
   return (
     <div>
-      { alertMessage !== null && (
-        <Alert variant="success">{alertMessage}</Alert>
-      )}
       <p>Casen tiedot löytyvät täältä</p>
       { admin && (
         <div>
-          <UpdateCaseTitle c={c} updateCaseTitle={handleTitleUpdate} />
-          <HideCase caseToBeHidden={c} />
+          <UpdateCaseTitle c={currentCase} updateCaseTitle={handleCaseUpdate} />
+          <HideCase c={currentCase} hideCase={handleCaseUpdate} />
         </div>
       )}
       { !admin && (
-        <p>{c.title}</p>
+        <p>{currentCase.title}</p>
       )}
-      <p>{c.anamnesis}</p>
+      <p>{currentCase.anamnesis}</p>
     </div>
   );
 };

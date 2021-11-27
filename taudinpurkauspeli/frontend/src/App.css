@@ -35,6 +35,7 @@ a:hover {
 .card {
   color: black !important;
   text-decoration: none;
+  margin: 1%;
 }
 
 .cardButtons button {
@@ -43,6 +44,22 @@ a:hover {
 
 .btn-primary {
   background:#2d6a4f !important;
+  border-color: #2d6a4f !important;
+  margin: 0.5%;
+}
+
+.btn-primary:hover {
+  background-color: rgb(27, 67, 50) !important;
+}
+
+.btn-primary:focus {
+  box-shadow: none !important;
+}
+
+.card-header {
+  background: rgb(27, 67, 50)!important;
+  color: white !important;
+  text-align: center;
 }
 
 .card-footer {
@@ -53,6 +70,20 @@ a:hover {
   color: black !important;
   background: #95d5b2 !important;
   margin-right:.50em;
+}
+
+[role=tab] {
+  color: black !important;
+}
+
+#differentialName {
+  background:#2d6a4f !important;
+}
+
+#newDifferential {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #selectLanguage {

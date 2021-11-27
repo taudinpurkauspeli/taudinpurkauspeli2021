@@ -27,7 +27,7 @@ test('<HideCase /> updates parent state and calls onSubmit', () => {
   const hideCase = jest.fn();
 
   const component = render(
-    <HideCase caseToBeHidden={cases} hideCaseFunc={hideCase} />,
+    <HideCase c={cases} hideCase={hideCase} />,
   );
 
   const form = component.container.querySelector('form');

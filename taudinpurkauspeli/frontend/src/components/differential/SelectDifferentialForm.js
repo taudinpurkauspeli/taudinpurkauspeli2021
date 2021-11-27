@@ -6,7 +6,7 @@ import {
 } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 
-const SelectDifferentialForm = ({ differentials, selectDifferential, caseId }) => {
+const SelectDifferentialForm = ({ differentials, selectDifferential, diffGroupCaseId }) => {
   const { t } = useTranslation();
 
   const [selectedDiff, setSelectedDiff] = useState([]);
@@ -16,7 +16,7 @@ const SelectDifferentialForm = ({ differentials, selectDifferential, caseId }) =
     event.preventDefault();
     const differential = differentials.filter((d) => d.name === selectedDiff[0])[0];
     selectDifferential({
-      caseId,
+      diffGroupCaseId,
       differentialId: differential.id,
       description,
     });

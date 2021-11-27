@@ -3,8 +3,8 @@ import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import NewDifferential from '../../components/differential/NewDifferential';
-import service from '../../services/differentials/differentials';
+import NewDifferentialGroup from '../../../components/differential/differentialGroup/NewDifferentialGroup';
+import service from '../../../services/differentials/differentialGroups';
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key) => key }),
@@ -15,12 +15,12 @@ jest.spyOn(service, 'getAll');
 
 beforeEach(() => {
   render(
-    <NewDifferential caseId={1} />,
+    <NewDifferentialGroup caseId={1} />,
   );
 
   userEvent.click(screen.getByRole('button', { id: /addNew/i }));
 });
 
-test('New differential window is rendered', async () => {
-  await waitFor(() => expect(screen.getByLabelText(/addDifferential/i)).toBeInTheDocument());
+test('New differential group window is rendered', async () => {
+  await waitFor(() => expect(screen.getByLabelText(/addDifferentialGroup/i)).toBeInTheDocument());
 });

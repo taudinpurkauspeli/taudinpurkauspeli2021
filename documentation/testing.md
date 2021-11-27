@@ -16,6 +16,10 @@
 - AddDifferentialForm: testattu, että lomake toimii toivotusti. Ks. tiedosto ![AddDifferentialForm.test.js](https://github.com/taudinpurkauspeli/taudinpurkauspeli2021/blob/addDisease/taudinpurkauspeli/frontend/src/tests/differential/AddDifferentialForm.test.js)
 - NewDifferentail: testattu, että uuden diffin luomisikkuna renderöityy oikein. Ks. tiedosto ![NewDifferential.test.js](https://github.com/taudinpurkauspeli/taudinpurkauspeli2021/blob/addDisease/taudinpurkauspeli/frontend/src/tests/differential/NewDifferential.test.js)
 - SelectDifferentialForm: testattu, että valikosta voi valita olemassaolevan diffin, ja lomake lähetetään toivotulla tavalla. Ks. tiedosto ![SelectDifferentialForm.test.js](https://github.com/taudinpurkauspeli/taudinpurkauspeli2021/blob/addDisease/taudinpurkauspeli/frontend/src/tests/differential/SelectDifferentialForm.test.js)
+- AddDifferentialGroupForm: testattu, että uusi diffiryhmä voidaan lisätä. Tarkistettu tilanteet, kun diffiryhmän nimi on liian lyhyt tai nimi puuttuu kokonaan.
+- DifferentialGroup: testattu, että diffiryhmä renderöityy näytölle.
+- NewDifferentialGroup: testattu, että diffiryhmän lisäämisen ikkuna renderöityy näytölle.
+- SelectDifferentialGroupForm: testattu, että olemassaolevan diffiryhmän voi valita valikosta.
 
 ### Käytännön testit
 
@@ -31,6 +35,8 @@ Toimivuus on testattu selaimen avulla kieliparilla suomi-englanti.
 
 ### Ohjelmoidut testit
 
-- Case: Testattu, että kaikki halutut caset palautuvat tietokannasta, ja että tietty case on palautettujen casejen joukossa. Casen lisääminen oikealla ja virheellisellä syötteellä testattu. Casen otsikon ja näkyvyyden muokkaus oikeilla ja viallisilla syötteillä testattu. Ks. tiedosto ![case_api.test.js](https://github.com/taudinpurkauspeli/taudinpurkauspeli2021/blob/teacherListTest/taudinpurkauspeli/backend/tests/case_api.test.js).
-- Differential: Testattu, että kaikki diffit tietokannasta palautetaan, uuden validin diffin voi lisätä, ja että diffin voi hakea tietokannasta id:n perusteella. Ks. tiedosto ![differential_api.test.js](https://github.com/taudinpurkauspeli/taudinpurkauspeli2021/blob/addDisease/taudinpurkauspeli/backend/tests/differential_api.test.js)
-- DifferentialUnderCase: Testattu, että palautetaan oikeanmuotoinen syöte, ja että kaikki tietyn casen diffit palautetaan. Ks. tiedosto ![differentialUnderCase_api.test.js](https://github.com/taudinpurkauspeli/taudinpurkauspeli2021/blob/addDisease/taudinpurkauspeli/backend/tests/differentialUnderCase_api.test.js)
+- Case: Testattu, että kaikki halutut caset palautuvat tietokannasta, ja että tietty case on palautettujen casejen joukossa. Casen lisääminen oikealla ja virheellisellä syötteellä testattu. Casen otsikon ja näkyvyyden muokkaus oikeilla ja viallisilla syötteillä testattu. Virheellisellä id:llä haettu case palauttaa 404. Ks. tiedosto ![case_api.test.js](https://github.com/taudinpurkauspeli/taudinpurkauspeli2021/blob/teacherListTest/taudinpurkauspeli/backend/tests/case_api.test.js).
+- Differential: Testattu, että kaikki diffit tietokannasta palautetaan, uuden validin diffin voi lisätä. Ks. tiedosto ![differential_api.test.js](https://github.com/taudinpurkauspeli/taudinpurkauspeli2021/blob/addDisease/taudinpurkauspeli/backend/tests/differential_api.test.js)
+- DifferentialUnderCase: Testattu, että palautetaan oikeanmuotoinen syöte, ja että kaikki tietyn casen/diffiryhmän diffit palautetaan. Ks. tiedosto ![differentialUnderCase_api.test.js](https://github.com/taudinpurkauspeli/taudinpurkauspeli2021/blob/addDisease/taudinpurkauspeli/backend/tests/differentialUnderCase_api.test.js)
+- DifferentialGroup: Testattu, että kaikki diffiryhmät palautetaan, ja että oikeanmuotoinen syöte voidaan lisätä tietokantaan.
+- DifferentialGroupUnderCase: Testattu, että kaikki caseen liittyvät diffiryhmät palautetaan.

@@ -1,13 +1,11 @@
-const db = require('../models');
-
 module.exports = (sequelize, Sequelize) => {
     // In previous version this table was called "exercise_hypotheses"
     
     const DifferentialsUnderCase = sequelize.define('differentialsUnderCase', {
-        caseId: {
+        differentialGroupsUnderCaseId: {
             type: Sequelize.INTEGER,
             references: {
-                model: 'cases',
+                model: 'differentialGroupsUnderCases',
                 key: 'id'
             }
         },
@@ -17,7 +15,7 @@ module.exports = (sequelize, Sequelize) => {
               model: 'differentials',
               key: 'id'
             }
-          },
+        },
         description: {
             type: Sequelize.TEXT,
         }
