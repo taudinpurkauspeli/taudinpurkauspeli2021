@@ -16,8 +16,8 @@ const NewDifferential = ({ diffGroupCaseId }) => {
   const [show, setShow] = useState(false);
   const [differentials, setDifferentials] = useState([]);
 
-  /* istanbul ignore next */
   React.useEffect(() => {
+    /* istanbul ignore next */
     service.getAll()
       .then((initialDifferentials) => {
         setDifferentials(initialDifferentials);
@@ -30,6 +30,7 @@ const NewDifferential = ({ diffGroupCaseId }) => {
 
   const toggleVisibility = () => setShow(!show);
 
+  /* istanbul ignore next */
   const handleDifferentialSelection = (ducObject) => {
     serviceUnderCases.create(ducObject)
       .then(() => {
@@ -44,6 +45,7 @@ const NewDifferential = ({ diffGroupCaseId }) => {
       });
   };
 
+  /* istanbul ignore next */
   const handleDifferentialAdd = (differentialObject) => {
     service.create({ name: differentialObject.name })
       .then((res) => {

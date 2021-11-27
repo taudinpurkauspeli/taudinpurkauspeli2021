@@ -10,7 +10,8 @@ jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key) => key }),
 }));
 
-jest.spyOn(React, 'useEffect').mockImplementation((f) => f());
+const useEffectSpy = jest.spyOn(React, 'useEffect');
+useEffectSpy.mockImplementation((f) => f());
 jest.spyOn(service, 'getAll');
 
 beforeEach(() => {

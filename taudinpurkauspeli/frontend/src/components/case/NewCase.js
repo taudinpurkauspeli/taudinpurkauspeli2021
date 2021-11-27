@@ -16,6 +16,7 @@ const NewCase = () => {
 
   const toggleVisibility = () => setShow(!show);
 
+  /* istanbul ignore next */
   const handleCaseAdd = (newCase) => {
     service.create(newCase)
       .then(() => {
