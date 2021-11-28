@@ -12,6 +12,7 @@ const DifferentialGroupList = ({ caseId, admin }) => {
         setCaseDifferentialGroups(initialDifferentialGroups);
       })
       .catch((error) => {
+        /* istanbul ignore next */
         // eslint-disable-next-line
         console.log(error);
       });

@@ -5,7 +5,6 @@ import serviceUnderCases from '../../services/differentials/differentialsUnderCa
 import Differential from './Differential';
 
 const DifferentialList = ({ diffGroupCaseId }) => {
-  /* istanbul ignore next */
   const [caseDifferentials, setCaseDifferentials] = useState([]);
 
   React.useEffect(() => {
@@ -14,6 +13,7 @@ const DifferentialList = ({ diffGroupCaseId }) => {
         setCaseDifferentials(initialDifferentials);
       })
       .catch((error) => {
+        /* istanbul ignore next */
         // eslint-disable-next-line
         console.log(error);
       });

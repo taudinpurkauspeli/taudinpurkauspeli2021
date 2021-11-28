@@ -17,14 +17,17 @@ const EditProcedure = ({ procedure, editProcedureFunc }) => {
   /* istanbul ignore next */
   const history = useHistory();
 
+  /* istanbul ignore next */
   const handlePriorityChange = (event) => {
     setNewPriority(event.target.value);
   };
 
+  /* istanbul ignore next */
   const handleTitleChange = (event) => {
     setNewProcedureTitle(event.target.value);
   };
 
+  /* istanbul ignore next */
   const editProcedure = (event) => {
     event.preventDefault();
     setNewProcedureTitle(event.target[0].value);

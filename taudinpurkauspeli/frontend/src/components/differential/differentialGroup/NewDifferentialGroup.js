@@ -23,6 +23,7 @@ const NewDifferentialGroup = ({ caseId }) => {
         setDifferentialGroups(initialDifferentialGroups);
       })
       .catch((error) => {
+        /* istanbul ignore next */
         // eslint-disable-next-line
         console.log(error);
       });
@@ -30,6 +31,7 @@ const NewDifferentialGroup = ({ caseId }) => {
 
   const toggleVisibility = () => setShow(!show);
 
+  /* istanbul ignore next */
   const handleDifferentialGroupSelection = (newObject) => {
     serviceUnderCases.create(newObject)
       .then(() => {
@@ -44,6 +46,7 @@ const NewDifferentialGroup = ({ caseId }) => {
       });
   };
 
+  /* istanbul ignore next */
   const handleDifferentialGroupAdd = (differentialGroupObject) => {
     service.create({ name: differentialGroupObject.name })
       .then((res) => {
