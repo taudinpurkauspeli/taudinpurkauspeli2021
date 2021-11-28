@@ -3,8 +3,8 @@ import axios from 'axios';
 
 const baseUrl = 'http://localhost:8080/api/differentialsUnderCases';
 
-const getAll = (caseId) => {
-  const request = axios.get(`${baseUrl}/${caseId}`);
+const getAll = (diffGroupCaseId) => {
+  const request = axios.get(`${baseUrl}/${diffGroupCaseId}`);
   return request.then((response) => response.data);
 };
 
