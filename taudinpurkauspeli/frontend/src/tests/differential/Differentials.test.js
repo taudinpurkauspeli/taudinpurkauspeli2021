@@ -9,6 +9,6 @@ jest.mock('react-i18next', () => ({
 }));
 
 test('Differentials are rendered', async () => {
-  const testDifferentials = render(<Differentials caseId={1} admin />);
+  const testDifferentials = render(<Differentials caseId={1} />);
   await waitFor(() => expect(testDifferentials.getByText('Differentials')).toBeInTheDocument());
 });
