@@ -1,26 +1,36 @@
 /* eslint-disable no-undef */
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
-// eslint-disable-next-line no-unused-vars
 import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import Anamnesis from '../../components/anamnesis/Anamnesis';
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key) => key }),
 }));
 
-const testCase = {
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useParams: () => ({
+    id: '1',
+  }),
+  useRouteMatch: () => ({ url: '/cases/id' }),
+}));
+
+const cases = [{
   id: 1,
   title: 'Koirat sairaina',
   anamnesis: 'Koirilla on havaittu kuume, sinun täytyy selvittää syy',
   hidden: false,
-};
+}];
 
 let studentView;
 
 beforeEach(() => {
   studentView = render(
-    <Anamnesis c={testCase} admin={false} />,
+    <MemoryRouter>
+      <Anamnesis cases={cases} admin={false} />
+    </MemoryRouter>,
   );
 });
 

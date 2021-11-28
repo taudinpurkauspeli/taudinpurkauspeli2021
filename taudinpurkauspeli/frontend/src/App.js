@@ -4,23 +4,13 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   BrowserRouter as Router,
-  Switch, Route,
 } from 'react-router-dom';
 
 // Import components
 import Navigationbar from './components/navigation/Navbar';
 import service from './services/cases';
-import Frontpage from './components/frontpage/Frontpage';
-import GuestFrontpage from './components/frontpage/GuestFrontpage';
 import Sidebar from './components/navigation/Sidebar';
-import HowToPlay from './components/instructions/HowToPlay';
-import Profile from './components/user/Profile';
-import Case from './components/case/Case';
-import HideCase from './components/case/HideCase';
-import NewCase from './components/case/NewCase';
-import Procedures from './components/procedure/Procedures';
-import Differentials from './components/differential/Differentials';
-import Anamnesis from './components/anamnesis/Anamnesis';
+import Routing from './components/navigation/Routing';
 
 const App = () => {
   const [user, setUser] = useState(false);
@@ -69,45 +59,8 @@ const App = () => {
         changeGuest={changeGuest}
         cases={cases}
       />
-      { guest
-        ? ' '
-        : <Sidebar /> }
-
-      <Switch>
-        <Route path="/howtoplay">
-          <HowToPlay />
-        </Route>
-        <Route path="/profile">
-          <Profile />
-        </Route>
-        <Route path="/cases/:id/procedures">
-          <Case cases={cases} admin={admin} />
-          <Procedures />
-        </Route>
-        <Route path="/cases/:id/differentials">
-          <Case cases={cases} admin={admin} />
-          <Differentials admin={admin} />
-        </Route>
-        <Route path="/cases/:id">
-          <Case cases={cases} admin={admin} />
-          <Anamnesis cases={cases} admin={admin} />
-        </Route>
-        { admin && (
-        <Route path="/editcase/:id">
-          <HideCase cases={cases} />
-        </Route>
-        )}
-        { admin && (
-        <Route path="/newcase">
-          <NewCase />
-        </Route>
-        )}
-        <Route path="/">
-          { guest
-            ? <GuestFrontpage />
-            : <Frontpage admin={admin} cases={cases} /> }
-        </Route>
-      </Switch>
+      { guest ? ' ' : <Sidebar /> }
+      <Routing cases={cases} admin={admin} guest={guest} />
     </Router>
   );
 };
