@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next';
 import {
   Button, Modal, Tabs, Tab, Alert,
 } from 'react-bootstrap';
-import service from '../../services/differentials';
-import serviceUnderCases from '../../services/differentialsUnderCases';
+import service from '../../services/differentials/differentials';
+import serviceUnderCases from '../../services/differentials/differentialsUnderCases';
 import AddDifferentialForm from './AddDifferentialForm';
 import SelectDifferentialForm from './SelectDifferentialForm';
 

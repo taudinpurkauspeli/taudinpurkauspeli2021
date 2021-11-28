@@ -4,7 +4,7 @@ import { Button } from 'react-bootstrap';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import caseService from '../../services/cases';
-import ducService from '../../services/differentialsUnderCases';
+import ducService from '../../services/differentials/differentialsUnderCases';
 import pucService from '../../services/proceduresUnderCase';
 
 const copyCase = ({

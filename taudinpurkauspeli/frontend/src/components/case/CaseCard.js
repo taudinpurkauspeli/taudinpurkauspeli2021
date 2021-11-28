@@ -9,7 +9,7 @@ import {
 import { Link } from 'react-router-dom';
 import RemoveCase from './RemoveCase';
 import CopyCase from './CopyCase';
-import ducService from '../../services/differentialsUnderCases';
+import ducService from '../../services/differentials/differentialsUnderCases';
 import pucService from '../../services/proceduresUnderCase';
 
 const CaseCard = ({ c, admin }) => {

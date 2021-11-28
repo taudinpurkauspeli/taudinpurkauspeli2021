@@ -1,7 +1,7 @@
 /* eslint-disable linebreak-style */
 import React, { useState } from 'react';
 import { Accordion } from 'react-bootstrap';
-import serviceUnderCases from '../../services/differentialsUnderCases';
+import serviceUnderCases from '../../services/differentials/differentialsUnderCases';
 import Differential from './Differential';
 
 const DifferentialList = ({ caseId }) => {
