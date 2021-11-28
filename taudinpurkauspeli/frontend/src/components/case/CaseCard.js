@@ -15,6 +15,7 @@ import pucService from '../../services/proceduresUnderCase';
 const CaseCard = ({ c, admin }) => {
   const { t } = useTranslation();
 
+  /* istanbul ignore next */
   const createDifferentials = (copyId, result) => {
     for (let i = 0; i < result.length; i += 1) {
       const { id, description } = result[i];
@@ -27,6 +28,7 @@ const CaseCard = ({ c, admin }) => {
     }
   };
 
+  /* istanbul ignore next */
   const createProcedures = (copyId, result) => {
     for (let i = 0; i < result.length; i += 1) {
       const { procedureId, priority } = result[i];

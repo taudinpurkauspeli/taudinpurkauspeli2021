@@ -15,6 +15,7 @@ const copyCase = ({
   // eslint-disable-next-line no-unused-vars
   let newCopyId = 0;
 
+  /* istanbul ignore next */
   const handleCopy = (event) => {
     event.preventDefault();
     const caseObject = ({
