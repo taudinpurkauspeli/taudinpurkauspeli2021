@@ -8,10 +8,36 @@ import {
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import RemoveCase from './RemoveCase';
-// import RemoveCase from './RemoveCase';
+import CopyCase from './CopyCase';
+import ducService from '../../services/differentials/differentialsUnderCases';
+import pucService from '../../services/proceduresUnderCase';
 
 const CaseCard = ({ c, admin }) => {
   const { t } = useTranslation();
+
+  const createDifferentials = (copyId, result) => {
+    for (let i = 0; i < result.length; i += 1) {
+      const { id, description } = result[i];
+      const object = {
+        caseId: copyId,
+        differentialId: id,
+        description,
+      };
+      ducService.create(object);
+    }
+  };
+
+  const createProcedures = (copyId, result) => {
+    for (let i = 0; i < result.length; i += 1) {
+      const { procedureId, priority } = result[i];
+      const object = {
+        caseId: copyId,
+        procedureId,
+        priority,
+      };
+      pucService.create(object);
+    }
+  };
 
   return (
     <div>
@@ -28,7 +54,11 @@ const CaseCard = ({ c, admin }) => {
       { admin && (
         <div className="cardButtons">
           <Button as={Link} to={`/cases/${c.id}`} className="editButton" size="sm">{t('buttonEdit')}</Button>
-          <Button className="copyButton" size="sm" variant="warning">{t('copy')}</Button>
+          <CopyCase
+            caseToBeCopied={c}
+            createDifferentials={createDifferentials}
+            createProcedures={createProcedures}
+          />
           <RemoveCase caseToBeRemoved={c} />
         </div>
       )}
