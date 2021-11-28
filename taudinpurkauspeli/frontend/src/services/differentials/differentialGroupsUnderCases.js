@@ -1,7 +1,7 @@
 /* eslint-disable linebreak-style */
 import axios from 'axios';
 
-const baseUrl = 'http://localhost:8080/api/differentialGroupsUnderCases';
+const baseUrl = 'http://localhost:8081/api/differentialGroupsUnderCases';
 
 const getAll = (caseId) => {
   const request = axios.get(`${baseUrl}/${caseId}`);

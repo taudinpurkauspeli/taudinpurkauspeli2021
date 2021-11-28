@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* istanbul ignore file */
 /* eslint-disable linebreak-style */
 import i18n from 'i18next';
