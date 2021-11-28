@@ -17,12 +17,12 @@ const NewDifferential = ({ diffGroupCaseId }) => {
   const [differentials, setDifferentials] = useState([]);
 
   React.useEffect(() => {
-    /* istanbul ignore next */
     service.getAll()
       .then((initialDifferentials) => {
         setDifferentials(initialDifferentials);
       })
       .catch((error) => {
+        /* istanbul ignore next */
         // eslint-disable-next-line
         console.log(error);
       });
