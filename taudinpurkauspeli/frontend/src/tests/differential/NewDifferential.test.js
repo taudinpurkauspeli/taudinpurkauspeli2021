@@ -4,13 +4,14 @@ import '@testing-library/jest-dom/extend-expect';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import NewDifferential from '../../components/differential/NewDifferential';
-import service from '../../services/differentials';
+import service from '../../services/differentials/differentials';
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key) => key }),
 }));
 
-jest.spyOn(React, 'useEffect').mockImplementation((f) => f());
+const useEffectSpy = jest.spyOn(React, 'useEffect');
+useEffectSpy.mockImplementation((f) => f());
 jest.spyOn(service, 'getAll');
 
 beforeEach(() => {

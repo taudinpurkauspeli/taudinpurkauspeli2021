@@ -11,6 +11,7 @@ import Navigationbar from './components/navigation/Navbar';
 import service from './services/cases';
 import Sidebar from './components/navigation/Sidebar';
 import Routing from './components/navigation/Routing';
+import MessageBanner from './components/utils/MessageBanner';
 
 const App = () => {
   const [user, setUser] = useState(false);
@@ -18,24 +19,28 @@ const App = () => {
   const [guest, setGuest] = useState(true);
   const [cases, setCases] = useState([]);
 
+  /* istanbul ignore next */
   const changeUser = () => {
     setUser(true);
     setGuest(false);
     setAdmin(false);
   };
 
+  /* istanbul ignore next */
   const changeGuest = () => {
     setUser(false);
     setGuest(true);
     setAdmin(false);
   };
 
+  /* istanbul ignore next */
   const changeAdmin = () => {
     setUser(false);
     setGuest(false);
     setAdmin(true);
   };
 
+  /* istanbul ignore next */
   React.useEffect(() => {
     service
       .getAll()
@@ -60,6 +65,7 @@ const App = () => {
         cases={cases}
       />
       { guest ? ' ' : <Sidebar /> }
+      <MessageBanner />
       <Routing cases={cases} admin={admin} guest={guest} />
     </Router>
   );

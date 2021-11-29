@@ -17,6 +17,7 @@ const Navigationbar = ({
 }) => {
   const { t } = useTranslation();
 
+  /* istanbul ignore next */
   const changeLanguage = (language) => {
     i18n.changeLanguage(language);
   };

@@ -23,6 +23,7 @@ caseRouter.post('/', (req, res, next) => {
 
 // Retrieve all cases
 caseRouter.get('/', (req, res, next) => {
+  console.log('Headers from backend', req.headers);
   const { title } = req.query;
   const condition = title ? { title: { [Op.iLike]: `%${title}%` } } : null;
 
@@ -39,6 +40,9 @@ caseRouter.get('/:id', (req, res, next) => {
 
   Case.findByPk(id)
     .then((data) => {
+      if (data === null) {
+        res.send(404).end()
+      }
       res.json(data);
     })
     .catch((error) => next(error))

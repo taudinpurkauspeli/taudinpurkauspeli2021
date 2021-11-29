@@ -8,7 +8,6 @@ import { Button } from 'react-bootstrap';
 
 const Case = () => {
   const { t } = useTranslation();
-
   const { id } = useParams();
   const baseUrl = `/cases/${id}`;
 

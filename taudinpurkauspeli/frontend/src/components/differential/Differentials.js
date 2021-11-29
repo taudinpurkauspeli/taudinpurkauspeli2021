@@ -3,8 +3,9 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import NewDifferential from './NewDifferential';
-import DifferentialList from './DifferentialList';
+// import NewDifferential from './NewDifferential';
+import DifferentialGroupList from './differentialGroup/DifferentialGroupList';
+import NewDifferentialGroup from './differentialGroup/NewDifferentialGroup';
 
 const Differentials = ({ admin }) => {
   const { t } = useTranslation();
@@ -17,10 +18,10 @@ const Differentials = ({ admin }) => {
       </h2>
       {admin && (
         <div>
-          <NewDifferential caseId={id} />
+          <NewDifferentialGroup caseId={id} />
         </div>
       )}
-      <DifferentialList caseId={id} />
+      <DifferentialGroupList caseId={id} admin={admin} />
     </div>
   );
 };

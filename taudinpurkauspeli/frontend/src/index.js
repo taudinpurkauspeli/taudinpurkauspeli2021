@@ -1,3 +1,5 @@
+/* eslint-disable linebreak-style */
+/* istanbul ignore file */
 import React from 'react';
 import ReactDOM from 'react-dom';
 

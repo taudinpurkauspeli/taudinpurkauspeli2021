@@ -42,7 +42,7 @@ const UpdateCaseTitle = ({ c, updateCaseTitle }) => {
         errors,
       }) => (
         <Form noValidate onSubmit={handleSubmit}>
-          <Form.Group className="mb-3" controlId="updateTitle">
+          <Form.Group className="mb-3" controlId="updateTitle" style={{ width: '30rem' }}>
             <Form.Control
               type="text"
               name="title"
