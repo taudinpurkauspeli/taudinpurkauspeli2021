@@ -7,7 +7,7 @@ COPY ./taudinpurkauspeli/frontend .
 RUN npm install
 RUN npm --max_old_space_size=4096 run build
 
-FROM node:16-alpine
+FROM node:14-alpine
 
 WORKDIR app/backend
 
