@@ -1,6 +1,6 @@
 FROM node:16-alpine
 
-WORKDIR /app/taudinpurkauspeli/backend
+WORKDIR usr/src/app/taudinpurkauspeli/backend
 
 COPY . .
 
