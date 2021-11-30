@@ -1,19 +1,19 @@
 FROM node:16-alpine AS build
 
-WORKDIR /usr/src/app/taudinpurkauspeli
+WORKDIR /usr/src/app
 
-COPY ./frontend .
+COPY ./taudinpurkauspeli/frontend .
 
 RUN npm install
 RUN npm run build
 
 FROM node:16-alpine
 
-WORKDIR /app/taudinpurkauspeli/backend
+WORKDIR /app/backend
 
-COPY --from=build /usr/src/app/build /app/taudinpurkauspeli/backend/build
+COPY --from=build /usr/src/app/build /app/backend/build
 
-COPY ./backend .
+COPY ./taudinpurkauspeli/backend .
 
 RUN npm install
 
