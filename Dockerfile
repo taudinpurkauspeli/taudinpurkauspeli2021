@@ -4,8 +4,8 @@ WORKDIR /usr/src/app/taudinpurkauspeli
 
 COPY ./frontend .
 
-RUN npm install && \
-    npm run build
+RUN npm install
+RUN npm run build
 
 FROM node:16-alpine
 
