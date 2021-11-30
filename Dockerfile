@@ -5,11 +5,11 @@ WORKDIR /usr/src/app
 COPY ./taudinpurkauspeli/frontend .
 
 RUN npm install
-RUN npm run build
+RUN npm run build export NODE_OPTIONS="--max-old-space-size=5120"
 
 FROM node:16-alpine
 
-WORKDIR /backend
+WORKDIR app/backend
 
 COPY --from=build /usr/src/app/build /app/backend/build
 
