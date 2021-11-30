@@ -4,4 +4,6 @@ WORKDIR /app/taudinpurkauspeli/backend
     
 COPY . .
 
+CMD ["npm", "install"]
+
 CMD ["npm", "start"]
