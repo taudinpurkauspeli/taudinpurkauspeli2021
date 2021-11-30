@@ -2,7 +2,7 @@ FROM node:16-alpine
 
 WORKDIR /app/taudinpurkauspeli/backend
 
-COPY ./backend .
+COPY . .
 
 RUN npm install
 
