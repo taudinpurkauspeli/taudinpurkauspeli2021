@@ -5,7 +5,7 @@ WORKDIR /usr/src/app
 COPY ./taudinpurkauspeli/frontend .
 
 RUN npm install
-RUN node --max_old_space_size=4096 run build
+RUN npm --max_old_space_size=4096 run build
 
 FROM node:16-alpine
 
