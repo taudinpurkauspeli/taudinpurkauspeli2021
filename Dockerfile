@@ -9,7 +9,7 @@ RUN npm run build
 
 FROM node:16-alpine
 
-WORKDIR /app/backend
+WORKDIR /backend
 
 COPY --from=build /usr/src/app/build /app/backend/build
 
