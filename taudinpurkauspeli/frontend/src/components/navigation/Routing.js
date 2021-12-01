@@ -6,7 +6,6 @@ import {
 
 // Import components
 import Frontpage from '../frontpage/Frontpage';
-import GuestFrontpage from '../frontpage/GuestFrontpage';
 import HowToPlay from '../instructions/HowToPlay';
 import Profile from '../user/Profile';
 import Case from '../case/Case';
@@ -16,7 +15,7 @@ import Procedures from '../procedure/Procedures';
 import Differentials from '../differential/Differentials';
 import Anamnesis from '../anamnesis/Anamnesis';
 
-const Routing = ({ admin, guest, cases }) => (
+const Routing = ({ admin, cases }) => (
   <Switch>
     <Route path="/howtoplay">
       <HowToPlay />
@@ -47,9 +46,7 @@ const Routing = ({ admin, guest, cases }) => (
       </Route>
     )}
     <Route path="/">
-      {guest
-        ? <GuestFrontpage />
-        : <Frontpage admin={admin} cases={cases} />}
+      <Frontpage admin={admin} cases={cases} />
     </Route>
   </Switch>
 );

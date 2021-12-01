@@ -5,11 +5,7 @@ const baseUrl = 'http://localhost:8081/api/cases';
 
 const getAll = () => {
   const request = axios.get(baseUrl);
-  return request.then((response) => {
-    // eslint-disable-next-line no-console
-    console.log('frontend headers', response.headers);
-    return (response.data);
-  });
+  return request.then((response) => response);
 };
 
 const create = (newObject) => {
