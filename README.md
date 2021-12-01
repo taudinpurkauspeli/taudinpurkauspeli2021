@@ -161,3 +161,7 @@ Ominaisuuksien vieminen tuotantoon vaatii production buildin luomisen frontendis
 Suoritetaan `npm run build` frontendin juuressa.
 
 Kopioidaan syntynyt kansio build backendin juureen.
+
+Pushaa githubiin.
+
+Poista podi Openshiftissä, jotta muutokset tallentuvat konttiin.
