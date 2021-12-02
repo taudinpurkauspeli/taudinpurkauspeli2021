@@ -21,6 +21,7 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
+db.users = require('./user.model')(sequelize, Sequelize);
 db.cases = require('./case.model')(sequelize, Sequelize);
 db.differentialGroups = require('./differentials/differentialGroup.model')(sequelize, Sequelize);
 db.differentialGroupsUnderCase = require('./differentials/differentialGroupsUnderCase.model')(sequelize, Sequelize);

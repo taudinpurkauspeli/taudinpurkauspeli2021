@@ -3,6 +3,7 @@ const db = require('../models');
 const config = require('../utils/config')
 
 const Case = db.cases;
+const User = db.users;
 const { Op } = db.Sequelize;
 
 // Save a new case
@@ -29,16 +30,34 @@ caseRouter.get('/', (req, res, next) => {
 
   Case.findAll({ where: condition })
     .then((data) => {
-      const user = req.headers.cn ? req.headers.cn : config.USER_NAME
-      const affiliation = req.headers.edupersonprimaryaffiliation ? req.headers.edupersonprimaryaffiliation : config.AFFILIATION
-      const studentid = req.headers.hypersonstudentid ? req.headers.hypersonstudentid : config.STUDENTID
-      const mail = req.headers.mail ? req.headers.mail : config.MAIL
+      const user = {
+        user_name: req.headers.cn ? req.headers.cn : config.USER_NAME,
+        affiliation: req.headers.edupersonprimaryaffiliation ? req.headers.edupersonprimaryaffiliation : config.AFFILIATION,
+        studentid: req.headers.hypersonstudentid ? req.headers.hypersonstudentid : config.STUDENTID,
+        mail: req.headers.mail ? req.headers.mail : config.MAIL,
+      }
+
+      User.findOrCreate({
+        where: {
+          user_name: user.user_name,
+          affiliation: user.affiliation,
+          studentid: user.studentid,
+          mail: user.mail
+        },
+        defaults: {
+          user_name: user.user_name,
+          affiliation: user.affiliation,
+          studentid: user.studentid,
+          mail: user.mail
+        }
+      })
+
       res
-        .header('Access-Control-Expose-Headers', ['user', 'affiliation', 'studentid', 'mail'])
-        .header('user', `${user}`)
-        .header('affiliation', `${affiliation}`)
-        .header('studentid', `${studentid}`)
-        .header('mail', `${mail}`)
+        .header('Access-Control-Expose-Headers', ['user_name', 'affiliation', 'studentid', 'mail'])
+        .header('user_name', `${user.user_name}`)
+        .header('affiliation', `${user.affiliation}`)
+        .header('studentid', `${user.studentid}`)
+        .header('mail', `${user.mail}`)
         .json(data);
     })
     .catch((error) => next(error))

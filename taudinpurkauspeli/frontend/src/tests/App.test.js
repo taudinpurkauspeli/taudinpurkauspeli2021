@@ -18,7 +18,6 @@ test('frontpage is valid for student', () => {
       admin={thisIsFalse}
     />,
   );
-  console.log(component.container);
   const element = component.getByText(
     'Etusivu',
   );

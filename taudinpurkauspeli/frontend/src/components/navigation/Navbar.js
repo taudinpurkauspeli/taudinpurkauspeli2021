@@ -51,9 +51,7 @@ const Navigationbar = ({
           </Nav.Item>
           )}
           <Nav.Item>
-            { (user || admin)
-              ? <NavLink as={Link} to="/logout">{t('logOut')}</NavLink>
-              : <NavLink as={Link} to="/login">{t('logIn')}</NavLink> }
+            <NavLink as={Link} to="/Shibboleth.sso/Logout">{t('logOut')}</NavLink>
           </Nav.Item>
         </Nav>
       </Navbar.Collapse>
