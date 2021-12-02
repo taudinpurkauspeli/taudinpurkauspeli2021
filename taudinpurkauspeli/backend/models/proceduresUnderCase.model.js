@@ -1,7 +1,4 @@
 const db = require('../models');
-const Procedure = db.procedures;
-const Case = db.cases;
-
 
 module.exports = (sequelize, Sequelize) => {
 // In previous version this table was called "exercise"
@@ -9,16 +6,21 @@ module.exports = (sequelize, Sequelize) => {
     caseId: {
       type: Sequelize.INTEGER,
       references: {
-        model: Case,
+        model: 'cases',
         key: 'id'
       }
     },
     procedureId: {
       type: Sequelize.INTEGER,
       references: {
-        model: Procedure,
+        model: 'procedures',
         key: 'id'
       }
+    },
+    procedureCaseId: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      allowNull: false,
     },
     priority: {
       type: Sequelize.INTEGER,
@@ -27,4 +29,3 @@ module.exports = (sequelize, Sequelize) => {
 
   return proceduresUnderCase;
 };
-

@@ -10,18 +10,18 @@ module.exports = (sequelize, Sequelize) => {
           key: 'id'
         }
     },
-    procedureId: {
+    proceduresId: {
         type: Sequelize.INTEGER,
         references: {
           model: 'proceduresUnderCases',
-          key: 'procedureId'
+          key: 'procedureCaseId'
         }
     },
     title: {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    Text: {
+    text: {
       type: Sequelize.TEXT,
     },
   });

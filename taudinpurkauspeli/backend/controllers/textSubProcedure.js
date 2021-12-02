@@ -15,8 +15,8 @@ textSubProcedureRouter.post('/', (req, res) => {
 
   // Create a sub procedure under case
   const textSubProcedure = {
-    totalSubID: req.body.totalSubID,
-    procedureId: req.body.procedureId,
+    totalSubId: req.body.totalSubId,
+    proceduresId: req.body.proceduresId,
     title: req.body.title,
     text: req.body.text
   };
@@ -26,7 +26,7 @@ textSubProcedureRouter.post('/', (req, res) => {
     .then((data) => {
       res.send(data);
     })
-    .catch((error) => next(error));
+    .catch((error) => console.log(error));
 });
 
 // Retrieve all sub procedures

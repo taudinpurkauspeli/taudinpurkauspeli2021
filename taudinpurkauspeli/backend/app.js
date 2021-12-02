@@ -45,8 +45,7 @@ app.use('/api/differentialsUnderCases', differentialUnderCaseRouter);
 app.use('/api/procedures', proceduresRouter);
 app.use('/api/proceduresUnderCases', proceduresUnderCasesRouter);
 app.use('/api/subProcedures', subProceduresRouter);
-app.use('api/textSubProcedures', textSubProcedureRouter);
-app.use('/api/proceduresUnderCases', proceduresUnderCasesRouter);
+app.use('/api/textSubProcedures', textSubProcedureRouter);
 
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);
