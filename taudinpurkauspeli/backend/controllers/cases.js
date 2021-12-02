@@ -30,27 +30,29 @@ caseRouter.get('/', (req, res, next) => {
 
   Case.findAll({ where: condition })
     .then((data) => {
-      const user = {
-        user_name: req.headers.cn ? req.headers.cn : config.USER_NAME,
-        affiliation: req.headers.edupersonprimaryaffiliation ? req.headers.edupersonprimaryaffiliation : config.AFFILIATION,
-        studentid: req.headers.hypersonstudentid ? req.headers.hypersonstudentid : config.STUDENTID,
-        mail: req.headers.mail ? req.headers.mail : config.MAIL,
-      }
-
-      User.findOrCreate({
-        where: {
-          user_name: user.user_name,
-          affiliation: user.affiliation,
-          studentid: user.studentid,
-          mail: user.mail
-        },
-        defaults: {
-          user_name: user.user_name,
-          affiliation: user.affiliation,
-          studentid: user.studentid,
-          mail: user.mail
+      if (process.env.NODE_ENV !== 'test') {
+        const user = {
+          user_name: req.headers.cn ? req.headers.cn : config.USER_NAME,
+          affiliation: req.headers.edupersonprimaryaffiliation ? req.headers.edupersonprimaryaffiliation : config.AFFILIATION,
+          studentid: req.headers.hypersonstudentid ? req.headers.hypersonstudentid : config.STUDENTID,
+          mail: req.headers.mail ? req.headers.mail : config.MAIL,
         }
-      })
+
+        User.findOrCreate({
+          where: {
+            user_name: user.user_name,
+            affiliation: user.affiliation,
+            studentid: user.studentid,
+            mail: user.mail
+          },
+          defaults: {
+            user_name: user.user_name,
+            affiliation: user.affiliation,
+            studentid: user.studentid,
+            mail: user.mail
+          }
+        })
+      }
 
       res
         .header('Access-Control-Expose-Headers', ['user_name', 'affiliation', 'studentid', 'mail'])
