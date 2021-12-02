@@ -1,5 +1,6 @@
 const caseRouter = require('express').Router();
 const db = require('../models');
+const config = require('../utils/config')
 
 const Case = db.cases;
 const { Op } = db.Sequelize;
@@ -23,12 +24,23 @@ caseRouter.post('/', (req, res, next) => {
 
 // Retrieve all cases
 caseRouter.get('/', (req, res, next) => {
+  console.log('Headers from backend', req.headers);
   const { title } = req.query;
   const condition = title ? { title: { [Op.iLike]: `%${title}%` } } : null;
 
   Case.findAll({ where: condition })
     .then((data) => {
-      res.json(data);
+      const user = req.headers.cn ? req.headers.cn : config.USER_NAME
+      const affiliation = req.headers.edupersonprimaryaffiliation ? req.headers.edupersonprimaryaffiliation : config.AFFILIATION
+      const studentid = req.headers.hypersonstudentid ? req.headers.hypersonstudentid : config.STUDENTID
+      const mail = req.headers.mail ? req.headers.mail : config.MAIL
+      res
+        .header('Access-Control-Expose-Headers', ['user', 'affiliation', 'studentid', 'mail'])
+        .header('user', `${user}`)
+        .header('affiliation', `${affiliation}`)
+        .header('studentid', `${studentid}`)
+        .header('mail', `${mail}`)
+        .json(data);
     })
     .catch((error) => next(error))
 });
@@ -39,6 +51,9 @@ caseRouter.get('/:id', (req, res, next) => {
 
   Case.findByPk(id)
     .then((data) => {
+      if (data === null) {
+        res.send(404).end()
+      }
       res.json(data);
     })
     .catch((error) => next(error))

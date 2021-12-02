@@ -13,10 +13,11 @@ import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n/config';
 
 const Navigationbar = ({
-  user, admin, guest, changeUser, changeAdmin, changeGuest,
+  user, admin, guest,
 }) => {
   const { t } = useTranslation();
 
+  /* istanbul ignore next */
   const changeLanguage = (language) => {
     i18n.changeLanguage(language);
   };
@@ -27,11 +28,6 @@ const Navigationbar = ({
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="ml-auto">
-          <NavDropdown title={t('selectUser')}>
-            <NavDropdown.Item onClick={() => changeGuest()} eventKey="guest">{t('guest')}</NavDropdown.Item>
-            <NavDropdown.Item onClick={() => changeUser()} eventKey="student">{t('student')}</NavDropdown.Item>
-            <NavDropdown.Item onClick={() => changeAdmin()} eventKey="teacher">{t('teacher')}</NavDropdown.Item>
-          </NavDropdown>
           <NavDropdown title={t('selectLanguage')}>
             <NavDropdown.Item onClick={() => changeLanguage('fi')} eventKey="fi">{t('languageFinnish')}</NavDropdown.Item>
             <NavDropdown.Item onClick={() => changeLanguage('en')} eventKey="en">{t('languageEnglish')}</NavDropdown.Item>

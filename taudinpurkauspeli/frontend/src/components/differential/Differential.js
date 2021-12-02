@@ -4,7 +4,7 @@ import { Accordion, Card } from 'react-bootstrap';
 
 const Differential = ({ id, name, description }) => (
   <Card>
-    <Accordion.Toggle as={Card.Header} eventKey={id}>
+    <Accordion.Toggle as={Card.Header} eventKey={id} id="differentialName">
       {name}
     </Accordion.Toggle>
     <Accordion.Collapse eventKey={id}>

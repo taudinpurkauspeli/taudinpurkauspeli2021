@@ -3,9 +3,11 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import service from '../../services/procedures';
 import serviceUnderCases from '../../services/proceduresUnderCase';
+import { setSuccess, setError } from '../utils/MessageBanner';
 
 // eslint-disable-next-line no-unused-vars
 const newProcedure = ({ id, addProcedureFunc }) => {
+  /* istanbul ignore next */
   const { t } = useTranslation();
   const [newTitle, setNewTitle] = useState('');
   //  const [procedures, setProcedures] = useState([]);
@@ -29,13 +31,20 @@ const newProcedure = ({ id, addProcedureFunc }) => {
       title: newTitle,
     });
 
+    /* istanbul ignore else */
     if (addProcedureFunc != null) {
       addProcedureFunc(procedureObject);
     } else {
       const receivedID = await service.create(procedureObject)
         .then((data) => {
           setNewTitle('');
+          setSuccess(t('procedureAddSuccess'));
           return data.id;
+        })
+        .catch((error) => {
+          // eslint-disable-next-line no-console
+          console.log(error);
+          setError(t('procedureAddError'));
         });
 
       const procedureUnderCaseObject = ({

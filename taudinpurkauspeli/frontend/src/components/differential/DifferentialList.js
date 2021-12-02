@@ -1,18 +1,19 @@
 /* eslint-disable linebreak-style */
 import React, { useState } from 'react';
 import { Accordion } from 'react-bootstrap';
-import serviceUnderCases from '../../services/differentialsUnderCases';
+import serviceUnderCases from '../../services/differentials/differentialsUnderCases';
 import Differential from './Differential';
 
-const DifferentialList = ({ caseId }) => {
+const DifferentialList = ({ diffGroupCaseId }) => {
   const [caseDifferentials, setCaseDifferentials] = useState([]);
 
   React.useEffect(() => {
-    serviceUnderCases.getAll(caseId)
+    serviceUnderCases.getAll(diffGroupCaseId)
       .then((initialDifferentials) => {
         setCaseDifferentials(initialDifferentials);
       })
       .catch((error) => {
+        /* istanbul ignore next */
         // eslint-disable-next-line
         console.log(error);
       });

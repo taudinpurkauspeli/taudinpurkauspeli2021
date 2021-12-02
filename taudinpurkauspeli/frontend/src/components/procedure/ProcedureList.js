@@ -34,6 +34,7 @@ const DragNDropList = ({
 );
 
 const ProcedureList = ({ id }) => {
+  /* istanbul ignore next */
   const { t } = useTranslation();
   const draggingItem = useRef();
   const dragOverItem = useRef();
