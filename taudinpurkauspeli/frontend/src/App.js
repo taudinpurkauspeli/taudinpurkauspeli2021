@@ -23,6 +23,8 @@ const App = () => {
     service
       .getAll()
       .then((response) => {
+        // eslint-disable-next-line no-console
+        console.log(response.headers);
         setAdmin(response.headers.affiliation === 'faculty');
         setUser(!admin);
         setCases(response.data);
