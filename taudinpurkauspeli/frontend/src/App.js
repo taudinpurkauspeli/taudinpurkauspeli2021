@@ -14,7 +14,7 @@ import Routing from './components/navigation/Routing';
 import MessageBanner from './components/utils/MessageBanner';
 
 const App = () => {
-  const [user, setUser] = useState(false);
+  const [user, setUser] = useState(null);
   const [admin, setAdmin] = useState(false);
   const [cases, setCases] = useState([]);
 
@@ -24,10 +24,12 @@ const App = () => {
       .getAll()
       .then((response) => {
         // eslint-disable-next-line no-console
-        console.log(response.headers);
-        setAdmin(response.headers.affiliation === 'faculty');
-        setUser(!admin);
+        console.log(response);
+        setAdmin(response.admin);
+        setUser(response.name);
         setCases(response.data);
+        // eslint-disable-next-line no-console
+        console.log(user);
       })
       .catch((error) => {
         // eslint-disable-next-line
@@ -38,7 +40,7 @@ const App = () => {
   return (
     <Router>
       <Navigationbar
-        user={user}
+        user={false}
         admin={admin}
         cases={cases}
       />
