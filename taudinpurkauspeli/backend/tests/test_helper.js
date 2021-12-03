@@ -58,10 +58,26 @@ const initialDifferentialsUnderCases = [
   }
 ]
 
+const initialUsers = [
+  {
+    user_name: "Test User",
+    affiliation: "student",
+    studentid: "123456789",
+    mail: "test.user@example.org"
+  },
+  {
+    user_name: "Test Admin",
+    affiliation: "faculty",
+    studentid: "",
+    mail: "test.admin@example.org"
+  }
+]
+
 module.exports = {
   initialDifferentials,
   initialCases,
   initialDifferentialGroups,
   initialDifferentialGroupUnderCases,
   initialDifferentialsUnderCases,
+  initialUsers,
 }

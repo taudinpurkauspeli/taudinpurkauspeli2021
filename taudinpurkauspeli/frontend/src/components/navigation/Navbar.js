@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n/config';
 
 const Navigationbar = ({
-  user, admin, guest,
+  user, admin,
 }) => {
   const { t } = useTranslation();
 
@@ -42,20 +42,16 @@ const Navigationbar = ({
             <NavLink as={Link} to="/files">{t('fileBank')}</NavLink>
           </Nav.Item>
           )}
-          { (user || guest || admin) && (
           <Nav.Item>
             <NavLink as={Link} to="/howtoplay">{t('howToPlay')}</NavLink>
           </Nav.Item>
-          )}
           { user && (
           <Nav.Item>
             <NavLink as={Link} to="/profile">{t('userProfile')}</NavLink>
           </Nav.Item>
           )}
           <Nav.Item>
-            { (user || admin)
-              ? <NavLink as={Link} to="/logout">{t('logOut')}</NavLink>
-              : <NavLink as={Link} to="/login">{t('logIn')}</NavLink> }
+            <NavLink as={Link} to="/Shibboleth.sso/Logout">{t('logOut')}</NavLink>
           </Nav.Item>
         </Nav>
       </Navbar.Collapse>
