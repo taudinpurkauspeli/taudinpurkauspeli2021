@@ -33,7 +33,7 @@ caseRouter.get('/', (req, res, next) => {
       const user = {
         user_name: req.headers.cn ? req.headers.cn : config.USER_NAME,
         affiliation: req.headers.edupersonprimaryaffiliation ? req.headers.edupersonprimaryaffiliation : config.AFFILIATION,
-        studentid: req.headers.hypersonstudentid ? req.headers.hypersonstudentid : config.STUDENTID,
+        studentid: req.headers.hypersonstudentid ? req.headers.hypersonstudentid : config.STUDENTID || '',
         mail: req.headers.mail ? req.headers.mail : config.MAIL,
       }
 
