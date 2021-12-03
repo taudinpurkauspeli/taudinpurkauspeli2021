@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken')
 const caseRouter = require('express').Router();
 const db = require('../models');
 const config = require('../utils/config')
@@ -24,45 +25,50 @@ caseRouter.post('/', (req, res, next) => {
 });
 
 // Retrieve all cases
-caseRouter.get('/', (req, res, next) => {
+caseRouter.get('/', async (req, res, next) => {
   const { title } = req.query;
   const condition = title ? { title: { [Op.iLike]: `%${title}%` } } : null;
 
-  Case.findAll({ where: condition })
-    .then((data) => {
-      const user = {
-        user_name: req.headers.cn ? req.headers.cn : config.USER_NAME,
-        affiliation: req.headers.edupersonprimaryaffiliation ? req.headers.edupersonprimaryaffiliation : config.AFFILIATION,
-        studentid: req.headers.hypersonstudentid ? req.headers.hypersonstudentid : config.STUDENTID || '',
-        mail: req.headers.mail ? req.headers.mail : config.MAIL,
-      }
+  const data = await Case.findAll({ where: condition })
+  const user = {
+    user_name: req.headers.cn ? req.headers.cn : config.USER_NAME,
+    affiliation: req.headers.edupersonprimaryaffiliation ? req.headers.edupersonprimaryaffiliation : config.AFFILIATION,
+    studentid: req.headers.hypersonstudentid ? req.headers.hypersonstudentid : config.STUDENTID || '',
+    mail: req.headers.mail ? req.headers.mail : config.MAIL,
+  }
 
-      if (process.env.NODE_ENV !== 'test') {
-        User.findOrCreate({
-          where: {
-            user_name: user.user_name,
-            affiliation: user.affiliation,
-            studentid: user.studentid,
-            mail: user.mail
-          },
-          defaults: {
-            user_name: user.user_name,
-            affiliation: user.affiliation,
-            studentid: user.studentid,
-            mail: user.mail
-          }
-        })
-      }
+  let token;
 
-      res
-        .header('Access-Control-Expose-Headers', ['user_name', 'affiliation', 'studentid', 'mail'])
-        .header('user_name', `${user.user_name}`)
-        .header('affiliation', `${user.affiliation}`)
-        .header('studentid', `${user.studentid}`)
-        .header('mail', `${user.mail}`)
-        .json(data);
+  if (process.env.NODE_ENV !== 'test') {
+    const userFromDb = await User.findOrCreate({
+      where: {
+        user_name: user.user_name,
+        affiliation: user.affiliation,
+        studentid: user.studentid,
+        mail: user.mail
+      },
+      defaults: {
+        user_name: user.user_name,
+        affiliation: user.affiliation,
+        studentid: user.studentid,
+        mail: user.mail
+      }
     })
-    .catch((error) => next(error))
+    const userForToken = {
+      username: userFromDb.user_name,
+      id: userFromDb.id,
+    }
+
+    token = jwt.sign(userForToken, process.env.SECRET)
+  }
+
+  try {
+    res
+      .status(200)
+      .send({ token, name: user.user_name, admin: user.affiliation === 'faculty', data });
+  } catch(error) {
+    next(error)
+  }
 });
 
 // Find a single case (by id)
@@ -91,7 +97,7 @@ caseRouter.put('/:id', (req, res, next) => {
         res.send({
           message: 'Case was updated successfully.',
         });
-      } 
+      }
     })
     .catch((error) => next(error))
 });
