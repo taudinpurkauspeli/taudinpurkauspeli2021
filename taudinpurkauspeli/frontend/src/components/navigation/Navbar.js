@@ -51,7 +51,7 @@ const Navigationbar = ({
           </Nav.Item>
           )}
           <Nav.Item>
-            <NavLink as={Link} to="/Shibboleth.sso/Logout">{t('logOut')}</NavLink>
+            <NavLink href="https://taudinpurkauspeli-taudinpurkauspeli2021.apps.ocp-prod-0.k8s.it.helsinki.fi/Shibboleth.sso/Logout">{t('logOut')}</NavLink>
           </Nav.Item>
         </Nav>
       </Navbar.Collapse>
