@@ -3,14 +3,14 @@ const db = require('../models');
 module.exports = (sequelize, Sequelize) => {
 // In previous version this table was called "exercise"
   const textSubProcedures= sequelize.define('textSubProcedures', {
-    totalSubId: {
+    subProcedureId: {
         type: Sequelize.INTEGER,
         references: {
           model: 'subProcedures',
           key: 'id'
         }
     },
-    proceduresId: {
+    proceduresUnderCaseProcedureCaseId: {
         type: Sequelize.INTEGER,
         references: {
           model: 'proceduresUnderCases',

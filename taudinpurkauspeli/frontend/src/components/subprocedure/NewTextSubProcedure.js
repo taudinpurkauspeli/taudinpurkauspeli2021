@@ -8,7 +8,6 @@ import {
 import service from '../../services/subProcedures';
 import serviceText from '../../services/textSubProcedures';
 import AddTextSubProcedure from './AddTextSubProcedure';
-import SelectTextSubForm from './SelectTextSubForm';
 
 const NewTextSubProcedure = ({ proceduresId }) => {
   const { t } = useTranslation();
@@ -51,7 +50,6 @@ const NewTextSubProcedure = ({ proceduresId }) => {
 
   // Textblaablaablaa lisäys rivi 52 - jotain
   const handleTextSubProcedureAdd = (cowObject) => {
-    console.log(cowObject);
     serviceText.create(cowObject)
       .then(() => handleSuccess())
       .catch((error) => handleError(error));
@@ -61,10 +59,10 @@ const NewTextSubProcedure = ({ proceduresId }) => {
   const handleSubProcedureAdd = (subProcedureObject) => {
     service.create({ priority: subProcedureObject.priority, type: subProcedureObject.type })
       .then((res) => {
-        const totalSubId = res.id;
+        const subId = res.id;
         handleTextSubProcedureAdd({
-          totalSubId,
-          proceduresId,
+          subProceduresId: subId,
+          proceduresUnderCaseProcedureCaseId: proceduresId,
           title: subProcedureObject.title,
           text: subProcedureObject.text,
         });
@@ -92,14 +90,7 @@ const NewTextSubProcedure = ({ proceduresId }) => {
           <Modal.Title>{t('addTextSubProcedure')}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Tabs defaultActiveKey="select" id="textSubProcedure" className="mb-3">
-            {/*             <Tab eventKey="select" title={t('selectExisting')}>
-              <SelectTextSubForm
-                textSubProcedures={textSubProcedures}
-                selectTextSubProcedure={handleTextSubProcedureAdd}
-                proceduresId={proceduresId}
-              />
-            </Tab> */}
+          <Tabs defaultActiveKey="add" id="textSubProcedure" className="mb-3">
             <Tab eventKey="add" title={t('addNewTextSubProcedure2')}>
               <AddTextSubProcedure handleSubProcedureAdd={handleSubProcedureAdd} />
             </Tab>

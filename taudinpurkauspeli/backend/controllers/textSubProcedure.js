@@ -15,8 +15,8 @@ textSubProcedureRouter.post('/', (req, res) => {
 
   // Create a sub procedure under case
   const textSubProcedure = {
-    totalSubId: req.body.totalSubId,
-    proceduresId: req.body.proceduresId,
+    subProcedureId: req.body.subProceduresId,
+    proceduresUnderCaseProcedureCaseId: req.body.proceduresUnderCaseProcedureCaseId,
     title: req.body.title,
     text: req.body.text
   };
@@ -31,14 +31,14 @@ textSubProcedureRouter.post('/', (req, res) => {
 
 // Retrieve all sub procedures
 textSubProcedureRouter.get('/', (req, res) => {
-  const { totalSubId } = req.params;
-  const condition = totalSubId ? { totalSubID: { [Op.iLike]: `%${totalSubId}%` } } : null;
+  const { subProcedureId } = req.params;
+  const condition = subProcedureId ? { subProcedureId: { [Op.iLike]: `%${subProcedureId}%` } } : null;
 
-  ProcedureUnderCase.findAll({ where: condition })
+  TextSubProcedure.findAll({ where: condition })
     .then((data) => {
       res.json(data);
     })
-    .catch((error) => next(error))
+    .catch((error) => console.log(error))
 });
 
 // Update a sub procedure (by id)
@@ -46,7 +46,7 @@ textSubProcedureRouter.put('/:id', (req, res) => {
   const { id } = req.params;
 
   TextSubProcedure.update(req.body, {
-    where: { totalSubID : id },
+    where: { subProcedureId : id },
   })
     .then((num) => {
       if (Number(num) === 1) {
@@ -55,7 +55,7 @@ textSubProcedureRouter.put('/:id', (req, res) => {
         });
       } 
     })
-    .catch((error) => next(error))
+    .catch((error) => console.log(error))
 });
 
 module.exports = textSubProcedureRouter;

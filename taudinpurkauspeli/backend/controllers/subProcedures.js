@@ -35,7 +35,7 @@ subProceduresRouter.get('/', (req, res, next) => {
 });
 
 // Retrieve all subprocedures including textSubProcedures
-subProceduresRouter.get('/:id', (req, res) => {
+subProceduresRouter.get('/:id', (req, res, next) => {
     const { id } = req.params;
   
     ProcedureUnderCase.findAll({
