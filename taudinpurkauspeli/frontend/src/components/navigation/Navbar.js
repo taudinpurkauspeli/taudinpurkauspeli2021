@@ -28,7 +28,7 @@ const Navigationbar = ({
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="ml-auto">
-          <NavDropdown title={t('selectLanguage')}>
+          <NavDropdown title={t('selectLanguage')} id="selectLanguage">
             <NavDropdown.Item onClick={() => changeLanguage('fi')} eventKey="fi">{t('languageFinnish')}</NavDropdown.Item>
             <NavDropdown.Item onClick={() => changeLanguage('en')} eventKey="en">{t('languageEnglish')}</NavDropdown.Item>
           </NavDropdown>
