@@ -19,6 +19,8 @@ module.exports = (sequelize, Sequelize) => {
         description: {
             type: Sequelize.TEXT,
         }
+      }, {
+        tableName: 'differentials_under_cases',
       });
     
       return DifferentialsUnderCase;
