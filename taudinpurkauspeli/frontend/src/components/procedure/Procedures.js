@@ -9,7 +9,6 @@ const Procedures = () => {
 
   return (
     <div id="wrapper">
-      <p>Toimenpiteet löytyvät täältä</p>
       <NewProcedure id={id} />
       <ProcedureList id={id} />
     </div>
