@@ -6,7 +6,7 @@ const ProcedureUnderCase = db.proceduresUnderCases;
 const { Op } = db.Sequelize;
 
 // Save a new subprocedure
-subProceduresRouter.post('/', (req, res) => {
+subProceduresRouter.post('/', (req, res, next) => {
 
   // Create a subprocedure
   const subProcedure = {
@@ -53,7 +53,7 @@ subProceduresRouter.get('/:id', (req, res, next) => {
   });
 
 // Update a subprocedure (by id)
-subProceduresRouter.put('/:id', (req, res) => {
+subProceduresRouter.put('/:id', (req, res, next) => {
   const { id } = req.params;
 
   SubProcedure.update(req.body, {

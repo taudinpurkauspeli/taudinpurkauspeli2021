@@ -24,6 +24,8 @@ module.exports = (sequelize, Sequelize) => {
     text: {
       type: Sequelize.TEXT,
     },
+  }, {
+    tableName: 'text_sub_procedures',
   });
 
   return textSubProcedures;

@@ -24,7 +24,9 @@ module.exports = (sequelize, Sequelize) => {
     },
     priority: {
       type: Sequelize.INTEGER,
-    },
+    },	
+  }, {
+    tableName: 'procedures_under_cases',
   });
 
   return proceduresUnderCase;

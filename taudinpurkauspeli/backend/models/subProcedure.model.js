@@ -11,6 +11,8 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
       allowNull: false,
     },
+  }, {
+    tableName: 'sub_procedures',
   });
 
   return subProcedures;
