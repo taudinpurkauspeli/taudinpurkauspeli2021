@@ -19,7 +19,9 @@ module.exports = (sequelize, Sequelize) => {
             model: 'differentialGroups',
             key: 'id'
           }
-        },
+      },
+    }, {
+        tableName: 'differential_groups_under_cases',
     });
   
     return DifferentialGroupsUnderCase;
