@@ -48,14 +48,12 @@ const NewTextSubProcedure = ({ proceduresId }) => {
     }, 3000);
   };
 
-  // Textblaablaablaa lisäys rivi 52 - jotain
   const handleTextSubProcedureAdd = (cowObject) => {
     serviceText.create(cowObject)
       .then(() => handleSuccess())
       .catch((error) => handleError(error));
   };
 
-  // subProcedurin lisäys alla olevat rivit - jotain, sitten kutsutaan rivin 52 funktiota
   const handleSubProcedureAdd = (subProcedureObject) => {
     service.create({ priority: subProcedureObject.priority, type: subProcedureObject.type })
       .then((res) => {

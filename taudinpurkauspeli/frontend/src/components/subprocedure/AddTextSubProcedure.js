@@ -71,7 +71,7 @@ const AddTextSubProcedure = ({ handleSubProcedureAdd }) => {
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="text">
-            <Form.Label>{t('text')}</Form.Label>
+            <Form.Label>{t('textToAdd')}</Form.Label>
             <Form.Control
               as="textarea"
               name="text"

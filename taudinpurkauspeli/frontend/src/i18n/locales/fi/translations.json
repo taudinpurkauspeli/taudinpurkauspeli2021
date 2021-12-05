@@ -84,6 +84,7 @@
   "text": "teksti",
   "textSubProcedureUpdateSuccess": "Teksti alakohta lisätty onnistuneesti",
   "textSubProcedureUpdateError": "VIRHE! Valittu alakohta on jo aiemmin lisätty caseen.",
+  "textToAdd": "teksti",
   "title": "Nimi",
   "userInformation": "Käyttäjien seuranta",
   "userProfile": "Käyttäjätiedot",

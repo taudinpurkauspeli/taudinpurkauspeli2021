@@ -85,6 +85,7 @@
   "text": "text",
   "textSubProcedureUpdateSuccess": "Text subprocedure was added succesfully",
   "textSubProcedureUpdateError": "ERROR! The subprocedure already exists in this case.",
+  "textToAdd": "text",
   "title": "Title",
   "userInformation": "Users",
   "userProfile": "Profile",
