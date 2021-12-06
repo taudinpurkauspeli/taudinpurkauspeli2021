@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 /* eslint-disable linebreak-style */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-unused-expressions */
@@ -11,20 +12,27 @@ import service from '../../services/procedures';
 import serviceUnderProcedure from '../../services/proceduresUnderCase';
 
 const EditProcedure = ({ procedure, caseId, editProcedureFunc }) => {
+  /* istanbul ignore next */
   const [newPriority, setNewPriority] = useState(procedure.proceduresUnderCase.priority);
+  /* istanbul ignore next */
   const [newProcedureTitle, setNewProcedureTitle] = useState(procedure.title);
+  /* istanbul ignore next */
   const { t } = useTranslation();
+  /* istanbul ignore next */
   const history = useHistory();
   const baseUrl = `/cases/${caseId}`;
 
+  /* istanbul ignore next */
   const handlePriorityChange = (event) => {
     setNewPriority(event.target.value);
   };
 
+  /* istanbul ignore next */
   const handleTitleChange = (event) => {
     setNewProcedureTitle(event.target.value);
   };
 
+  /* istanbul ignore next */
   const editProcedure = (event) => {
     event.preventDefault();
     setNewProcedureTitle(event.target[0].value);

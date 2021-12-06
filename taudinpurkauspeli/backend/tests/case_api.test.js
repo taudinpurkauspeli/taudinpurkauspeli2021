@@ -2,26 +2,14 @@ const supertest = require('supertest')
 const app = require('../app')
 const api = supertest(app)
 const db = require('../models/');
+const helper = require('./test_helper');
 const Case = db.cases;
-
-const initialCases = [
-  {
-    title: "TestCase1",
-    hidden: true,
-    anamnesis: "TestCase1Anamnesis",
-  },
-  {
-    title: "TestCase2",
-    hidden: true,
-    anamnesis: "TestCase2Anamnesis",
-  },
-]
 
 beforeEach(async () => {
   // deletes the content from the table 'cases'
   await db.sequelize.sync({ force: true })
   // inserts test cases in the table 'cases'
-  await Case.bulkCreate(initialCases)
+  await Case.bulkCreate(helper.initialCases)
 })
 
 describe('Getting cases from database', () => {
@@ -36,7 +24,13 @@ describe('Getting cases from database', () => {
   test('all cases are returned', async () => {
     const response = await api.get('/api/cases')
 
-    expect(response.body).toHaveLength(initialCases.length)
+    expect(response.body.data).toHaveLength(helper.initialCases.length)
+  })
+
+  test('throws error when trying to get case with non-existent id', async () => {
+    await api
+      .get('/api/cases/5')
+      .expect(404)
   })
 })
 
@@ -44,7 +38,7 @@ describe('Adding a case to database', () => {
 
   test('a specific case is within the returned cases', async () => {
     const response = await api.get('/api/cases')
-    const titles = response.body.map(r => r.title)
+    const titles = response.body.data.map(r => r.title)
 
     expect(titles).toContain('TestCase2')
   })
@@ -64,11 +58,11 @@ describe('Adding a case to database', () => {
   
     const response = await api.get('/api/cases')
   
-    const titles = response.body.map(r => r.title)
-    const hiddens = response.body.map(r => r.hidden)
-    const anamnesiss = response.body.map(r => r.anamnesis)
+    const titles = response.body.data.map(r => r.title)
+    const hiddens = response.body.data.map(r => r.hidden)
+    const anamnesiss = response.body.data.map(r => r.anamnesis)
   
-    expect(response.body).toHaveLength(initialCases.length + 1)
+    expect(response.body.data).toHaveLength(helper.initialCases.length + 1)
     expect(titles).toContain('NewTitle1')
     expect(hiddens).toContain(false)
     expect(anamnesiss).toContain('NewAnamnesis1')
@@ -86,7 +80,7 @@ describe('Adding a case to database', () => {
   
     const response = await api.get('/api/cases')
   
-    expect(response.body).toHaveLength(initialCases.length)
+    expect(response.body.data).toHaveLength(helper.initialCases.length)
   })
 })
 
@@ -136,7 +130,7 @@ describe('Removing a case from database', () => {
       .expect(204)
 
     const responseCheck = await api.get('/api/cases')
-    expect(responseCheck.body).toHaveLength(1)
+    expect(responseCheck.body.data).toHaveLength(1)
   })
 
   test('Case cannot be deleted', async () => {

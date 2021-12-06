@@ -1,3 +1,4 @@
+
 const proceduresUnderCasesRouter = require('express').Router();
 const db = require('../models');
 
@@ -10,7 +11,7 @@ Procedure.belongsToMany(Case, { through: ProcedureUnderCase });
 Case.belongsToMany(Procedure, { through: ProcedureUnderCase });
 
 // Save a new procedure under case
-proceduresUnderCasesRouter.post('/', (req, res) => {
+proceduresUnderCasesRouter.post('/', (req, res, next) => {
 
   // Create a procedure under case
   const procedureUnderCase = {
@@ -28,6 +29,20 @@ proceduresUnderCasesRouter.post('/', (req, res) => {
     .catch((error) => next(error));
 });
 
+// Retrieve all procedures related to case based on id
+proceduresUnderCasesRouter.get('/:id', (req, res, next) => {
+  const { id } = req.params;
+
+  ProcedureUnderCase.findAll({ where: {
+      caseId: id
+    }
+  })
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((error) => next(error))
+});
+
 // Retrieve all procedures
 proceduresUnderCasesRouter.get('/', (req, res) => {
   const { caseId } = req.params;
@@ -41,11 +56,11 @@ proceduresUnderCasesRouter.get('/', (req, res) => {
 });
 
 // Update a procedure (by id)
-proceduresUnderCasesRouter.put('/:id', (req, res) => {
+proceduresUnderCasesRouter.put('/:id', (req, res, next) => {
   const { id } = req.params;
 
   ProcedureUnderCase.update(req.body, {
-    where: { procedureId : id },
+    where: { procedureId : id, caseId: req.body.caseId },
   })
     .then((num) => {
       if (Number(num) === 1) {

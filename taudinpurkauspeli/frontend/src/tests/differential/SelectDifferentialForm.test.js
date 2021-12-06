@@ -27,7 +27,7 @@ beforeEach(() => {
     <SelectDifferentialForm
       differentials={initialDifferentials}
       selectDifferential={selectDifferentialFunc}
-      caseId={1}
+      diffGroupCaseId={1}
     />,
   );
 });
@@ -43,7 +43,7 @@ test('New differential can be selected', async () => {
   userEvent.click(screen.getByRole('button', { name: /submit/i }));
 
   await waitFor(() => expect(selectDifferentialFunc).toHaveBeenCalledWith({
-    caseId: 1,
+    diffGroupCaseId: 1,
     differentialId: 1,
     description: 'testDescription',
   }));

@@ -21,7 +21,7 @@ const Procedure = ({ admin, caseId }) => {
 
   return (
 
-    <div>
+    <div id="wrapper">
       <h2>
         {t('subProcedures')}
       </h2>

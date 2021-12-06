@@ -21,9 +21,12 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
+db.users = require('./user.model')(sequelize, Sequelize);
 db.cases = require('./case.model')(sequelize, Sequelize);
-db.differentials = require('./differential.model')(sequelize, Sequelize);
-db.differentalsUnderCases = require('./differentialsUnderCase.model')(sequelize, Sequelize);
+db.differentialGroups = require('./differentials/differentialGroup.model')(sequelize, Sequelize);
+db.differentialGroupsUnderCase = require('./differentials/differentialGroupsUnderCase.model')(sequelize, Sequelize);
+db.differentials = require('./differentials/differential.model')(sequelize, Sequelize);
+db.differentalsUnderCases = require('./differentials/differentialsUnderCase.model')(sequelize, Sequelize);
 db.procedures = require('./procedure.model')(sequelize, Sequelize);
 db.proceduresUnderCases = require('./proceduresUnderCase.model')(sequelize, Sequelize);
 db.subProcedures = require('./subProcedure.model')(sequelize, Sequelize);

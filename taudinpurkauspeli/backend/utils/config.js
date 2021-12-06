@@ -5,6 +5,10 @@ const {
   DB_HOST,
   DB_USERNAME,
   DB_PASSWORD,
+  USER_NAME,
+  AFFILIATION,
+  STUDENTID,
+  MAIL,
 } = process.env;
 
 module.exports = {
@@ -20,4 +24,8 @@ module.exports = {
     idle: 10000,
   },
   PORT,
+  USER_NAME,
+  AFFILIATION,
+  STUDENTID,
+  MAIL,
 };
