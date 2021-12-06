@@ -41,8 +41,8 @@ const initialProcedures = [
       {
         subProcedureId: "1",
         proceduresUnderCaseProcedureCaseId: "1",
-        title: 'TestTitle',
-        text: 'TestText',
+        title: 'TestTitle1',
+        text: 'TestText1',
       },
     ]
   
@@ -66,10 +66,10 @@ const initialProcedures = [
 
   test('a valid text sub procedure can be added', async () => {
     const newTextSubProcedure = {
-        subProcedureId: "1",
-        proceduresUnderCaseProcedureCaseId: "1",
-        title: 'TestTitle',
-        text: 'TestText',
+        subProceduresId: 2,
+        proceduresUnderCaseProcedureCaseId: 1,
+        title: 'TestTitle2',
+        text: 'TestText2'
       }
   
     await api
@@ -86,29 +86,35 @@ const initialProcedures = [
     expect(titles).toContain('TestTitle2')
   })
 
-  /* test('procedure without title is not added', async () => {
-    const newProcedure = {
-      title: null
+  test('text sub procedure without title is not added', async () => {
+    const newTextSubProcedure = {
+      subProceduresId: 2,
+      proceduresUnderCaseProcedureCaseId: 1,
+      title: null,
+      text: 'TestText2'
     }  
     await api
       .post('/api/procedures')
-      .send(newProcedure)
+      .send(newTextSubProcedure)
       .expect(400)
   
-    const response = await api.get('/api/procedures')
+    const response = await api.get('/api/textsubprocedures')
   
-    expect(response.body).toHaveLength(initialProcedures.length)
+    expect(response.body).toHaveLength(initialTextSubprocedures.length)
   })
 
   test('title can be changed', async () => {
-    const responseUpdate = await api.put('/api/procedures/1')
+    const responseUpdate = await api.put('/api/textsubprocedures/1')
       .send({
-        title: "TestProcedure4",
+        subProceduresId: 1,
+        proceduresUnderCaseProcedureCaseId: 1,
+        title: 'this is a coconut',
+        text: 'TestText2'
       })
-    const responseCheck = await api.get('/api/procedures/1')
-    const contentsCheck = responseCheck.body[0].procedures[0].title
-    expect(contentsCheck).toEqual("TestProcedure4")
-  }) */
+    const responseCheck = await api.get('/api/textsubprocedures')
+    const contentsCheck = responseCheck.body[0].title
+    expect(contentsCheck).toEqual("this is a coconut")
+  })
 })
   
 afterAll(async () => {
