@@ -1,7 +1,7 @@
 /* eslint-disable linebreak-style */
 import axios from 'axios';
 
-const baseUrl = 'http://localhost:8081/api/differentialGroups';
+const baseUrl = '/api/differentialGroups';
 
 const getAll = () => {
   const request = axios.get(baseUrl);

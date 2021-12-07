@@ -164,4 +164,4 @@ Kopioidaan syntynyt kansio build backendin juureen.
 
 Pushaa githubiin.
 
-Poista podi Openshiftissä, jotta muutokset tallentuvat konttiin.
+Restarttaa podin build Openshiftissä, jotta muutokset tallentuvat konttiin.

@@ -2,6 +2,8 @@ const express = require('express');
 require('express-async-errors')
 const app = express();
 const cors = require('cors');
+
+const userRouter = require('./controllers/users');
 const caseRouter = require('./controllers/cases');
 const differentialGroupRouter = require('./controllers/differentials/differentialGroups');
 const differentialGroupsUnderCaseRouter = require('./controllers/differentials/differentialGroupsUnderCases');
@@ -9,6 +11,7 @@ const differentialRouter = require('./controllers/differentials/differentials');
 const differentialUnderCaseRouter = require('./controllers/differentials/differentialsUnderCases');
 const proceduresRouter = require('./controllers/procedures');
 const proceduresUnderCasesRouter = require('./controllers/proceduresUnderCases');
+
 const middleware = require('./utils/middleware');
 const logger = require('./utils/logger');
 const db = require('./models');
@@ -35,11 +38,12 @@ if (process.env.NODE_ENV !== 'test') {
   });
 }
 
-app.use(cors({ exposedHeaders: 'hyPersonStudentId'}));
+app.use(cors());
 app.use(express.json());
 app.use(express.static('build'));
 app.use(middleware.requestLogger);
 
+app.use('/api/users', userRouter);
 app.use('/api/cases', caseRouter);
 app.use('/api/differentialGroups', differentialGroupRouter);
 app.use('/api/differentialGroupsUnderCases', differentialGroupsUnderCaseRouter);
