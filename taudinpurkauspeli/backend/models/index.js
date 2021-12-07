@@ -29,5 +29,7 @@ db.differentials = require('./differentials/differential.model')(sequelize, Sequ
 db.differentalsUnderCases = require('./differentials/differentialsUnderCase.model')(sequelize, Sequelize);
 db.procedures = require('./procedure.model')(sequelize, Sequelize);
 db.proceduresUnderCases = require('./proceduresUnderCase.model')(sequelize, Sequelize);
+db.subProcedures = require('./subProcedure.model')(sequelize, Sequelize);
+db.textSubProcedures = require('./textSubProcedure.model')(sequelize, Sequelize);
 
 module.exports = db;
