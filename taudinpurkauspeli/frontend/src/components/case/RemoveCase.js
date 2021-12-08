@@ -4,6 +4,7 @@ import { Button } from 'react-bootstrap';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import service from '../../services/cases';
+import { setSuccess } from '../utils/MessageBanner';
 
 const removeCase = ({ caseToBeRemoved, removeCaseFunc }) => {
   const { t } = useTranslation();
@@ -22,7 +23,7 @@ const removeCase = ({ caseToBeRemoved, removeCaseFunc }) => {
       const confirmBox = window.confirm(t('deleteCaseConfirmation'));
       if (confirmBox === true) {
         service.remove(caseToBeRemoved.id)
-          .then((response) => (response.message));
+          .then(() => setSuccess(t('deleteCaseSuccess')));
       }
     }
   };

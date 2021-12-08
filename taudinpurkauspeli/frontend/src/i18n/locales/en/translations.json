@@ -51,6 +51,7 @@
   "copy": "Copy",
   "description": "Description",
   "deleteCaseConfirmation": "Are you sure you want to delete this case?",
+  "deleteCaseSuccess": "Case deleted",
   "Differentials": "Differentials",
   "differentialGroupUpdateSuccess": "Differential was added successfully",
   "differentialGroupUpdateError": "ERROR! The differential already exists in this case.",

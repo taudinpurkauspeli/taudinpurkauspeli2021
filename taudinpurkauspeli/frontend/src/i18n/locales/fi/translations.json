@@ -50,6 +50,7 @@
   "copy": "Kopioi",
   "description": "Kuvaus",
   "deleteCaseConfirmation": "Haluatko varmasti poistaa tämän casen?",
+  "deleteCaseSuccess": "Case poistettu",
   "Differentials": "Diffit",
   "differentialGroupUpdateSuccess": "Diffiryhmä lisätty onnistuneesti",
   "differentialGroupUpdateError": "VIRHE! Valittu diffiryhmä on jo aiemmin lisätty caseen.",
