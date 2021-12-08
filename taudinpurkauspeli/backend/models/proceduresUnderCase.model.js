@@ -1,7 +1,7 @@
 const db = require('../models');
 
 module.exports = (sequelize, Sequelize) => {
-// In previous version this table was called "exercise"
+// In previous version this table was called ""
   const proceduresUnderCase = sequelize.define('proceduresUnderCase', {
     caseId: {
       type: Sequelize.INTEGER,
@@ -20,6 +20,7 @@ module.exports = (sequelize, Sequelize) => {
     procedureCaseId: {
       type: Sequelize.INTEGER,
       primaryKey: true,
+      autoIncrement: true,
       allowNull: false,
     },
     priority: {

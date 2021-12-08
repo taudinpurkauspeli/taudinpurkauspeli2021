@@ -1,10 +1,16 @@
 const jwt = require('jsonwebtoken')
 const userRouter = require('express').Router();
 const db = require('../models');
+const helper = require('../utils/helpers')
 
 const User = db.users;
 
 userRouter.get('/', (req, res, next) => {
+  const decodedToken = helper.tokenCheck(req, res)
+  if (decodedToken.affiliation !== 'faculty') {
+    return res.status(401).json({ error: 'you do not have rights to do this action' })
+  }
+
   User.findAll({})
     .then((data) => {
       if (data === null) {
@@ -14,23 +20,5 @@ userRouter.get('/', (req, res, next) => {
     })
     .catch((error) => next(error))
 });
-
-const getTokenFrom = request => { 
-  const authorization = request.get('authorization')
-  if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
-    return authorization.substring(7)
-  }
-  return null
-}
-
-const checkIfAdmin = async (request) => {
-  const token = getTokenFrom(request)
-  const decodedToken = jwt.verify(token, process.env.SECRET)
-  if (!token || !decodedToken.id) {
-    return false
-  }
-  const user = await User.findByPk(decodedToken.id)
-  return user.affiliation === 'faculty'
-}
 
 module.exports = userRouter

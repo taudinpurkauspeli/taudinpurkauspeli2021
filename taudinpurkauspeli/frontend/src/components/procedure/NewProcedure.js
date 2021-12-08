@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import service from '../../services/procedures';
 import serviceUnderCases from '../../services/proceduresUnderCase';
-import { setSuccess, setError } from '../utils/MessageBanner';
+import { setSuccess, setError } from '../../utils/MessageBanner';
 
 // eslint-disable-next-line no-unused-vars
 const newProcedure = ({ id, addProcedureFunc }) => {

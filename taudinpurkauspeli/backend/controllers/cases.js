@@ -12,12 +12,7 @@ const { Op } = db.Sequelize;
 // Save a new case
 caseRouter.post('/', (req, res, next) => {
   // Create a case
-  const token = helper.tokenCheck(req)
-  const decodedToken = jwt.verify(token, process.env.SECRET)
-  if (!token || !decodedToken.id) {
-    return res.status(401).json({ error: 'token is missing or invalid' })
-  }
-
+  const decodedToken = helper.tokenCheck(req, res)
   if (decodedToken.affiliation !== 'faculty') {
     return res.status(401).json({ error: 'you do not have rights to do this action' })
   }
@@ -86,6 +81,7 @@ caseRouter.get('/', async (req, res, next) => {
 
 // Find a single case (by id)
 caseRouter.get('/:id', (req, res, next) => {
+  helper.tokenCheck(req, res)
   const { id } = req.params;
 
   Case.findByPk(id)
@@ -98,8 +94,13 @@ caseRouter.get('/:id', (req, res, next) => {
     .catch((error) => next(error))
 });
 
-// Update a disease (by id)
+// Update a case (by id)
 caseRouter.put('/:id', (req, res, next) => {
+  const decodedToken = helper.tokenCheck(req, res)
+  if (decodedToken.affiliation !== 'faculty') {
+    return res.status(401).json({ error: 'you do not have rights to do this action' })
+  }
+
   const { id } = req.params;
 
   Case.update(req.body, {
@@ -117,6 +118,11 @@ caseRouter.put('/:id', (req, res, next) => {
 
 // Delete a case (by id)
 caseRouter.delete('/:id', (req, res, next) => {
+  const decodedToken = helper.tokenCheck(req, res)
+  if (decodedToken.affiliation !== 'faculty') {
+    return res.status(401).json({ error: 'you do not have rights to do this action' })
+  }
+
   const { id } = req.params;
 
   Case.destroy({
@@ -134,6 +140,11 @@ caseRouter.delete('/:id', (req, res, next) => {
 
 // Delete all cases
 caseRouter.delete('/', (req, res, next) => {
+  const decodedToken = helper.tokenCheck(req, res)
+  if (decodedToken.affiliation !== 'faculty') {
+    return res.status(401).json({ error: 'you do not have rights to do this action' })
+  }
+
   Case.destroy({
     where: {},
     truncate: false,

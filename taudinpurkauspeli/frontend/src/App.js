@@ -11,7 +11,9 @@ import Navigationbar from './components/navigation/Navbar';
 import service from './services/cases';
 import Sidebar from './components/navigation/Sidebar';
 import Routing from './components/navigation/Routing';
-import MessageBanner from './components/utils/MessageBanner';
+import MessageBanner from './utils/MessageBanner';
+
+import { setToken } from './utils/Helper';
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -25,7 +27,7 @@ const App = () => {
       .then((response) => {
         // eslint-disable-next-line no-console
         console.log(response);
-        service.setToken(response.token);
+        setToken(response.token);
         setAdmin(response.admin);
         setUser(response.name);
         setCases(response.data);

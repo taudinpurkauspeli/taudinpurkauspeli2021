@@ -4,7 +4,7 @@ import { Button } from 'react-bootstrap';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import service from '../../services/cases';
-import { setSuccess } from '../utils/MessageBanner';
+import { setSuccess } from '../../utils/MessageBanner';
 
 const removeCase = ({ caseToBeRemoved, removeCaseFunc }) => {
   const { t } = useTranslation();
