@@ -109,7 +109,7 @@ const ProcedureList = ({ id }) => {
         submitForm={submitForm}
       />
       { procedureToEdit ? (
-        <EditProcedure procedure={procedureToEdit} />
+        <EditProcedure procedure={procedureToEdit} caseId={id} />
       ) : (
         <p> </p>
       )}
