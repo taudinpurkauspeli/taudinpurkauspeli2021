@@ -6,17 +6,15 @@ import {
 
 // Import components
 import Frontpage from '../frontpage/Frontpage';
-import GuestFrontpage from '../frontpage/GuestFrontpage';
 import HowToPlay from '../instructions/HowToPlay';
 import Profile from '../user/Profile';
 import Case from '../case/Case';
-import HideCase from '../case/HideCase';
-import NewCase from '../case/NewCase';
 import Procedures from '../procedure/Procedures';
+import Procedure from '../procedure/Procedure';
 import Differentials from '../differential/Differentials';
 import Anamnesis from '../anamnesis/Anamnesis';
 
-const Routing = ({ admin, guest, cases }) => (
+const Routing = ({ admin, cases }) => (
   <Switch>
     <Route path="/howtoplay">
       <HowToPlay />
@@ -28,6 +26,9 @@ const Routing = ({ admin, guest, cases }) => (
       <Case cases={cases} admin={admin} />
       <Procedures />
     </Route>
+    <Route path="/cases/:id/procedure/:id">
+      <Procedure admin={admin} />
+    </Route>
     <Route path="/cases/:id/differentials">
       <Case cases={cases} admin={admin} />
       <Differentials admin={admin} />
@@ -36,20 +37,8 @@ const Routing = ({ admin, guest, cases }) => (
       <Case cases={cases} admin={admin} />
       <Anamnesis cases={cases} admin={admin} />
     </Route>
-    {admin && (
-      <Route path="/editcase/:id">
-        <HideCase cases={cases} />
-      </Route>
-    )}
-    {admin && (
-      <Route path="/newcase">
-        <NewCase />
-      </Route>
-    )}
     <Route path="/">
-      {guest
-        ? <GuestFrontpage />
-        : <Frontpage admin={admin} cases={cases} />}
+      <Frontpage admin={admin} cases={cases} />
     </Route>
   </Switch>
 );

@@ -3,7 +3,6 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 const Profile = () => {
-  /* istanbul ignore next */
   const { t } = useTranslation();
 
   return (

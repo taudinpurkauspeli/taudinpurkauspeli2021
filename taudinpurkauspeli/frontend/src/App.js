@@ -14,38 +14,22 @@ import Routing from './components/navigation/Routing';
 import MessageBanner from './components/utils/MessageBanner';
 
 const App = () => {
-  const [user, setUser] = useState(false);
+  const [user, setUser] = useState(null);
   const [admin, setAdmin] = useState(false);
-  const [guest, setGuest] = useState(true);
   const [cases, setCases] = useState([]);
-
-  /* istanbul ignore next */
-  const changeUser = () => {
-    setUser(true);
-    setGuest(false);
-    setAdmin(false);
-  };
-
-  /* istanbul ignore next */
-  const changeGuest = () => {
-    setUser(false);
-    setGuest(true);
-    setAdmin(false);
-  };
-
-  /* istanbul ignore next */
-  const changeAdmin = () => {
-    setUser(false);
-    setGuest(false);
-    setAdmin(true);
-  };
 
   /* istanbul ignore next */
   React.useEffect(() => {
     service
       .getAll()
-      .then((initialCases) => {
-        setCases(initialCases);
+      .then((response) => {
+        // eslint-disable-next-line no-console
+        console.log(response);
+        setAdmin(response.admin);
+        setUser(response.name);
+        setCases(response.data);
+        // eslint-disable-next-line no-console
+        console.log(user);
       })
       .catch((error) => {
         // eslint-disable-next-line
@@ -56,17 +40,13 @@ const App = () => {
   return (
     <Router>
       <Navigationbar
-        user={user}
+        user={false}
         admin={admin}
-        guest={guest}
-        changeUser={changeUser}
-        changeAdmin={changeAdmin}
-        changeGuest={changeGuest}
         cases={cases}
       />
-      { guest ? ' ' : <Sidebar /> }
+      <Sidebar />
       <MessageBanner />
-      <Routing cases={cases} admin={admin} guest={guest} />
+      <Routing cases={cases} admin={admin} />
     </Router>
   );
 };

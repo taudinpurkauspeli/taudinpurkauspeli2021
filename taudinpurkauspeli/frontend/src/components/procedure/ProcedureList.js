@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 /* eslint-disable linebreak-style */
 /* eslint-disable no-restricted-globals */
 /* eslint-disable react/no-array-index-key */
@@ -51,19 +52,23 @@ const ProcedureList = ({ id }) => {
       });
   }, []);
 
+  /* istanbul ignore next */
   const handleEditId = (p) => {
     setProcedureToEdit(p);
   };
 
+  /* istanbul ignore next */
   const submitForm = (p, e) => {
     e.preventDefault();
     handleEditId(p);
   };
 
+  /* istanbul ignore next */
   const handleDragStart = (e, position) => {
     draggingItem.current = position;
   };
 
+  /* istanbul ignore next */
   const handleDragEnter = (e, position) => {
     dragOverItem.current = position;
     const listCopy = [...proceduresHook];
@@ -86,6 +91,7 @@ const ProcedureList = ({ id }) => {
     serviceUnderProcedure.update(givenProcedure.proceduresUnderCase.procedureId, procedureUnderCaseObject);
   };
 
+  /* istanbul ignore next */
   const handleDragEnd = () => {
     proceduresHook.map((p, index) => (
       dragDropEditProcedure(p, index)
@@ -103,7 +109,7 @@ const ProcedureList = ({ id }) => {
         submitForm={submitForm}
       />
       { procedureToEdit ? (
-        <EditProcedure procedure={procedureToEdit} />
+        <EditProcedure procedure={procedureToEdit} caseId={id} />
       ) : (
         <p> </p>
       )}
