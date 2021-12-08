@@ -1,8 +1,13 @@
 /* eslint-disable linebreak-style */
 import axios from 'axios';
-import { getConfig } from '../utils/Helper';
+import { getConfig } from '../../utils/Helper';
 
-const baseUrl = '/api/textSubProcedures';
+const baseUrl = '/api/subProcedures';
+
+const getAllId = (id) => {
+  const request = axios.get(`${baseUrl}/${id}`, getConfig());
+  return request.then((response) => response.data);
+};
 
 const getAll = () => {
   const request = axios.get(baseUrl, getConfig());
@@ -17,7 +22,8 @@ const create = (newObject) => {
 const update = (id, newObject) => axios.put(`${baseUrl}/${id}`, newObject, getConfig());
 
 export default {
-  getAll,
   create,
+  getAllId,
+  getAll,
   update,
 };

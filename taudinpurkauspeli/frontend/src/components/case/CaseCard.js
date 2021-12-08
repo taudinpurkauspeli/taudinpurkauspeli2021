@@ -7,10 +7,11 @@ import {
   ProgressBar,
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import RemoveCase from './RemoveCase';
 import CopyCase from './CopyCase';
+import { setError, setSuccess } from '../../utils/MessageBanner';
+import caseService from '../../services/cases';
 import ducService from '../../services/differentials/differentialsUnderCases';
-import pucService from '../../services/proceduresUnderCase';
+import pucService from '../../services/procedures/proceduresUnderCase';
 
 const CaseCard = ({ c, admin }) => {
   const { t } = useTranslation();
@@ -41,6 +42,17 @@ const CaseCard = ({ c, admin }) => {
     }
   };
 
+  /* istanbull ignore next */
+  const removeCase = () => {
+    // eslint-disable-next-line no-alert
+    const confirmBox = window.confirm(t('deleteCaseConfirmation'));
+    if (confirmBox === true) {
+      caseService.remove(c.id)
+        .then(() => setSuccess(t('deleteCaseSuccess')))
+        .catch(() => setError(t('deleteCaseError')));
+    }
+  };
+
   return (
     <div>
       <Card as={Link} to={`/cases/${c.id}`} style={{ width: '20rem', cursor: 'pointer' }} className="caseCard">
@@ -61,7 +73,7 @@ const CaseCard = ({ c, admin }) => {
             createDifferentials={createDifferentials}
             createProcedures={createProcedures}
           />
-          <RemoveCase caseToBeRemoved={c} />
+          <Button className="removeButton" size="sm" variant="danger" onClick={removeCase}>{t('buttonRemove')}</Button>
         </div>
       )}
     </div>

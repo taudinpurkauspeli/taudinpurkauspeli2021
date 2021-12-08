@@ -1,11 +1,11 @@
 /* eslint-disable linebreak-style */
 import axios from 'axios';
-import { getConfig } from '../utils/Helper';
+import { getConfig } from '../../utils/Helper';
 
-const baseUrl = '/api/proceduresUnderCases';
+const baseUrl = '/api/textSubProcedures';
 
-const getAll = (caseId) => {
-  const request = axios.get(`${baseUrl}/${caseId}`, getConfig());
+const getAll = () => {
+  const request = axios.get(baseUrl, getConfig());
   return request.then((response) => response.data);
 };
 
