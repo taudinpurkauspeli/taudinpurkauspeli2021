@@ -1,7 +1,7 @@
 /* eslint-disable linebreak-style */
 import axios from 'axios';
 
-const baseUrl = 'http://localhost:8080/api/textSubProcedures';
+const baseUrl = '/api/textSubProcedures';
 
 const getAll = () => {
   const request = axios.get(baseUrl);

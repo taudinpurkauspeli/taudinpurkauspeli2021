@@ -25,6 +25,7 @@ const App = () => {
       .then((response) => {
         // eslint-disable-next-line no-console
         console.log(response);
+        service.setToken(response.token);
         setAdmin(response.admin);
         setUser(response.name);
         setCases(response.data);

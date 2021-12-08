@@ -1,7 +1,7 @@
 /* eslint-disable linebreak-style */
 import axios from 'axios';
 
-const baseUrl = 'http://localhost:8080/api/subProcedures';
+const baseUrl = '/api/subProcedures';
 
 const getAllId = (id) => {
   const request = axios.get(`${baseUrl}/${id}`);

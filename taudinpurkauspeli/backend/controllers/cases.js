@@ -1,7 +1,9 @@
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const { response } = require('../app');
 const caseRouter = require('express').Router();
 const db = require('../models');
 const config = require('../utils/config')
+const helper = require('../utils/helpers')
 
 const Case = db.cases;
 const User = db.users;
@@ -10,6 +12,16 @@ const { Op } = db.Sequelize;
 // Save a new case
 caseRouter.post('/', (req, res, next) => {
   // Create a case
+  const token = helper.tokenCheck(req)
+  const decodedToken = jwt.verify(token, process.env.SECRET)
+  if (!token || !decodedToken.id) {
+    return res.status(401).json({ error: 'token is missing or invalid' })
+  }
+
+  if (decodedToken.affiliation !== 'faculty') {
+    return res.status(401).json({ error: 'you do not have rights to do this action' })
+  }
+  
   const case1 = {
     title: req.body.title,
     hidden: req.body.hidden,
@@ -40,7 +52,7 @@ caseRouter.get('/', async (req, res, next) => {
   let token;
 
   if (process.env.NODE_ENV !== 'test') {
-    const userFromDb = await User.findOrCreate({
+    const [userFromDb, created] = await User.findOrCreate({
       where: {
         user_name: user.user_name,
         affiliation: user.affiliation,
@@ -57,6 +69,7 @@ caseRouter.get('/', async (req, res, next) => {
     const userForToken = {
       username: userFromDb.user_name,
       id: userFromDb.id,
+      affiliation: userFromDb.affiliation,
     }
 
     token = jwt.sign(userForToken, process.env.SECRET)
