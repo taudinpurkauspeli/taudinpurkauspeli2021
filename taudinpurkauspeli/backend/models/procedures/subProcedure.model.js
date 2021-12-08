@@ -1,8 +1,6 @@
-const db = require('../models');
-
 module.exports = (sequelize, Sequelize) => {
 // In previous version this table was called "exercise"
-  const subProcedures= sequelize.define('subProcedures', {
+  const subProcedures = sequelize.define('subProcedures', {
     priority: {
       type: Sequelize.INTEGER,
       allowNull: false,
@@ -18,9 +16,6 @@ module.exports = (sequelize, Sequelize) => {
   return subProcedures;
 };
 
-
-
-
 /* Subtask
     ProcedureID
     SubtaskID
@@ -31,14 +26,12 @@ module.exports = (sequelize, Sequelize) => {
     SubtaskID
     Nimi
     Teksti
-    
 
 --Kysymys
     SubtaskID
     KysymysID
     Nimi
     Radio/ei
-    
 
 Kysymysten vaihtoehdot
     KysymysID
@@ -46,12 +39,10 @@ Kysymysten vaihtoehdot
     Oikeus
     Tekstiselite
 
-
 --Pohdinta
     SubtaskID
     PohdintaID
     Nimi
-
 
 Pohdinta vaihtoehdot
     PohdintaID
@@ -67,6 +58,3 @@ Vaihtoehtopankki
     ID
     Vaihtoehto/nimi
  */
-
-    
-    
