@@ -8,6 +8,7 @@ import {
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import CopyCase from './CopyCase';
+import RemoveCase from './RemoveCase';
 import { setError, setSuccess } from '../../utils/MessageBanner';
 import caseService from '../../services/cases';
 import ducService from '../../services/differentials/differentialsUnderCases';
@@ -43,7 +44,7 @@ const CaseCard = ({ c, admin }) => {
   };
 
   /* istanbull ignore next */
-  const removeCase = () => {
+  const handleCaseRemove = () => {
     // eslint-disable-next-line no-alert
     const confirmBox = window.confirm(t('deleteCaseConfirmation'));
     if (confirmBox === true) {
@@ -73,7 +74,7 @@ const CaseCard = ({ c, admin }) => {
             createDifferentials={createDifferentials}
             createProcedures={createProcedures}
           />
-          <Button className="removeButton" size="sm" variant="danger" onClick={removeCase}>{t('buttonRemove')}</Button>
+          <RemoveCase caseToBeRemoved={c} deleteCase={handleCaseRemove} />
         </div>
       )}
     </div>

@@ -1,44 +1,66 @@
 /* eslint-disable linebreak-style */
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import {
+  Button, Modal,
+} from 'react-bootstrap';
+
+import NewProcedureForm from './NewProcedureForm';
+import service from '../../services/procedures/procedures';
+import serviceUnderCases from '../../services/procedures/proceduresUnderCase';
+import { setSuccess, setError } from '../../utils/MessageBanner';
 
 // eslint-disable-next-line no-unused-vars
-const newProcedure = ({ id, addProcedure }) => {
+const newProcedure = ({ caseId }) => {
   /* istanbul ignore next */
   const { t } = useTranslation();
-  const [newTitle, setNewTitle] = useState('');
 
-  const handleTitleChange = (event) => {
-    setNewTitle(event.target.value);
-  };
+  const [show, setShow] = useState(false);
 
-  const handleProcedureAdd = async (event) => {
-    event.preventDefault();
-    addProcedure({ title: newTitle });
-    setNewTitle('');
+  const toggleVisibility = () => setShow(!show);
+
+  /* istanbul ignore next */
+  const handleProcedureAdd = (procedureObject) => {
+    service.create(procedureObject)
+      .then((data) => {
+        toggleVisibility();
+        setSuccess(t('procedureAddSuccess'));
+        const procedureUnderCaseObject = ({
+          caseId,
+          procedureId: data.id,
+          priority: 1,
+        });
+
+        serviceUnderCases.create(procedureUnderCaseObject);
+      })
+      .catch((error) => {
+        // eslint-disable-next-line no-console
+        console.log(error);
+        toggleVisibility();
+        setError(t('procedureAddError'));
+      });
   };
 
   return (
     <div>
       <h2>{t('addProcedure')}</h2>
 
-      <form onSubmit={handleProcedureAdd}>
-        <p>
-          <label htmlFor="title">
-            {t('procedureTitle')}
-          </label>
-          <br />
-          <input
-            id="title"
-            type="text"
-            value={newTitle}
-            onChange={handleTitleChange}
-          />
-        </p>
-        <p>
-          <input type="submit" id="submit" value={t('buttonSubmitNewProcedure')} />
-        </p>
-      </form>
+      <Button variant="primary" onClick={toggleVisibility} id="addNew">
+        {t('buttonNewProcedure')}
+      </Button>
+      <Modal
+        show={show}
+        onHide={toggleVisibility}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>{t('addProcedure')}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <NewProcedureForm addProcedure={handleProcedureAdd} />
+        </Modal.Body>
+      </Modal>
 
     </div>
   );

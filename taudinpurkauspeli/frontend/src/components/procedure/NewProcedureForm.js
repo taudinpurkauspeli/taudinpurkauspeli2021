@@ -5,20 +5,18 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Form, Button } from 'react-bootstrap';
 
-const newCaseForm = ({ addCase }) => {
+const newProcedureForm = ({ addProcedure }) => {
   const { t } = useTranslation();
 
-  const newCaseSchema = Yup.object().shape({
+  const newProcedureSchema = Yup.object().shape({
     title: Yup.string()
       .min(2, t('warningShort'))
       .max(999, t('warningLong'))
       .required(t('warningRequired')),
-    anamnesis: Yup.string(),
-    hidden: Yup.bool(),
   });
 
-  const handleCaseAdd = (values) => {
-    addCase({
+  const handleProcedureAdd = (values) => {
+    addProcedure({
       title: values.title,
       anamnesis: values.anamnesis,
       hidden: values.hidden,
@@ -29,11 +27,9 @@ const newCaseForm = ({ addCase }) => {
     <Formik
       initialValues={{
         title: '',
-        anamnesis: '',
-        hidden: false,
       }}
-      validationSchema={newCaseSchema}
-      onSubmit={handleCaseAdd}
+      validationSchema={newProcedureSchema}
+      onSubmit={handleProcedureAdd}
     >
       {({
         handleSubmit,
@@ -43,7 +39,7 @@ const newCaseForm = ({ addCase }) => {
       }) => (
         <Form noValidate onSubmit={handleSubmit}>
           <Form.Group md="6" controlId="title">
-            <Form.Label>{t('caseTitle')}</Form.Label>
+            <Form.Label>{t('procedureTitle')}</Form.Label>
             <Form.Control
               type="text"
               name="title"
@@ -55,30 +51,11 @@ const newCaseForm = ({ addCase }) => {
               {errors.title}
             </Form.Control.Feedback>
           </Form.Group>
-          <Form.Group className="mb-3" controlId="anamnesis">
-            <Form.Label>{t('caseAnamnesis')}</Form.Label>
-            <Form.Control
-              as="textarea"
-              name="anamnesis"
-              rows={3}
-              value={values.anamnesis}
-              onChange={handleChange}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="hidden">
-            <Form.Check
-              required
-              name="hidden"
-              label={t('hideCase')}
-              value={values.hidden}
-              onChange={handleChange}
-            />
-          </Form.Group>
-          <Button type="submit">{t('buttonSubmitNewCase')}</Button>
+          <Button type="submit">{t('buttonSubmitNewProcedure')}</Button>
         </Form>
       )}
     </Formik>
   );
 };
 
-export default newCaseForm;
+export default newProcedureForm;
