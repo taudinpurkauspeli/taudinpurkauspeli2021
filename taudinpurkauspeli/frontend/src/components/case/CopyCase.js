@@ -5,7 +5,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import caseService from '../../services/cases';
 import ducService from '../../services/differentials/differentialsUnderCases';
-import pucService from '../../services/proceduresUnderCase';
+import pucService from '../../services/procedures/proceduresUnderCase';
 
 const copyCase = ({
   caseToBeCopied, createProcedures, createDifferentials,

@@ -24,7 +24,7 @@ const Routing = ({ admin, cases }) => (
     </Route>
     <Route path="/cases/:id/procedures">
       <Case cases={cases} admin={admin} />
-      <Procedures />
+      <Procedures admin={admin} />
     </Route>
     <Route path="/cases/:id/procedure/:id">
       <Procedure admin={admin} />

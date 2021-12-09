@@ -2,10 +2,10 @@
 import axios from 'axios';
 import { getConfig } from '../../utils/Helper';
 
-const baseUrl = '/api/differentialsUnderCases';
+const baseUrl = '/api/textSubProcedures';
 
-const getAll = (diffGroupCaseId) => {
-  const request = axios.get(`${baseUrl}/${diffGroupCaseId}`, getConfig());
+const getAll = () => {
+  const request = axios.get(baseUrl, getConfig());
   return request.then((response) => response.data);
 };
 

@@ -8,8 +8,8 @@ import { useHistory, Link } from 'react-router-dom';
 import {
   Button,
 } from 'react-bootstrap';
-import service from '../../services/procedures';
-import serviceUnderProcedure from '../../services/proceduresUnderCase';
+import service from '../../services/procedures/procedures';
+import serviceUnderProcedure from '../../services/procedures/proceduresUnderCase';
 
 const EditProcedure = ({ procedure, caseId, editProcedureFunc }) => {
   /* istanbul ignore next */

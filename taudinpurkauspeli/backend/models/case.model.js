@@ -5,8 +5,8 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
       allowNull: false,
       validate: {
-        len: [2,999],
-      }
+        len: [2, 999],
+      },
     },
     hidden: {
       type: Sequelize.BOOLEAN,

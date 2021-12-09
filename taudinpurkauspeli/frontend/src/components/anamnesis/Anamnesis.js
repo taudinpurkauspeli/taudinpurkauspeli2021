@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import HideCase from '../case/HideCase';
 import service from '../../services/cases';
 import UpdateCaseTitle from '../case/UpdateCaseTitle';
-import { setSuccess, setError } from '../utils/MessageBanner';
+import { setSuccess, setError } from '../../utils/MessageBanner';
 
 const Anamnesis = ({ cases, admin }) => {
   const { t } = useTranslation();

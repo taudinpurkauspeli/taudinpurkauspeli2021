@@ -4,7 +4,7 @@ import '@testing-library/jest-dom/extend-expect';
 import ShallowRenderer from 'react-shallow-renderer';
 import { waitFor } from '@testing-library/react';
 import SubProcedureList from '../../components/subprocedure/SubProcedureList';
-import service from '../../services/subProcedures';
+import service from '../../services/procedures/subProcedures';
 
 const useEffectSpy = jest.spyOn(React, 'useEffect');
 useEffectSpy.mockImplementation((f) => f());
