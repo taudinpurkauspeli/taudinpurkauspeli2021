@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 const differentialRouter = require('express').Router();
 const db = require('../../models');
-const helper = require('../../utils/helpers');
+const helper = require('../../utils/token');
 
 const Differential = db.differentials;
 const { Op } = db.Sequelize;

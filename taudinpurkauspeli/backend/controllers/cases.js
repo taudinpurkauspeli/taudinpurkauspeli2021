@@ -1,12 +1,9 @@
 /* eslint-disable consistent-return */
-const jwt = require('jsonwebtoken');
 const caseRouter = require('express').Router();
 const db = require('../models');
-const config = require('../utils/config');
-const helper = require('../utils/helpers');
+const helper = require('../utils/token');
 
 const Case = db.cases;
-const User = db.users;
 const { Op } = db.Sequelize;
 
 // Save a new case
@@ -37,53 +34,13 @@ caseRouter.get('/', async (req, res, next) => {
   const condition = title ? { title: { [Op.iLike]: `%${title}%` } } : null;
 
   const data = await Case.findAll({ where: condition });
-  const user = {
-    user_name: req.headers.cn
-      ? req.headers.cn
-      : config.USER_NAME,
-    affiliation: req.headers.edupersonprimaryaffiliation
-      ? req.headers.edupersonprimaryaffiliation
-      : config.AFFILIATION,
-    studentid: req.headers.hypersonstudentid
-      ? req.headers.hypersonstudentid
-      : config.STUDENTID || '',
-    mail: req.headers.mail
-      ? req.headers.mail
-      : config.MAIL,
-  };
-
-  let token;
-
-  if (process.env.NODE_ENV !== 'test') {
-    // eslint-disable-next-line no-unused-vars
-    const [userFromDb, created] = await User.findOrCreate({
-      where: {
-        user_name: user.user_name,
-        affiliation: user.affiliation,
-        studentid: user.studentid,
-        mail: user.mail,
-      },
-      defaults: {
-        user_name: user.user_name,
-        affiliation: user.affiliation,
-        studentid: user.studentid,
-        mail: user.mail,
-      },
-    });
-    const userForToken = {
-      username: userFromDb.user_name,
-      id: userFromDb.id,
-      affiliation: userFromDb.affiliation,
-    };
-
-    token = jwt.sign(userForToken, process.env.SECRET);
-  }
+  const user = await helper.createUser(req);
 
   try {
     res
       .status(200)
       .send({
-        token, name: user.user_name, admin: user.affiliation === 'faculty', data,
+        user, data,
       });
   } catch (error) {
     next(error);

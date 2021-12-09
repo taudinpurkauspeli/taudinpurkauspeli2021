@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 const proceduresRouter = require('express').Router();
 const db = require('../../models');
-const helper = require('../../utils/helpers');
+const helper = require('../../utils/token');
 
 const Procedure = db.procedures;
 const Case = db.cases;

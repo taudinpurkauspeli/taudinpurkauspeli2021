@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 const differentialGroupsUnderCasesRouter = require('express').Router();
 const db = require('../../models');
-const helper = require('../../utils/helpers');
+const helper = require('../../utils/token');
 
 const DifferentialGroupUnderCase = db.differentialGroupsUnderCase;
 const Case = db.cases;

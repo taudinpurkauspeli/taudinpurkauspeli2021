@@ -5,7 +5,7 @@ const db = require('../../models');
 const ProcedureUnderCase = db.proceduresUnderCases;
 const Procedure = db.procedures;
 const Case = db.cases;
-const helper = require('../../utils/helpers');
+const helper = require('../../utils/token');
 
 const { Op } = db.Sequelize;
 

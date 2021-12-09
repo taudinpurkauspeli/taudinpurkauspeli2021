@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 const textSubProcedureRouter = require('express').Router();
 const db = require('../../models');
-const helper = require('../../utils/helpers');
+const helper = require('../../utils/token');
 
 const TextSubProcedure = db.textSubProcedures;
 const SubProcedure = db.subProcedures;
