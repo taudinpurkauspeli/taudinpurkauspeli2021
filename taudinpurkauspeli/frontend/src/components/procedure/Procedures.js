@@ -4,12 +4,14 @@ import { useParams } from 'react-router-dom';
 import NewProcedure from './NewProcedure';
 import ProcedureList from './ProcedureList';
 
-const Procedures = () => {
+const Procedures = ({ admin }) => {
   const { id } = useParams();
 
   return (
     <div id="wrapper">
-      <NewProcedure id={id} />
+      { admin && (
+        <NewProcedure caseId={id} />
+      )}
       <ProcedureList id={id} />
     </div>
   );

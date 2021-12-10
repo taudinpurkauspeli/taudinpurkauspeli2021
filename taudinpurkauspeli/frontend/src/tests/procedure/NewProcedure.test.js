@@ -1,29 +1,22 @@
 /* eslint-disable no-undef */
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
-import { render, fireEvent } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import NewProcedure from '../../components/procedure/NewProcedure';
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key) => key }),
 }));
 
-test('<AddProcedure /> updates parent state and calls onSubmit', () => {
-  const addProcedure = jest.fn();
-  const id = 1;
-
-  const component = render(
-    <NewProcedure id={id} addProcedureFunc={addProcedure} />,
+beforeEach(() => {
+  render(
+    <NewProcedure caseId={1} />,
   );
 
-  const title = component.container.querySelector('#title');
-  const form = component.container.querySelector('form');
+  userEvent.click(screen.getByRole('button', { id: /addNew/i }));
+});
 
-  fireEvent.change(title, {
-    target: { value: 'testicase' },
-  });
-  fireEvent.submit(form);
-
-  expect(addProcedure.mock.calls).toHaveLength(1);
-  expect(addProcedure.mock.calls[0][0].title).toBe('testicase');
+test('New procedure window is rendered', async () => {
+  await waitFor(() => expect(screen.getByLabelText(/procedureTitle/i)).toBeInTheDocument());
 });

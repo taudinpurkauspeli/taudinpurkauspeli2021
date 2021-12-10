@@ -1,31 +1,23 @@
 /* eslint-disable linebreak-style */
 import axios from 'axios';
+import { getConfig } from '../utils/Helper';
 
 const baseUrl = '/api/cases';
 
-let token = null;
-
-const setToken = (newToken) => {
-  token = `bearer ${newToken}`;
-};
-
 const getAll = () => {
-  const request = axios.get(baseUrl);
+  const request = axios.get(baseUrl, getConfig());
   return request.then((response) => response.data);
 };
 
 const create = (newObject) => {
-  const config = {
-    headers: { Authorization: token },
-  };
-  const request = axios.post(baseUrl, newObject, config);
+  const request = axios.post(baseUrl, newObject, getConfig());
   return request.then((response) => response.data);
 };
 
-const update = (id, newObject) => axios.put(`${baseUrl}/${id}`, newObject);
+const update = (id, newObject) => axios.put(`${baseUrl}/${id}`, newObject, getConfig());
 
 const remove = (id) => {
-  const request = axios.delete(`${baseUrl}/${id}`);
+  const request = axios.delete(`${baseUrl}/${id}`, getConfig());
   return request.then((response) => response.data);
 };
 
@@ -34,5 +26,4 @@ export default {
   create,
   update,
   remove,
-  setToken,
 };

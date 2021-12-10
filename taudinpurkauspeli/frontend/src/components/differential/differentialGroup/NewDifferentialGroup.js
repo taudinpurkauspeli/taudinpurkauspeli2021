@@ -9,7 +9,7 @@ import serviceUnderCases from '../../../services/differentials/differentialGroup
 import service from '../../../services/differentials/differentialGroups';
 import AddDifferentialGroupForm from './AddDifferentialGroupForm';
 import SelectDifferentialGroupForm from './SelectDifferentialGroupForm';
-import { setSuccess, setError } from '../../utils/MessageBanner';
+import { setSuccess, setError } from '../../../utils/MessageBanner';
 
 const NewDifferentialGroup = ({ caseId }) => {
   const { t } = useTranslation();

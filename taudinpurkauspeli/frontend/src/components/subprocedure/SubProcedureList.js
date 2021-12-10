@@ -2,7 +2,7 @@
 /* eslint-disable linebreak-style */
 import React, { useState } from 'react';
 import { Accordion } from 'react-bootstrap';
-import subProcedures from '../../services/subProcedures';
+import subProcedures from '../../services/procedures/subProcedures';
 import SubProcedure from './SubProcedure';
 
 const SubProcedureList = ({ proceduresId }) => {

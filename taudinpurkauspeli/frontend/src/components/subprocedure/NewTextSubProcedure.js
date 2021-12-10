@@ -5,8 +5,8 @@ import { useTranslation } from 'react-i18next';
 import {
   Button, Modal, Tabs, Tab, Alert,
 } from 'react-bootstrap';
-import service from '../../services/subProcedures';
-import serviceText from '../../services/textSubProcedures';
+import service from '../../services/procedures/subProcedures';
+import serviceText from '../../services/procedures/textSubProcedures';
 import AddTextSubProcedure from './AddTextSubProcedure';
 
 const NewTextSubProcedure = ({ proceduresId }) => {
@@ -59,7 +59,7 @@ const NewTextSubProcedure = ({ proceduresId }) => {
       .then((res) => {
         const subId = res.id;
         handleTextSubProcedureAdd({
-          subProceduresId: subId,
+          subProcedureId: subId,
           proceduresUnderCaseProcedureCaseId: proceduresId,
           title: subProcedureObject.title,
           text: subProcedureObject.text,
