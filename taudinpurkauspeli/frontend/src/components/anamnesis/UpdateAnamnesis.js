@@ -48,13 +48,13 @@ const UpdateAnamnesis = ({ c, updateAnamnesis }) => {
               name="anamnesis"
               value={values.anamnesis}
               onChange={handleChange}
-              isInvalid={!!errors.title}
+              isInvalid={!!errors.anamnesis}
             />
             <Form.Text className="text-muted">
               {t('caseAnamnesisInstruction')}
             </Form.Text>
             <Form.Control.Feedback type="invalid" role="alert" aria-label="from feedback">
-              {errors.title}
+              {errors.anamnesis}
             </Form.Control.Feedback>
           </Form.Group>
         </Form>
