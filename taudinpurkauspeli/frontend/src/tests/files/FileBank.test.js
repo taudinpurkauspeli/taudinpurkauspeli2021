@@ -2,17 +2,17 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { render } from '@testing-library/react';
-import Profile from '../../components/user/Profile';
+import FileBank from '../../components/files/FileBank';
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key) => key }),
 }));
 
-describe('User page', () => {
-  const profileView = render(<Profile />);
+describe('Files page', () => {
+  const filesView = render(<FileBank />);
 
   test('Page & title are rendered correctly', () => {
-    expect(profileView.getByText('userProfile')).toBeInTheDocument();
-    expect(profileView.container.querySelector('#wrapper')).toBeInTheDocument();
+    expect(filesView.getByText('fileBank')).toBeInTheDocument();
+    expect(filesView.container.querySelector('#wrapper')).toBeInTheDocument();
   });
 });
