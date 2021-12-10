@@ -11,7 +11,7 @@ const UpdateAnamnesis = ({ c, updateAnamnesis }) => {
   const [anamnesis, setAnamnesis] = useState(c.anamnesis);
 
   const caseSchema = Yup.object().shape({
-    title: Yup.string()
+    anamnesis: Yup.string()
       .min(2, t('warningShort'))
       .max(5000, t('warningLong'))
       .required(t('warningRequired')),
@@ -42,13 +42,13 @@ const UpdateAnamnesis = ({ c, updateAnamnesis }) => {
         errors,
       }) => (
         <Form noValidate onSubmit={handleSubmit}>
-          <Form.Group className="mb-3" controlId="updateTitle" style={{ width: '30rem' }}>
+          <Form.Group className="mb-3" controlId="updateAnamnesis" style={{ width: '30rem' }}>
             <Form.Control
               type="text"
-              name="title"
-              anamnesis={values.anamnesis}
+              name="anamnesis"
+              value={values.anamnesis}
               onChange={handleChange}
-              isInvalid={!!errors.anamnesis}
+              isInvalid={!!errors.title}
             />
             <Form.Text className="text-muted">
               {t('caseAnamnesisInstruction')}

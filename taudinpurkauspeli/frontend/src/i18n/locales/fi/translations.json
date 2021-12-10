@@ -33,6 +33,7 @@
   "buttonSubmitNewProcedure": "Lisää toimenpide",
   "buttonUpdate": "Päivitä",
   "caseAnamnesis": "Anamneesi",
+  "caseAnamnesisInstruction": "Muokattuasi anamneesia, paina Enteria tallentaaksesi muutokset",
   "caseDifferentials": "Diffit",
   "caseHidden": "Opiskelijoilta piilotetut caset",
   "casePlayable": "Pelattavissa olevat caset",

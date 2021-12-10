@@ -34,6 +34,7 @@
   "buttonSubmitNewProcedure": "Add procedure",
   "buttonUpdate": "Update",
   "caseAnamnesis": "Anamnesis",
+  "caseAnamnesisInstruction": "After editing the Anamnesis, press Enter to save",
   "caseDifferentials": "Differentials",
   "caseHidden": "Cases hidden from students",
   "casePlayable": "Playable cases",
