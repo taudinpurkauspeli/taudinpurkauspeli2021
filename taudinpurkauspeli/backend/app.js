@@ -34,7 +34,7 @@ db.sequelize
 
 if (process.env.NODE_ENV !== 'test') {
   db.sequelize
-    .sync({ force: true })
+    .sync({ alter: true })
     .then(() => {
       logger.info('altered the tables');
     });
