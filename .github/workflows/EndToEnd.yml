@@ -5,6 +5,10 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+    
+defaults:
+   run:
+    working-directory: taudinpurkauspeli/frontend
 
 jobs:
   cypress-run:
@@ -16,5 +20,3 @@ jobs:
       # and run all Cypress tests
       - name: Cypress run
         uses: cypress-io/github-action@v2
-        with:
-          project: ./taudinpurkauspeli/frontend
