@@ -3,7 +3,7 @@ import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import AddTextSubProcedure from '../../components/subprocedure/AddTextSubProcedure';
+import AddTextSubProcedure from '../../../components/subprocedure/textSubProcedure/AddTextSubProcedure';
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key) => key }),
