@@ -23,7 +23,6 @@ const copyCase = ({
 
   /* istanbul ignore next */
   const copyTheDamnThing = (newCaseId, result) => {
-    console.log('rivi 26');
     let duckling = {};
 
     if (result == null) {
@@ -34,12 +33,10 @@ const copyCase = ({
           caseId: newCaseId,
           differentialGroupId: element.id,
         };
-        console.log('Rivi 36');
         ducGroupService.create(duckling).then((res) => {
           ducService.getAll(element.diffGroupCaseId)
             .then((result2) => {
               result2.forEach((element2) => {
-                console.log('Ollaan loopissa');
                 const did = element2.id;
                 const plaa = {
                   diffGroupCaseId: res.id,
@@ -62,7 +59,6 @@ const copyCase = ({
       anamnesis: caseToBeCopied.anamnesis,
       hidden: caseToBeCopied.hidden,
     });
-    console.log('Rivi 65');
     caseService.create(caseObject)
       .then((copy) => {
         newCopyId = copy.id;
