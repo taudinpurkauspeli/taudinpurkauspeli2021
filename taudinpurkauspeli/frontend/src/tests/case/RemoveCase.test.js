@@ -27,11 +27,10 @@ jest.mock('react-router-dom', () => ({
 test('<RemoveCase /> deletes case when clicked', () => {
   const handleRemove = jest.fn();
   const component = render(
-    <RemoveCase caseToBeRemoved={cases[0]} removeCaseFunc={handleRemove} />,
+    <RemoveCase caseToBeRemoved={cases[0]} deleteCase={handleRemove} />,
   );
   const button = component.container.querySelector('.removeButton');
   fireEvent.click(button);
   expect(handleRemove.mock.calls[0][0]).toEqual(1);
-  expect(handleRemove.mock.calls[1][0]).toEqual(null);
-  expect(handleRemove).toHaveBeenCalledTimes(2);
+  expect(handleRemove).toHaveBeenCalledTimes(1);
 });

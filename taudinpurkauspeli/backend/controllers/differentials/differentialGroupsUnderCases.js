@@ -1,49 +1,57 @@
+/* eslint-disable consistent-return */
 const differentialGroupsUnderCasesRouter = require('express').Router();
 const db = require('../../models');
+const helper = require('../../utils/token');
 
 const DifferentialGroupUnderCase = db.differentialGroupsUnderCase;
 const Case = db.cases;
-const DifferentialGroup = db.differentialGroups
-const { Op } = db.Sequelize;
+const DifferentialGroup = db.differentialGroups;
 
 Case.belongsToMany(DifferentialGroup, { through: DifferentialGroupUnderCase });
 DifferentialGroup.belongsToMany(Case, { through: DifferentialGroupUnderCase });
 
 // Create differentialgroup under case
 differentialGroupsUnderCasesRouter.post('/', (req, res, next) => {
-    const newObject = {
-        caseId: req.body.caseId,
-        differentialGroupId: req.body.differentialGroupId,
-    };
+  const decodedToken = helper.tokenCheck(req, res);
+  if (decodedToken.affiliation !== 'faculty') {
+    return res.status(401).json({ error: 'you do not have rights to do this action' });
+  }
 
-    DifferentialGroupUnderCase.create(newObject)
-        .then((data) => {
-            res.send(data);
-        })
-        .catch((error) => next(error));
-})
+  const newObject = {
+    caseId: req.body.caseId,
+    differentialGroupId: req.body.differentialGroupId,
+  };
+
+  DifferentialGroupUnderCase.create(newObject)
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((error) => next(error));
+});
 
 // Retrieve all groups associated to a specific case
 differentialGroupsUnderCasesRouter.get('/:id', (req, res, next) => {
-    const { id } = req.params;
+  helper.tokenCheck(req, res);
 
-    Case.findOne({
-        where: {
-            id
-        },
-        include: DifferentialGroup
+  const { id } = req.params;
+
+  Case.findOne({
+    where: {
+      id,
+    },
+    include: DifferentialGroup,
+  })
+    .then((data) => {
+      const returnedData = data.differentialGroups.map((d) => {
+        const singleObj = {};
+        singleObj.id = d.id;
+        singleObj.name = d.name;
+        singleObj.diffGroupCaseId = d.differentialGroupsUnderCase.id;
+        return singleObj;
+      });
+      res.send(returnedData);
     })
-        .then((data) => {
-            const returnedData = data.differentialGroups.map((d) => {
-                var singleObj = {};
-                singleObj['id'] = d.id
-                singleObj['name'] = d.name;
-                singleObj['diffGroupCaseId'] = d.differentialGroupsUnderCase.id;
-                return singleObj;
-            })
-            res.send(returnedData);
-        })
-        .catch((error) => next(error))
-})
+    .catch((error) => next(error));
+});
 
 module.exports = differentialGroupsUnderCasesRouter;

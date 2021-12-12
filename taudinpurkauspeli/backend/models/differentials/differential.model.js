@@ -7,9 +7,9 @@ module.exports = (sequelize, Sequelize) => {
       unique: true,
       allowNull: false,
       validate: {
-        len: [2,999],
-      }
-    }
+        len: [2, 999],
+      },
+    },
   });
 
   return Differential;

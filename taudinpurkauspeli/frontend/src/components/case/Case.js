@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import {
   Link, useParams,
 } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
+import { Button, ButtonGroup } from 'react-bootstrap';
 
 const Case = () => {
   const { t } = useTranslation();
@@ -14,9 +14,11 @@ const Case = () => {
   return (
 
     <div id="wrapper">
-      <Button as={Link} to={baseUrl}>{t('caseAnamnesis')}</Button>
-      <Button as={Link} to={`${baseUrl}/procedures`}>{t('caseProcedures')}</Button>
-      <Button as={Link} to={`${baseUrl}/differentials`}>{t('caseDifferentials')}</Button>
+      <ButtonGroup>
+        <Button as={Link} to={baseUrl}>{t('caseAnamnesis')}</Button>
+        <Button as={Link} to={`${baseUrl}/procedures`}>{t('caseProcedures')}</Button>
+        <Button as={Link} to={`${baseUrl}/differentials`}>{t('caseDifferentials')}</Button>
+      </ButtonGroup>
     </div>
 
   );
