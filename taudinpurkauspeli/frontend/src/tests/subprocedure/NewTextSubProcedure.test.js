@@ -22,5 +22,5 @@ beforeEach(() => {
 });
 
 test('New differential window is rendered', async () => {
-  await waitFor(() => expect(screen.getByLabelText(/addTextSubProcedure/i)).toBeInTheDocument());
+  await waitFor(() => expect(screen.getByLabelText(/title/i)).toBeInTheDocument());
 });

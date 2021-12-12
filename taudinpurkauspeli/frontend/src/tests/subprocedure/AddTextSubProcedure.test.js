@@ -20,9 +20,9 @@ beforeEach(() => {
 
 describe('Adding a new text sub procedure', () => {
   test('New text sub procedure can be added', async () => {
-    userEvent.type(screen.getByLabelText(/addTextSubProcedure/i), 'testTextSubProcedure');
+    userEvent.type(screen.getByLabelText(/title/i), 'testTextSubProcedure');
     userEvent.type(screen.getByLabelText(/textToAdd/i), 'testText');
-    userEvent.type(screen.getByLabelText(/step/i), '42');
+    userEvent.type(screen.getByLabelText(/subProcedurePriority/i), '42');
     userEvent.click(screen.getByRole('button', { name: /submit/i }));
 
     await waitFor(() => expect(addTextSubFunc).toHaveBeenCalledWith({
@@ -34,9 +34,9 @@ describe('Adding a new text sub procedure', () => {
   });
 
   test('Text subprocedure with a too short name cannot be created', async () => {
-    userEvent.type(screen.getByLabelText(/addTextSubProcedure/i), 't');
+    userEvent.type(screen.getByLabelText(/title/i), 't');
     userEvent.type(screen.getByLabelText(/textToAdd/i), 'testText');
-    userEvent.type(screen.getByLabelText(/step/i), '42');
+    userEvent.type(screen.getByLabelText(/subProcedurePriority/i), '42');
     userEvent.click(screen.getByRole('button', { name: /submit/i }));
 
     const alert = await screen.findByRole('alert', { name: /From Feedback/i });
@@ -47,7 +47,7 @@ describe('Adding a new text sub procedure', () => {
 
   test('Tex sub procedure with no name cannot be created', async () => {
     userEvent.type(screen.getByLabelText(/textToAdd/i), 'testText');
-    userEvent.type(screen.getByLabelText(/step/i), '42');
+    userEvent.type(screen.getByLabelText(/subProcedurePriority/i), '42');
     userEvent.click(screen.getByRole('button', { name: /submit/i }));
 
     const alert = await screen.findByRole('alert', { name: /From Feedback/i });
