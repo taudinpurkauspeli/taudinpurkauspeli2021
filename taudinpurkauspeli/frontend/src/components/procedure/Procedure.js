@@ -36,7 +36,7 @@ const Procedure = ({ admin, caseId }) => {
             <Button variant="primary" className="editButton" size="sm">{t('buttonAddNewMultiChoice')}</Button>
             <Button variant="primary" className="editButton" size="sm">{t('buttonAddFinalDiagnosis')}</Button>
           </div>
-          <SubProcedureList proceduresId={id} />
+          <SubProcedureList proceduresId={id} admin={admin} />
         </div>
       )}
     </div>
