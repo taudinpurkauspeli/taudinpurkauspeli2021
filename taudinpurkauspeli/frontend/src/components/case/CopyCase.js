@@ -23,26 +23,26 @@ const copyCase = ({
 
   /* istanbul ignore next */
   const copyTheDamnThing = (newCaseId, result) => {
-    console.log(result);
+    console.log('rivi 26');
     let duckling = {};
 
     if (result == null) {
       console.log('Kääk!');
     } else {
       result.forEach((element) => {
-        console.log(element.id);
         duckling = {
           caseId: newCaseId,
           differentialGroupId: element.id,
         };
+        console.log('Rivi 36');
         ducGroupService.create(duckling).then((res) => {
-          const diffGroupCaseId = res.id;
-          ducService.getAll(element.differentialGroupId)
+          ducService.getAll(element.diffGroupCaseId)
             .then((result2) => {
               result2.forEach((element2) => {
-                const did = element2.differentialId;
+                console.log('Ollaan loopissa');
+                const did = element2.id;
                 const plaa = {
-                  diffGroupCaseId,
+                  diffGroupCaseId: res.id,
                   differentialId: did,
                   description: element2.description,
                 };
@@ -62,6 +62,7 @@ const copyCase = ({
       anamnesis: caseToBeCopied.anamnesis,
       hidden: caseToBeCopied.hidden,
     });
+    console.log('Rivi 65');
     caseService.create(caseObject)
       .then((copy) => {
         newCopyId = copy.id;
@@ -73,8 +74,11 @@ const copyCase = ({
           });
       })
       .then(() => {
+        console.log('oldcaseid', oldCaseId);
         pucService.getAll(oldCaseId)
           .then((res) => {
+            console.log(res);
+            console.log('newcopyid', newCopyId);
             createProcedures(newCopyId, res);
           });
       });
