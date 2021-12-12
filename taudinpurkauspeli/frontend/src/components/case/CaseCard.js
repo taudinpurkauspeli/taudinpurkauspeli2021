@@ -37,7 +37,7 @@ const CaseCard = ({ c, admin }) => {
         procedureId,
         priority,
       };
-      pucService.create(object);
+      console.log('pucservice', pucService.create(object));
     }
   };
 
