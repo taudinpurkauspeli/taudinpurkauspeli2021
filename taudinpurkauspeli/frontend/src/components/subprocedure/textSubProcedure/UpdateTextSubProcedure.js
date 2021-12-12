@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import UpdateTextSubProcedureForm from './UpdateTextSubProcedureForm';
-import service from '../../services/procedures/textSubProcedures';
-import { setSuccess, setError } from '../../utils/MessageBanner';
+import service from '../../../services/procedures/textSubProcedures';
+import { setSuccess, setError } from '../../../utils/MessageBanner';
 
 const UpdateTextSubProcedure = ({
   title,
