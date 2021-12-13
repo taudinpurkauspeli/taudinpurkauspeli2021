@@ -5,8 +5,8 @@ import { useTranslation } from 'react-i18next';
 import {
   Button, Modal, Tabs, Tab, Alert,
 } from 'react-bootstrap';
-import service from '../../services/procedures/subProcedures';
-import serviceText from '../../services/procedures/textSubProcedures';
+import service from '../../../services/procedures/subProcedures';
+import serviceText from '../../../services/procedures/textSubProcedures';
 import AddTextSubProcedure from './AddTextSubProcedure';
 
 const NewTextSubProcedure = ({ proceduresId }) => {

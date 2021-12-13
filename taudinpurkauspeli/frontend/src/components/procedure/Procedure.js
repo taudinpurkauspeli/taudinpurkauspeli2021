@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 /* import SubProcedureList from '../subprocedure/SubProcedureList'; */
-import NewTextSubProcedure from '../subprocedure/NewTextSubProcedure';
+import NewTextSubProcedure from '../subprocedure/textSubProcedure/NewTextSubProcedure';
 import SubProcedureList from '../subprocedure/SubProcedureList';
 
 // eslint-disable-next-line no-unused-vars
@@ -36,7 +36,7 @@ const Procedure = ({ admin, caseId }) => {
             <Button variant="primary" className="editButton" size="sm">{t('buttonAddNewMultiChoice')}</Button>
             <Button variant="primary" className="editButton" size="sm">{t('buttonAddFinalDiagnosis')}</Button>
           </div>
-          <SubProcedureList proceduresId={id} />
+          <SubProcedureList proceduresId={id} admin={admin} />
         </div>
       )}
     </div>

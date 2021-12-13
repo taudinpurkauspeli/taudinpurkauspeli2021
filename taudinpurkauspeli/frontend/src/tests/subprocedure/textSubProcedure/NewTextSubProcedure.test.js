@@ -3,8 +3,8 @@ import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import NewTextSubProcedure from '../../components/subprocedure/NewTextSubProcedure';
-import service from '../../services/procedures/subProcedures';
+import NewTextSubProcedure from '../../../components/subprocedure/textSubProcedure/NewTextSubProcedure';
+import service from '../../../services/procedures/subProcedures';
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key) => key }),
@@ -22,5 +22,5 @@ beforeEach(() => {
 });
 
 test('New differential window is rendered', async () => {
-  await waitFor(() => expect(screen.getByLabelText(/addTextSubProcedure/i)).toBeInTheDocument());
+  await waitFor(() => expect(screen.getByText(/addTextSubProcedure/i)).toBeInTheDocument());
 });

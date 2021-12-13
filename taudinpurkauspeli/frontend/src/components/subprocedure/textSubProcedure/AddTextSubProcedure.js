@@ -47,7 +47,7 @@ const AddTextSubProcedure = ({ handleSubProcedureAdd }) => {
       }) => (
         <Form noValidate onSubmit={handleSubmit}>
           <Form.Group md="6" controlId="title">
-            <Form.Label>{t('addTextSubProcedure')}</Form.Label>
+            <Form.Label>{t('title')}</Form.Label>
             <Form.Control
               type="text"
               name="title"
@@ -61,11 +61,11 @@ const AddTextSubProcedure = ({ handleSubProcedureAdd }) => {
             </Form.Control.Feedback>
           </Form.Group>
           <Form.Group md="6" controlId="priority">
-            <Form.Label>{t('step')}</Form.Label>
+            <Form.Label>{t('subProcedurePriority')}</Form.Label>
             <Form.Control
               type="text"
               name="priority"
-              placeholder={1}
+              placeholder={t('giveNumber')}
               value={values.priority}
               onChange={handleChange}
             />
