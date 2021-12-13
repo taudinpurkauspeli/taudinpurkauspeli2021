@@ -57,9 +57,16 @@ a:hover {
   transform: scale(0.99);
 }
 
-.btn-tabs {
-  background-color: #74C69D!important;
-  border-radius: 15px !important;
+.tabs {
+  color: #d8f3dc !important;
+  background-color: #1b4332 !important;
+  border-radius: 10px !important;
+  margin: 0.5%;
+}
+
+.tabs:hover {
+  filter: brightness(85%);
+  transform: scale(0.99);
 }
 
 .card {
@@ -251,7 +258,7 @@ a:hover {
 .titleChangeInput {
   color: #F0FFDD !important;
   font-weight: bold !important;
-  border-radius: 25px !important;
+  border-radius: 15px !important;
   background-color: #2d6a4f !important;
   font-size: 150% !important;
   border-style: hidden;
