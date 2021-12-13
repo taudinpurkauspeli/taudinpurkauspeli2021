@@ -31,7 +31,7 @@ test('<HideCase /> updates parent state and calls onSubmit', () => {
   );
 
   const form = component.container.querySelector('form');
-  const hidden = component.container.querySelector('#submit');
+  const hidden = component.container.querySelector('#submitHide');
 
   fireEvent.click(hidden);
   fireEvent.submit(form);

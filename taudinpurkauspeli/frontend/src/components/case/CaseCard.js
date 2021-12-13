@@ -68,7 +68,7 @@ const CaseCard = ({ c, admin }) => {
 
       { admin && (
         <div className="cardButtons">
-          <Button as={Link} to={`/cases/${c.id}`} className="editButton" size="sm">{t('buttonEdit')}</Button>
+          <Button className="editButton" as={Link} to={`/cases/${c.id}`} size="sm">{t('buttonEdit')}</Button>
           <CopyCase
             caseToBeCopied={c}
             createDifferentials={createDifferentials}

@@ -42,7 +42,7 @@ const copyCase = ({
   };
 
   return (
-    <Button className="copyButton" size="sm" variant="warning" onClick={handleCopy}>{t('copy')}</Button>
+    <Button variant="warning" size="sm" onClick={handleCopy}>{t('copy')}</Button>
   );
 };
 

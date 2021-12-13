@@ -80,7 +80,7 @@ const AddTextSubProcedure = ({ handleSubProcedureAdd }) => {
               onChange={handleChange}
             />
           </Form.Group>
-          <Button type="submit">{t('buttonSubmit')}</Button>
+          <Button className="submitButton" type="submit">{t('buttonSubmit')}</Button>
         </Form>
       )}
     </Formik>

@@ -43,9 +43,7 @@ const newProcedure = ({ caseId }) => {
 
   return (
     <div>
-      <h2>{t('addProcedure')}</h2>
-
-      <Button variant="primary" onClick={toggleVisibility} id="addNew">
+      <Button className="addButton" onClick={toggleVisibility}>
         {t('buttonNewProcedure')}
       </Button>
       <Modal

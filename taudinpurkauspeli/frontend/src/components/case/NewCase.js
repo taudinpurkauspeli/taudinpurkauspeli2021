@@ -33,7 +33,7 @@ const NewCase = () => {
 
   return (
     <div>
-      <Button variant="primary" onClick={toggleVisibility} id="addNew">
+      <Button className="addButton" onClick={toggleVisibility} id="addNew">
         {t('buttonNewCase')}
       </Button>
       <Modal

@@ -74,7 +74,7 @@ const newCaseForm = ({ addCase }) => {
               onChange={handleChange}
             />
           </Form.Group>
-          <Button type="submit">{t('buttonSubmitNewCase')}</Button>
+          <Button className="submitButton" type="submit">{t('buttonSubmitNewCase')}</Button>
         </Form>
       )}
     </Formik>

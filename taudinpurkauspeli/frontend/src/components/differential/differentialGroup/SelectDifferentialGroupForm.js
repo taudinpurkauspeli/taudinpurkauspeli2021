@@ -35,7 +35,7 @@ const SelectDifferentialGroupForm = ({ differentialGroups, selectDifferentialGro
           selected={selectedDiff}
         />
       </Form.Group>
-      <Button type="submit">{t('buttonSubmitNewDifferentialGroup')}</Button>
+      <Button className="submitButton" type="submit">{t('buttonSubmitNewDifferentialGroup')}</Button>
     </Form>
   );
 };

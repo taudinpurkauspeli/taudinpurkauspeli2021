@@ -44,6 +44,7 @@ const UpdateCaseTitle = ({ c, updateCaseTitle }) => {
         <Form noValidate onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="updateTitle" style={{ width: '30rem' }}>
             <Form.Control
+              className="titleChangeInput"
               type="text"
               name="title"
               value={values.title}

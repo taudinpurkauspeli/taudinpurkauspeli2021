@@ -15,9 +15,9 @@ const Case = () => {
 
     <div id="wrapper">
       <ButtonGroup>
-        <Button as={Link} to={baseUrl}>{t('caseAnamnesis')}</Button>
-        <Button as={Link} to={`${baseUrl}/procedures`}>{t('caseProcedures')}</Button>
-        <Button as={Link} to={`${baseUrl}/differentials`}>{t('caseDifferentials')}</Button>
+        <Button variant="tabs" as={Link} to={baseUrl} disabled>{t('caseAnamnesis')}</Button>
+        <Button variant="tabs" as={Link} to={`${baseUrl}/procedures`}>{t('caseProcedures')}</Button>
+        <Button variant="tabs" as={Link} to={`${baseUrl}/differentials`}>{t('caseDifferentials')}</Button>
       </ButtonGroup>
     </div>
 
