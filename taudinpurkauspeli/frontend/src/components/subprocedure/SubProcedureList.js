@@ -5,7 +5,7 @@ import { Accordion } from 'react-bootstrap';
 import subProcedures from '../../services/procedures/subProcedures';
 import SubProcedure from './SubProcedure';
 
-const SubProcedureList = ({ proceduresId }) => {
+const SubProcedureList = ({ proceduresId, admin }) => {
   // eslint-disable-next-line no-unused-vars
   const [listedSubProcedures, setListedSubProcedures] = useState([]);
 
@@ -25,7 +25,7 @@ const SubProcedureList = ({ proceduresId }) => {
   return (
     <Accordion>
       {listedSubProcedures.map((d) => (
-        <SubProcedure d={d} />
+        <SubProcedure d={d} admin={admin} />
       ))}
     </Accordion>
   );
