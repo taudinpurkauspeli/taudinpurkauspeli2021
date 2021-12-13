@@ -15,7 +15,7 @@ test('<AddProcedure /> updates parent state and calls onSubmit', async () => {
   render(<NewProcedureForm addProcedure={addProcedure} />);
 
   userEvent.type(screen.getByLabelText(/procedureTitle/i), 'testTitle');
-  userEvent.click(screen.getByRole('button', { name: /submit/i }));
+  userEvent.click(screen.getByRole('button', { id: /submit/i }));
 
   await waitFor(() => expect(addProcedure).toHaveBeenCalledWith({
     title: 'testTitle',

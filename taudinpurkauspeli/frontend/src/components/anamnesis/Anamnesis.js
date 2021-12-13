@@ -36,19 +36,16 @@ const Anamnesis = ({ cases, admin }) => {
   return (
     <div id="wrapper">
       { admin && c && (
-        <div className="rows">
-          <UpdateCaseTitle c={c} updateCaseTitle={handleCaseUpdate} />
+        <div id="casePageArea">
+          <div className="rows">
+            <UpdateCaseTitle c={c} updateCaseTitle={handleCaseUpdate} />
+            <HideCase c={c} hideCase={handleCaseUpdate} />
+          </div>
           <UpdateAnamnesis c={c} updateAnamnesis={handleCaseUpdate} />
-          <HideCase c={c} hideCase={handleCaseUpdate} />
         </div>
       )}
       { !admin && c && (
         <p>{c.title}</p>
-      )}
-      { c && (
-        <div className="anamnesis">
-          <p>{c.anamnesis}</p>
-        </div>
       )}
     </div>
   );

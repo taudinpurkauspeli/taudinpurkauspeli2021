@@ -19,6 +19,10 @@ const Procedure = ({ admin, caseId }) => {
   /* const hideWhenVisible = { display: show ? 'none' : '' }; */
   const showWhenVisible = { display: show ? '' : 'none' };
 
+  const handleVisibility = () => {
+    setShow(!show);
+  };
+
   return (
 
     <div id="wrapper">
@@ -27,7 +31,7 @@ const Procedure = ({ admin, caseId }) => {
       </h2>
       {admin && (
         <div>
-          <Button className="addButton" onClick={() => setShow(true)} id="addNew">
+          <Button className="addButton" onClick={handleVisibility} id="addNew">
             {t('buttonNewSubProcedure')}
           </Button>
           <div className="rows" style={showWhenVisible}>

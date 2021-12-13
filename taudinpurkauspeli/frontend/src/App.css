@@ -4,8 +4,8 @@ a:hover {
 
 .addButton {
   color: black !important;
-  background: #fdf3aa !important;
-  border-color: #fdf3aa !important;
+  background: #d8f3dc !important;
+  border-color: #d8f3dc !important;
   border-radius: 15px !important;
   margin: 0.5%;
   margin-bottom: 5%;
@@ -18,28 +18,28 @@ a:hover {
 }
 
 .addButton.text {
-  background-color: #fdaaaa !important;
+  background-color: #d6fdaa !important;
 }
 
 .addButton.question {
-  background-color:#fdc4aa  !important;
+  background-color:#bbfdaa !important;
 }
 
 .addButton.multichoice {
-  background-color:#fdd9aa  !important;
+  background-color:#aafdca !important;
 }
 
 .addButton.diagnosis {
-  background-color:#fdeaaa  !important;
+  background-color:#aafdda  !important;
 }
 
-.anamnesis {
-  background-color: #f9fff1;
+.anamnesisForm {
+  position: relative;
+  background-color: #f9fff1 !important;
   border-radius: 10px !important;
+  border: none !important;
   padding: 1%;
-  width:fit-content;
 }
-
 
 .editButton{
   color: white !important;
@@ -92,6 +92,7 @@ a:hover {
   background: rgb(27, 67, 50)!important;
   color: white !important;
   text-align: center;
+  border-radius: 5px;
 }
 
 #differentialName {
@@ -123,7 +124,7 @@ a:hover {
 
 #editProcedureForm {
   position: relative;
-  background-color: rgb(243, 243, 243) !important;
+  background-color: #f9fff1 !important;
   border: none;
   padding: 40px;
   left: 500px;
@@ -147,6 +148,11 @@ a:hover {
   border-radius: 15px !important;
   border-color: #d8f3dc !important;
   padding: 5px !important;
+}
+
+.hideCase:hover {
+  filter: brightness(85%);
+  transform: scale(0.99);
 }
 
 .list {
@@ -190,7 +196,7 @@ a:hover {
 .procedureButton {
   background: #40916C !important;
   border-color: #40916C !important;
-  border-radius: 10px !important;
+  border-radius: 15px !important;
   margin-right: 0.5%;
   margin-bottom: 0.5%;
 }
@@ -238,9 +244,9 @@ a:hover {
 
 .submitButton {
   color: white !important;
-  background:#406391 !important;
-  border-color: #406391 !important;
-  border-radius: 10px !important;
+  background: #1b4332 !important;
+  border-color: #1b4332 !important;
+  border-radius: 15px !important;
   margin: 0.5%;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 }
@@ -253,6 +259,10 @@ a:hover {
 .submit-form {
   max-width: 300px;
   margin: auto;
+}
+
+.textArea {
+  resize: both !important;
 }
 
 .titleChangeInput {

@@ -37,7 +37,3 @@ beforeEach(() => {
 test('student cannot change the title', () => {
   expect(studentView.container.querySelector('input')).toBeNull();
 });
-
-test('Anamnesis can be seen', () => {
-  expect(screen.getByText(/Koirilla on havaittu/i)).toBeInTheDocument();
-});

@@ -1,7 +1,9 @@
 /* eslint-disable linebreak-style */
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Form } from 'react-bootstrap';
+import {
+  Form, Button,
+} from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
@@ -42,21 +44,21 @@ const UpdateAnamnesis = ({ c, updateAnamnesis }) => {
         errors,
       }) => (
         <Form noValidate onSubmit={handleSubmit}>
-          <Form.Group className="mb-3" controlId="updateAnamnesis" style={{ width: '30rem' }}>
+          <Form.Group className="mb-3" controlId="updateAnamnesis">
             <Form.Control
-              type="text"
+              className="anamnesisForm"
+              as="textarea"
               name="anamnesis"
               value={values.anamnesis}
               onChange={handleChange}
               isInvalid={!!errors.anamnesis}
+              rows={10}
             />
-            <Form.Text className="text-muted">
-              {t('caseAnamnesisInstruction')}
-            </Form.Text>
             <Form.Control.Feedback type="invalid" role="alert" aria-label="from feedback">
               {errors.anamnesis}
             </Form.Control.Feedback>
           </Form.Group>
+          <Button className="submitButton" id="submit" type="submit">{t('buttonSaveAnamneesi')}</Button>
         </Form>
       )}
     </Formik>

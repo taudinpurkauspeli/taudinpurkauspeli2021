@@ -69,7 +69,7 @@ const UpdateTextSubProcedureForm = ({
               onChange={handleChange}
             />
           </Form.Group>
-          <Button type="submit">{t('buttonUpdate')}</Button>
+          <Button className="submitButton" type="submit">{t('buttonUpdate')}</Button>
         </Form>
       )}
     </Formik>
