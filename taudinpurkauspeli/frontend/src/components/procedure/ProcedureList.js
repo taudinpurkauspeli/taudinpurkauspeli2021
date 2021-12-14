@@ -24,7 +24,7 @@ const DragNDropList = ({
         key={index}
         draggable
       >
-        <div>
+        <div className="rows">
           <Button className="procedureButton"> {p.proceduresUnderCase.priority} {p.title} </Button>
           <form onSubmit={(e) => submitForm(p, e)} className="handleEdits">
             <Button type="submit" className="editButton" key={index} size="sm">{t('buttonEdit') }</Button>

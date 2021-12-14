@@ -48,7 +48,7 @@ const SelectDifferentialForm = ({ differentials, selectDifferential, diffGroupCa
           onChange={(e) => setDescription(e.target.value)}
         />
       </Form.Group>
-      <Button type="submit">{t('buttonSubmitNewDifferential')}</Button>
+      <Button className="submitButton" type="submit">{t('buttonSubmitNewDifferential')}</Button>
     </Form>
   );
 };

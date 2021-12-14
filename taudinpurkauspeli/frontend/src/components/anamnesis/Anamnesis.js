@@ -35,9 +35,8 @@ const Anamnesis = ({ cases, admin }) => {
 
   return (
     <div id="wrapper">
-      <p>Casen tiedot löytyvät täältä</p>
       { admin && c && (
-        <div>
+        <div className="rows">
           <UpdateCaseTitle c={c} updateCaseTitle={handleCaseUpdate} />
           <UpdateAnamnesis c={c} updateAnamnesis={handleCaseUpdate} />
           <HideCase c={c} hideCase={handleCaseUpdate} />
@@ -47,7 +46,9 @@ const Anamnesis = ({ cases, admin }) => {
         <p>{c.title}</p>
       )}
       { c && (
-        <p>{c.anamnesis}</p>
+        <div className="anamnesis">
+          <p>{c.anamnesis}</p>
+        </div>
       )}
     </div>
   );

@@ -28,30 +28,30 @@ const Navigationbar = ({
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="ml-auto">
-          <NavDropdown title={t('selectLanguage')} id="selectLanguage">
+          <NavDropdown title={t('selectLanguage')} id="selectLanguage" className="navItems">
             <NavDropdown.Item onClick={() => changeLanguage('fi')} eventKey="fi">{t('languageFinnish')}</NavDropdown.Item>
             <NavDropdown.Item onClick={() => changeLanguage('en')} eventKey="en">{t('languageEnglish')}</NavDropdown.Item>
           </NavDropdown>
           { admin && (
           <Nav.Item>
-            <NavLink as={Link} to="/users">{t('userInformation')}</NavLink>
+            <NavLink as={Link} to="/users" className="navItems">{t('userInformation')}</NavLink>
           </Nav.Item>
           )}
           { admin && (
           <Nav.Item>
-            <NavLink as={Link} to="/files">{t('fileBank')}</NavLink>
+            <NavLink as={Link} to="/files" className="navItems">{t('fileBank')}</NavLink>
           </Nav.Item>
           )}
           <Nav.Item>
-            <NavLink as={Link} to="/howtoplay">{t('howToPlay')}</NavLink>
+            <NavLink as={Link} to="/howtoplay" className="navItems">{t('howToPlay')}</NavLink>
           </Nav.Item>
           { user && (
           <Nav.Item>
-            <NavLink as={Link} to="/profile">{t('userProfile')}</NavLink>
+            <NavLink as={Link} to="/profile" className="navItems">{t('userProfile')}</NavLink>
           </Nav.Item>
           )}
           <Nav.Item>
-            <NavLink href="https://taudinpurkauspeli-taudinpurkauspeli2021.apps.ocp-prod-0.k8s.it.helsinki.fi/Shibboleth.sso/Logout">{t('logOut')}</NavLink>
+            <NavLink href="https://taudinpurkauspeli-taudinpurkauspeli2021.apps.ocp-prod-0.k8s.it.helsinki.fi/Shibboleth.sso/Logout" className="navItems">{t('logOut')}</NavLink>
           </Nav.Item>
         </Nav>
       </Navbar.Collapse>

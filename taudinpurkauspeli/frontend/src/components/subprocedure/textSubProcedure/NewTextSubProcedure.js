@@ -75,7 +75,7 @@ const NewTextSubProcedure = ({ proceduresId }) => {
       { errorMessage !== null && (
       <Alert variant="danger">{errorMessage}</Alert>
       )}
-      <Button variant="primary" onClick={toggleVisibility} id="addNew">
+      <Button className="addButton text" onClick={toggleVisibility} size="sm">
         {t('buttonAddNewText')}
       </Button>
       <Modal

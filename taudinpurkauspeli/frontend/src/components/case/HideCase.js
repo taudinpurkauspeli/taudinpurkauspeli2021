@@ -22,9 +22,9 @@ const HideCase = ({ c, hideCase }) => {
 
   return (
     <div>
-      <form onSubmit={handleVisibilityUpdate} className="buttonLeft">
+      <form onSubmit={handleVisibilityUpdate}>
         <label htmlFor="submit" className="hidden">{newHidden ? t('buttonShowCaseToStudents') : t('buttonHideCaseFromStudents')}</label>
-        <input type="submit" onClick={handleHiddenChange} id="submit" value={newHidden ? t('buttonShowCaseToStudents') : t('buttonHideCaseFromStudents')} />
+        <input id="submitHide" className="hideCase" type="submit" onClick={handleHiddenChange} size="sm" value={newHidden ? t('buttonShowCaseToStudents') : t('buttonHideCaseFromStudents')} />
       </form>
     </div>
   );

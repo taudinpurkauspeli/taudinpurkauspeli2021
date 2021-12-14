@@ -65,7 +65,7 @@ const AddDifferentialForm = ({ addDifferential }) => {
               onChange={handleChange}
             />
           </Form.Group>
-          <Button type="submit">{t('buttonSubmitNewDifferential')}</Button>
+          <Button className="submitButton" type="submit">{t('buttonSubmitNewDifferential')}</Button>
         </Form>
       )}
     </Formik>

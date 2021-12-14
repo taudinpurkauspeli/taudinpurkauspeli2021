@@ -27,14 +27,14 @@ const Procedure = ({ admin, caseId }) => {
       </h2>
       {admin && (
         <div>
-          <Button variant="primary" onClick={() => setShow(true)} id="addNew">
+          <Button className="addButton" onClick={() => setShow(true)} id="addNew">
             {t('buttonNewSubProcedure')}
           </Button>
-          <div style={showWhenVisible}>
+          <div className="rows" style={showWhenVisible}>
             <NewTextSubProcedure proceduresId={id} />
-            <Button variant="primary" className="editButton" size="sm">{t('buttonAddNewQuestion')}</Button>
-            <Button variant="primary" className="editButton" size="sm">{t('buttonAddNewMultiChoice')}</Button>
-            <Button variant="primary" className="editButton" size="sm">{t('buttonAddFinalDiagnosis')}</Button>
+            <Button className="addButton question" size="sm">{t('buttonAddNewQuestion')}</Button>
+            <Button className="addButton multichoice" size="sm">{t('buttonAddNewMultiChoice')}</Button>
+            <Button className="addButton diagnosis" size="sm">{t('buttonAddFinalDiagnosis')}</Button>
           </div>
           <SubProcedureList proceduresId={id} admin={admin} />
         </div>
