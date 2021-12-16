@@ -17,7 +17,6 @@ proceduresUnderCasesRouter.post('/', (req, res, next) => {
   const procedureUnderCase = {
     caseId: req.body.caseId,
     procedureId: req.body.procedureId,
-    procedureCaseId: req.body.procedureId,
     priority: req.body.priority,
   };
 

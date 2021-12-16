@@ -30,6 +30,7 @@ const CaseCard = ({ c, admin }) => {
 
   /* istanbul ignore next */
   const createProcedures = (copyId, result) => {
+    console.log('uuden kopion id:', copyId);
     for (let i = 0; i < result.length; i += 1) {
       const { procedureId, priority } = result[i];
       const object = {
