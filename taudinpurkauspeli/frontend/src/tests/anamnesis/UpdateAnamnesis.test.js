@@ -26,13 +26,12 @@ describe('Case Anamnesis', () => {
       <UpdateAnamnesis c={testCase} updateAnamnesis={updateCase} />,
     );
 
-    const input = updateForm.container.querySelector('input');
-    const form = updateForm.container.querySelector('form');
+    const input = updateForm.container.querySelector('textarea');
 
     fireEvent.change(input, {
       target: { value: 'updatedAnamnesis' },
     });
-    fireEvent.submit(form);
+    fireEvent.click(screen.getByRole('button', { id: /submit/i }));
 
     await waitFor(() => expect(screen.getByDisplayValue('updatedAnamnesis')).toBeInTheDocument());
   });

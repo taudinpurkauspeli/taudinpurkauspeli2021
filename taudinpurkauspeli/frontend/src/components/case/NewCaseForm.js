@@ -41,7 +41,7 @@ const newCaseForm = ({ addCase }) => {
         values,
         errors,
       }) => (
-        <Form noValidate onSubmit={handleSubmit}>
+        <Form noValidate onSubmit={handleSubmit} spellCheck="false">
           <Form.Group md="6" controlId="title">
             <Form.Label>{t('caseTitle')}</Form.Label>
             <Form.Control
