@@ -52,7 +52,7 @@ const AddDifferentialGroupForm = ({ addDifferentialGroup }) => {
               {errors.name}
             </Form.Control.Feedback>
           </Form.Group>
-          <Button type="submit">{t('buttonSubmitNewDifferentialGroup')}</Button>
+          <Button className="submitButton" type="submit">{t('buttonSubmitNewDifferentialGroup')}</Button>
         </Form>
       )}
     </Formik>

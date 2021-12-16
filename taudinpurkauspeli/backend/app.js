@@ -1,5 +1,6 @@
 const express = require('express');
-require('express-async-errors')
+require('express-async-errors');
+
 const app = express();
 const cors = require('cors');
 
@@ -9,15 +10,14 @@ const differentialGroupRouter = require('./controllers/differentials/differentia
 const differentialGroupsUnderCaseRouter = require('./controllers/differentials/differentialGroupsUnderCases');
 const differentialRouter = require('./controllers/differentials/differentials');
 const differentialUnderCaseRouter = require('./controllers/differentials/differentialsUnderCases');
-const proceduresRouter = require('./controllers/procedures');
-const proceduresUnderCasesRouter = require('./controllers/proceduresUnderCases');
-const subProceduresRouter = require('./controllers/subProcedures');
-const textSubProcedureRouter = require('./controllers/textSubProcedure');
+const proceduresRouter = require('./controllers/procedures/procedures');
+const proceduresUnderCasesRouter = require('./controllers/procedures/proceduresUnderCases');
+const subProceduresRouter = require('./controllers/procedures/subProcedures');
+const textSubProcedureRouter = require('./controllers/procedures/textSubProcedure');
 
 const middleware = require('./utils/middleware');
 const logger = require('./utils/logger');
 const db = require('./models');
-const { differentialGroupsUnderCase } = require('./models');
 
 // Huom! No forced synchronization,
 // make sure you either don't have the tables/databases,
@@ -34,10 +34,10 @@ db.sequelize
 
 if (process.env.NODE_ENV !== 'test') {
   db.sequelize
-  .sync({ alter: true })
-  .then(() => {
-    logger.info('altered the tables');
-  });
+    .sync({ alter: true })
+    .then(() => {
+      logger.info('altered the tables');
+    });
 }
 
 app.use(cors());

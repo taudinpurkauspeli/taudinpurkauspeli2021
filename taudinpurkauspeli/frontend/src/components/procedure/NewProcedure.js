@@ -1,83 +1,64 @@
 /* eslint-disable linebreak-style */
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import service from '../../services/procedures';
-import serviceUnderCases from '../../services/proceduresUnderCase';
-import { setSuccess, setError } from '../utils/MessageBanner';
+import {
+  Button, Modal,
+} from 'react-bootstrap';
+
+import NewProcedureForm from './NewProcedureForm';
+import service from '../../services/procedures/procedures';
+import serviceUnderCases from '../../services/procedures/proceduresUnderCase';
+import { setSuccess, setError } from '../../utils/MessageBanner';
 
 // eslint-disable-next-line no-unused-vars
-const newProcedure = ({ id, addProcedureFunc }) => {
+const newProcedure = ({ caseId }) => {
   /* istanbul ignore next */
   const { t } = useTranslation();
-  const [newTitle, setNewTitle] = useState('');
-  //  const [procedures, setProcedures] = useState([]);
 
-  /*   useEffect(() => {
-    service
-      .getAll()
-      .then((proceduresList) => {
-        setProcedures(proceduresList);
-      });
-  }); */
+  const [show, setShow] = useState(false);
 
-  const handleTitleChange = (event) => {
-    setNewTitle(event.target.value);
-  };
+  const toggleVisibility = () => setShow(!show);
 
-  const addProcedure = async (event) => {
-    event.preventDefault();
-
-    const procedureObject = ({
-      title: newTitle,
-    });
-
-    /* istanbul ignore else */
-    if (addProcedureFunc != null) {
-      addProcedureFunc(procedureObject);
-    } else {
-      const receivedID = await service.create(procedureObject)
-        .then((data) => {
-          setNewTitle('');
-          setSuccess(t('procedureAddSuccess'));
-          return data.id;
-        })
-        .catch((error) => {
-          // eslint-disable-next-line no-console
-          console.log(error);
-          setError(t('procedureAddError'));
+  /* istanbul ignore next */
+  const handleProcedureAdd = (procedureObject) => {
+    service.create(procedureObject)
+      .then((data) => {
+        toggleVisibility();
+        setSuccess(t('procedureAddSuccess'));
+        const procedureUnderCaseObject = ({
+          caseId,
+          procedureId: data.id,
+          priority: 1,
         });
 
-      const procedureUnderCaseObject = ({
-        caseId: id,
-        procedureId: receivedID,
-        priority: 1,
+        serviceUnderCases.create(procedureUnderCaseObject);
+      })
+      .catch((error) => {
+        // eslint-disable-next-line no-console
+        console.log(error);
+        toggleVisibility();
+        setError(t('procedureAddError'));
       });
-
-      serviceUnderCases.create(procedureUnderCaseObject);
-    }
   };
 
   return (
     <div>
-      <h2>{t('addProcedure')}</h2>
-
-      <form onSubmit={addProcedure}>
-        <p>
-          <label htmlFor="title">
-            {t('procedureTitle')}
-          </label>
-          <br />
-          <input
-            id="title"
-            type="text"
-            value={newTitle}
-            onChange={handleTitleChange}
-          />
-        </p>
-        <p>
-          <input type="submit" id="submit" value={t('buttonSubmitNewProcedure')} />
-        </p>
-      </form>
+      <Button className="addButton" onClick={toggleVisibility}>
+        {t('buttonNewProcedure')}
+      </Button>
+      <Modal
+        show={show}
+        onHide={toggleVisibility}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>{t('addProcedure')}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <NewProcedureForm addProcedure={handleProcedureAdd} />
+        </Modal.Body>
+      </Modal>
 
     </div>
   );

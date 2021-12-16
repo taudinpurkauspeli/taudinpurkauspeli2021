@@ -8,8 +8,8 @@ import { useHistory, Link } from 'react-router-dom';
 import {
   Button,
 } from 'react-bootstrap';
-import service from '../../services/procedures';
-import serviceUnderProcedure from '../../services/proceduresUnderCase';
+import service from '../../services/procedures/procedures';
+import serviceUnderProcedure from '../../services/procedures/proceduresUnderCase';
 
 const EditProcedure = ({ procedure, caseId, editProcedureFunc }) => {
   /* istanbul ignore next */
@@ -59,9 +59,9 @@ const EditProcedure = ({ procedure, caseId, editProcedureFunc }) => {
   };
 
   return (
-    <div id="wrapper" key={procedure.proceduresUnderCase.priority}>
+    <div id="editProcedureForm" key={procedure.proceduresUnderCase.priority}>
       <h2>{t('editProcedure')}</h2>
-      <Button as={Link} to={`${baseUrl}/procedure/${procedure.id}`}>{t('procedure')}</Button>
+      <Button className="procedureButton goTo" as={Link} to={`${baseUrl}/procedure/${procedure.id}`} style={{ margin: 15 }}>{t('goToProcedure')}</Button>
       <form onSubmit={(e) => editProcedure(e)}>
         <p>
           <label htmlFor="title">
@@ -73,6 +73,7 @@ const EditProcedure = ({ procedure, caseId, editProcedureFunc }) => {
             type="text"
             defaultValue={procedure.title}
             onChange={handleTitleChange}
+            className="formInput"
           />
         </p>
         <p>
@@ -85,10 +86,11 @@ const EditProcedure = ({ procedure, caseId, editProcedureFunc }) => {
             type="integer"
             onChange={handlePriorityChange}
             defaultValue={procedure.proceduresUnderCase.priority}
+            className="formInput"
           />
         </p>
         <p>
-          <input type="submit" id="submit" value={t('buttonEdit')} />
+          <Button input type="submit" id="submit" className="submitButton">{t('buttonSave')}</Button>
         </p>
       </form>
     </div>

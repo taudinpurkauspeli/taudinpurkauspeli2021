@@ -1,15 +1,16 @@
 /* eslint-disable linebreak-style */
 import React from 'react';
-import TextSubProcedure from './TextSubProcedure';
+import TextSubProcedure from './textSubProcedure/TextSubProcedure';
 
 // eslint-disable-next-line consistent-return
-const SubProcedure = ({ d }) => {
+const SubProcedure = ({ d, admin }) => {
   if (d.type === 'TEXT') {
     return (
       <TextSubProcedure
         id={d.id}
         title={d.textSubProcedures.title}
         text={d.textSubProcedures.text}
+        admin={admin}
       />
     );
   }

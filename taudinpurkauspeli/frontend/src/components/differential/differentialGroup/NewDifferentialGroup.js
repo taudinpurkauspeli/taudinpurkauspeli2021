@@ -9,7 +9,7 @@ import serviceUnderCases from '../../../services/differentials/differentialGroup
 import service from '../../../services/differentials/differentialGroups';
 import AddDifferentialGroupForm from './AddDifferentialGroupForm';
 import SelectDifferentialGroupForm from './SelectDifferentialGroupForm';
-import { setSuccess, setError } from '../../utils/MessageBanner';
+import { setSuccess, setError } from '../../../utils/MessageBanner';
 
 const NewDifferentialGroup = ({ caseId }) => {
   const { t } = useTranslation();
@@ -60,7 +60,7 @@ const NewDifferentialGroup = ({ caseId }) => {
 
   return (
     <div>
-      <Button variant="primary" onClick={toggleVisibility} id="addNew">
+      <Button className="addButton" onClick={toggleVisibility} id="addNew">
         {t('buttonNewDifferentialGroup')}
       </Button>
       <Modal

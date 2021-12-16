@@ -7,7 +7,7 @@ import {
 
 import service from '../../services/cases';
 import NewCaseForm from './NewCaseForm';
-import { setSuccess, setError } from '../utils/MessageBanner';
+import { setSuccess, setError } from '../../utils/MessageBanner';
 
 const NewCase = () => {
   const { t } = useTranslation();
@@ -33,7 +33,7 @@ const NewCase = () => {
 
   return (
     <div>
-      <Button variant="primary" onClick={toggleVisibility} id="addNew">
+      <Button className="addButton" onClick={toggleVisibility} id="addNew">
         {t('buttonNewCase')}
       </Button>
       <Modal

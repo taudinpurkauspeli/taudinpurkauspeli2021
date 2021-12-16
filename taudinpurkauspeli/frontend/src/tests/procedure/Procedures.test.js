@@ -13,6 +13,10 @@ jest.mock('react-router-dom', () => ({
   useRouteMatch: () => ({ url: '/cases/id/procedures' }),
 }));
 
+jest.mock('react-i18next', () => ({
+  useTranslation: () => ({ t: (key) => key }),
+}));
+
 test('List and accordion are rendered', async () => {
   const resultA = new ShallowRenderer();
   resultA.render(<Procedures />);

@@ -5,7 +5,8 @@ import { useParams } from 'react-router-dom';
 import HideCase from '../case/HideCase';
 import service from '../../services/cases';
 import UpdateCaseTitle from '../case/UpdateCaseTitle';
-import { setSuccess, setError } from '../utils/MessageBanner';
+import { setSuccess, setError } from '../../utils/MessageBanner';
+import UpdateAnamnesis from './UpdateAnamnesis';
 
 const Anamnesis = ({ cases, admin }) => {
   const { t } = useTranslation();
@@ -34,18 +35,17 @@ const Anamnesis = ({ cases, admin }) => {
 
   return (
     <div id="wrapper">
-      <p>Casen tiedot löytyvät täältä</p>
       { admin && c && (
-        <div>
-          <UpdateCaseTitle c={c} updateCaseTitle={handleCaseUpdate} />
-          <HideCase c={c} hideCase={handleCaseUpdate} />
+        <div id="casePageArea">
+          <div className="rows">
+            <UpdateCaseTitle c={c} updateCaseTitle={handleCaseUpdate} />
+            <HideCase c={c} hideCase={handleCaseUpdate} />
+          </div>
+          <UpdateAnamnesis c={c} updateAnamnesis={handleCaseUpdate} />
         </div>
       )}
       { !admin && c && (
         <p>{c.title}</p>
-      )}
-      { c && (
-        <p>{c.anamnesis}</p>
       )}
     </div>
   );

@@ -5,7 +5,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Form, Button } from 'react-bootstrap';
 
-const newCase = ({ addCase }) => {
+const newCaseForm = ({ addCase }) => {
   const { t } = useTranslation();
 
   const newCaseSchema = Yup.object().shape({
@@ -41,7 +41,7 @@ const newCase = ({ addCase }) => {
         values,
         errors,
       }) => (
-        <Form noValidate onSubmit={handleSubmit}>
+        <Form noValidate onSubmit={handleSubmit} spellCheck="false">
           <Form.Group md="6" controlId="title">
             <Form.Label>{t('caseTitle')}</Form.Label>
             <Form.Control
@@ -74,11 +74,11 @@ const newCase = ({ addCase }) => {
               onChange={handleChange}
             />
           </Form.Group>
-          <Button type="submit">{t('buttonSubmitNewCase')}</Button>
+          <Button className="submitButton" id="submit-case" type="submit">{t('buttonSubmitNewCase')}</Button>
         </Form>
       )}
     </Formik>
   );
 };
 
-export default newCase;
+export default newCaseForm;

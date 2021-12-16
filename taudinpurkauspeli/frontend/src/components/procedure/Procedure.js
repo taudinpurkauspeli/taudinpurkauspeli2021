@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 /* import SubProcedureList from '../subprocedure/SubProcedureList'; */
-import NewTextSubProcedure from '../subprocedure/NewTextSubProcedure';
+import NewTextSubProcedure from '../subprocedure/textSubProcedure/NewTextSubProcedure';
 import SubProcedureList from '../subprocedure/SubProcedureList';
 
 // eslint-disable-next-line no-unused-vars
@@ -19,6 +19,10 @@ const Procedure = ({ admin, caseId }) => {
   /* const hideWhenVisible = { display: show ? 'none' : '' }; */
   const showWhenVisible = { display: show ? '' : 'none' };
 
+  const handleVisibility = () => {
+    setShow(!show);
+  };
+
   return (
 
     <div id="wrapper">
@@ -27,16 +31,16 @@ const Procedure = ({ admin, caseId }) => {
       </h2>
       {admin && (
         <div>
-          <Button variant="primary" onClick={() => setShow(true)} id="addNew">
+          <Button className="addButton" onClick={handleVisibility} id="addNew">
             {t('buttonNewSubProcedure')}
           </Button>
-          <div style={showWhenVisible}>
+          <div className="rows" style={showWhenVisible}>
             <NewTextSubProcedure proceduresId={id} />
-            <Button variant="primary" className="editButton" size="sm">{t('buttonAddNewQuestion')}</Button>
-            <Button variant="primary" className="editButton" size="sm">{t('buttonAddNewMultiChoice')}</Button>
-            <Button variant="primary" className="editButton" size="sm">{t('buttonAddFinalDiagnosis')}</Button>
+            <Button className="addButton question" size="sm">{t('buttonAddNewQuestion')}</Button>
+            <Button className="addButton multichoice" size="sm">{t('buttonAddNewMultiChoice')}</Button>
+            <Button className="addButton diagnosis" size="sm">{t('buttonAddFinalDiagnosis')}</Button>
           </div>
-          <SubProcedureList proceduresId={id} />
+          <SubProcedureList proceduresId={id} admin={admin} />
         </div>
       )}
     </div>
