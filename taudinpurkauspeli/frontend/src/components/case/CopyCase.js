@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import caseService from '../../services/cases';
-import pucService from '../../services/proceduresUnderCase';
+import pucService from '../../services/procedures/proceduresUnderCase';
 
 // Caseen liitetyt diffiryhmät
 import ducGroupService from '../../services/differentials/differentialGroupsUnderCases';
