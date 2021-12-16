@@ -30,7 +30,6 @@ const initialCases = [
     {
       caseId: "1",
       procedureId: "1",
-      procedureCaseId: "1",
       priority: 1,
     },
   ]
@@ -82,7 +81,7 @@ const initialCases = [
     const response = await api.get('/api/procedures')
   
     expect(response.body).toHaveLength(initialProcedures.length)
-  })
+  }) 
 
   test('title can be changed', async () => {
     const responseUpdate = await api.put('/api/procedures/1')

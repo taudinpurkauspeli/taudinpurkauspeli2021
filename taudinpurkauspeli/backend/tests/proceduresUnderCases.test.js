@@ -34,13 +34,11 @@ const initialCases = [
     {
       caseId: "1",
       procedureId: "1",
-      procedureCaseId: "1",
       priority: 1,
     },
     {
         caseId: "1",
         procedureId: "2",
-        procedureCaseId: "2",
         priority: 1,
       },
   ]
