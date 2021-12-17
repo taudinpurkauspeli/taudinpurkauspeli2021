@@ -1,4 +1,5 @@
 /* eslint-disable linebreak-style */
+
 /* eslint-disable react/react-in-jsx-scope */
 import { Button } from 'react-bootstrap';
 import React from 'react';
@@ -7,13 +8,41 @@ import caseService from '../../services/cases';
 import ducService from '../../services/differentials/differentialsUnderCases';
 import pucService from '../../services/procedures/proceduresUnderCase';
 
+// Caseen liitetyt diffiryhmät
+import ducGroupService from '../../services/differentials/differentialGroupsUnderCases';
+
 const copyCase = ({
-  caseToBeCopied, createProcedures, createDifferentials,
+  caseToBeCopied, createProcedures,
 }) => {
   const { t } = useTranslation();
   const oldCaseId = caseToBeCopied.id;
   // eslint-disable-next-line no-unused-vars
   let newCopyId = 0;
+
+  /* istanbul ignore next */
+  const copyTheDamnThing = (newCaseId, result) => {
+    let duckling = {};
+    result.forEach((element) => {
+      duckling = {
+        caseId: newCaseId,
+        differentialGroupId: element.id,
+      };
+      ducGroupService.create(duckling).then((res) => {
+        ducService.getAll(element.diffGroupCaseId)
+          .then((result2) => {
+            result2.forEach((element2) => {
+              const did = element2.id;
+              const plaa = {
+                diffGroupCaseId: res.id,
+                differentialId: did,
+                description: element2.description,
+              };
+              ducService.create(plaa);
+            });
+          });
+      });
+    });
+  };
 
   /* istanbul ignore next */
   const handleCopy = (event) => {
@@ -28,15 +57,15 @@ const copyCase = ({
         newCopyId = copy.id;
       })
       .then(() => {
-        ducService.getAll(oldCaseId)
-          .then((result) => {
-            createDifferentials(newCopyId, result);
+        ducGroupService.getAll(oldCaseId)
+          .then((res) => {
+            copyTheDamnThing(newCopyId, res);
           });
       })
       .then(() => {
         pucService.getAll(oldCaseId)
-          .then((result) => {
-            createProcedures(newCopyId, result);
+          .then((res) => {
+            createProcedures(newCopyId, res);
           });
       });
   };

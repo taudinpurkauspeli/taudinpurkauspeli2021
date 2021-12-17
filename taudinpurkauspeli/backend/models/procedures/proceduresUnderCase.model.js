@@ -19,6 +19,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.INTEGER,
       primaryKey: true,
       allowNull: false,
+      autoIncrement: true,
     },
     priority: {
       type: Sequelize.INTEGER,
