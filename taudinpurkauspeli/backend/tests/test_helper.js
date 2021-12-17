@@ -100,7 +100,6 @@ const initialProceduresUnderCases = [
   {
     caseId: 1,
     procedureId: 1,
-    procedureCaseId: 1,
     priority: 1,
   },
 ];
