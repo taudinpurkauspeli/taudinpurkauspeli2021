@@ -95,19 +95,19 @@ Lataa itse ohjelma/tämä branch
 
 Luo kansioon taudinpurkauspeli/backend tiedosto .env. Lisää sinne seuraavat tiedot:
 
-PORT=8080
-DB_HOST='127.0.0.1'
-DB_USERNAME='taudinpurkaus'
-DB_PASSWORD='kokeilu'
-USER_NAME='teemu testi'
-AFFILIATION='faculty'
-STUDENTID='123456789'
-MAIL='teemu.testi@example@org'
-SECRET='mahtavatasalaisuus'
+- PORT=8080
+- DB_HOST='127.0.0.1'
+- DB_USERNAME='taudinpurkaus'
+- DB_PASSWORD='kokeilu'
+- USER_NAME='teemu testi'
+- AFFILIATION='faculty'
+- STUDENTID='123456789'
+- MAIL='teemu.testi@example@org'
+- SECRET='mahtavatasalaisuus'
 
 Luo kansioon taudinpurkauspeli/frontend tiedosto .env. Lisää sinne seuraavat tiedot:
 
-PORT=8081
+- PORT=8081
 
 Käynnistä palvelin:
 - mene kansioon backend 
