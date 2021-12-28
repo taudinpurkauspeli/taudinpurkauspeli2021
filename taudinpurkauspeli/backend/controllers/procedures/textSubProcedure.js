@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 const textSubProcedureRouter = require('express').Router();
 const db = require('../../models');
-const helper = require('../../utils/token');
+const middleware = require('../../utils/middleware');
 
 const TextSubProcedure = db.textSubProcedures;
 const SubProcedure = db.subProcedures;
@@ -12,12 +12,7 @@ SubProcedure.belongsToMany(ProcedureUnderCase, { through: TextSubProcedure });
 ProcedureUnderCase.belongsToMany(SubProcedure, { through: TextSubProcedure });
 
 // Save a new sub procedure under case
-textSubProcedureRouter.post('/', (req, res, next) => {
-  const decodedToken = helper.tokenCheck(req, res);
-  if (decodedToken.affiliation !== 'faculty') {
-    return res.status(401).json({ error: 'you do not have rights to do this action' });
-  }
-
+textSubProcedureRouter.post('/', middleware.checkAdminRights, (req, res, next) => {
   // Create a sub procedure under case
   const textSubProcedure = {
     subProcedureId: req.body.subProcedureId,
@@ -35,9 +30,7 @@ textSubProcedureRouter.post('/', (req, res, next) => {
 });
 
 // Retrieve all sub procedures
-textSubProcedureRouter.get('/', (req, res, next) => {
-  helper.tokenCheck(req, res);
-
+textSubProcedureRouter.get('/', middleware.checkUserRights, (req, res, next) => {
   const { subProcedureId } = req.params;
   const condition = subProcedureId ? { subProcedureId: { [Op.iLike]: `%${subProcedureId}%` } } : null;
 
@@ -49,12 +42,7 @@ textSubProcedureRouter.get('/', (req, res, next) => {
 });
 
 // Update a sub procedure (by id)
-textSubProcedureRouter.put('/:id', (req, res, next) => {
-  const decodedToken = helper.tokenCheck(req, res);
-  if (decodedToken.affiliation !== 'faculty') {
-    return res.status(401).json({ error: 'you do not have rights to do this action' });
-  }
-
+textSubProcedureRouter.put('/:id', middleware.checkAdminRights, (req, res, next) => {
   const { id } = req.params;
 
   TextSubProcedure.update(req.body, {

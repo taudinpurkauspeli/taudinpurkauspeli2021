@@ -1,19 +1,14 @@
 /* eslint-disable consistent-return */
 const proceduresRouter = require('express').Router();
 const db = require('../../models');
-const helper = require('../../utils/token');
+const middleware = require('../../utils/middleware');
 
 const Procedure = db.procedures;
 const Case = db.cases;
 const { Op } = db.Sequelize;
 
 // Save a new procedure under case
-proceduresRouter.post('/', (req, res, next) => {
-  const decodedToken = helper.tokenCheck(req, res);
-  if (decodedToken.affiliation !== 'faculty') {
-    return res.status(401).json({ error: 'you do not have rights to do this action' });
-  }
-
+proceduresRouter.post('/', middleware.checkAdminRights, (req, res, next) => {
   // Create a procedure under case
   const procedureObject = {
     title: req.body.title,
@@ -28,8 +23,7 @@ proceduresRouter.post('/', (req, res, next) => {
 });
 
 // Retrieve all procedures
-proceduresRouter.get('/', (req, res, next) => {
-  helper.tokenCheck(req, res);
+proceduresRouter.get('/', middleware.checkUserRights, (req, res, next) => {
   const { title } = req.query;
   const condition = title ? { title: { [Op.iLike]: `%${title}%` } } : null;
 
@@ -41,8 +35,7 @@ proceduresRouter.get('/', (req, res, next) => {
 });
 
 // Retrieve all procedures including procedure under cases
-proceduresRouter.get('/:id', (req, res, next) => {
-  helper.tokenCheck(req, res);
+proceduresRouter.get('/:id', middleware.checkUserRights, (req, res, next) => {
   const { id } = req.params;
 
   Case.findAll({
@@ -60,12 +53,7 @@ proceduresRouter.get('/:id', (req, res, next) => {
 });
 
 // Update a procedure (by id)
-proceduresRouter.put('/:id', (req, res, next) => {
-  const decodedToken = helper.tokenCheck(req, res);
-  if (decodedToken.affiliation !== 'faculty') {
-    return res.status(401).json({ error: 'you do not have rights to do this action' });
-  }
-
+proceduresRouter.put('/:id', middleware.checkAdminRights, (req, res, next) => {
   const { id } = req.params;
 
   Procedure.update(req.body, {

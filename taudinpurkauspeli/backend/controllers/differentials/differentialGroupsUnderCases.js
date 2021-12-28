@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 const differentialGroupsUnderCasesRouter = require('express').Router();
 const db = require('../../models');
-const helper = require('../../utils/token');
+const middleware = require('../../utils/middleware');
 
 const DifferentialGroupUnderCase = db.differentialGroupsUnderCase;
 const Case = db.cases;
@@ -11,12 +11,7 @@ Case.belongsToMany(DifferentialGroup, { through: DifferentialGroupUnderCase });
 DifferentialGroup.belongsToMany(Case, { through: DifferentialGroupUnderCase });
 
 // Create differentialgroup under case
-differentialGroupsUnderCasesRouter.post('/', (req, res, next) => {
-  const decodedToken = helper.tokenCheck(req, res);
-  if (decodedToken.affiliation !== 'faculty') {
-    return res.status(401).json({ error: 'you do not have rights to do this action' });
-  }
-
+differentialGroupsUnderCasesRouter.post('/', middleware.checkAdminRights, (req, res, next) => {
   const newObject = {
     caseId: req.body.caseId,
     differentialGroupId: req.body.differentialGroupId,
@@ -30,9 +25,7 @@ differentialGroupsUnderCasesRouter.post('/', (req, res, next) => {
 });
 
 // Retrieve all groups associated to a specific case
-differentialGroupsUnderCasesRouter.get('/:id', (req, res, next) => {
-  helper.tokenCheck(req, res);
-
+differentialGroupsUnderCasesRouter.get('/:id', middleware.checkUserRights, (req, res, next) => {
   const { id } = req.params;
 
   Case.findOne({

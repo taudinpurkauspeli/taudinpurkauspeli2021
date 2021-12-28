@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 const differentialsUnderCasesRouter = require('express').Router();
 const db = require('../../models');
-const helper = require('../../utils/token');
+const middleware = require('../../utils/middleware');
 
 const DifferentialUnderCase = db.differentalsUnderCases;
 const Differential = db.differentials;
@@ -11,12 +11,7 @@ DifferentialGroupUnderCase.belongsToMany(Differential, { through: DifferentialUn
 Differential.belongsToMany(DifferentialGroupUnderCase, { through: DifferentialUnderCase });
 
 // Create differential under case
-differentialsUnderCasesRouter.post('/', (req, res, next) => {
-  const decodedToken = helper.tokenCheck(req, res);
-  if (decodedToken.affiliation !== 'faculty') {
-    return res.status(401).json({ error: 'you do not have rights to do this action' });
-  }
-
+differentialsUnderCasesRouter.post('/', middleware.checkAdminRights, (req, res, next) => {
   const duc = {
     differentialGroupsUnderCaseId: req.body.diffGroupCaseId,
     differentialId: req.body.differentialId,
@@ -31,9 +26,7 @@ differentialsUnderCasesRouter.post('/', (req, res, next) => {
 });
 
 // Retrieve all differentials
-differentialsUnderCasesRouter.get('/:id', (req, res, next) => {
-  helper.tokenCheck(req, res);
-
+differentialsUnderCasesRouter.get('/:id', middleware.checkUserRights, (req, res, next) => {
   const { id } = req.params;
 
   DifferentialGroupUnderCase.findOne({

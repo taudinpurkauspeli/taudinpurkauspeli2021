@@ -1,17 +1,13 @@
 /* eslint-disable consistent-return */
 const differentialRouter = require('express').Router();
 const db = require('../../models');
-const helper = require('../../utils/token');
+const middleware = require('../../utils/middleware');
 
 const Differential = db.differentials;
 const { Op } = db.Sequelize;
 
 // Save a new differential
-differentialRouter.post('/', (req, res, next) => {
-  const decodedToken = helper.tokenCheck(req, res);
-  if (decodedToken.affiliation !== 'faculty') {
-    return res.status(401).json({ error: 'you do not have rights to do this action' });
-  }
+differentialRouter.post('/', middleware.checkAdminRights, (req, res, next) => {
   // Create a differential
   const differential = {
     name: req.body.name,
@@ -33,9 +29,7 @@ differentialRouter.post('/', (req, res, next) => {
 });
 
 // Retrieve all differentials
-differentialRouter.get('/', (req, res, next) => {
-  helper.tokenCheck(req, res);
-
+differentialRouter.get('/', middleware.checkUserRights, (req, res, next) => {
   const { title } = req.query;
   const condition = title ? { title: { [Op.iLike]: `%${title}%` } } : null;
 
@@ -47,12 +41,7 @@ differentialRouter.get('/', (req, res, next) => {
 });
 
 // Update a differential (by id)
-differentialRouter.put('/:id', (req, res, next) => {
-  const decodedToken = helper.tokenCheck(req, res);
-  if (decodedToken.affiliation !== 'faculty') {
-    return res.status(401).json({ error: 'you do not have rights to do this action' });
-  }
-
+differentialRouter.put('/:id', middleware.checkAdminRights, (req, res, next) => {
   const { id } = req.params;
 
   Differential.update(req.body, {
