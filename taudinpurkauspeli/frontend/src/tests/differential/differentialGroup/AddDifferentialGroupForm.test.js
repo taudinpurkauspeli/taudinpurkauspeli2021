@@ -3,7 +3,7 @@ import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import AddDifferentialGroupForm from '../../../components/differential/differentialGroup/AddDifferentialGroupForm';
+import AddDifferentialGroupForm from '../../../App/differential/differentialGroup/AddDifferentialGroupForm';
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key) => key }),

@@ -6,7 +6,7 @@ import {
 import React from 'react';
 import '@testing-library/dom';
 import '@testing-library/jest-dom/extend-expect';
-import UpdateAnamnesis from '../../components/anamnesis/UpdateAnamnesis';
+import UpdateAnamnesis from '../../App/anamnesis/UpdateAnamnesis';
 
 const testCase = {
   id: 1,

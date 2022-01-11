@@ -2,7 +2,7 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { render } from '@testing-library/react';
-import Profile from '../../components/users/Profile';
+import Profile from '../../App/users/Profile';
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key) => key }),

@@ -2,16 +2,18 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
-import HideCase from '../case/HideCase';
-import service from '../../services/cases';
-import UpdateCaseTitle from '../case/UpdateCaseTitle';
+import { useSelector } from 'react-redux';
+
+import HideCase from '../case/components/HideCase';
+import service from '../case/services/cases';
+import UpdateCaseTitle from '../case/components/UpdateCaseTitle';
 import { setSuccess, setError } from '../../utils/MessageBanner';
 import UpdateAnamnesis from './UpdateAnamnesis';
 
-const Anamnesis = ({ cases, admin }) => {
+const Anamnesis = ({ admin }) => {
   const { t } = useTranslation();
   const { id } = useParams();
-  const c = cases.find((a) => a.id === Number(id));
+  const c = useSelector((state) => state.cases.find((a) => a.id === Number(id)));
   // currentcase was used to fix bug where case title and visibility
   // could not be updated at the same time
   // see https://github.com/taudinpurkauspeli/taudinpurkauspeli2021/commit/24d648f4a684d2acd3d378196c3fc09e6836b1a6#diff-9f9374df7bc962cc29cb590ed33d6b81f84a09bbced9187d2fb750e2f7d645ee

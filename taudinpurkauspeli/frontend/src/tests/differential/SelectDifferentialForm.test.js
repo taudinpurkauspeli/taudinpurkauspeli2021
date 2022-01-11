@@ -5,7 +5,7 @@ import {
   render, waitFor, fireEvent, screen,
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import SelectDifferentialForm from '../../components/differential/SelectDifferentialForm';
+import SelectDifferentialForm from '../../App/differential/SelectDifferentialForm';
 
 const initialDifferentials = [{
   id: 1,

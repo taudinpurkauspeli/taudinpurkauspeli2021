@@ -6,14 +6,16 @@ import {
   Col,
   Row,
 } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 
-import NewCase from '../case/NewCase';
-import CaseCard from '../case/CaseCard';
+import NewCase from '../case/components/NewCase';
+import CaseCard from '../case/components/CaseCard';
 import Search from './Search';
 
-const Frontpage = ({ cases, admin }) => {
+const Frontpage = ({ admin }) => {
   const { t } = useTranslation();
   const [newSearch, setNewSearch] = useState('');
+  const cases = useSelector((state) => state.cases);
 
   const searchCases = (event) => {
     setNewSearch(event.target.value);

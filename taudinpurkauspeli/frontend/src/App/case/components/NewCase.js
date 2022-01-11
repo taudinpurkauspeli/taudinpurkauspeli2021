@@ -5,9 +5,9 @@ import {
   Button, Modal,
 } from 'react-bootstrap';
 
-import service from '../../services/cases';
+import service from '../services/cases';
 import NewCaseForm from './NewCaseForm';
-import { setSuccess, setError } from '../../utils/MessageBanner';
+import { setSuccess, setError } from '../../../utils/MessageBanner';
 
 const NewCase = () => {
   const { t } = useTranslation();

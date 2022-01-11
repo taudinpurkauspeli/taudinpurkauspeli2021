@@ -5,7 +5,10 @@ import '@testing-library/jest-dom/extend-expect';
 import { fireEvent, render } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { screen } from '@testing-library/dom';
-import Frontpage from '../../components/frontpage/Frontpage';
+import { Provider } from 'react-redux';
+
+import Frontpage from '../../App/frontpage/Frontpage';
+import store from '../../store';
 
 let component;
 
@@ -34,9 +37,11 @@ jest.mock('react-i18next', () => ({
 
 beforeEach(() => {
   component = render(
-    <MemoryRouter>
-      <Frontpage cases={cases} admin={false} />
-    </MemoryRouter>,
+    <Provider store={store}>
+      <MemoryRouter>
+        <Frontpage cases={cases} admin={false} />
+      </MemoryRouter>
+    </Provider>,
   );
 });
 
@@ -48,9 +53,11 @@ test('frontpage header is rendered', () => {
 
 test('add new case -button can be found by teacher', () => {
   const adminFrontpage = render(
-    <MemoryRouter>
-      <Frontpage cases={cases} admin />
-    </MemoryRouter>,
+    <Provider store={store}>
+      <MemoryRouter>
+        <Frontpage cases={cases} admin />
+      </MemoryRouter>
+    </Provider>,
   );
 
   const newCaseButton = adminFrontpage.getByText('buttonNewCase');
@@ -73,9 +80,11 @@ test('student sees only non-hidden cases', () => {
 
 test('teacher can see all cases', () => {
   const adminFrontpage = render(
-    <MemoryRouter>
-      <Frontpage cases={cases} admin />
-    </MemoryRouter>,
+    <Provider store={store}>
+      <MemoryRouter>
+        <Frontpage cases={cases} admin />
+      </MemoryRouter>
+    </Provider>,
   );
 
   expect(

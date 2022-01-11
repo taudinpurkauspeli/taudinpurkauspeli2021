@@ -5,7 +5,7 @@ import {
   render, waitFor, fireEvent, screen,
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import SelectDifferentialForm from '../../../components/differential/differentialGroup/SelectDifferentialGroupForm';
+import SelectDifferentialForm from '../../../App/differential/differentialGroup/SelectDifferentialGroupForm';
 
 const initialDifferentialGroups = [{
   id: 1,

@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import React from 'react';
 import '@testing-library/dom';
 import '@testing-library/jest-dom/extend-expect';
-import CopyCase from '../../components/case/CopyCase';
+import CopyCase from '../../App/case/components/CopyCase';
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key) => key }),
