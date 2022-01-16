@@ -2,7 +2,7 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { render } from '@testing-library/react';
-import FileBank from '../../components/files/FileBank';
+import FileBank from '../../App/files/FileBank';
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key) => key }),

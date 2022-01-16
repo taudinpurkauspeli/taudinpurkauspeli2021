@@ -9,10 +9,10 @@ import {
 import { Link } from 'react-router-dom';
 import CopyCase from './CopyCase';
 import RemoveCase from './RemoveCase';
-import { setError, setSuccess } from '../../utils/MessageBanner';
-import caseService from '../../services/cases';
-import ducService from '../../services/differentials/differentialsUnderCases';
-import pucService from '../../services/procedures/proceduresUnderCase';
+import { setError, setSuccess } from '../../../utils/MessageBanner';
+import caseService from '../services/cases';
+import ducService from '../../../services/differentials/differentialsUnderCases';
+import pucService from '../../../services/procedures/proceduresUnderCase';
 
 const CaseCard = ({ c, admin }) => {
   const { t } = useTranslation();

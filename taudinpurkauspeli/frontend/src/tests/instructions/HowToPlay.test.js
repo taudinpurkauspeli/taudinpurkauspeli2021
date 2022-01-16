@@ -3,7 +3,7 @@ import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import ShallowRenderer from 'react-shallow-renderer';
 import { waitFor, render } from '@testing-library/react';
-import HowToPlay from '../../components/instructions/HowToPlay';
+import HowToPlay from '../../App/instructions/HowToPlay';
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key) => key }),

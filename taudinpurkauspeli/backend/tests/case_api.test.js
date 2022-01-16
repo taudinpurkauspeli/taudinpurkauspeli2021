@@ -25,7 +25,7 @@ describe('Getting cases from database', () => {
   test('all cases are returned', async () => {
     const response = await api.get('/api/cases');
 
-    expect(response.body.data).toHaveLength(helper.initialCases.length);
+    expect(response.body.cases).toHaveLength(helper.initialCases.length);
   });
 
   test('throws error when trying to get case with non-existent id', async () => {
@@ -38,7 +38,7 @@ describe('Getting cases from database', () => {
 describe('Adding a case to database', () => {
   test('a specific case is within the returned cases', async () => {
     const response = await api.get('/api/cases');
-    const titles = response.body.data.map((r) => r.title);
+    const titles = response.body.cases.map((r) => r.title);
 
     expect(titles).toContain('TestCase2');
   });
@@ -58,11 +58,11 @@ describe('Adding a case to database', () => {
 
     const response = await api.get('/api/cases');
 
-    const titles = response.body.data.map((r) => r.title);
-    const hiddens = response.body.data.map((r) => r.hidden);
-    const anamnesiss = response.body.data.map((r) => r.anamnesis);
+    const titles = response.body.cases.map((r) => r.title);
+    const hiddens = response.body.cases.map((r) => r.hidden);
+    const anamnesiss = response.body.cases.map((r) => r.anamnesis);
 
-    expect(response.body.data).toHaveLength(helper.initialCases.length + 1);
+    expect(response.body.cases).toHaveLength(helper.initialCases.length + 1);
     expect(titles).toContain('NewTitle1');
     expect(hiddens).toContain(false);
     expect(anamnesiss).toContain('NewAnamnesis1');
@@ -80,7 +80,7 @@ describe('Adding a case to database', () => {
 
     const response = await api.get('/api/cases');
 
-    expect(response.body.data).toHaveLength(helper.initialCases.length);
+    expect(response.body.cases).toHaveLength(helper.initialCases.length);
   });
 });
 
@@ -130,7 +130,7 @@ describe('Removing a case from database', () => {
       .expect(204);
 
     const responseCheck = await api.get('/api/cases');
-    expect(responseCheck.body.data).toHaveLength(1);
+    expect(responseCheck.body.cases).toHaveLength(1);
   });
 
   test('Case cannot be deleted', async () => {

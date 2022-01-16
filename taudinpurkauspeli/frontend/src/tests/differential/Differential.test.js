@@ -2,7 +2,7 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { render, screen, waitFor } from '@testing-library/react';
-import Differential from '../../components/differential/Differential';
+import Differential from '../../App/differential/Differential';
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key) => key }),

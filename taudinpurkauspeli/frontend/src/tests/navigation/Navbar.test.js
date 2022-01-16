@@ -1,10 +1,12 @@
 /* eslint-disable no-undef */
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
-import ShallowRenderer from 'react-shallow-renderer';
-import { waitFor, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import Navbar from '../../components/navigation/Navbar';
+import { Provider } from 'react-redux';
+
+import Navbar from '../../App/navigation/Navbar';
+import store from '../../store';
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
@@ -12,18 +14,22 @@ jest.mock('react-router-dom', () => ({
 }));
 
 test('Navbar is rendered', async () => {
-  const resultA = new ShallowRenderer();
-  resultA.render(<Navbar />);
-  const result = resultA.getRenderOutput();
-  await waitFor(() => expect(result).toBeDefined());
-  await waitFor(() => expect(result.type.displayName).toBe('Navbar'));
+  render(
+    <Provider store={store}>
+      <Router>
+        <Navbar />
+      </Router>
+    </Provider>,
+  );
 });
 
 test('The change language dropdown is being rendered', () => {
   const component = render(
-    <Router>
-      <Navbar />
-    </Router>,
+    <Provider store={store}>
+      <Router>
+        <Navbar />
+      </Router>
+    </Provider>,
   );
   expect(component.container.querySelector('#selectLanguage')).toBeInTheDocument();
 });

@@ -22,7 +22,12 @@
       "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
       "react/prop-types": 0,
       "react/destructuring-assignment": 0,
-      "linebreak-style": 0
+      "linebreak-style": 0,
+      "import/no-extraneous-dependencies": [
+          "error", {
+            "devDependencies": true
+          }
+        ]
     },
     "settings": {
         "import/resolver": {

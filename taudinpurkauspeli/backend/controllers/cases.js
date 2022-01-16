@@ -28,14 +28,14 @@ caseRouter.get('/', async (req, res, next) => {
   const { title } = req.query;
   const condition = title ? { title: { [Op.iLike]: `%${title}%` } } : null;
 
-  const data = await Case.findAll({ where: condition });
+  const cases = await Case.findAll({ where: condition });
   const user = await helper.createUser(req);
 
   try {
     res
       .status(200)
       .send({
-        user, data,
+        user, cases,
       });
   } catch (error) {
     next(error);
