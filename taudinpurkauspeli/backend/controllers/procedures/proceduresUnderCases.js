@@ -5,7 +5,7 @@ const db = require('../../models');
 const ProcedureUnderCase = db.proceduresUnderCases;
 const Procedure = db.procedures;
 const Case = db.cases;
-const helper = require('../../utils/token');
+const middleware = require('../../utils/middleware');
 
 const { Op } = db.Sequelize;
 
@@ -13,12 +13,7 @@ Procedure.belongsToMany(Case, { through: ProcedureUnderCase });
 Case.belongsToMany(Procedure, { through: ProcedureUnderCase });
 
 // Save a new procedure under case
-proceduresUnderCasesRouter.post('/', (req, res, next) => {
-  const decodedToken = helper.tokenCheck(req, res);
-  if (decodedToken.affiliation !== 'faculty') {
-    return res.status(401).json({ error: 'you do not have rights to do this action' });
-  }
-
+proceduresUnderCasesRouter.post('/', middleware.checkAdminRights, (req, res, next) => {
   // Create a procedure under case
   const procedureUnderCase = {
     caseId: req.body.caseId,
@@ -35,9 +30,7 @@ proceduresUnderCasesRouter.post('/', (req, res, next) => {
 });
 
 // Retrieve all procedures related to case based on id
-proceduresUnderCasesRouter.get('/:id', (req, res, next) => {
-  helper.tokenCheck(req, res);
-
+proceduresUnderCasesRouter.get('/:id', middleware.checkUserRights, (req, res, next) => {
   const { id } = req.params;
 
   ProcedureUnderCase.findAll({
@@ -52,9 +45,7 @@ proceduresUnderCasesRouter.get('/:id', (req, res, next) => {
 });
 
 // Retrieve all procedures
-proceduresUnderCasesRouter.get('/', (req, res, next) => {
-  helper.tokenCheck(req, res);
-
+proceduresUnderCasesRouter.get('/', middleware.checkUserRights, (req, res, next) => {
   const { caseId } = req.params;
   const condition = caseId ? { caseId: { [Op.iLike]: `%${caseId}%` } } : null;
 
@@ -66,12 +57,7 @@ proceduresUnderCasesRouter.get('/', (req, res, next) => {
 });
 
 // Update a procedure (by id)
-proceduresUnderCasesRouter.put('/:id', (req, res, next) => {
-  const decodedToken = helper.tokenCheck(req, res);
-  if (decodedToken.affiliation !== 'faculty') {
-    return res.status(401).json({ error: 'you do not have rights to do this action' });
-  }
-
+proceduresUnderCasesRouter.put('/:id', middleware.checkAdminRights, (req, res, next) => {
   const { id } = req.params;
 
   ProcedureUnderCase.update(req.body, {

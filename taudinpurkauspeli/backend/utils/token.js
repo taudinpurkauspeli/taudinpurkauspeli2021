@@ -4,24 +4,6 @@ const db = require('../models');
 
 const User = db.users;
 
-const tokenCheck = (request, response) => {
-  if (process.env.NODE_ENV === 'test') {
-    return { affiliation: 'faculty' };
-  }
-
-  let authorization = request.get('authorization');
-  if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
-    authorization = authorization.substring(7);
-  }
-
-  const decodedToken = jwt.verify(authorization, process.env.SECRET);
-  if (!authorization || !decodedToken.id) {
-    return response.status(401).json({ error: 'token is missing or invalid' });
-  }
-
-  return decodedToken;
-};
-
 const createUser = async (req) => {
   const user = {
     user_name: req.headers.cn
@@ -69,5 +51,4 @@ const createUser = async (req) => {
   return { token, name: user.user_name, admin: user.affiliation === 'faculty' };
 };
 
-exports.tokenCheck = tokenCheck;
 exports.createUser = createUser;

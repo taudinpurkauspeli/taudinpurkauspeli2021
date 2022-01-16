@@ -44,6 +44,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static('build'));
 app.use(middleware.requestLogger);
+app.use(middleware.extractToken);
+app.use(middleware.extractDecodedToken);
 
 app.use('/api/users', userRouter);
 app.use('/api/cases', caseRouter);

@@ -4,17 +4,12 @@ const db = require('../../models');
 
 const SubProcedure = db.subProcedures;
 const ProcedureUnderCase = db.proceduresUnderCases;
-const helper = require('../../utils/token');
+const middleware = require('../../utils/middleware');
 
 const { Op } = db.Sequelize;
 
 // Save a new subprocedure
-subProceduresRouter.post('/', (req, res, next) => {
-  const decodedToken = helper.tokenCheck(req, res);
-  if (decodedToken.affiliation !== 'faculty') {
-    return res.status(401).json({ error: 'you do not have rights to do this action' });
-  }
-
+subProceduresRouter.post('/', middleware.checkAdminRights, (req, res, next) => {
   // Create a subprocedure
   const subProcedure = {
     priority: req.body.priority,
@@ -30,9 +25,7 @@ subProceduresRouter.post('/', (req, res, next) => {
 });
 
 // Retrieve all subprocedures
-subProceduresRouter.get('/', (req, res, next) => {
-  helper.tokenCheck(req, res);
-
+subProceduresRouter.get('/', middleware.checkUserRights, (req, res, next) => {
   const { id } = req.params;
   const condition = id ? { caseId: { [Op.iLike]: `%${id}%` } } : null;
 
@@ -44,9 +37,7 @@ subProceduresRouter.get('/', (req, res, next) => {
 });
 
 // Retrieve all subprocedures including textSubProcedures
-subProceduresRouter.get('/:id', (req, res, next) => {
-  helper.tokenCheck(req, res);
-
+subProceduresRouter.get('/:id', middleware.checkUserRights, (req, res, next) => {
   const { id } = req.params;
 
   ProcedureUnderCase.findAll({
@@ -64,11 +55,7 @@ subProceduresRouter.get('/:id', (req, res, next) => {
 });
 
 // Update a subprocedure (by id)
-subProceduresRouter.put('/:id', (req, res, next) => {
-  const decodedToken = helper.tokenCheck(req, res);
-  if (decodedToken.affiliation !== 'faculty') {
-    return res.status(401).json({ error: 'you do not have rights to do this action' });
-  }
+subProceduresRouter.put('/:id', middleware.checkAdminRights, (req, res, next) => {
   const { id } = req.params;
 
   SubProcedure.update(req.body, {

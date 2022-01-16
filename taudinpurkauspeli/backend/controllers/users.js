@@ -1,16 +1,11 @@
 /* eslint-disable consistent-return */
 const userRouter = require('express').Router();
 const db = require('../models');
-const helper = require('../utils/token');
+const middleware = require('../utils/middleware');
 
 const User = db.users;
 
-userRouter.get('/', (req, res, next) => {
-  const decodedToken = helper.tokenCheck(req, res);
-  if (decodedToken.affiliation !== 'faculty') {
-    return res.status(401).json({ error: 'you do not have rights to do this action' });
-  }
-
+userRouter.get('/', middleware.checkAdminRights, (req, res, next) => {
   User.findAll({})
     .then((data) => {
       if (data === null) {

@@ -1,10 +1,8 @@
-/* eslint-disable no-undef */
 const supertest = require('supertest');
 const app = require('../app');
+
 const api = supertest(app);
-const db = require('../models/');
-const Procedure = db.procedures;
-const ProcedureUnderCase = db.proceduresUnderCases;
+const db = require('../models');
 
 const initialProcedures = [
   {
@@ -82,7 +80,7 @@ describe('procedures', () => {
   });
 
   test('priority can be changed', async () => {
-    const responseUpdate = await api.put('/api/proceduresUnderCases/1')
+    await api.put('/api/proceduresUnderCases/1')
       .send({
         caseId: '1',
         procedureId: '1',
