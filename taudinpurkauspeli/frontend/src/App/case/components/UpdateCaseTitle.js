@@ -19,9 +19,8 @@ const UpdateCaseTitle = ({ c, updateCaseTitle }) => {
 
   const handleTitleUpdate = (values) => {
     updateCaseTitle({
+      ...c,
       title: values.title,
-      anamnesis: c.anamnesis,
-      hidden: c.hidden,
     });
 
     setTitle(values.title);

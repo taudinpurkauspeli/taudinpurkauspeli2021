@@ -21,9 +21,8 @@ const UpdateAnamnesis = ({ c, updateAnamnesis }) => {
 
   const handleAnamnesisUpdate = (values) => {
     updateAnamnesis({
-      title: c.title,
+      ...c,
       anamnesis: values.anamnesis,
-      hidden: c.hidden,
     });
 
     setAnamnesis(values.anamnesis);

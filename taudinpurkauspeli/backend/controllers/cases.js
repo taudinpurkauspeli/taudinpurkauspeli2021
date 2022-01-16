@@ -58,10 +58,10 @@ caseRouter.get('/:id', middleware.checkUserRights, (req, res, next) => {
 
 // Update a case (by id)
 caseRouter.put('/:id', middleware.checkAdminRights, (req, res, next) => {
-  const { id } = req.params;
+  const caseToBeUpdated = req.body;
 
-  Case.update(req.body, {
-    where: { id },
+  Case.update(caseToBeUpdated, {
+    where: { id: caseToBeUpdated.id },
   })
     .then((num) => {
       if (Number(num) === 1) {

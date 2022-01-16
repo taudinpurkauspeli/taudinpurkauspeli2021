@@ -10,8 +10,7 @@ const HideCase = ({ c, hideCase }) => {
   const handleVisibilityUpdate = (event) => {
     event.preventDefault();
     hideCase({
-      title: c.title,
-      anamnesis: c.anamnesis,
+      ...c,
       hidden: newHidden,
     });
   };

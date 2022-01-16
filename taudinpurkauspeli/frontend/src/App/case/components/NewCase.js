@@ -4,13 +4,15 @@ import { useTranslation } from 'react-i18next';
 import {
   Button, Modal,
 } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
 
-import service from '../services/cases';
 import NewCaseForm from './NewCaseForm';
 import { setSuccess, setError } from '../../../utils/MessageBanner';
+import { createCase } from '../reducers/casesReducer';
 
 const NewCase = () => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
 
   const [show, setShow] = useState(false);
 
@@ -18,17 +20,15 @@ const NewCase = () => {
 
   /* istanbul ignore next */
   const handleCaseAdd = (newCase) => {
-    service.create(newCase)
-      .then(() => {
-        toggleVisibility();
-        setSuccess(t('caseAddSuccess'));
-      })
-      .catch((error) => {
-        // eslint-disable-next-line no-console
-        console.log(error);
-        toggleVisibility();
-        setError(t('caseAddError'));
-      });
+    toggleVisibility();
+    try {
+      dispatch(createCase(newCase));
+      setSuccess(t('caseAddSuccess'));
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log(error);
+      setError(t('caseAddError'));
+    }
   };
 
   return (
