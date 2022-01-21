@@ -65,7 +65,7 @@ describe('procedures', () => {
         title: 'TestProcedure4',
       });
     const responseCheck = await api.get('/api/procedures/1');
-    const contentsCheck = responseCheck.body[0].procedures[0].title;
+    const contentsCheck = responseCheck.body.procedures[0].title;
     expect(contentsCheck).toEqual('TestProcedure4');
   });
 });

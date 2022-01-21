@@ -3,7 +3,7 @@ import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import ShallowRenderer from 'react-shallow-renderer';
 import { waitFor } from '@testing-library/react';
-import Procedures from '../../App/procedure/Procedures';
+import Procedures from '../../App/procedure/components/Procedures';
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),

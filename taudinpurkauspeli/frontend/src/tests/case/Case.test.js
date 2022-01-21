@@ -3,9 +3,11 @@
 import { render } from '@testing-library/react';
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
 import '@testing-library/dom';
 import '@testing-library/jest-dom/extend-expect';
 import Case from '../../App/case/components/Case';
+import store from '../../store';
 
 const cases = [{
   id: 1,
@@ -29,17 +31,21 @@ jest.mock('react-router-dom', () => ({
 describe('Case pages', () => {
   test('case is rendered', () => {
     render(
-      <MemoryRouter>
-        <Case cases={cases} />
-      </MemoryRouter>,
+      <Provider store={store}>
+        <MemoryRouter>
+          <Case cases={cases} />
+        </MemoryRouter>
+      </Provider>,
     );
   });
 
   test('case view includes navigation for anamnesis, procedures and differentials', () => {
     const caseView = render(
-      <MemoryRouter>
-        <Case cases={cases} />
-      </MemoryRouter>,
+      <Provider store={store}>
+        <MemoryRouter>
+          <Case cases={cases} />
+        </MemoryRouter>
+      </Provider>,
     );
 
     expect(caseView.getByText('caseAnamnesis')).toBeInTheDocument();

@@ -1,8 +1,10 @@
 /* eslint-disable no-undef */
 const supertest = require('supertest');
 const app = require('../app');
+
 const api = supertest(app);
-const db = require('../models/');
+const db = require('../models');
+
 const Procedure = db.procedures;
 
 const initialProcedures = [
@@ -85,12 +87,12 @@ describe('procedures', () => {
   });
 
   test('title can be changed', async () => {
-    const responseUpdate = await api.put('/api/procedures/1')
+    await api.put('/api/procedures/1')
       .send({
         title: 'TestProcedure4',
       });
     const responseCheck = await api.get('/api/procedures/1');
-    const contentsCheck = responseCheck.body[0].procedures[0].title;
+    const contentsCheck = responseCheck.body.procedures[0].title;
     expect(contentsCheck).toEqual('TestProcedure4');
   });
 });

@@ -8,7 +8,7 @@ import HideCase from '../case/components/HideCase';
 import UpdateCaseTitle from '../case/components/UpdateCaseTitle';
 import { setSuccess, setError } from '../../utils/MessageBanner';
 import UpdateAnamnesis from './UpdateAnamnesis';
-import { updateCase } from '../case/reducers/casesReducer';
+import { updateCase } from '../case/casesReducer';
 
 const Anamnesis = ({ admin }) => {
   const { t } = useTranslation();
@@ -29,8 +29,8 @@ const Anamnesis = ({ admin }) => {
   };
 
   return (
-    <div id="wrapper">
-      { admin && c && (
+    <div>
+      {admin && c && (
         <div id="casePageArea">
           <div className="rows">
             <UpdateCaseTitle c={c} updateCaseTitle={handleCaseUpdate} />
@@ -39,7 +39,7 @@ const Anamnesis = ({ admin }) => {
           <UpdateAnamnesis c={c} updateAnamnesis={handleCaseUpdate} />
         </div>
       )}
-      { !admin && c && (
+      {!admin && c && (
         <p>{c.title}</p>
       )}
     </div>

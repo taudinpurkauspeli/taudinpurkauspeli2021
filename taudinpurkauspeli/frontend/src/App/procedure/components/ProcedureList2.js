@@ -1,8 +1,9 @@
+/* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-array-index-key */
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import service from '../../services/procedures/procedures';
+import service from '../proceduresService';
 
 const ProcedureList2 = ({ id }) => {
   const { t } = useTranslation();

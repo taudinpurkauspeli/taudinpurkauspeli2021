@@ -13,8 +13,8 @@ import CopyCase from './CopyCase';
 import RemoveCase from './RemoveCase';
 import { setError, setSuccess } from '../../../utils/MessageBanner';
 import ducService from '../../../services/differentials/differentialsUnderCases';
-import pucService from '../../../services/procedures/proceduresUnderCase';
-import { removeCase } from '../reducers/casesReducer';
+import pucService from '../../procedure/proceduresUnderCaseService';
+import { removeCase } from '../casesReducer';
 
 const CaseCard = ({ c, admin }) => {
   const { t } = useTranslation();

@@ -38,7 +38,7 @@ proceduresRouter.get('/', middleware.checkUserRights, (req, res, next) => {
 proceduresRouter.get('/:id', middleware.checkUserRights, (req, res, next) => {
   const { id } = req.params;
 
-  Case.findAll({
+  Case.findOne({
     include: [{
       model: Procedure,
     }],
