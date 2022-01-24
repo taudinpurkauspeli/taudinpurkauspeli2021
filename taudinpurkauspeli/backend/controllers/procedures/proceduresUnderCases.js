@@ -3,18 +3,15 @@ const proceduresUnderCasesRouter = require('express').Router();
 const db = require('../../models');
 
 const ProcedureUnderCase = db.proceduresUnderCases;
-const Procedure = db.procedures;
-const Case = db.cases;
 const middleware = require('../../utils/middleware');
 
 const { Op } = db.Sequelize;
 
-Procedure.belongsToMany(Case, { through: ProcedureUnderCase });
-Case.belongsToMany(Procedure, { through: ProcedureUnderCase });
-
 // Save a new procedure under case
 proceduresUnderCasesRouter.post('/', middleware.checkAdminRights, (req, res, next) => {
   // Create a procedure under case
+  console.log('data arrived', req.body);
+
   const procedureUnderCase = {
     caseId: req.body.caseId,
     procedureId: req.body.procedureId,

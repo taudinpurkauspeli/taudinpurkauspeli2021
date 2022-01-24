@@ -10,11 +10,11 @@ describe('sub_procedures', () => {
     // deletes the content from the table 'cases'
     await db.sequelize.sync({ force: true });
     // inserts test cases in the table 'cases'
-    await db.procedures.bulkCreate(helper.initialProcedures);
+    await db.initialCases.bulkCreate(helper.initials);
     await db.cases.bulkCreate(helper.initialCases);
-    await db.subProcedures.bulkCreate(helper.initialSubProcedures);
+    await db.procedures.bulkCreate(helper.initialProcedures);
     await db.proceduresUnderCases.bulkCreate(helper.initialProceduresUnderCases);
-    await db.textSubProcedures.bulkCreate(helper.initialTextSubProcedures);
+    await db.subProcedures.bulkCreate(helper.initialSubProcedures);
   });
 
   test('all subprocedures are returned', async () => {

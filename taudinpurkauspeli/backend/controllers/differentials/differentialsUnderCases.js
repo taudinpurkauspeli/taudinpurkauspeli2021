@@ -5,7 +5,7 @@ const middleware = require('../../utils/middleware');
 
 const DifferentialUnderCase = db.differentalsUnderCases;
 const Differential = db.differentials;
-const DifferentialGroupUnderCase = db.differentialGroupsUnderCase;
+const DifferentialGroupUnderCase = db.differentialGroupsUnderCases;
 
 DifferentialGroupUnderCase.belongsToMany(Differential, { through: DifferentialUnderCase });
 Differential.belongsToMany(DifferentialGroupUnderCase, { through: DifferentialUnderCase });

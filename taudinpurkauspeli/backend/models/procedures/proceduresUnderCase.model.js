@@ -1,11 +1,16 @@
 module.exports = (sequelize, Sequelize) => {
 // In previous version this table was called ""
-  const proceduresUnderCase = sequelize.define('proceduresUnderCase', {
+  const ProceduresUnderCase = sequelize.define('proceduresUnderCase', {
+    id: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     caseId: {
       type: Sequelize.INTEGER,
       references: {
         model: 'cases',
-        key: 'id',
+        key: 'initialCaseId',
       },
     },
     procedureId: {
@@ -15,12 +20,6 @@ module.exports = (sequelize, Sequelize) => {
         key: 'id',
       },
     },
-    procedureCaseId: {
-      type: Sequelize.INTEGER,
-      primaryKey: true,
-      allowNull: false,
-      autoIncrement: true,
-    },
     priority: {
       type: Sequelize.INTEGER,
     },
@@ -28,5 +27,5 @@ module.exports = (sequelize, Sequelize) => {
     tableName: 'procedures_under_cases',
   });
 
-  return proceduresUnderCase;
+  return ProceduresUnderCase;
 };

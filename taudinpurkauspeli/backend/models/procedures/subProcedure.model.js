@@ -1,6 +1,11 @@
 module.exports = (sequelize, Sequelize) => {
-// In previous version this table was called "exercise"
-  const subProcedures = sequelize.define('subProcedures', {
+  const SubProcedure = sequelize.define('subProcedure', {
+    language: {
+      type: Sequelize.STRING,
+    },
+    isDefault: {
+      type: Sequelize.BOOLEAN,
+    },
     priority: {
       type: Sequelize.INTEGER,
       allowNull: false,
@@ -13,7 +18,7 @@ module.exports = (sequelize, Sequelize) => {
     tableName: 'sub_procedures',
   });
 
-  return subProcedures;
+  return SubProcedure;
 };
 
 /* Subtask

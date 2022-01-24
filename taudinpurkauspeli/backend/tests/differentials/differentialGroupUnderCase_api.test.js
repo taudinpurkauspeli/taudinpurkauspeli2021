@@ -5,14 +5,16 @@ const api = supertest(app);
 const db = require('../../models');
 const helper = require('../test_helper');
 
-const DifferentialGroupUnderCase = db.differentialGroupsUnderCase;
+const DifferentialGroupUnderCase = db.differentialGroupsUnderCases;
 const DifferentialGroup = db.differentialGroups;
 const Case = db.cases;
+const InitialCase = db.initialCases;
 
 beforeEach(async () => {
   // deletes the content from the table 'differentials'
   await db.sequelize.sync({ force: true });
   // inserts test differentials in the table 'differentials'
+  await InitialCase.bulkCreate(helper.initials);
   await Case.bulkCreate(helper.initialCases);
   await DifferentialGroup.bulkCreate(helper.initialDifferentialGroups);
   await DifferentialGroupUnderCase.bulkCreate(helper.initialDifferentialGroupsUnderCases);

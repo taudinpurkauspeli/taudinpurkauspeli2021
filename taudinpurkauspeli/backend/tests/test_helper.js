@@ -1,31 +1,46 @@
 const initialDifferentials = [
   {
     name: 'TestDisease1',
+    language: 'fin',
   },
   {
     name: 'TestDisease2',
+    language: 'fin',
+  },
+];
+
+const initials = [
+  {
+    hidden: true,
+  },
+  {
+    hidden: true,
   },
 ];
 
 const initialCases = [
   {
     title: 'TestCase1',
-    hidden: true,
+    initialCaseId: 1,
     anamnesis: 'TestCase1Anamnesis',
+    language: 'fin',
   },
   {
     title: 'TestCase2',
-    hidden: true,
+    initialCaseId: 2,
     anamnesis: 'TestCase2Anamnesis',
+    language: 'fin',
   },
 ];
 
 const initialDifferentialGroups = [
   {
     name: 'TestDifferentialGroup1',
+    language: 'fin',
   },
   {
     name: 'TestDifferentialGroup2',
+    language: 'fin',
   },
 ];
 
@@ -45,16 +60,19 @@ const initialDifferentialsUnderCases = [
     differentialGroupsUnderCaseId: 1,
     differentialId: 2,
     description: 'Testi1',
+    language: 'fin',
   },
   {
     differentialGroupsUnderCaseId: 2,
     differentialId: 1,
     description: 'Testi2',
+    language: 'fin',
   },
   {
     differentialGroupsUnderCaseId: 1,
     differentialId: 1,
     description: 'Testi3',
+    language: 'fin',
   },
 ];
 
@@ -76,12 +94,11 @@ const initialUsers = [
 const initialProcedures = [
   {
     title: 'TestProcedure1',
+    language: 'fin',
   },
   {
     title: 'TestProcedure2',
-  },
-  {
-    title: 'TestProcedure3',
+    language: 'fin',
   },
 ];
 
@@ -89,10 +106,14 @@ const initialSubProcedures = [
   {
     priority: 1,
     type: 'TEXT',
+    proceduresUnderCaseId: 1,
+    language: 'fin',
   },
   {
     priority: 1,
     type: 'TEXT',
+    proceduresUnderCaseId: 2,
+    language: 'fin',
   },
 ];
 
@@ -102,18 +123,24 @@ const initialProceduresUnderCases = [
     procedureId: 1,
     priority: 1,
   },
+  {
+    caseId: 1,
+    procedureId: 2,
+    priority: 1,
+  },
 ];
 
 const initialTextSubProcedures = [
   {
     subProcedureId: 1,
-    proceduresUnderCaseProcedureCaseId: 1,
     title: 'TestTitle',
     text: 'TestText',
+    language: 'fin',
   },
 ];
 
 module.exports = {
+  initials,
   initialDifferentials,
   initialCases,
   initialDifferentialGroups,

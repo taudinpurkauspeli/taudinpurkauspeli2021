@@ -10,8 +10,9 @@ describe('procedures', () => {
     // deletes the content from the table 'procedures'
     await db.sequelize.sync({ force: true });
     // inserts test cases in the table 'procedures'
-    await db.procedures.bulkCreate(helper.initialProcedures);
+    await db.initialCases.bulkCreate(helper.initials);
     await db.cases.bulkCreate(helper.initialCases);
+    await db.procedures.bulkCreate(helper.initialProcedures);
     await db.proceduresUnderCases.bulkCreate(helper.initialProceduresUnderCases);
   });
 
@@ -23,8 +24,8 @@ describe('procedures', () => {
 
   test('a valid procedure under case can be added ', async () => {
     const newProcedureUnderCase = {
-      caseId: '1',
-      procedureId: '3',
+      caseId: 2,
+      procedureId: 1,
       priority: 3,
     };
 
@@ -46,8 +47,8 @@ describe('procedures', () => {
     await api
       .put('/api/proceduresUnderCases/1')
       .send({
-        caseId: '1',
-        procedureId: '1',
+        caseId: 1,
+        procedureId: 1,
         priority: 55,
       });
     const responseCheck = await api.get('/api/proceduresUnderCases');

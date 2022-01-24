@@ -4,23 +4,46 @@ const db = require('../models');
 const helper = require('../utils/token');
 const middleware = require('../utils/middleware');
 
+const InitialCase = db.initialCases;
 const Case = db.cases;
 const { Op } = db.Sequelize;
 
 // Save a new case
-caseRouter.post('/', middleware.checkAdminRights, (req, res, next) => {
-  const case1 = {
-    title: req.body.title,
-    hidden: req.body.hidden,
-    anamnesis: req.body.anamnesis,
+caseRouter.post('/', middleware.checkAdminRights, async (req, res, next) => {
+  let { id } = req.body;
+  const {
+    language, hidden, title, anamnesis,
+  } = req.body;
+
+  // console.log(`with title ${title} the id is ${id}`);
+
+  if (id === undefined) {
+    const newInitialCase = await InitialCase.create({ hidden });
+    id = newInitialCase.id;
+  }
+
+  // console.log(`after the id of the title ${title} is ${id}`);
+
+  const newCase = {
+    initialCaseId: id,
+    language,
+    isDefault: language === 'fin',
+    title,
+    anamnesis,
   };
 
   // Save case in the database
-  Case.create(case1)
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((error) => next(error));
+  const newSavedCase = await Case.create(newCase);
+  // console.log('info for new case', newSavedCase);
+  try {
+    res.json({
+      title: newSavedCase.title,
+      anamnesis: newSavedCase.anamnesis,
+      hidden,
+    });
+  } catch (error) {
+    next(error);
+  }
 });
 
 // Retrieve all cases
@@ -28,10 +51,19 @@ caseRouter.get('/', async (req, res, next) => {
   const { title } = req.query;
   const condition = title ? { title: { [Op.iLike]: `%${title}%` } } : null;
 
-  const data = await Case.findAll({ where: condition });
-  const user = await helper.createUser(req);
-
   try {
+    const data = await Case.findAll({
+      attributes: ['title', 'anamnesis', ['initialCaseId', 'id']],
+      where: condition,
+      include: {
+        model: InitialCase,
+        as: 'initialCase',
+        attributes: ['hidden'],
+      },
+    });
+    const user = await helper.createUser(req);
+
+    // console.log('cases retrieved from database', data);
     res
       .status(200)
       .send({
@@ -43,10 +75,20 @@ caseRouter.get('/', async (req, res, next) => {
 });
 
 // Find a single case (by id)
-caseRouter.get('/:id', middleware.checkUserRights, (req, res, next) => {
-  const { id } = req.params;
+caseRouter.get('/:id/:language', middleware.checkUserRights, (req, res, next) => {
+  const { id, language } = req.params;
 
-  Case.findByPk(id)
+  Case.findOne({
+    where: {
+      initialCaseId: id,
+      language,
+    },
+    include: {
+      model: InitialCase,
+      as: 'initialCase',
+      attributes: ['hidden'],
+    },
+  })
     .then((data) => {
       if (data === null) {
         res.send(404).end();
@@ -57,20 +99,25 @@ caseRouter.get('/:id', middleware.checkUserRights, (req, res, next) => {
 });
 
 // Update a case (by id)
-caseRouter.put('/:id', middleware.checkAdminRights, (req, res, next) => {
+caseRouter.put('/:id', middleware.checkAdminRights, async (req, res, next) => {
   const { id } = req.params;
+  const {
+    title, anamnesis, hidden, language,
+  } = req.body;
 
-  Case.update(req.body, {
-    where: { id },
-  })
-    .then((num) => {
-      if (Number(num) === 1) {
-        res.send({
-          message: 'Case was updated successfully.',
-        });
-      }
-    })
-    .catch((error) => next(error));
+  try {
+    await Case.update({ title, anamnesis, initialCaseId: id }, {
+      where: { initialCaseId: id, language },
+    });
+    await InitialCase.update({ hidden }, {
+      where: { id },
+    });
+    res.send({
+      message: 'Case was updated successfully.',
+    });
+  } catch (error) {
+    next(error);
+  }
 });
 
 // Delete a case (by id)

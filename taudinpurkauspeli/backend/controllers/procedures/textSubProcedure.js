@@ -4,12 +4,7 @@ const db = require('../../models');
 const middleware = require('../../utils/middleware');
 
 const TextSubProcedure = db.textSubProcedures;
-const SubProcedure = db.subProcedures;
-const ProcedureUnderCase = db.proceduresUnderCases;
 const { Op } = db.Sequelize;
-
-SubProcedure.belongsToMany(ProcedureUnderCase, { through: TextSubProcedure });
-ProcedureUnderCase.belongsToMany(SubProcedure, { through: TextSubProcedure });
 
 // Save a new sub procedure under case
 textSubProcedureRouter.post('/', middleware.checkAdminRights, (req, res, next) => {

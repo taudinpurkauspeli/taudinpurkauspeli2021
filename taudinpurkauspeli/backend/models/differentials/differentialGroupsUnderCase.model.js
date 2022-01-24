@@ -9,7 +9,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.INTEGER,
       references: {
         model: 'cases',
-        key: 'id',
+        key: 'initialCaseId',
       },
     },
     differentialGroupId: {

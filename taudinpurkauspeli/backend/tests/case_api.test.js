@@ -6,11 +6,13 @@ const db = require('../models');
 const helper = require('./test_helper');
 
 const Case = db.cases;
+const InitialCase = db.initialCases;
 
 beforeEach(async () => {
   // deletes the content from the table 'cases'
   await db.sequelize.sync({ force: true });
   // inserts test cases in the table 'cases'
+  await InitialCase.bulkCreate(helper.initials);
   await Case.bulkCreate(helper.initialCases);
 });
 
@@ -30,7 +32,7 @@ describe('Getting cases from database', () => {
 
   test('throws error when trying to get case with non-existent id', async () => {
     await api
-      .get('/api/cases/5')
+      .get('/api/cases/5/fin')
       .expect(404);
   });
 });
@@ -48,6 +50,7 @@ describe('Adding a case to database', () => {
       title: 'NewTitle1',
       hidden: false,
       anamnesis: 'NewAnamnesis1',
+      language: 'fin',
     };
 
     await api
@@ -59,7 +62,7 @@ describe('Adding a case to database', () => {
     const response = await api.get('/api/cases');
 
     const titles = response.body.data.map((r) => r.title);
-    const hiddens = response.body.data.map((r) => r.hidden);
+    const hiddens = response.body.data.map((r) => r.initialCase.hidden);
     const anamnesiss = response.body.data.map((r) => r.anamnesis);
 
     expect(response.body.data).toHaveLength(helper.initialCases.length + 1);
@@ -92,9 +95,10 @@ describe('Updating a case in database', () => {
         title: 'TestCase1',
         hidden: false,
         anamnesis: 'TestCase1Anamnesis',
+        language: 'fin',
       });
-    const responseCheck = await api.get('/api/cases/1');
-    expect(responseCheck.body.hidden).toEqual(false);
+    const responseCheck = await api.get('/api/cases/1/fin');
+    expect(responseCheck.body.initialCase.hidden).toEqual(false);
   });
 
   test('title can be changed to another valid title', async () => {
@@ -104,8 +108,9 @@ describe('Updating a case in database', () => {
         title: 'updatedTestCase',
         hidden: true,
         anamnesis: 'TestCase1Anamnesis',
+        language: 'fin',
       });
-    const responseCheck = await api.get('/api/cases/1');
+    const responseCheck = await api.get('/api/cases/1/fin');
     expect(responseCheck.body.title).toEqual('updatedTestCase');
   });
 
@@ -116,9 +121,10 @@ describe('Updating a case in database', () => {
         title: 't',
         hidden: true,
         anamnesis: 'TestCase1Anamnesis',
+        language: 'fin',
       })
       .expect(400);
-    const responseCheck = await api.get('/api/cases/1');
+    const responseCheck = await api.get('/api/cases/1/fin');
     expect(responseCheck.body.title).toEqual('TestCase1');
   });
 });

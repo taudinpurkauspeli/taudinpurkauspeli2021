@@ -3,12 +3,9 @@ const differentialGroupsUnderCasesRouter = require('express').Router();
 const db = require('../../models');
 const middleware = require('../../utils/middleware');
 
-const DifferentialGroupUnderCase = db.differentialGroupsUnderCase;
+const DifferentialGroupUnderCase = db.differentialGroupsUnderCases;
 const Case = db.cases;
 const DifferentialGroup = db.differentialGroups;
-
-Case.belongsToMany(DifferentialGroup, { through: DifferentialGroupUnderCase });
-DifferentialGroup.belongsToMany(Case, { through: DifferentialGroupUnderCase });
 
 // Create differentialgroup under case
 differentialGroupsUnderCasesRouter.post('/', middleware.checkAdminRights, (req, res, next) => {

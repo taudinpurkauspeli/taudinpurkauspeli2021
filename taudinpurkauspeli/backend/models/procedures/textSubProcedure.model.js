@@ -1,19 +1,11 @@
 module.exports = (sequelize, Sequelize) => {
 // In previous version this table was called "exercise"
-  const textSubProcedures = sequelize.define('textSubProcedures', {
-    subProcedureId: {
-      type: Sequelize.INTEGER,
-      references: {
-        model: 'subProcedures',
-        key: 'id',
-      },
+  const TextSubProcedure = sequelize.define('textSubProcedure', {
+    language: {
+      type: Sequelize.STRING,
     },
-    proceduresUnderCaseProcedureCaseId: {
-      type: Sequelize.INTEGER,
-      references: {
-        model: 'proceduresUnderCases',
-        key: 'procedureCaseId',
-      },
+    isDefault: {
+      type: Sequelize.BOOLEAN,
     },
     title: {
       type: Sequelize.STRING,
@@ -26,5 +18,5 @@ module.exports = (sequelize, Sequelize) => {
     tableName: 'text_sub_procedures',
   });
 
-  return textSubProcedures;
+  return TextSubProcedure;
 };
