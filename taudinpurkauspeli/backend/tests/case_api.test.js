@@ -6,13 +6,13 @@ const db = require('../models');
 const helper = require('./test_helper');
 
 const Case = db.cases;
-const InitialCase = db.initialCases;
+const PlainCase = db.plainCases;
 
 beforeEach(async () => {
   // deletes the content from the table 'cases'
   await db.sequelize.sync({ force: true });
   // inserts test cases in the table 'cases'
-  await InitialCase.bulkCreate(helper.initials);
+  await PlainCase.bulkCreate(helper.plainCases);
   await Case.bulkCreate(helper.initialCases);
   await Case.bulkCreate(helper.initialEnglishCases);
 });

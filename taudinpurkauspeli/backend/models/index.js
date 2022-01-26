@@ -22,7 +22,9 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.initialCases = require('./initialCase.model')(sequelize, Sequelize);
+db.plainCases = require('./plainCase.model')(sequelize, Sequelize);
+db.plainDifferentials = require('./differentials/plainDifferential.model')(sequelize, Sequelize);
+
 db.users = require('./user.model')(sequelize, Sequelize);
 db.cases = require('./case.model')(sequelize, Sequelize);
 db.differentialGroups = require('./differentials/differentialGroup.model')(sequelize, Sequelize);
@@ -34,10 +36,15 @@ db.proceduresUnderCases = require('./procedures/proceduresUnderCase.model')(sequ
 db.subProcedures = require('./procedures/subProcedure.model')(sequelize, Sequelize);
 db.textSubProcedures = require('./procedures/textSubProcedure.model')(sequelize, Sequelize);
 
-db.initialCases.hasMany(db.cases);
-db.cases.belongsTo(db.initialCases, {
-  as: 'initialCase',
-  foreignKey: 'initialCaseId',
+db.plainCases.hasMany(db.cases);
+db.cases.belongsTo(db.plainCases, {
+  foreignKey: 'plainCaseId',
+  constraints: false,
+});
+
+db.plainDifferentials.hasMany(db.differentials);
+db.differentials.belongsTo(db.plainDifferentials, {
+  foreignKey: 'plainDifferentialId',
   constraints: false,
 });
 

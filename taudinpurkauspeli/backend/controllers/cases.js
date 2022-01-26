@@ -4,7 +4,7 @@ const db = require('../models');
 const helper = require('../utils/token');
 const middleware = require('../utils/middleware');
 
-const InitialCase = db.initialCases;
+const PlainCase = db.plainCases;
 const Case = db.cases;
 const { Op } = db.Sequelize;
 
@@ -17,23 +17,24 @@ caseRouter.post('/:language', middleware.checkAdminRights, async (req, res) => {
   } = req.body;
 
   if (id === undefined) {
-    const newInitialCase = await InitialCase.create({ hidden });
-    id = newInitialCase.id;
+    const newPlainCase = await PlainCase.create({ hidden });
+    id = newPlainCase.id;
   }
 
   const newCase = {
-    initialCaseId: id,
+    plainCaseId: id,
     language,
     isDefault: language === 'fin',
     title,
     anamnesis,
   };
 
-  const newSavedCase = await Case.create(newCase);
+  const savedCase = await Case.create(newCase);
 
   res.json({
-    title: newSavedCase.title,
-    anamnesis: newSavedCase.anamnesis,
+    id: savedCase.plainCaseId,
+    title: savedCase.title,
+    anamnesis: savedCase.anamnesis,
     hidden,
   });
 });
@@ -45,15 +46,13 @@ caseRouter.get('/:language', async (req, res) => {
   const data = await Case.findAll({
     where: { language },
     include: {
-      model: InitialCase,
-      as: 'initialCase',
-      attributes: [],
+      model: PlainCase,
     },
     attributes: [
       'title',
       'anamnesis',
-      ['initialCaseId', 'id'],
-      [db.Sequelize.literal('"initialCase"."hidden"'), 'hidden'],
+      ['plainCaseId', 'id'],
+      [db.Sequelize.literal('"plainCase"."hidden"'), 'hidden'],
     ],
   });
   const user = await helper.createUser(req);
@@ -71,19 +70,18 @@ caseRouter.get('/:id/:language', middleware.checkUserRights, async (req, res) =>
 
   const foundCase = await Case.findOne({
     where: {
-      initialCaseId: id,
+      plainCaseId: id,
       [Op.or]: [{ language }, { isDefault: true }],
     },
     include: {
-      model: InitialCase,
-      as: 'initialCase',
+      model: PlainCase,
       attributes: [],
     },
     attributes: [
       'title',
       'anamnesis',
-      ['initialCaseId', 'id'],
-      [db.Sequelize.literal('"initialCase"."hidden"'), 'hidden'],
+      ['plainCaseId', 'id'],
+      [db.Sequelize.literal('"plainCase"."hidden"'), 'hidden'],
     ],
   });
 
@@ -101,10 +99,10 @@ caseRouter.put('/:id/:language', middleware.checkAdminRights, async (req, res) =
     title, anamnesis, hidden,
   } = req.body;
 
-  await Case.update({ title, anamnesis, initialCaseId: id }, {
-    where: { initialCaseId: id, language },
+  await Case.update({ title, anamnesis, plainCaseId: id }, {
+    where: { plainCaseId: id, language },
   });
-  await InitialCase.update({ hidden }, {
+  await PlainCase.update({ hidden }, {
     where: { id },
   });
 
@@ -118,13 +116,13 @@ caseRouter.delete('/:id', middleware.checkAdminRights, async (req, res) => {
   const { id } = req.params;
 
   await Case.destroy({
-    where: { initialCaseId: id },
+    where: { plainCaseId: id },
   });
-  const deletedInitialCase = await InitialCase.destroy({
+  const deletedplainCase = await PlainCase.destroy({
     where: { id },
   });
 
-  if (Number(deletedInitialCase) === 1) {
+  if (Number(deletedplainCase) === 1) {
     res.status(204).end();
   } else {
     res.status(404).end();

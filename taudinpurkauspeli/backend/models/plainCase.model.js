@@ -1,13 +1,13 @@
 module.exports = (sequelize, Sequelize) => {
-  const InitialCase = sequelize.define('initialCase', {
+  const PlainCase = sequelize.define('plainCase', {
     hidden: {
       type: Sequelize.BOOLEAN,
       allowNull: false,
     },
   }, {
-    tableName: 'initial_cases',
+    tableName: 'plain_cases',
     timestamps: false,
   });
 
-  return InitialCase;
+  return PlainCase;
 };

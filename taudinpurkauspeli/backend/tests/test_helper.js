@@ -1,34 +1,44 @@
+const plainCases = [
+  {
+    hidden: true,
+  },
+  {
+    hidden: true,
+  },
+];
+
 const initialDifferentials = [
   {
-    name: 'TestDisease1',
+    plainDifferentialId: 1,
+    name: 'TestiDiffi1',
     language: 'fin',
   },
   {
-    name: 'TestDisease2',
+    plainDifferentialId: 2,
+    name: 'TestiDiffi2',
     language: 'fin',
   },
 ];
 
-const initials = [
+const initialEnglishDifferentials = [
   {
-    hidden: true,
-  },
-  {
-    hidden: true,
+    plainDifferentialId: 1,
+    name: 'TestDisease1',
+    language: 'eng',
   },
 ];
 
 const initialCases = [
   {
     title: 'TestiCase1',
-    initialCaseId: 1,
+    plainCaseId: 1,
     anamnesis: 'Testianamneesi',
     language: 'fin',
     isDefault: true,
   },
   {
     title: 'TestiCase2',
-    initialCaseId: 2,
+    plainCaseId: 2,
     anamnesis: 'Testianamneesi',
     language: 'fin',
     isDefault: true,
@@ -38,7 +48,7 @@ const initialCases = [
 const initialEnglishCases = [
   {
     title: 'TestCase1',
-    initialCaseId: 1,
+    plainCaseId: 1,
     anamnesis: 'TestCase1Anamnesis',
     language: 'eng',
     isDefault: false,
@@ -152,8 +162,9 @@ const initialTextSubProcedures = [
 ];
 
 module.exports = {
-  initials,
+  plainCases,
   initialDifferentials,
+  initialEnglishDifferentials,
   initialCases,
   initialEnglishCases,
   initialDifferentialGroups,
