@@ -20,16 +20,28 @@ const initials = [
 
 const initialCases = [
   {
+    title: 'TestiCase1',
+    initialCaseId: 1,
+    anamnesis: 'Testianamneesi',
+    language: 'fin',
+    isDefault: true,
+  },
+  {
+    title: 'TestiCase2',
+    initialCaseId: 2,
+    anamnesis: 'Testianamneesi',
+    language: 'fin',
+    isDefault: true,
+  },
+];
+
+const initialEnglishCases = [
+  {
     title: 'TestCase1',
     initialCaseId: 1,
     anamnesis: 'TestCase1Anamnesis',
-    language: 'fin',
-  },
-  {
-    title: 'TestCase2',
-    initialCaseId: 2,
-    anamnesis: 'TestCase2Anamnesis',
-    language: 'fin',
+    language: 'eng',
+    isDefault: false,
   },
 ];
 
@@ -143,6 +155,7 @@ module.exports = {
   initials,
   initialDifferentials,
   initialCases,
+  initialEnglishCases,
   initialDifferentialGroups,
   initialDifferentialGroupsUnderCases,
   initialDifferentialsUnderCases,
