@@ -68,7 +68,7 @@ describe('Getting differentials from database', () => {
 });
 
 describe('Adding a differential to database', () => {
-  test('a valid differential can be added ', async () => {
+  test('a valid differential can be added', async () => {
     const newDifferential = {
       name: 'NewTitle1',
     };
@@ -85,6 +85,28 @@ describe('Adding a differential to database', () => {
 
     expect(response.body).toHaveLength(helper.initialDifferentials.length + 1);
     expect(names).toContain('NewTitle1');
+  });
+
+  test('same differential in different language can be added', async () => {
+    const newDifferential = {
+      id: 2,
+      name: 'English name',
+    };
+
+    await api
+      .post('/api/differentials/eng')
+      .send(newDifferential)
+      .expect(200)
+      .expect('Content-Type', /application\/json/);
+
+    const response = await api.get('/api/differentials/eng');
+    const finResponse = await api.get('/api/differentials/fin');
+
+    const names = response.body.map((r) => r.name);
+
+    expect(response.body).toHaveLength(helper.initialEnglishDifferentials.length + 1);
+    expect(finResponse.body).toHaveLength(helper.initialDifferentials.length);
+    expect(names).toContain('English name');
   });
 
   test('differential without name is not added', async () => {

@@ -3,41 +3,57 @@ const differentialGroupRouter = require('express').Router();
 const db = require('../../models');
 const middleware = require('../../utils/middleware');
 
+const PlainDifferentialGroup = db.plainDifferentialGroups;
 const DifferentialGroup = db.differentialGroups;
-const { Op } = db.Sequelize;
 
 // Save a new differentialgroup
-differentialGroupRouter.post('/', middleware.checkAdminRights, (req, res, next) => {
+differentialGroupRouter.post('/:language', middleware.checkAdminRights, async (req, res) => {
   // Create a differentialgroup
-  const differentialGroup = {
-    name: req.body.name,
+  const { language } = req.params;
+  let { id } = req.body;
+  const { name } = req.body;
+
+  if (id === undefined) {
+    const newPlainDiffGroup = await PlainDifferentialGroup.create({});
+    id = newPlainDiffGroup.id;
+  }
+
+  const newDifferentialGroup = {
+    plainDifferentialGroupId: id,
+    language,
+    isDefault: language === 'fin',
+    name,
   };
 
   // Save differentialgroup in the database
-  DifferentialGroup.findOrCreate({
-    where: {
-      name: differentialGroup.name,
-    },
-    defaults: {
-      name: differentialGroup.name,
-    },
-  })
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((error) => next(error));
+  const savedDifferentialGroup = await DifferentialGroup.findOrCreate({
+    where: newDifferentialGroup,
+    defaults: newDifferentialGroup,
+  });
+
+  res.json({
+    id: savedDifferentialGroup.plainDifferentialGroupId,
+    name: savedDifferentialGroup.name,
+  });
 });
 
 // Retrieve all differentialgroups
-differentialGroupRouter.get('/', middleware.checkUserRights, (req, res, next) => {
-  const { title } = req.query;
-  const condition = title ? { title: { [Op.iLike]: `%${title}%` } } : null;
+differentialGroupRouter.get('/:language', middleware.checkUserRights, async (req, res) => {
+  const { language } = req.params;
 
-  DifferentialGroup.findAll({ where: condition })
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((error) => next(error));
+  const foundDifferentialGroups = await DifferentialGroup.findAll({
+    where: { language },
+    include: {
+      model: PlainDifferentialGroup,
+      attributes: [],
+    },
+    attributes: [
+      'name',
+      ['plainDifferentialGroupId', 'id'],
+    ],
+  });
+
+  res.json(foundDifferentialGroups);
 });
 
 module.exports = differentialGroupRouter;

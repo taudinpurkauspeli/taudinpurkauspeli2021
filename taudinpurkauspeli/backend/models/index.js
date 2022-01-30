@@ -24,6 +24,7 @@ db.sequelize = sequelize;
 
 db.plainCases = require('./plainCase.model')(sequelize, Sequelize);
 db.plainDifferentials = require('./differentials/plainDifferential.model')(sequelize, Sequelize);
+db.plainDifferentialGroups = require('./differentials/plainDifferentialGroup.model')(sequelize, Sequelize);
 
 db.users = require('./user.model')(sequelize, Sequelize);
 db.cases = require('./case.model')(sequelize, Sequelize);
@@ -45,6 +46,12 @@ db.cases.belongsTo(db.plainCases, {
 db.plainDifferentials.hasMany(db.differentials);
 db.differentials.belongsTo(db.plainDifferentials, {
   foreignKey: 'plainDifferentialId',
+  constraints: false,
+});
+
+db.plainDifferentialGroups.hasMany(db.differentialGroups);
+db.differentialGroups.belongsTo(db.plainDifferentialGroups, {
+  foreignKey: 'plainDifferentialGroupId',
   constraints: false,
 });
 

@@ -12,11 +12,13 @@ const initialDifferentials = [
     plainDifferentialId: 1,
     name: 'TestiDiffi1',
     language: 'fin',
+    isDefault: true,
   },
   {
     plainDifferentialId: 2,
     name: 'TestiDiffi2',
     language: 'fin',
+    isDefault: true,
   },
 ];
 
@@ -25,6 +27,7 @@ const initialEnglishDifferentials = [
     plainDifferentialId: 1,
     name: 'TestDisease1',
     language: 'eng',
+    isDefault: false,
   },
 ];
 
@@ -57,12 +60,25 @@ const initialEnglishCases = [
 
 const initialDifferentialGroups = [
   {
-    name: 'TestDifferentialGroup1',
+    plainDifferentialGroupId: 1,
+    name: 'TestiDiffiRyhmä1',
     language: 'fin',
+    isDefault: true,
   },
   {
-    name: 'TestDifferentialGroup2',
+    plainDifferentialGroupId: 2,
+    name: 'TestiDiffiRyhmä2',
     language: 'fin',
+    isDefault: true,
+  },
+];
+
+const initialEnglishDifferentialGroups = [
+  {
+    plainDifferentialGroupId: 1,
+    name: 'TestDifferentialGroup1',
+    language: 'eng',
+    isDefault: false,
   },
 ];
 
@@ -168,6 +184,7 @@ module.exports = {
   initialCases,
   initialEnglishCases,
   initialDifferentialGroups,
+  initialEnglishDifferentialGroups,
   initialDifferentialGroupsUnderCases,
   initialDifferentialsUnderCases,
   initialUsers,
