@@ -10,14 +10,14 @@ const DifferentialGroup = db.differentialGroups;
 const Differential = db.differentials;
 const Case = db.cases;
 const DifferentialUnderCase = db.differentalsUnderCases;
-const InitialCase = db.initialCases;
+const PlainCase = db.plainCases;
 
 beforeEach(async () => {
   // deletes the content from the table 'differentials'
   await db.sequelize.sync({ force: true });
   // inserts test differentials in the table 'differentials'
   await Differential.bulkCreate(helper.initialDifferentials);
-  await InitialCase.bulkCreate(helper.initials);
+  await PlainCase.bulkCreate(helper.plainCases);
   await Case.bulkCreate(helper.initialCases);
   await DifferentialGroup.bulkCreate(helper.initialDifferentialGroups);
   await DifferentialGroupUnderCase.bulkCreate(helper.initialDifferentialGroupsUnderCases);

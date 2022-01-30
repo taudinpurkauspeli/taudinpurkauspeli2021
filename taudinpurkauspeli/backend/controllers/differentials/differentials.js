@@ -1,43 +1,83 @@
 /* eslint-disable consistent-return */
 const differentialRouter = require('express').Router();
+const { sequelize } = require('../../models');
 const db = require('../../models');
 const middleware = require('../../utils/middleware');
 
 const Differential = db.differentials;
+const PlainDifferential = db.plainDifferentials;
 const { Op } = db.Sequelize;
 
 // Save a new differential
-differentialRouter.post('/', middleware.checkAdminRights, (req, res, next) => {
-  // Create a differential
-  const differential = {
-    name: req.body.name,
+differentialRouter.post('/:language', middleware.checkAdminRights, async (req, res) => {
+  const { language } = req.params;
+  let { id } = req.body;
+  const { name } = req.body;
+
+  if (id === undefined) {
+    const newPlainDifferential = await PlainDifferential.create({});
+    id = newPlainDifferential.id;
+  }
+
+  const newDifferential = {
+    plainDifferentialId: id,
+    language,
+    isDefault: language === 'fin',
+    name,
   };
 
-  // Save differential in the database
-  Differential.findOrCreate({
-    where: {
-      name: differential.name,
-    },
-    defaults: {
-      name: differential.name,
-    },
-  })
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((error) => next(error));
+  // Save differential to the database
+  const savedDifferential = await Differential.findOrCreate({
+    where: newDifferential,
+    defaults: newDifferential,
+  });
+
+  res.json({
+    id: savedDifferential.plainDifferentialId,
+    name: savedDifferential.name,
+  });
 });
 
 // Retrieve all differentials
-differentialRouter.get('/', middleware.checkUserRights, (req, res, next) => {
-  const { title } = req.query;
-  const condition = title ? { title: { [Op.iLike]: `%${title}%` } } : null;
+differentialRouter.get('/:language', middleware.checkUserRights, async (req, res, next) => {
+  const { language } = req.params;
 
-  Differential.findAll({ where: condition })
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((error) => next(error));
+  /*
+  const foundDifferentials = await Differential.findAll({
+    order: [
+      ['plainDifferentialId'],
+      ['language'],
+    ],
+    where: {
+      [Op.or]: [{ language }, { isDefault: true }],
+    },
+    include: {
+      model: PlainDifferential,
+      attributes: [],
+    },
+    attributes: [
+      'name',
+      ['plainDifferentialId', 'id'],
+      // [db.sequelize.fn('DISTINCT', db.sequelize.col('plainDifferentialId')), 'id'],
+    ],
+    group: ['plainDifferentialId'],
+    raw: true,
+  });
+  */
+
+  const foundDifferentials = await Differential.findAll({
+    where: { language },
+    include: {
+      model: PlainDifferential,
+      attributes: [],
+    },
+    attributes: [
+      'name',
+      ['plainDifferentialId', 'id'],
+    ],
+  });
+
+  res.json(foundDifferentials);
 });
 
 // Update a differential (by id)
