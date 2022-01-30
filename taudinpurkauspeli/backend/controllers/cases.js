@@ -47,6 +47,7 @@ caseRouter.get('/:language', async (req, res) => {
     where: { language },
     include: {
       model: PlainCase,
+      attributes: [],
     },
     attributes: [
       'title',
@@ -87,9 +88,9 @@ caseRouter.get('/:id/:language', middleware.checkUserRights, async (req, res) =>
 
   if (foundCase === null) {
     res.send(404).end();
+  } else {
+    res.json(foundCase);
   }
-
-  res.json(foundCase);
 });
 
 // Update a case (by id)

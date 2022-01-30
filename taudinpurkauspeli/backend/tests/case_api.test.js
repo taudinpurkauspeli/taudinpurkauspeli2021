@@ -51,12 +51,10 @@ describe('Getting cases from database', () => {
   test('a specific case is within the returned cases', async () => {
     const response = await api.get('/api/cases/fin');
     const titles = response.body.data.map((r) => r.title);
-
     expect(titles).toContain('TestiCase2');
 
     const engResponse = await api.get('/api/cases/eng');
     const engTitles = engResponse.body.data.map((r) => r.title);
-
     expect(engTitles).toContain('TestCase1');
   });
 

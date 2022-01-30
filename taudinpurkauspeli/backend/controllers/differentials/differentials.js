@@ -1,12 +1,10 @@
 /* eslint-disable consistent-return */
 const differentialRouter = require('express').Router();
-const { sequelize } = require('../../models');
 const db = require('../../models');
 const middleware = require('../../utils/middleware');
 
 const Differential = db.differentials;
 const PlainDifferential = db.plainDifferentials;
-const { Op } = db.Sequelize;
 
 // Save a new differential
 differentialRouter.post('/:language', middleware.checkAdminRights, async (req, res) => {

@@ -10,7 +10,7 @@ describe('procedures', () => {
     // deletes the content from the table 'procedures'
     await db.sequelize.sync({ force: true });
     // inserts test cases in the table 'procedures'
-    await db.initialCases.bulkCreate(helper.initials);
+    await db.plainCases.bulkCreate(helper.plainCases);
     await db.cases.bulkCreate(helper.initialCases);
     await db.procedures.bulkCreate(helper.initialProcedures);
     await db.proceduresUnderCases.bulkCreate(helper.initialProceduresUnderCases);
