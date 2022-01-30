@@ -7,7 +7,7 @@ module.exports = (sequelize, Sequelize) => {
     isDefault: {
       type: Sequelize.BOOLEAN,
     },
-    title: {
+    name: {
       type: Sequelize.STRING,
       unique: true,
       allowNull: false,

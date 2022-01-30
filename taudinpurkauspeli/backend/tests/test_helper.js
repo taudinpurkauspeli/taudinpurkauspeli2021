@@ -131,12 +131,25 @@ const initialUsers = [
 
 const initialProcedures = [
   {
-    title: 'TestProcedure1',
+    plainProcedureId: 1,
+    name: 'TestiToimenpide1',
     language: 'fin',
+    isDefault: true,
   },
   {
-    title: 'TestProcedure2',
+    plainProcedureId: 2,
+    name: 'TestiToimenpide2',
     language: 'fin',
+    isDefault: true,
+  },
+];
+
+const initialEnglishProcedures = [
+  {
+    plainProcedureId: 1,
+    name: 'TestProcedure1',
+    language: 'eng',
+    isDefault: false,
   },
 ];
 
@@ -189,6 +202,7 @@ module.exports = {
   initialDifferentialsUnderCases,
   initialUsers,
   initialProcedures,
+  initialEnglishProcedures,
   initialSubProcedures,
   initialProceduresUnderCases,
   initialTextSubProcedures,
