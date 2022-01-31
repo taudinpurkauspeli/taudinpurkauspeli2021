@@ -1,39 +1,40 @@
 /* eslint-disable linebreak-style */
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Form } from 'react-bootstrap';
+import {
+  Form, Button,
+} from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
-const UpdateCaseTitle = ({ c, updateCaseTitle }) => {
+const UpdateAnamnesis = ({ c, updateAnamnesis }) => {
   const { t } = useTranslation();
 
-  const [title, setTitle] = useState(c.title);
+  const [anamnesis, setAnamnesis] = useState(c.anamnesis);
 
   const caseSchema = Yup.object().shape({
-    title: Yup.string()
+    anamnesis: Yup.string()
       .min(2, t('warningShort'))
-      .max(999, t('warningLong'))
+      .max(5000, t('warningLong'))
       .required(t('warningRequired')),
   });
 
-  const handleTitleUpdate = (values) => {
-    updateCaseTitle({
-      title: values.title,
-      anamnesis: c.anamnesis,
-      hidden: c.hidden,
+  const handleAnamnesisUpdate = (values) => {
+    updateAnamnesis({
+      ...c,
+      anamnesis: values.anamnesis,
     });
 
-    setTitle(values.title);
+    setAnamnesis(values.anamnesis);
   };
 
   return (
     <Formik
       initialValues={{
-        title,
+        anamnesis,
       }}
       validationSchema={caseSchema}
-      onSubmit={handleTitleUpdate}
+      onSubmit={handleAnamnesisUpdate}
     >
       {({
         handleSubmit,
@@ -42,26 +43,25 @@ const UpdateCaseTitle = ({ c, updateCaseTitle }) => {
         errors,
       }) => (
         <Form noValidate onSubmit={handleSubmit}>
-          <Form.Group className="mb-3" controlId="updateTitle" style={{ width: '30rem' }}>
+          <Form.Group className="mb-3" controlId="updateAnamnesis">
             <Form.Control
-              className="titleChangeInput"
-              type="text"
-              name="title"
-              value={values.title}
+              className="anamnesisForm"
+              as="textarea"
+              name="anamnesis"
+              value={values.anamnesis}
               onChange={handleChange}
-              isInvalid={!!errors.title}
+              isInvalid={!!errors.anamnesis}
+              rows={10}
             />
-            <Form.Text className="text-muted">
-              {t('caseTitleInstruction')}
-            </Form.Text>
             <Form.Control.Feedback type="invalid" role="alert" aria-label="from feedback">
-              {errors.title}
+              {errors.anamnesis}
             </Form.Control.Feedback>
           </Form.Group>
+          <Button className="submitButton" id="submit" type="submit">{t('buttonSaveAnamneesi')}</Button>
         </Form>
       )}
     </Formik>
   );
 };
 
-export default UpdateCaseTitle;
+export default UpdateAnamnesis;

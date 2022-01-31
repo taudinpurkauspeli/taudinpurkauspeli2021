@@ -3,7 +3,7 @@ import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import UpdateTextSubProcedure from '../../../components/subprocedure/textSubProcedure/UpdateTextSubProcedure';
+import UpdateTextSubProcedure from '../../../App/subprocedure/textSubProcedure/UpdateTextSubProcedure';
 import service from '../../../services/procedures/subProcedures';
 
 jest.mock('react-i18next', () => ({

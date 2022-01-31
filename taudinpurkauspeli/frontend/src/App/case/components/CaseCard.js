@@ -7,15 +7,18 @@ import {
   ProgressBar,
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
 import CopyCase from './CopyCase';
 import RemoveCase from './RemoveCase';
-import { setError, setSuccess } from '../../utils/MessageBanner';
-import caseService from '../../services/cases';
-import ducService from '../../services/differentials/differentialsUnderCases';
-import pucService from '../../services/procedures/proceduresUnderCase';
+import { setError, setSuccess } from '../../../utils/MessageBanner';
+import ducService from '../../../services/differentials/differentialsUnderCases';
+import pucService from '../../../services/procedures/proceduresUnderCase';
+import { removeCase } from '../reducers/casesReducer';
 
 const CaseCard = ({ c, admin }) => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
 
   /* istanbul ignore next */
   const createDifferentials = (copyId, result) => {
@@ -48,9 +51,12 @@ const CaseCard = ({ c, admin }) => {
     // eslint-disable-next-line no-alert
     const confirmBox = window.confirm(t('deleteCaseConfirmation'));
     if (confirmBox === true) {
-      caseService.remove(c.id)
-        .then(() => setSuccess(t('deleteCaseSuccess')))
-        .catch(() => setError(t('deleteCaseError')));
+      try {
+        dispatch(removeCase(c.id));
+        setSuccess(t('deleteCaseSuccess'));
+      } catch (error) {
+        setError(t('deleteCaseError'));
+      }
     }
   };
 

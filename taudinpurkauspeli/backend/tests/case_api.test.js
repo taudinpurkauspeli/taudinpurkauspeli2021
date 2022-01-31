@@ -85,9 +85,9 @@ describe('Adding a case to database', () => {
     const response = await api.get('/api/cases/fin');
     const engResponse = await api.get('/api/cases/eng');
 
-    const titles = response.body.data.map((r) => r.title);
-    const hiddens = response.body.data.map((r) => r.hidden);
-    const anamnesiss = response.body.data.map((r) => r.anamnesis);
+    const titles = response.body.cases.map((r) => r.title);
+    const hiddens = response.body.cases.map((r) => r.hidden);
+    const anamnesiss = response.body.cases.map((r) => r.anamnesis);
 
     expect(response.body.data).toHaveLength(helper.initialCases.length + 1);
     expect(engResponse.body.data).toHaveLength(helper.initialEnglishCases.length);
@@ -133,7 +133,7 @@ describe('Adding a case to database', () => {
 
     const response = await api.get('/api/cases/fin');
 
-    expect(response.body.data).toHaveLength(helper.initialCases.length);
+    expect(response.body.cases).toHaveLength(helper.initialCases.length);
   });
 });
 

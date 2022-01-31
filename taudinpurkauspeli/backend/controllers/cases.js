@@ -24,7 +24,7 @@ caseRouter.post('/:language', middleware.checkAdminRights, async (req, res) => {
   const newCase = {
     plainCaseId: id,
     language,
-    isDefault: language === 'fin',
+    isDefault: language === 'fi',
     title,
     anamnesis,
   };

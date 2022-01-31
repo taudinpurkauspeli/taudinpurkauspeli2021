@@ -7,14 +7,14 @@ import {
   NavLink,
   NavDropdown,
 } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 
 // Import translations
 import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n/config';
 
-const Navigationbar = ({
-  user, admin,
-}) => {
+const Navigationbar = () => {
+  const admin = useSelector((state) => state.admin);
   const { t } = useTranslation();
 
   /* istanbul ignore next */
@@ -45,11 +45,9 @@ const Navigationbar = ({
           <Nav.Item>
             <NavLink as={Link} to="/howtoplay" className="navItems">{t('howToPlay')}</NavLink>
           </Nav.Item>
-          { user && (
           <Nav.Item>
             <NavLink as={Link} to="/profile" className="navItems">{t('userProfile')}</NavLink>
           </Nav.Item>
-          )}
           <Nav.Item>
             <NavLink href="https://taudinpurkauspeli-taudinpurkauspeli2021.apps.ocp-prod-0.k8s.it.helsinki.fi/Shibboleth.sso/Logout" className="navItems">{t('logOut')}</NavLink>
           </Nav.Item>

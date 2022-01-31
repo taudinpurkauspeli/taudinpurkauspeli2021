@@ -3,7 +3,7 @@ import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import ShallowRenderer from 'react-shallow-renderer';
 import { waitFor } from '@testing-library/react';
-import DifferentialList from '../../components/differential/DifferentialList';
+import DifferentialList from '../../App/differential/DifferentialList';
 import service from '../../services/differentials/differentialsUnderCases';
 
 const useEffectSpy = jest.spyOn(React, 'useEffect');

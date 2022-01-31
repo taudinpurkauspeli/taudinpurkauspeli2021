@@ -6,7 +6,7 @@ import {
 import React from 'react';
 import '@testing-library/dom';
 import '@testing-library/jest-dom/extend-expect';
-import UpdateCaseTitle from '../../components/case/UpdateCaseTitle';
+import UpdateCaseTitle from '../../App/case/components/UpdateCaseTitle';
 
 const testCase = {
   id: 1,
