@@ -38,17 +38,7 @@ describe('Getting differentials from database', () => {
     expect(engResponse.body).toHaveLength(helper.initialEnglishDifferentials.length);
   });
 
-  test('throws error when trying to get differential with non-existent id', async () => {
-    await api
-      .get('/api/differentials/5/fin')
-      .expect(404);
-
-    await api
-      .get('/api/differentials/5/eng')
-      .expect(404);
-  });
-
-  test('a specific differential is within the returned differential', async () => {
+  test('a specific differential is within the returned differentials', async () => {
     const response = await api.get('/api/differentials/fin');
     const names = response.body.map((r) => r.name);
     expect(names).toContain('TestiDiffi2');

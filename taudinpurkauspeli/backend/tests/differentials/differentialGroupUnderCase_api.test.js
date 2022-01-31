@@ -9,6 +9,7 @@ const DifferentialGroupUnderCase = db.differentialGroupsUnderCases;
 const DifferentialGroup = db.differentialGroups;
 const Case = db.cases;
 const PlainCase = db.plainCases;
+const PlainDifferentialGroup = db.plainDifferentialGroups;
 
 beforeEach(async () => {
   // deletes the content from the table 'differentials'
@@ -16,6 +17,7 @@ beforeEach(async () => {
   // inserts test differentials in the table 'differentials'
   await PlainCase.bulkCreate(helper.plainCases);
   await Case.bulkCreate(helper.initialCases);
+  await PlainDifferentialGroup.bulkCreate([{}, {}]);
   await DifferentialGroup.bulkCreate(helper.initialDifferentialGroups);
   await DifferentialGroupUnderCase.bulkCreate(helper.initialDifferentialGroupsUnderCases);
 });

@@ -26,6 +26,7 @@ db.plainCases = require('./plainCase.model')(sequelize, Sequelize);
 db.plainDifferentials = require('./differentials/plainDifferential.model')(sequelize, Sequelize);
 db.plainDifferentialGroups = require('./differentials/plainDifferentialGroup.model')(sequelize, Sequelize);
 db.plainProcedures = require('./procedures/plainProcedure.model')(sequelize, Sequelize);
+db.plainSubProcedures = require('./procedures/plainSubProcedure.model')(sequelize, Sequelize);
 
 db.users = require('./user.model')(sequelize, Sequelize);
 db.cases = require('./case.model')(sequelize, Sequelize);
@@ -62,6 +63,18 @@ db.procedures.belongsTo(db.plainProcedures, {
   constraints: false,
 });
 
+db.plainSubProcedures.hasMany(db.subProcedures);
+db.subProcedures.belongsTo(db.plainSubProcedures, {
+  foreignKey: 'plainSubProcedureId',
+  constraints: false,
+});
+
+db.proceduresUnderCases.hasMany(db.subProcedures);
+db.subProcedures.belongsTo(db.proceduresUnderCases, {
+  foreignKey: 'proceduresUnderCaseId',
+  constraints: false,
+});
+
 db.cases.belongsToMany(db.differentialGroups, { through: db.differentialGroupsUnderCases });
 db.differentialGroups.belongsToMany(db.cases, { through: db.differentialGroupsUnderCases });
 
@@ -72,13 +85,6 @@ db.subProcedures.hasMany(db.textSubProcedures);
 db.textSubProcedures.belongsTo(db.subProcedures, {
   as: 'subProcedure',
   foreignKey: 'subProcedureId',
-  constraints: false,
-});
-
-db.proceduresUnderCases.hasMany(db.subProcedures);
-db.subProcedures.belongsTo(db.proceduresUnderCases, {
-  as: 'proceduresUnderCase',
-  foreignKey: 'proceduresUnderCaseId',
   constraints: false,
 });
 

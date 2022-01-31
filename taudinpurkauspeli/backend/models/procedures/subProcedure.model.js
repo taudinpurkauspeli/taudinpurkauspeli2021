@@ -6,10 +6,6 @@ module.exports = (sequelize, Sequelize) => {
     isDefault: {
       type: Sequelize.BOOLEAN,
     },
-    priority: {
-      type: Sequelize.INTEGER,
-      allowNull: false,
-    },
     type: {
       type: Sequelize.STRING,
       allowNull: false,

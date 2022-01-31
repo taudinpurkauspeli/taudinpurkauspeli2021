@@ -7,6 +7,15 @@ const plainCases = [
   },
 ];
 
+const plainSubProcedures = [
+  {
+    priority: 1,
+  },
+  {
+    priority: 2,
+  },
+];
+
 const initialDifferentials = [
   {
     plainDifferentialId: 1,
@@ -155,16 +164,25 @@ const initialEnglishProcedures = [
 
 const initialSubProcedures = [
   {
-    priority: 1,
     type: 'TEXT',
     proceduresUnderCaseId: 1,
     language: 'fin',
+    isDefault: true,
   },
   {
-    priority: 1,
     type: 'TEXT',
     proceduresUnderCaseId: 2,
     language: 'fin',
+    isDefault: true,
+  },
+];
+
+const initialEnglishSubProcedures = [
+  {
+    type: 'TEXT',
+    proceduresUnderCaseId: 1,
+    language: 'eng',
+    isDefault: false,
   },
 ];
 
@@ -192,6 +210,7 @@ const initialTextSubProcedures = [
 
 module.exports = {
   plainCases,
+  plainSubProcedures,
   initialDifferentials,
   initialEnglishDifferentials,
   initialCases,
@@ -204,6 +223,7 @@ module.exports = {
   initialProcedures,
   initialEnglishProcedures,
   initialSubProcedures,
+  initialEnglishSubProcedures,
   initialProceduresUnderCases,
   initialTextSubProcedures,
 };

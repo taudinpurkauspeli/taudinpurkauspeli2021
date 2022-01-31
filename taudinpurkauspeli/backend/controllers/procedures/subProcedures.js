@@ -2,34 +2,50 @@
 const subProceduresRouter = require('express').Router();
 const db = require('../../models');
 
+const PlainSubProcedure = db.plainSubProcedures;
 const SubProcedure = db.subProcedures;
 const ProcedureUnderCase = db.proceduresUnderCases;
 const middleware = require('../../utils/middleware');
 
-const { Op } = db.Sequelize;
-
 // Save a new subprocedure
-subProceduresRouter.post('/', middleware.checkAdminRights, (req, res, next) => {
+subProceduresRouter.post('/:language', middleware.checkAdminRights, async (req, res) => {
+  const { language } = req.params;
+  let { id } = req.body;
+  const {
+    priority, type, proceduresUnderCaseId,
+  } = req.body;
+
+  if (id === undefined) {
+    const newPlainSubProcedure = await PlainSubProcedure.create({ priority });
+    id = newPlainSubProcedure.id;
+  }
+
   // Create a subprocedure
   const subProcedure = {
-    priority: req.body.priority,
-    type: req.body.type,
+    plainSubProcedureId: id,
+    language,
+    isDefault: language === 'fin',
+    proceduresUnderCaseId,
+    type,
   };
 
   // Save subprocedure in the database
-  SubProcedure.create(subProcedure)
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((error) => next(error));
+  const savedSubProcedure = await SubProcedure.create(subProcedure);
+
+  res.json({
+    id: savedSubProcedure.plainSubProcedureId,
+    proceduresUnderCaseId,
+    type,
+  });
 });
 
 // Retrieve all subprocedures
-subProceduresRouter.get('/', middleware.checkUserRights, (req, res, next) => {
-  const { id } = req.params;
-  const condition = id ? { caseId: { [Op.iLike]: `%${id}%` } } : null;
+subProceduresRouter.get('/:id/:language', middleware.checkUserRights, (req, res, next) => {
+  const { id, language } = req.params;
 
-  SubProcedure.findAll({ where: condition })
+  SubProcedure.findAll({
+    where: { plainSubProcedureId: id, language },
+  })
     .then((data) => {
       res.json(data);
     })
