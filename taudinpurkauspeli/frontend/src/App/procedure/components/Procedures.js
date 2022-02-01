@@ -11,7 +11,7 @@ const Procedures = ({ admin }) => {
   const { id } = useParams();
 
   return (
-    <div id="wrapper">
+    <div>
       <h2>{t('procedures')}</h2>
       { admin && (
         <NewProcedure caseId={id} />

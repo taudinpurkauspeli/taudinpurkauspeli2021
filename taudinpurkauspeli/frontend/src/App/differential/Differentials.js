@@ -12,7 +12,7 @@ const Differentials = ({ admin }) => {
   const { id } = useParams();
 
   return (
-    <div id="wrapper">
+    <div>
       <h2>
         {t('Differentials')}
       </h2>

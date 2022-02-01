@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import { initializeCasesAndUser } from './App/case/reducers/casesReducer';
+import { initializeCasesAndUser } from './App/case/casesReducer';
 import Navigationbar from './App/navigation/Navbar';
 import Sidebar from './App/navigation/Sidebar';
 import Routing from './App/navigation/Routing';

@@ -7,8 +7,8 @@ import {
 } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 /* import SubProcedureList from '../subprocedure/SubProcedureList'; */
-import NewTextSubProcedure from '../subprocedure/textSubProcedure/NewTextSubProcedure';
-import SubProcedureList from '../subprocedure/SubProcedureList';
+import NewTextSubProcedure from '../../subprocedure/textSubProcedure/NewTextSubProcedure';
+import SubProcedureList from '../../subprocedure/SubProcedureList';
 
 // eslint-disable-next-line no-unused-vars
 const Procedure = ({ admin, caseId }) => {

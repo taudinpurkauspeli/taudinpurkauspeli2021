@@ -1,5 +1,5 @@
-import casesService from '../services/cases';
-import { setToken } from '../../../utils/Helper';
+import casesService from './casesService';
+import { setToken } from '../../utils/Helper';
 
 const casesReducer = (state = [], action) => {
   switch (action.type) {

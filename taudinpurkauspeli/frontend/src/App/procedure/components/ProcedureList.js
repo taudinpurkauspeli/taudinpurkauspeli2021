@@ -1,16 +1,12 @@
-/* istanbul ignore file */
 /* eslint-disable linebreak-style */
-/* eslint-disable no-restricted-globals */
 /* eslint-disable react/no-array-index-key */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/jsx-one-expression-per-line */
 import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import service from '../../services/procedures/procedures';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { updateProcedurePriorities } from '../proceduresReducer';
 import EditProcedure from './EditProcedure';
-import serviceUnderProcedure from '../../services/procedures/proceduresUnderCase';
 
 const DragNDropList = ({
   proceduresHook, handleDragStart, handleDragEnd, handleDragEnter, t, submitForm,
@@ -25,7 +21,11 @@ const DragNDropList = ({
         draggable
       >
         <div className="rows">
-          <Button className="procedureButton"> {p.proceduresUnderCase.priority} {p.title} </Button>
+          <Button className="procedureButton">
+            {p.proceduresUnderCase.priority}
+            &nbsp;
+            {p.title}
+          </Button>
           <form onSubmit={(e) => submitForm(p, e)} className="handleEdits">
             <Button type="submit" className="editButton" key={index} size="sm">{t('buttonEdit') }</Button>
           </form>
@@ -37,20 +37,22 @@ const DragNDropList = ({
 const ProcedureList = ({ id }) => {
   /* istanbul ignore next */
   const { t } = useTranslation();
+  const dispatch = useDispatch();
   const draggingItem = useRef();
   const dragOverItem = useRef();
   const [proceduresHook, setProceduresHook] = useState([]);
   const [procedureToEdit, setProcedureToEdit] = useState(null);
 
+  const initialProcedures = useSelector((state) => {
+    const { procedures } = state;
+    return procedures
+      .procedures
+      .sort((a, b) => a.proceduresUnderCase.priority - b.proceduresUnderCase.priority);
+  });
+
   useEffect(() => {
-    service
-      .getAll(id)
-      .then((procedureList) => {
-        const list = procedureList[0].procedures;
-        list.sort((a, b) => a.proceduresUnderCase.priority - b.proceduresUnderCase.priority);
-        setProceduresHook(list);
-      });
-  }, []);
+    setProceduresHook(initialProcedures);
+  }, [initialProcedures]);
 
   /* istanbul ignore next */
   const handleEditId = (p) => {
@@ -80,22 +82,9 @@ const ProcedureList = ({ id }) => {
     setProceduresHook(listCopy);
   };
 
-  const dragDropEditProcedure = (givenProcedure, index) => {
-    // eslint-disable-next-line no-param-reassign
-    const procedureUnderCaseObject = ({
-      caseId: givenProcedure.proceduresUnderCase.caseId,
-      procedureId: givenProcedure.proceduresUnderCase.procedureId,
-      priority: index + 1,
-    });
-    // eslint-disable-next-line max-len
-    serviceUnderProcedure.update(givenProcedure.proceduresUnderCase.procedureId, procedureUnderCaseObject);
-  };
-
   /* istanbul ignore next */
   const handleDragEnd = () => {
-    proceduresHook.map((p, index) => (
-      dragDropEditProcedure(p, index)
-    ));
+    dispatch(updateProcedurePriorities(id, proceduresHook));
   };
 
   return (

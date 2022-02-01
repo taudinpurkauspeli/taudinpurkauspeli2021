@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 
 import NewCaseForm from './NewCaseForm';
 import { setSuccess, setError } from '../../../utils/MessageBanner';
-import { createCase } from '../reducers/casesReducer';
+import { createCase } from '../casesReducer';
 
 const NewCase = () => {
   const { t } = useTranslation();

@@ -109,6 +109,7 @@ describe('Adding a procedure to database', () => {
       .send({
         name: 'TestProcedure4',
       });
+
     const response = await api.get('/api/procedures/fin');
     const names = response.body.map((r) => r.name);
 

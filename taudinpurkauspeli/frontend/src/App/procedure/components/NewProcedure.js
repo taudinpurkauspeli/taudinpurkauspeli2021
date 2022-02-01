@@ -6,9 +6,9 @@ import {
 } from 'react-bootstrap';
 
 import NewProcedureForm from './NewProcedureForm';
-import service from '../../services/procedures/procedures';
-import serviceUnderCases from '../../services/procedures/proceduresUnderCase';
-import { setSuccess, setError } from '../../utils/MessageBanner';
+import service from '../proceduresService';
+import serviceUnderCases from '../proceduresUnderCaseService';
+import { setSuccess, setError } from '../../../utils/MessageBanner';
 
 // eslint-disable-next-line no-unused-vars
 const newProcedure = ({ caseId }) => {

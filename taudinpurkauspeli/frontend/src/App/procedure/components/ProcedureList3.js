@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable react/style-prop-object */
 /* istanbul ignore file */
 /* eslint-disable linebreak-style */
@@ -9,9 +10,9 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import service from '../../services/procedures/procedures';
+import service from '../proceduresService';
 import EditProcedure from './EditProcedure';
-import serviceUnderProcedure from '../../services/procedures/proceduresUnderCase';
+import serviceUnderProcedure from '../proceduresUnderCaseService';
 
 const DragNDropList = ({
   proceduresHook, handleDragStart, handleDragEnd, handleDragEnter, t, submitForm, theCHANGE,
