@@ -1,6 +1,6 @@
 /* eslint-disable linebreak-style */
 import React, { useState } from 'react';
-import serviceUnderCases from '../../../services/differentials/differentialGroupsUnderCases';
+import serviceUnderCases from '../../services/differentialGroupsUnderCases';
 import DifferentialGroup from './DifferentialGroup';
 
 const DifferentialGroupList = ({ caseId, admin }) => {

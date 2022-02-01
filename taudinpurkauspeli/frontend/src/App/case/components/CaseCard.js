@@ -12,7 +12,7 @@ import { useDispatch } from 'react-redux';
 import CopyCase from './CopyCase';
 import RemoveCase from './RemoveCase';
 import { setError, setSuccess } from '../../../utils/MessageBanner';
-import ducService from '../../../services/differentials/differentialsUnderCases';
+import ducService from '../../differential/services/differentialsUnderCases';
 import pucService from '../../procedure/proceduresUnderCaseService';
 import { removeCase } from '../casesReducer';
 

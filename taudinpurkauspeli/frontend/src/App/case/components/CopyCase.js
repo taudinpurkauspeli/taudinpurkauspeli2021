@@ -5,11 +5,11 @@ import { Button } from 'react-bootstrap';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import caseService from '../casesService';
-import ducService from '../../../services/differentials/differentialsUnderCases';
+import ducService from '../../differential/services/differentialsUnderCases';
 import pucService from '../../procedure/proceduresUnderCaseService';
 
 // Caseen liitetyt diffiryhmät
-import ducGroupService from '../../../services/differentials/differentialGroupsUnderCases';
+import ducGroupService from '../../differential/services/differentialGroupsUnderCases';
 
 const copyCase = ({
   caseToBeCopied, createProcedures,

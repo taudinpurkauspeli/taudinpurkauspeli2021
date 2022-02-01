@@ -7,7 +7,7 @@ import {
 import { Button, ButtonGroup } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import Procedures from '../../procedure/components/Procedures';
-import Differentials from '../../differential/Differentials';
+import Differentials from '../../differential/components/Differentials';
 import Anamnesis from '../../anamnesis/Anamnesis';
 import { getProceduresUnderCase } from '../../procedure/proceduresReducer';
 

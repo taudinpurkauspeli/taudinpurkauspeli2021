@@ -5,11 +5,11 @@ import {
   Button, Modal, Tabs, Tab,
 } from 'react-bootstrap';
 
-import serviceUnderCases from '../../../services/differentials/differentialGroupsUnderCases';
-import service from '../../../services/differentials/differentialGroups';
+import serviceUnderCases from '../../services/differentialGroupsUnderCases';
+import service from '../../services/differentialGroups';
 import AddDifferentialGroupForm from './AddDifferentialGroupForm';
 import SelectDifferentialGroupForm from './SelectDifferentialGroupForm';
-import { setSuccess, setError } from '../../../utils/MessageBanner';
+import { setSuccess, setError } from '../../../../utils/MessageBanner';
 
 const NewDifferentialGroup = ({ caseId }) => {
   const { t } = useTranslation();
