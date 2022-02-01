@@ -49,7 +49,7 @@ const NewDifferential = ({ diffGroupCaseId }) => {
   const handleDifferentialAdd = (differentialObject) => {
     service.create({ name: differentialObject.name })
       .then((res) => {
-        const differentialId = res[0].id;
+        const differentialId = res.id;
         handleDifferentialSelection({
           diffGroupCaseId,
           differentialId,

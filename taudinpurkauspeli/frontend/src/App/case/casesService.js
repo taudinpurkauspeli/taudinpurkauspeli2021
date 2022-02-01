@@ -1,22 +1,20 @@
 /* eslint-disable linebreak-style */
 import axios from 'axios';
-import { getConfig } from '../../utils/Helper';
+import { getConfig, getLanguage } from '../../utils/Helper';
 
 const baseUrl = '/api/cases';
 
 const getAll = () => {
-  const language = localStorage.getItem('i18nextLng') || 'fi';
-  const request = axios.get(`${baseUrl}/${language}`, getConfig());
+  const request = axios.get(`${baseUrl}/${getLanguage()}`, getConfig());
   return request.then((response) => response.data);
 };
 
 const create = (newObject) => {
-  const language = localStorage.getItem('i18nextLng') || 'fi';
-  const request = axios.post(`${baseUrl}/${language}`, newObject, getConfig());
+  const request = axios.post(`${baseUrl}/${getLanguage()}`, newObject, getConfig());
   return request.then((response) => response.data);
 };
 
-const update = (newObject) => axios.put(`${baseUrl}/${newObject.id}`, newObject, getConfig());
+const update = (newObject) => axios.put(`${baseUrl}/${newObject.id}/${getLanguage()}`, newObject, getConfig());
 
 const remove = (id) => {
   const request = axios.delete(`${baseUrl}/${id}`, getConfig());

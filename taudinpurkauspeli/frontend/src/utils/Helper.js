@@ -5,3 +5,5 @@ export const setToken = (newToken) => {
 };
 
 export const getConfig = () => ({ headers: { Authorization: token } });
+
+export const getLanguage = () => (localStorage.getItem('i18nextLng') || 'fi');

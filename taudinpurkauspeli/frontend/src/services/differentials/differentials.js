@@ -1,20 +1,20 @@
 /* eslint-disable linebreak-style */
 import axios from 'axios';
-import { getConfig } from '../../utils/Helper';
+import { getConfig, getLanguage } from '../../utils/Helper';
 
 const baseUrl = '/api/differentials';
 
 const getAll = () => {
-  const request = axios.get(baseUrl, getConfig());
+  const request = axios.get(`${baseUrl}/${getLanguage()}`, getConfig());
   return request.then((response) => response.data);
 };
 
 const create = (newObject) => {
-  const request = axios.post(baseUrl, newObject, getConfig());
+  const request = axios.post(`${baseUrl}/${getLanguage()}`, newObject, getConfig());
   return request.then((response) => response.data);
 };
 
-const update = (id, newObject) => axios.put(`${baseUrl}/${id}`, newObject, getConfig());
+const update = (id, newObject) => axios.put(`${baseUrl}/${id}/${getLanguage()}`, newObject, getConfig());
 
 const remove = (id) => {
   const request = axios.delete(`${baseUrl}/${id}`, getConfig());

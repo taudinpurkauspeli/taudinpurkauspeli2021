@@ -21,7 +21,7 @@ differentialGroupRouter.post('/:language', middleware.checkAdminRights, async (r
   const newDifferentialGroup = {
     plainDifferentialGroupId: id,
     language,
-    isDefault: language === 'fin',
+    isDefault: language === 'fi',
     name,
   };
 
@@ -32,8 +32,8 @@ differentialGroupRouter.post('/:language', middleware.checkAdminRights, async (r
   });
 
   res.json({
-    id: savedDifferentialGroup.plainDifferentialGroupId,
-    name: savedDifferentialGroup.name,
+    id: savedDifferentialGroup[0].plainDifferentialGroupId,
+    name: savedDifferentialGroup[0].name,
   });
 });
 

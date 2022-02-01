@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  Link, useParams, Switch, Route,
+  Link, useParams, Switch, Route, Redirect,
 } from 'react-router-dom';
 import { Button, ButtonGroup } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
@@ -42,6 +42,9 @@ const Case = ({ admin }) => {
         </Route>
         <Route path="/cases/:id/differentials">
           <Differentials admin={admin} />
+        </Route>
+        <Route path="/cases/:id">
+          <Redirect to={`${baseUrl}/anamnesis`} />
         </Route>
       </Switch>
     </div>

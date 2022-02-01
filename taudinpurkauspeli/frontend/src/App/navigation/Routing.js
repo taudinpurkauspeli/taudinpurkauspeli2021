@@ -33,6 +33,7 @@ const Routing = () => {
       </Route>
       <Route path="/cases/:id">
         <Case admin={admin} />
+        <Redirect to="/cases/1/anamnesis" />
       </Route>
       <Route path="/files">
         {admin ? <FileBank /> : <Redirect to="/" />}

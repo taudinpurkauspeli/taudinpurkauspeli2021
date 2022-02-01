@@ -20,7 +20,7 @@ differentialRouter.post('/:language', middleware.checkAdminRights, async (req, r
   const newDifferential = {
     plainDifferentialId: id,
     language,
-    isDefault: language === 'fin',
+    isDefault: language === 'fi',
     name,
   };
 
@@ -31,13 +31,13 @@ differentialRouter.post('/:language', middleware.checkAdminRights, async (req, r
   });
 
   res.json({
-    id: savedDifferential.plainDifferentialId,
-    name: savedDifferential.name,
+    id: savedDifferential[0].plainDifferentialId,
+    name: savedDifferential[0].name,
   });
 });
 
 // Retrieve all differentials
-differentialRouter.get('/:language', middleware.checkUserRights, async (req, res, next) => {
+differentialRouter.get('/:language', middleware.checkUserRights, async (req, res) => {
   const { language } = req.params;
 
   /*

@@ -9,10 +9,10 @@ module.exports = (sequelize, Sequelize) => {
         key: 'id',
       },
     },
-    differentialId: {
+    plainDifferentialId: {
       type: Sequelize.INTEGER,
       references: {
-        model: 'differentials',
+        model: 'plainDifferentials',
         key: 'id',
       },
     },

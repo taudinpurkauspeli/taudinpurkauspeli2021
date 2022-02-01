@@ -20,6 +20,7 @@ const Navigationbar = () => {
   /* istanbul ignore next */
   const changeLanguage = (language) => {
     i18n.changeLanguage(language);
+    window.location.reload(false);
   };
 
   return (

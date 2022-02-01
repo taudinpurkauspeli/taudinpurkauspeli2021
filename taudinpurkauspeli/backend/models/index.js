@@ -14,7 +14,6 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
     acquire: dbConfig.pool.acquire,
     idle: dbConfig.pool.idle,
   },
-  logging: false,
 });
 
 const db = {};
@@ -75,8 +74,19 @@ db.subProcedures.belongsTo(db.proceduresUnderCases, {
   constraints: false,
 });
 
-db.cases.belongsToMany(db.differentialGroups, { through: db.differentialGroupsUnderCases });
-db.differentialGroups.belongsToMany(db.cases, { through: db.differentialGroupsUnderCases });
+db.plainCases.belongsToMany(db.plainDifferentialGroups, {
+  through: db.differentialGroupsUnderCases,
+});
+db.plainDifferentialGroups.belongsToMany(db.plainCases, {
+  through: db.differentialGroupsUnderCases,
+});
+
+db.differentialGroupsUnderCases.belongsToMany(db.plainDifferentials, {
+  through: db.differentalsUnderCases,
+});
+db.plainDifferentials.belongsToMany(db.differentialGroupsUnderCases, {
+  through: db.differentalsUnderCases,
+});
 
 db.procedures.belongsToMany(db.cases, { through: db.proceduresUnderCases });
 db.cases.belongsToMany(db.procedures, { through: db.proceduresUnderCases });
