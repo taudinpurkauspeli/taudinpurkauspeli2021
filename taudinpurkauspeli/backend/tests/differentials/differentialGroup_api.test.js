@@ -18,30 +18,30 @@ beforeEach(async () => {
 describe('Getting differentialgroups from database', () => {
   test('differentialgroups are returned as json', async () => {
     await api
-      .get('/api/differentialGroups/fin')
+      .get('/api/differentialGroups/fi')
       .expect(200)
       .expect('Content-Type', /application\/json/);
 
     await api
-      .get('/api/differentialGroups/eng')
+      .get('/api/differentialGroups/en')
       .expect(200)
       .expect('Content-Type', /application\/json/);
   });
 
   test('all differentialgroups are returned', async () => {
-    const response = await api.get('/api/differentialGroups/fin');
+    const response = await api.get('/api/differentialGroups/fi');
     expect(response.body).toHaveLength(helper.initialDifferentialGroups.length);
 
-    const engResponse = await api.get('/api/differentialGroups/eng');
+    const engResponse = await api.get('/api/differentialGroups/en');
     expect(engResponse.body).toHaveLength(helper.initialEnglishDifferentialGroups.length);
   });
 
   test('a specific differentialgroup is within the returned differentialgroups', async () => {
-    const response = await api.get('/api/differentialGroups/fin');
+    const response = await api.get('/api/differentialGroups/fi');
     const names = response.body.map((r) => r.name);
     expect(names).toContain('TestiDiffiRyhmä2');
 
-    const engResponse = await api.get('/api/differentialGroups/eng');
+    const engResponse = await api.get('/api/differentialGroups/en');
     const engNames = engResponse.body.map((r) => r.name);
     expect(engNames).toContain('TestDifferentialGroup1');
   });
@@ -54,12 +54,12 @@ describe('Adding a differentialgroup to database', () => {
     };
 
     await api
-      .post('/api/differentialGroups/fin')
+      .post('/api/differentialGroups/fi')
       .send(newDifferentialGroup)
       .expect(200)
       .expect('Content-Type', /application\/json/);
 
-    const response = await api.get('/api/differentialGroups/fin');
+    const response = await api.get('/api/differentialGroups/fi');
 
     const names = response.body.map((r) => r.name);
 
@@ -74,13 +74,13 @@ describe('Adding a differentialgroup to database', () => {
     };
 
     await api
-      .post('/api/differentialGroups/eng')
+      .post('/api/differentialGroups/en')
       .send(newDifferentialGroup)
       .expect(200)
       .expect('Content-Type', /application\/json/);
 
-    const response = await api.get('/api/differentialGroups/eng');
-    const finResponse = await api.get('/api/differentialGroups/fin');
+    const response = await api.get('/api/differentialGroups/en');
+    const finResponse = await api.get('/api/differentialGroups/fi');
 
     const names = response.body.map((r) => r.name);
 
@@ -92,11 +92,11 @@ describe('Adding a differentialgroup to database', () => {
   test('differentialgroup without name is not added', async () => {
     const newDifferentialGroup = {};
     await api
-      .post('/api/differentialGroups/fin')
+      .post('/api/differentialGroups/fi')
       .send(newDifferentialGroup)
       .expect(500);
 
-    const response = await api.get('/api/differentialGroups/fin');
+    const response = await api.get('/api/differentialGroups/fi');
 
     expect(response.body).toHaveLength(helper.initialDifferentialGroups.length);
   });
@@ -107,11 +107,11 @@ describe('Adding a differentialgroup to database', () => {
     };
 
     await api
-      .post('/api/differentialGroups/fin')
+      .post('/api/differentialGroups/fi')
       .send(newDifferentialGroup)
       .expect(500);
 
-    const response = await api.get('/api/differentialGroups/fin');
+    const response = await api.get('/api/differentialGroups/fi');
     expect(response.body).toHaveLength(helper.initialDifferentialGroups.length);
   });
 });

@@ -12,6 +12,7 @@ describe('procedures', () => {
     // inserts test cases in the table 'procedures'
     await db.plainCases.bulkCreate(helper.plainCases);
     await db.cases.bulkCreate(helper.initialCases);
+    await db.plainProcedures.bulkCreate([{}, {}]);
     await db.procedures.bulkCreate(helper.initialProcedures);
     await db.proceduresUnderCases.bulkCreate(helper.initialProceduresUnderCases);
   });

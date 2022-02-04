@@ -25,15 +25,15 @@ beforeEach(async () => {
 describe('Getting case-diffgroup-pairs from database', () => {
   test('case-diffgroup-pairs are returned as json', async () => {
     await api
-      .get('/api/differentialsUnderCases/2')
+      .get('/api/differentialsUnderCases/2/fi')
       .expect(200)
       .expect('Content-Type', /application\/json/);
   });
 
   test('all entries associated to a specific case are returned', async () => {
-    const response = await api.get('/api/differentialGroupsUnderCases/1');
+    const response = await api.get('/api/differentialGroupsUnderCases/1/fi');
     expect(response.body).toHaveLength(1);
-    expect(response.body[0].name).toEqual('TestDifferentialGroup1');
+    expect(response.body[0].name).toEqual('TestiDiffiRyhmä1');
   });
 });
 

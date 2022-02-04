@@ -12,8 +12,9 @@ describe('text_sub_procedures', () => {
     // deletes the content from the table 'cases'
     await db.sequelize.sync({ force: true });
     // inserts test cases in the table 'cases'
-    await db.initialCases.bulkCreate(helper.initials);
+    await db.plainCases.bulkCreate(helper.plainCases);
     await db.cases.bulkCreate(helper.initialCases);
+    await db.plainProcedures.bulkCreate([{}, {}]);
     await db.procedures.bulkCreate(helper.initialProcedures);
     await db.proceduresUnderCases.bulkCreate(helper.initialProceduresUnderCases);
     await db.subProcedures.bulkCreate(helper.initialSubProcedures);
@@ -56,7 +57,7 @@ describe('text_sub_procedures', () => {
       language: 'fin',
     };
     await api
-      .post('/api/procedures')
+      .post('/api/textsubprocedures')
       .send(newTextSubProcedure)
       .expect(400);
 

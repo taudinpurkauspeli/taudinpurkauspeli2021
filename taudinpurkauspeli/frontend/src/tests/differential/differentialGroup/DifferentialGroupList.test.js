@@ -2,7 +2,7 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { render, waitFor } from '@testing-library/react';
-import DifferentialGroupList from '../../../App/differential/differentialGroup/DifferentialGroupList';
+import DifferentialGroupList from '../../../App/differential/components/differentialGroup/DifferentialGroupList';
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key) => key }),

@@ -1,5 +1,6 @@
 const supertest = require('supertest');
 const app = require('../../app');
+const { plainDifferentialGroups } = require('../../models');
 
 const api = supertest(app);
 const db = require('../../models');
@@ -12,6 +13,7 @@ const Case = db.cases;
 const DifferentialUnderCase = db.differentalsUnderCases;
 const PlainCase = db.plainCases;
 const PlainDifferential = db.plainDifferentials;
+const PlainDifferentialGroup = db.plainDifferentialGroups;
 
 beforeEach(async () => {
   // deletes the content from the table 'differentials'
@@ -21,6 +23,7 @@ beforeEach(async () => {
   await Differential.bulkCreate(helper.initialDifferentials);
   await PlainCase.bulkCreate(helper.plainCases);
   await Case.bulkCreate(helper.initialCases);
+  await PlainDifferentialGroup.bulkCreate([{}, {}]);
   await DifferentialGroup.bulkCreate(helper.initialDifferentialGroups);
   await DifferentialGroupUnderCase.bulkCreate(helper.initialDifferentialGroupsUnderCases);
   await DifferentialUnderCase.bulkCreate(helper.initialDifferentialsUnderCases);
@@ -29,13 +32,13 @@ beforeEach(async () => {
 describe('Getting case-diff-pairs from database', () => {
   test('case-diff-pairs are returned as json', async () => {
     await api
-      .get('/api/differentialsUnderCases/2')
+      .get('/api/differentialsUnderCases/2/fi')
       .expect(200)
       .expect('Content-Type', /application\/json/);
   });
 
   test('all entries are returned', async () => {
-    const response = await api.get('/api/differentialsUnderCases/1');
+    const response = await api.get('/api/differentialsUnderCases/1/fi');
 
     expect(response.body).toHaveLength(2);
   });

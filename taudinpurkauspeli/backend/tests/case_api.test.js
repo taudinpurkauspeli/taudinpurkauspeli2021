@@ -20,46 +20,46 @@ beforeEach(async () => {
 describe('Getting cases from database', () => {
   test('cases are returned as json', async () => {
     await api
-      .get('/api/cases/fin')
+      .get('/api/cases/fi')
       .expect(200)
       .expect('Content-Type', /application\/json/);
 
     await api
-      .get('/api/cases/eng')
+      .get('/api/cases/en')
       .expect(200)
       .expect('Content-Type', /application\/json/);
   });
 
   test('all cases are returned', async () => {
-    const response = await api.get('/api/cases/fin');
+    const response = await api.get('/api/cases/fi');
     expect(response.body.data).toHaveLength(helper.initialCases.length);
 
-    const engResponse = await api.get('/api/cases/eng');
+    const engResponse = await api.get('/api/cases/en');
     expect(engResponse.body.data).toHaveLength(helper.initialEnglishCases.length);
   });
 
   test('throws error when trying to get case with non-existent id', async () => {
     await api
-      .get('/api/cases/5/fin')
+      .get('/api/cases/5/fi')
       .expect(404);
 
     await api
-      .get('/api/cases/5/eng')
+      .get('/api/cases/5/en')
       .expect(404);
   });
 
   test('a specific case is within the returned cases', async () => {
-    const response = await api.get('/api/cases/fin');
+    const response = await api.get('/api/cases/fi');
     const titles = response.body.data.map((r) => r.title);
     expect(titles).toContain('TestiCase2');
 
-    const engResponse = await api.get('/api/cases/eng');
+    const engResponse = await api.get('/api/cases/en');
     const engTitles = engResponse.body.data.map((r) => r.title);
     expect(engTitles).toContain('TestCase1');
   });
 
   test('if a case does not have a translation, default is returned', async () => {
-    const response = await api.get('/api/cases/2/eng');
+    const response = await api.get('/api/cases/2/en');
 
     const { title, hidden, anamnesis } = response.body;
     expect(title).toEqual('TestiCase2');
@@ -77,17 +77,17 @@ describe('Adding a case to database', () => {
     };
 
     await api
-      .post('/api/cases/fin')
+      .post('/api/cases/fi')
       .send(newCase)
       .expect(200)
       .expect('Content-Type', /application\/json/);
 
-    const response = await api.get('/api/cases/fin');
-    const engResponse = await api.get('/api/cases/eng');
+    const response = await api.get('/api/cases/fi');
+    const engResponse = await api.get('/api/cases/en');
 
-    const titles = response.body.cases.map((r) => r.title);
-    const hiddens = response.body.cases.map((r) => r.hidden);
-    const anamnesiss = response.body.cases.map((r) => r.anamnesis);
+    const titles = response.body.data.map((r) => r.title);
+    const hiddens = response.body.data.map((r) => r.hidden);
+    const anamnesiss = response.body.data.map((r) => r.anamnesis);
 
     expect(response.body.data).toHaveLength(helper.initialCases.length + 1);
     expect(engResponse.body.data).toHaveLength(helper.initialEnglishCases.length);
@@ -104,12 +104,12 @@ describe('Adding a case to database', () => {
     };
 
     await api
-      .post('/api/cases/eng')
+      .post('/api/cases/en')
       .send(newCase)
       .expect(200)
       .expect('Content-Type', /application\/json/);
 
-    const response = await api.get('/api/cases/eng');
+    const response = await api.get('/api/cases/en');
 
     const titles = response.body.data.map((r) => r.title);
     const hiddens = response.body.data.map((r) => r.hidden);
@@ -127,51 +127,51 @@ describe('Adding a case to database', () => {
       anamnesis: 'NewAnamnesis',
     };
     await api
-      .post('/api/cases/fin')
+      .post('/api/cases/fi')
       .send(newCase)
       .expect(400);
 
-    const response = await api.get('/api/cases/fin');
+    const response = await api.get('/api/cases/fi');
 
-    expect(response.body.cases).toHaveLength(helper.initialCases.length);
+    expect(response.body.data).toHaveLength(helper.initialCases.length);
   });
 });
 
 describe('Updating a case in database', () => {
   test('hidden value can be changed', async () => {
     await api
-      .put('/api/cases/1/fin')
+      .put('/api/cases/1/fi')
       .send({
         title: 'TestiCase1',
         hidden: false,
         anamnesis: 'Testianamneesi',
       });
-    const response = await api.get('/api/cases/1/fin');
+    const response = await api.get('/api/cases/1/fi');
     expect(response.body.hidden).toEqual(false);
   });
 
   test('title can be changed to another valid title', async () => {
     await api
-      .put('/api/cases/1/fin')
+      .put('/api/cases/1/fi')
       .send({
         title: 'updatedTestCase',
         hidden: true,
         anamnesis: 'Testianamneesi',
       });
-    const response = await api.get('/api/cases/1/fin');
+    const response = await api.get('/api/cases/1/fi');
     expect(response.body.title).toEqual('updatedTestCase');
   });
 
   test('invalid title is not updated', async () => {
     await api
-      .put('/api/cases/1/fin')
+      .put('/api/cases/1/fi')
       .send({
         title: 't',
         hidden: true,
         anamnesis: 'Testianamneesi',
       })
       .expect(400);
-    const response = await api.get('/api/cases/1/fin');
+    const response = await api.get('/api/cases/1/fi');
     expect(response.body.title).toEqual('TestiCase1');
   });
 });
@@ -182,10 +182,10 @@ describe('Removing a case from database', () => {
       .delete('/api/cases/1')
       .expect(204);
 
-    const response = await api.get('/api/cases/fin');
+    const response = await api.get('/api/cases/fi');
     expect(response.body.data).toHaveLength(helper.initialCases.length - 1);
 
-    const engResponse = await api.get('/api/cases/eng');
+    const engResponse = await api.get('/api/cases/en');
     expect(engResponse.body.data).toHaveLength(helper.initialEnglishCases.length - 1);
   });
 

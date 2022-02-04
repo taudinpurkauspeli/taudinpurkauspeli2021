@@ -20,37 +20,37 @@ beforeEach(async () => {
 describe('Getting differentials from database', () => {
   test('differentials are returned as json', async () => {
     await api
-      .get('/api/differentials/fin')
+      .get('/api/differentials/fi')
       .expect(200)
       .expect('Content-Type', /application\/json/);
 
     await api
-      .get('/api/differentials/eng')
+      .get('/api/differentials/en')
       .expect(200)
       .expect('Content-Type', /application\/json/);
   });
 
   test('all differentials are returned', async () => {
-    const response = await api.get('/api/differentials/fin');
+    const response = await api.get('/api/differentials/fi');
     expect(response.body).toHaveLength(helper.initialDifferentials.length);
 
-    const engResponse = await api.get('/api/differentials/eng');
+    const engResponse = await api.get('/api/differentials/en');
     expect(engResponse.body).toHaveLength(helper.initialEnglishDifferentials.length);
   });
 
   test('a specific differential is within the returned differentials', async () => {
-    const response = await api.get('/api/differentials/fin');
+    const response = await api.get('/api/differentials/fi');
     const names = response.body.map((r) => r.name);
     expect(names).toContain('TestiDiffi2');
 
-    const engResponse = await api.get('/api/differentials/eng');
+    const engResponse = await api.get('/api/differentials/en');
     const engNames = engResponse.body.map((r) => r.name);
     expect(engNames).toContain('TestDisease1');
   });
 
   /*
   test('if a differential does not have a translation, default is returned', async () => {
-    const response = await api.get('/api/differentials/eng');
+    const response = await api.get('/api/differentials/en');
     const names = response.body.map((r) => r.name);
     expect(names).toContain('TestiDiffi2');
   });
@@ -64,12 +64,12 @@ describe('Adding a differential to database', () => {
     };
 
     await api
-      .post('/api/differentials/fin')
+      .post('/api/differentials/fi')
       .send(newDifferential)
       .expect(200)
       .expect('Content-Type', /application\/json/);
 
-    const response = await api.get('/api/differentials/fin');
+    const response = await api.get('/api/differentials/fi');
 
     const names = response.body.map((r) => r.name);
 
@@ -84,13 +84,13 @@ describe('Adding a differential to database', () => {
     };
 
     await api
-      .post('/api/differentials/eng')
+      .post('/api/differentials/en')
       .send(newDifferential)
       .expect(200)
       .expect('Content-Type', /application\/json/);
 
-    const response = await api.get('/api/differentials/eng');
-    const finResponse = await api.get('/api/differentials/fin');
+    const response = await api.get('/api/differentials/en');
+    const finResponse = await api.get('/api/differentials/fi');
 
     const names = response.body.map((r) => r.name);
 
@@ -102,11 +102,11 @@ describe('Adding a differential to database', () => {
   test('differential without name is not added', async () => {
     const newDifferential = {};
     await api
-      .post('/api/differentials/fin')
+      .post('/api/differentials/fi')
       .send(newDifferential)
       .expect(500);
 
-    const response = await api.get('/api/differentials/fin');
+    const response = await api.get('/api/differentials/fi');
 
     expect(response.body).toHaveLength(helper.initialDifferentials.length);
   });

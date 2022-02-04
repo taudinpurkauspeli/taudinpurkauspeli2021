@@ -20,30 +20,30 @@ beforeEach(async () => {
 describe('Getting procedures from database', () => {
   test('procedures are returned as json', async () => {
     await api
-      .get('/api/procedures/fin')
+      .get('/api/procedures/fi')
       .expect(200)
       .expect('Content-Type', /application\/json/);
 
     await api
-      .get('/api/procedures/eng')
+      .get('/api/procedures/en')
       .expect(200)
       .expect('Content-Type', /application\/json/);
   });
 
   test('all procedures are returned', async () => {
-    const response = await api.get('/api/procedures/fin');
+    const response = await api.get('/api/procedures/fi');
     expect(response.body).toHaveLength(helper.initialProcedures.length);
 
-    const engResponse = await api.get('/api/procedures/eng');
+    const engResponse = await api.get('/api/procedures/en');
     expect(engResponse.body).toHaveLength(helper.initialEnglishProcedures.length);
   });
 
   test('a specific differential is within the returned procedures', async () => {
-    const response = await api.get('/api/procedures/fin');
+    const response = await api.get('/api/procedures/fi');
     const names = response.body.map((r) => r.name);
     expect(names).toContain('TestiToimenpide2');
 
-    const engResponse = await api.get('/api/procedures/eng');
+    const engResponse = await api.get('/api/procedures/en');
     const engNames = engResponse.body.map((r) => r.name);
     expect(engNames).toContain('TestProcedure1');
   });
@@ -56,12 +56,12 @@ describe('Adding a procedure to database', () => {
     };
 
     await api
-      .post('/api/procedures/fin')
+      .post('/api/procedures/fi')
       .send(newProcedure)
       .expect(200)
       .expect('Content-Type', /application\/json/);
 
-    const response = await api.get('/api/procedures/fin');
+    const response = await api.get('/api/procedures/fi');
 
     const names = response.body.map((r) => r.name);
 
@@ -76,12 +76,12 @@ describe('Adding a procedure to database', () => {
     };
 
     await api
-      .post('/api/procedures/eng')
+      .post('/api/procedures/en')
       .send(newProcedure)
       .expect(200)
       .expect('Content-Type', /application\/json/);
 
-    const response = await api.get('/api/procedures/eng');
+    const response = await api.get('/api/procedures/en');
 
     const names = response.body.map((r) => r.name);
 
@@ -94,23 +94,23 @@ describe('Adding a procedure to database', () => {
       name: null,
     };
     await api
-      .post('/api/procedures/fin')
+      .post('/api/procedures/fi')
       .send(newProcedure)
       .expect(400);
 
-    const response = await api.get('/api/procedures/fin');
+    const response = await api.get('/api/procedures/fi');
 
     expect(response.body).toHaveLength(helper.initialProcedures.length);
   });
 
   test('title can be changed', async () => {
     await api
-      .put('/api/procedures/1/fin')
+      .put('/api/procedures/1/fi')
       .send({
         name: 'TestProcedure4',
       });
 
-    const response = await api.get('/api/procedures/fin');
+    const response = await api.get('/api/procedures/fi');
     const names = response.body.map((r) => r.name);
 
     expect(names).toContain('TestProcedure4');

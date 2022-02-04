@@ -3,8 +3,8 @@ import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import ShallowRenderer from 'react-shallow-renderer';
 import { waitFor } from '@testing-library/react';
-import DifferentialList from '../../App/differential/DifferentialList';
-import service from '../../services/differentials/differentialsUnderCases';
+import DifferentialList from '../../App/differential/components/DifferentialList';
+import service from '../../App/differential/services/differentialsUnderCases';
 
 const useEffectSpy = jest.spyOn(React, 'useEffect');
 useEffectSpy.mockImplementation((f) => f());
