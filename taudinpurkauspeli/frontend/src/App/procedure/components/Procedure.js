@@ -1,27 +1,32 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable array-callback-return */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   useParams,
 } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
-/* import SubProcedureList from '../subprocedure/SubProcedureList'; */
-import NewTextSubProcedure from '../../subprocedure/textSubProcedure/NewTextSubProcedure';
-import SubProcedureList from '../../subprocedure/SubProcedureList';
+import { useDispatch } from 'react-redux';
 
-// eslint-disable-next-line no-unused-vars
-const Procedure = ({ admin, caseId }) => {
+import NewTextSubProcedure from '../../subprocedure/components/textSubProcedure/NewTextSubProcedure';
+import SubProcedureList from '../../subprocedure/components/SubProcedureList';
+import { initializeSubprocedures } from '../../subprocedure/subProceduresReducer';
+
+const Procedure = ({ admin }) => {
   const { t } = useTranslation();
   const { id } = useParams();
+  const dispatch = useDispatch();
   const [show, setShow] = useState(false);
 
-  /* const hideWhenVisible = { display: show ? 'none' : '' }; */
   const showWhenVisible = { display: show ? '' : 'none' };
 
   const handleVisibility = () => {
     setShow(!show);
   };
+
+  useEffect(() => {
+    dispatch(initializeSubprocedures(id));
+  }, []);
 
   return (
 
@@ -40,7 +45,7 @@ const Procedure = ({ admin, caseId }) => {
             <Button className="addButton multichoice" size="sm">{t('buttonAddNewMultiChoice')}</Button>
             <Button className="addButton diagnosis" size="sm">{t('buttonAddFinalDiagnosis')}</Button>
           </div>
-          <SubProcedureList proceduresId={id} admin={admin} />
+          <SubProcedureList admin={admin} />
         </div>
       )}
     </div>

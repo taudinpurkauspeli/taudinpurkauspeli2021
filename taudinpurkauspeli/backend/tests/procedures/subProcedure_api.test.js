@@ -111,6 +111,7 @@ describe('Updating a subprocedure', () => {
         priority: '42',
         type: 'TEXT',
       });
+
     const response = await api.get('/api/subprocedures/1/fi');
     expect(response.body[0].subProcedures[0].priority).toEqual(42);
   });

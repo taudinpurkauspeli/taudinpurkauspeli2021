@@ -90,7 +90,7 @@ const EditProcedure = ({ procedure, caseId, editProcedureFunc }) => {
           />
         </p>
         <p>
-          <Button input type="submit" id="submit" className="submitButton">{t('buttonSave')}</Button>
+          <Button type="submit" id="submit" className="submitButton">{t('buttonSave')}</Button>
         </p>
       </form>
     </div>

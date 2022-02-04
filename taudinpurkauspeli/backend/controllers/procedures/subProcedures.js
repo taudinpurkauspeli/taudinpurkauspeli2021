@@ -56,7 +56,7 @@ subProceduresRouter.get('/:id/:language', middleware.checkUserRights, (req, res,
 subProceduresRouter.get('/:id', middleware.checkUserRights, (req, res, next) => {
   const { id } = req.params;
 
-  ProcedureUnderCase.findAll({
+  ProcedureUnderCase.findOne({
     include: [{
       model: SubProcedure,
     }],

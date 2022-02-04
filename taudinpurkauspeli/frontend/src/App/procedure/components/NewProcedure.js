@@ -4,16 +4,17 @@ import { useTranslation } from 'react-i18next';
 import {
   Button, Modal,
 } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
 
 import NewProcedureForm from './NewProcedureForm';
-import service from '../proceduresService';
-import serviceUnderCases from '../proceduresUnderCaseService';
 import { setSuccess, setError } from '../../../utils/MessageBanner';
+import { addProcedure } from '../proceduresReducer';
 
 // eslint-disable-next-line no-unused-vars
 const newProcedure = ({ caseId }) => {
   /* istanbul ignore next */
   const { t } = useTranslation();
+  const dispatch = useDispatch();
 
   const [show, setShow] = useState(false);
 
@@ -21,24 +22,14 @@ const newProcedure = ({ caseId }) => {
 
   /* istanbul ignore next */
   const handleProcedureAdd = (procedureObject) => {
-    service.create(procedureObject)
-      .then((data) => {
-        toggleVisibility();
-        setSuccess(t('procedureAddSuccess'));
-        const procedureUnderCaseObject = ({
-          caseId,
-          procedureId: data.id,
-          priority: 1,
-        });
-
-        serviceUnderCases.create(procedureUnderCaseObject);
-      })
-      .catch((error) => {
-        // eslint-disable-next-line no-console
-        console.log(error);
-        toggleVisibility();
-        setError(t('procedureAddError'));
-      });
+    try {
+      dispatch(addProcedure(caseId, procedureObject));
+      toggleVisibility();
+      setSuccess(t('procedureAddSuccess'));
+    } catch (error) {
+      toggleVisibility();
+      setError(t('procedureAddError'));
+    }
   };
 
   return (
