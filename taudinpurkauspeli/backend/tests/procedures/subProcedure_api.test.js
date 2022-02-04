@@ -76,7 +76,7 @@ describe('sub_procedures', () => {
         type: 'TEXT',
       });
     const response = await api.get('/api/subprocedures/1');
-    expect(response.body[0].subProcedures[0].priority).toEqual(42);
+    expect(response.body.subProcedures[0].priority).toEqual(42);
   });
 });
 
@@ -88,7 +88,7 @@ test('type can be changed', async () => {
       type: 'NOTTEXT',
     });
   const response = await api.get('/api/subprocedures/1');
-  expect(response.body[0].subProcedures[0].type).toEqual('NOTTEXT');
+  expect(response.body.subProcedures[0].type).toEqual('NOTTEXT');
 });
 
 afterAll(async () => {
