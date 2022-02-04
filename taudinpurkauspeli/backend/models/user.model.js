@@ -4,9 +4,8 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    affiliation: {
+    group: {
       type: Sequelize.STRING,
-      allowNull: false,
     },
     studentid: {
       type: Sequelize.STRING,

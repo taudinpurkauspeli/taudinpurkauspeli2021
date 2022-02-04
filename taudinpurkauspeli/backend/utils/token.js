@@ -9,9 +9,9 @@ const createUser = async (req) => {
     user_name: req.headers.cn
       ? req.headers.cn
       : config.USER_NAME,
-    affiliation: req.headers.edupersonprimaryaffiliation
-      ? req.headers.edupersonprimaryaffiliation
-      : config.AFFILIATION,
+    group: req.headers.hygroupcn
+      ? req.headers.hygroupcn
+      : config.GROUP,
     studentid: req.headers.hypersonstudentid
       ? req.headers.hypersonstudentid
       : config.STUDENTID || '',
@@ -27,13 +27,13 @@ const createUser = async (req) => {
     const [userFromDb, created] = await User.findOrCreate({
       where: {
         user_name: user.user_name,
-        affiliation: user.affiliation,
+        group: user.group,
         studentid: user.studentid,
         mail: user.mail,
       },
       defaults: {
         user_name: user.user_name,
-        affiliation: user.affiliation,
+        group: user.group,
         studentid: user.studentid,
         mail: user.mail,
       },
@@ -42,13 +42,13 @@ const createUser = async (req) => {
     const userForToken = {
       username: userFromDb.user_name,
       id: userFromDb.id,
-      affiliation: userFromDb.affiliation,
+      group: userFromDb.group,
     };
 
     token = jwt.sign(userForToken, process.env.SECRET);
   }
 
-  return { token, name: user.user_name, admin: user.affiliation === 'faculty' };
+  return { token, name: user.user_name, admin: user.group === 'grp-taudinpurkausadmin' };
 };
 
 exports.createUser = createUser;

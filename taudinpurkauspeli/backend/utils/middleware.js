@@ -48,7 +48,7 @@ const extractDecodedToken = (request, response, next) => {
   }
 
   if (process.env.NODE_ENV === 'test') {
-    request.decodedToken = { affiliation: 'faculty' };
+    request.decodedToken = { group: 'grp-taudinpurkausadmin' };
   }
 
   next();
@@ -62,7 +62,7 @@ const checkUserRights = (request, response, next) => {
 };
 
 const checkAdminRights = (request, response, next) => {
-  if (!request.decodedToken || request.decodedToken.affiliation !== 'faculty') {
+  if (!request.decodedToken || request.decodedToken.group !== 'grp-taudinpurkausadmin') {
     return response.status(401).json({ error: 'you do not have rights to do this action' });
   }
   next();
