@@ -1,22 +1,10 @@
 /* eslint-disable linebreak-style */
-import React, { useState } from 'react';
-import serviceUnderCases from '../../services/differentialGroupsUnderCases';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import DifferentialGroup from './DifferentialGroup';
 
-const DifferentialGroupList = ({ caseId, admin }) => {
-  const [caseDifferentialGroups, setCaseDifferentialGroups] = useState([]);
-
-  React.useEffect(() => {
-    serviceUnderCases.getAll(caseId)
-      .then((initialDifferentialGroups) => {
-        setCaseDifferentialGroups(initialDifferentialGroups);
-      })
-      .catch((error) => {
-        /* istanbul ignore next */
-        // eslint-disable-next-line
-        console.log(error);
-      });
-  }, []);
+const DifferentialGroupList = ({ admin }) => {
+  const caseDifferentialGroups = useSelector((state) => state.differentialGroupsUnderCase);
 
   return (
     <div data-testid="diffGroupList">

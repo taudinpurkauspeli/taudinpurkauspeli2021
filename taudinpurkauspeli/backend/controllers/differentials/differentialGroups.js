@@ -48,8 +48,8 @@ differentialGroupRouter.get('/:language', middleware.checkUserRights, async (req
       attributes: [],
     },
     attributes: [
-      'name',
       ['plainDifferentialGroupId', 'id'],
+      'name',
     ],
   });
 

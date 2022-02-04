@@ -4,58 +4,45 @@ import { useTranslation } from 'react-i18next';
 import {
   Button, Modal, Tabs, Tab,
 } from 'react-bootstrap';
-import service from '../services/differentials';
-import serviceUnderCases from '../services/differentialsUnderCases';
+import { useDispatch } from 'react-redux';
 import AddDifferentialForm from './AddDifferentialForm';
 import SelectDifferentialForm from './SelectDifferentialForm';
 import { setSuccess, setError } from '../../../utils/MessageBanner';
+import { createDifferentialUnderCase } from '../reducers/differentialsUnderCasesReducer';
+import { createDifferential } from '../reducers/differentialsReducer';
 
 const NewDifferential = ({ diffGroupCaseId }) => {
   const { t } = useTranslation();
 
   const [show, setShow] = useState(false);
-  const [differentials, setDifferentials] = useState([]);
-
-  React.useEffect(() => {
-    service.getAll()
-      .then((initialDifferentials) => {
-        setDifferentials(initialDifferentials);
-      })
-      .catch((error) => {
-        /* istanbul ignore next */
-        // eslint-disable-next-line
-        console.log(error);
-      });
-  }, []);
+  const dispatch = useDispatch();
 
   const toggleVisibility = () => setShow(!show);
 
   /* istanbul ignore next */
   const handleDifferentialSelection = (ducObject) => {
-    serviceUnderCases.create(ducObject)
-      .then(() => {
-        toggleVisibility();
-        setSuccess(t('differentialUpdateSuccess'));
-      })
-      .catch((error) => {
+    toggleVisibility();
+    try {
+      dispatch(createDifferentialUnderCase(ducObject));
+      setSuccess(t('differentialUpdateSuccess'));
+    } catch (error) {
       // eslint-disable-next-line no-console
-        console.log(error);
-        toggleVisibility();
-        setError(t('differentialUpdateError'));
-      });
+      console.log(error);
+      setError(t('differentialUpdateError'));
+    }
   };
 
   /* istanbul ignore next */
   const handleDifferentialAdd = (differentialObject) => {
-    service.create({ name: differentialObject.name })
-      .then((res) => {
-        const differentialId = res.id;
-        handleDifferentialSelection({
-          diffGroupCaseId,
-          differentialId,
-          description: differentialObject.description,
-        });
-      });
+    toggleVisibility();
+    try {
+      dispatch(createDifferential(differentialObject, diffGroupCaseId));
+      setSuccess(t('differentialUpdateSuccess'));
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log(error);
+      setError(t('differentialUpdateError'));
+    }
   };
 
   return (
@@ -76,7 +63,6 @@ const NewDifferential = ({ diffGroupCaseId }) => {
           <Tabs defaultActiveKey="select" id="differentials" className="mb-3">
             <Tab eventKey="select" title={t('selectExisting')}>
               <SelectDifferentialForm
-                differentials={differentials}
                 selectDifferential={handleDifferentialSelection}
                 diffGroupCaseId={diffGroupCaseId}
               />

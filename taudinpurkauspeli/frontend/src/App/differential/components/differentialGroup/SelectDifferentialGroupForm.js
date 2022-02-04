@@ -5,20 +5,18 @@ import {
   Form, Button,
 } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
+import { useSelector } from 'react-redux';
 
-const SelectDifferentialGroupForm = ({ differentialGroups, selectDifferentialGroup, caseId }) => {
+const SelectDifferentialGroupForm = ({ selectDifferentialGroup }) => {
   const { t } = useTranslation();
 
   const [selectedDiff, setSelectedDiff] = useState([]);
+  const differentialGroups = useSelector((state) => state.differentialGroups);
 
   const handleDifferentialChoose = (event) => {
     event.preventDefault();
     const differentialGroup = differentialGroups.filter((d) => d.name === selectedDiff[0])[0];
-    selectDifferentialGroup({
-      caseId,
-      differentialGroupId: differentialGroup.id,
-    });
-
+    selectDifferentialGroup(differentialGroup.id);
     setSelectedDiff([]);
   };
 

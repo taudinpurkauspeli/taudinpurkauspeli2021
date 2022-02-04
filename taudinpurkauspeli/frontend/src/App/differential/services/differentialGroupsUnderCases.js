@@ -10,7 +10,7 @@ const getAll = (caseId) => {
 };
 
 const create = (newObject) => {
-  const request = axios.post(`${baseUrl}`, newObject, getConfig());
+  const request = axios.post(`${baseUrl}/${getLanguage()}`, newObject, getConfig());
   return request.then((response) => response.data);
 };
 

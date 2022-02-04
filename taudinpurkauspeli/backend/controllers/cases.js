@@ -50,9 +50,9 @@ caseRouter.get('/:language', async (req, res) => {
       attributes: [],
     },
     attributes: [
+      ['plainCaseId', 'id'],
       'title',
       'anamnesis',
-      ['plainCaseId', 'id'],
       [db.Sequelize.literal('"plainCase"."hidden"'), 'hidden'],
     ],
   });
@@ -79,9 +79,9 @@ caseRouter.get('/:id/:language', middleware.checkUserRights, async (req, res) =>
       attributes: [],
     },
     attributes: [
+      ['plainCaseId', 'id'],
       'title',
       'anamnesis',
-      ['plainCaseId', 'id'],
       [db.Sequelize.literal('"plainCase"."hidden"'), 'hidden'],
     ],
   });

@@ -4,17 +4,29 @@ const db = require('../../models');
 const middleware = require('../../utils/middleware');
 
 const DifferentialGroupUnderCase = db.differentialGroupsUnderCases;
+const DifferentialGroups = db.differentialGroups;
 
 // Create differentialgroup under case
-differentialGroupsUnderCasesRouter.post('/', middleware.checkAdminRights, async (req, res) => {
+differentialGroupsUnderCasesRouter.post('/:language', middleware.checkAdminRights, async (req, res) => {
+  const { language } = req.params;
   const newObject = {
     plainCaseId: req.body.caseId,
     plainDifferentialGroupId: req.body.differentialGroupId,
   };
 
-  const savedDuc = DifferentialGroupUnderCase.create(newObject);
+  const savedDuc = await DifferentialGroupUnderCase.create(newObject);
+  const response = await DifferentialGroups.findOne({
+    where: {
+      plainDifferentialGroupId: savedDuc.plainDifferentialGroupId,
+      language,
+    },
+  });
 
-  res.send(savedDuc);
+  res.send({
+    diffGroupCaseId: savedDuc.id,
+    id: response.plainDifferentialGroupId,
+    name: response.name,
+  });
 });
 
 // Retrieve all groups associated to a specific case

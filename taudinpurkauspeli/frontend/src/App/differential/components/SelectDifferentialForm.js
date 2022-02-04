@@ -5,12 +5,14 @@ import {
   Form, Button,
 } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
+import { useSelector } from 'react-redux';
 
-const SelectDifferentialForm = ({ differentials, selectDifferential, diffGroupCaseId }) => {
+const SelectDifferentialForm = ({ selectDifferential, diffGroupCaseId }) => {
   const { t } = useTranslation();
 
   const [selectedDiff, setSelectedDiff] = useState([]);
   const [description, setDescription] = useState('');
+  const differentials = useSelector((state) => state.differentials);
 
   const handleDifferentialChoose = (event) => {
     event.preventDefault();

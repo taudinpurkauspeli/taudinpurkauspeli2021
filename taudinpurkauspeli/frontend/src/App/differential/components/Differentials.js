@@ -3,7 +3,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-// import NewDifferential from './NewDifferential';
 import DifferentialGroupList from './differentialGroup/DifferentialGroupList';
 import NewDifferentialGroup from './differentialGroup/NewDifferentialGroup';
 
@@ -21,7 +20,7 @@ const Differentials = ({ admin }) => {
           <NewDifferentialGroup caseId={id} />
         </div>
       )}
-      <DifferentialGroupList caseId={id} admin={admin} />
+      <DifferentialGroupList admin={admin} />
     </div>
   );
 };

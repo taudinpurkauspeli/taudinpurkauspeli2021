@@ -5,57 +5,45 @@ import {
   Button, Modal, Tabs, Tab,
 } from 'react-bootstrap';
 
-import serviceUnderCases from '../../services/differentialGroupsUnderCases';
-import service from '../../services/differentialGroups';
+import { useDispatch } from 'react-redux';
 import AddDifferentialGroupForm from './AddDifferentialGroupForm';
 import SelectDifferentialGroupForm from './SelectDifferentialGroupForm';
 import { setSuccess, setError } from '../../../../utils/MessageBanner';
+import { createDifferentialGroupUnderCase } from '../../reducers/differentialGroupsUnderCasesReducer';
+import { createDifferentialGroup } from '../../reducers/differentialGroupsReducer';
 
 const NewDifferentialGroup = ({ caseId }) => {
   const { t } = useTranslation();
 
   const [show, setShow] = useState(false);
-  const [differentialGroups, setDifferentialGroups] = useState([]);
-
-  React.useEffect(() => {
-    service.getAll()
-      .then((initialDifferentialGroups) => {
-        setDifferentialGroups(initialDifferentialGroups);
-      })
-      .catch((error) => {
-        /* istanbul ignore next */
-        // eslint-disable-next-line
-        console.log(error);
-      });
-  }, []);
+  const dispatch = useDispatch();
 
   const toggleVisibility = () => setShow(!show);
 
   /* istanbul ignore next */
-  const handleDifferentialGroupSelection = (newObject) => {
-    serviceUnderCases.create(newObject)
-      .then(() => {
-        toggleVisibility();
-        setSuccess(t('differentialGroupUpdateSuccess'));
-      })
-      .catch((error) => {
-        // eslint-disable-next-line no-console
-        console.log(error);
-        toggleVisibility();
-        setError(t('differentialGroupUpdateError'));
-      });
+  const handleDifferentialGroupSelection = (differentialGroupId) => {
+    toggleVisibility();
+    try {
+      dispatch(createDifferentialGroupUnderCase({ differentialGroupId, caseId: Number(caseId) }));
+      setSuccess(t('differentialGroupUpdateSuccess'));
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log(error);
+      setError(t('differentialGroupUpdateError'));
+    }
   };
 
   /* istanbul ignore next */
   const handleDifferentialGroupAdd = (differentialGroupObject) => {
-    service.create({ name: differentialGroupObject.name })
-      .then((res) => {
-        const differentialGroupId = res.id;
-        handleDifferentialGroupSelection({
-          caseId,
-          differentialGroupId,
-        });
-      });
+    toggleVisibility();
+    try {
+      dispatch(createDifferentialGroup(Number(caseId), differentialGroupObject));
+      setSuccess(t('differentialGroupUpdateSuccess'));
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log(error);
+      setError(t('differentialGroupUpdateError'));
+    }
   };
 
   return (
@@ -76,7 +64,6 @@ const NewDifferentialGroup = ({ caseId }) => {
           <Tabs defaultActiveKey="select" id="differentialGroups" className="mb-3">
             <Tab eventKey="select" title={t('selectExisting')}>
               <SelectDifferentialGroupForm
-                differentialGroups={differentialGroups}
                 selectDifferentialGroup={handleDifferentialGroupSelection}
                 caseId={caseId}
               />

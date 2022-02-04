@@ -1,27 +1,16 @@
 /* eslint-disable linebreak-style */
-import React, { useState } from 'react';
+import React from 'react';
 import { Accordion } from 'react-bootstrap';
-import serviceUnderCases from '../services/differentialsUnderCases';
+import { useSelector } from 'react-redux';
 import Differential from './Differential';
 
 const DifferentialList = ({ diffGroupCaseId }) => {
-  const [caseDifferentials, setCaseDifferentials] = useState([]);
-
-  React.useEffect(() => {
-    serviceUnderCases.getAll(diffGroupCaseId)
-      .then((initialDifferentials) => {
-        setCaseDifferentials(initialDifferentials);
-      })
-      .catch((error) => {
-        /* istanbul ignore next */
-        // eslint-disable-next-line
-        console.log(error);
-      });
-  }, []);
+  const caseDifferentials = useSelector((state) => state.differentialsUnderCase);
+  const diffGroupDiffs = caseDifferentials.filter((d) => d.diffGroupCaseId === diffGroupCaseId);
 
   return (
     <Accordion>
-      {caseDifferentials.map((d) => (
+      {diffGroupDiffs.map((d) => (
         <Differential key={d.id} id={d.id} name={d.name} description={d.description} />
       ))}
     </Accordion>

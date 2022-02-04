@@ -10,6 +10,10 @@ import Procedures from '../../procedure/components/Procedures';
 import Differentials from '../../differential/components/Differentials';
 import Anamnesis from '../../anamnesis/Anamnesis';
 import { getProceduresUnderCase } from '../../procedure/proceduresReducer';
+import { getDifferentials } from '../../differential/reducers/differentialsReducer';
+import { getDifferentialGroups } from '../../differential/reducers/differentialGroupsReducer';
+import { getDifferentialGroupsUnderCase } from '../../differential/reducers/differentialGroupsUnderCasesReducer';
+import { getDifferentialsUnderCase } from '../../differential/reducers/differentialsUnderCasesReducer';
 
 const Case = ({ admin }) => {
   const { t } = useTranslation();
@@ -19,6 +23,10 @@ const Case = ({ admin }) => {
 
   useEffect(() => {
     dispatch(getProceduresUnderCase(id));
+    dispatch(getDifferentials());
+    dispatch(getDifferentialsUnderCase(id));
+    dispatch(getDifferentialGroups());
+    dispatch(getDifferentialGroupsUnderCase(id));
   }, []);
 
   const buttonGroupStyle = {
