@@ -8,8 +8,8 @@ const SubProcedure = ({ d, admin }) => {
     return (
       <TextSubProcedure
         id={d.id}
-        title={d.textSubProcedures.title}
-        text={d.textSubProcedures.text}
+        title={d.title}
+        text={d.text}
         admin={admin}
       />
     );

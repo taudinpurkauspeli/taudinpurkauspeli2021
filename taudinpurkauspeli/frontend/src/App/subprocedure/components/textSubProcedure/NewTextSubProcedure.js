@@ -10,7 +10,7 @@ import { addTextSubprocedure } from '../../subProceduresReducer';
 import AddTextSubProcedure from './AddTextSubProcedure';
 import { setSuccess, setError } from '../../../../utils/MessageBanner';
 
-const NewTextSubProcedure = ({ proceduresId }) => {
+const NewTextSubProcedure = ({ procedureCaseId }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
@@ -18,12 +18,11 @@ const NewTextSubProcedure = ({ proceduresId }) => {
   const toggleVisibility = () => setShow(!show);
 
   const handleTextSubProcedureAdd = (subProcedureObject) => {
+    toggleVisibility();
     try {
-      dispatch(addTextSubprocedure(subProcedureObject, proceduresId));
-      toggleVisibility();
+      dispatch(addTextSubprocedure(subProcedureObject, procedureCaseId));
       setSuccess(t('textSubProcedureUpdateSuccess'));
     } catch (error) {
-      toggleVisibility();
       setError(t('textSubProcedureUpdateError'));
     }
   };

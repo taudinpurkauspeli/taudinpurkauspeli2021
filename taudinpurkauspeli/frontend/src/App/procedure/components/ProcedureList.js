@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { updateProcedurePriorities } from '../proceduresReducer';
+import { updateProcedurePriorities } from '../proceduresUnderCasesReducer';
 import EditProcedure from './EditProcedure';
 
 const DragNDropList = ({
@@ -22,9 +22,9 @@ const DragNDropList = ({
       >
         <div className="rows">
           <Button className="procedureButton">
-            {p.proceduresUnderCase.priority}
+            {p.priority}
             &nbsp;
-            {p.title}
+            {p.name}
           </Button>
           <form onSubmit={(e) => submitForm(p, e)} className="handleEdits">
             <Button type="submit" className="editButton" key={index} size="sm">{t('buttonEdit') }</Button>
@@ -44,10 +44,9 @@ const ProcedureList = ({ id }) => {
   const [procedureToEdit, setProcedureToEdit] = useState(null);
 
   const initialProcedures = useSelector((state) => {
-    const { procedures } = state;
-    return procedures
-      .procedures
-      .sort((a, b) => a.proceduresUnderCase.priority - b.proceduresUnderCase.priority);
+    const { proceduresUnderCase } = state;
+    return proceduresUnderCase
+      .sort((a, b) => a.priority - b.priority);
   });
 
   useEffect(() => {

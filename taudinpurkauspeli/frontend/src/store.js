@@ -5,6 +5,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import casesReducer from './App/case/casesReducer';
 import userReducer from './App/users/reducers/userReducer';
 import proceduresReducer from './App/procedure/proceduresReducer';
+import proceduresUnderCasesReducer from './App/procedure/proceduresUnderCasesReducer';
 import subProceduresReducer from './App/subprocedure/subProceduresReducer';
 import differentialsReducer from './App/differential/reducers/differentialsReducer';
 import differentialsUnderCasesReducer from './App/differential/reducers/differentialsUnderCasesReducer';
@@ -15,6 +16,7 @@ const reducer = combineReducers({
   cases: casesReducer,
   admin: userReducer,
   procedures: proceduresReducer,
+  proceduresUnderCase: proceduresUnderCasesReducer,
   subProcedures: subProceduresReducer,
   differentials: differentialsReducer,
   differentialsUnderCase: differentialsUnderCasesReducer,

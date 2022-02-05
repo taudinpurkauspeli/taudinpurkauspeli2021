@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 
 import NewProcedureForm from './NewProcedureForm';
 import { setSuccess, setError } from '../../../utils/MessageBanner';
-import { addProcedure } from '../proceduresReducer';
+import { createProcedure } from '../proceduresReducer';
 
 // eslint-disable-next-line no-unused-vars
 const newProcedure = ({ caseId }) => {
@@ -23,7 +23,7 @@ const newProcedure = ({ caseId }) => {
   /* istanbul ignore next */
   const handleProcedureAdd = (procedureObject) => {
     try {
-      dispatch(addProcedure(caseId, procedureObject));
+      dispatch(createProcedure(Number(caseId), procedureObject));
       toggleVisibility();
       setSuccess(t('procedureAddSuccess'));
     } catch (error) {

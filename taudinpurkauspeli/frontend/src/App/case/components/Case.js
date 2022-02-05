@@ -9,11 +9,13 @@ import { useDispatch } from 'react-redux';
 import Procedures from '../../procedure/components/Procedures';
 import Differentials from '../../differential/components/Differentials';
 import Anamnesis from '../../anamnesis/Anamnesis';
-import { getProceduresUnderCase } from '../../procedure/proceduresReducer';
+import { getProcedures } from '../../procedure/proceduresReducer';
+import { getProceduresUnderCase } from '../../procedure/proceduresUnderCasesReducer';
 import { getDifferentials } from '../../differential/reducers/differentialsReducer';
 import { getDifferentialGroups } from '../../differential/reducers/differentialGroupsReducer';
 import { getDifferentialGroupsUnderCase } from '../../differential/reducers/differentialGroupsUnderCasesReducer';
 import { getDifferentialsUnderCase } from '../../differential/reducers/differentialsUnderCasesReducer';
+import { getSubprocedures } from '../../subprocedure/subProceduresReducer';
 
 const Case = ({ admin }) => {
   const { t } = useTranslation();
@@ -22,7 +24,9 @@ const Case = ({ admin }) => {
   const baseUrl = `/cases/${id}`;
 
   useEffect(() => {
+    dispatch(getProcedures());
     dispatch(getProceduresUnderCase(id));
+    dispatch(getSubprocedures(id));
     dispatch(getDifferentials());
     dispatch(getDifferentialsUnderCase(id));
     dispatch(getDifferentialGroups());

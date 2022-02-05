@@ -20,8 +20,8 @@ export const getDifferentialGroups = () => async (dispatch) => {
   });
 };
 
-export const createDifferentialGroup = (caseId, content) => async (dispatch) => {
-  const newDifferentialGroup = await differentialGroupsService.create(content);
+export const createDifferentialGroup = (caseId, differential) => async (dispatch) => {
+  const newDifferentialGroup = await differentialGroupsService.create(differential);
 
   dispatch({
     type: 'NEW_DIFFERENTIALGROUP',

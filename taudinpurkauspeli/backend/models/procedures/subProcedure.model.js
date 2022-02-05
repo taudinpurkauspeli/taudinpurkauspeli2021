@@ -1,14 +1,7 @@
 module.exports = (sequelize, Sequelize) => {
   const SubProcedure = sequelize.define('subProcedure', {
-    language: {
-      type: Sequelize.STRING,
-    },
-    isDefault: {
-      type: Sequelize.BOOLEAN,
-    },
-    type: {
-      type: Sequelize.STRING,
-      allowNull: false,
+    priority: {
+      type: Sequelize.INTEGER,
     },
   }, {
     tableName: 'sub_procedures',

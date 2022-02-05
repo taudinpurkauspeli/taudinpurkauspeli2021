@@ -1,44 +1,56 @@
 /* eslint-disable consistent-return */
 const proceduresUnderCasesRouter = require('express').Router();
 const db = require('../../models');
+const middleware = require('../../utils/middleware');
 
 const ProcedureUnderCase = db.proceduresUnderCases;
-const middleware = require('../../utils/middleware');
+const Procedure = db.procedures;
 
 const { Op } = db.Sequelize;
 
-// Save a new procedure under case
-proceduresUnderCasesRouter.post('/', middleware.checkAdminRights, (req, res, next) => {
-  // Create a procedure under case
-  console.log('data arrived', req.body);
-
+// create a new procedure under case
+proceduresUnderCasesRouter.post('/:language', middleware.checkAdminRights, async (req, res) => {
+  const { language } = req.params;
   const procedureUnderCase = {
-    caseId: req.body.caseId,
-    procedureId: req.body.procedureId,
+    plainCaseId: req.body.caseId,
+    plainProcedureId: req.body.procedureId,
     priority: req.body.priority,
   };
 
   // Save procedure under case in the database
-  ProcedureUnderCase.create(procedureUnderCase)
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((error) => next(error));
+  const savedPuc = await ProcedureUnderCase.create(procedureUnderCase);
+  const response = await Procedure.findOne({
+    where: {
+      plainProcedureId: savedPuc.plainProcedureId,
+      language,
+    },
+  });
+
+  res.send({
+    id: response.plainProcedureId,
+    procedureCaseId: savedPuc.id,
+    name: response.name,
+    priority: savedPuc.priority,
+  });
 });
 
 // Retrieve all procedures related to case based on id
-proceduresUnderCasesRouter.get('/:id', middleware.checkUserRights, (req, res, next) => {
-  const { id } = req.params;
+proceduresUnderCasesRouter.get('/:id/:language', middleware.checkUserRights, async (req, res) => {
+  const { id, language } = req.params;
 
-  ProcedureUnderCase.findAll({
-    where: {
-      caseId: id,
+  const foundProcedures = await db.sequelize.query(
+    `SELECT p."plainProcedureId" AS id, puc.id AS "procedureCaseId", p.name, puc.priority
+    FROM procedures_under_cases AS puc
+    LEFT JOIN procedures AS p ON puc."plainProcedureId" = p."plainProcedureId"
+    WHERE puc."plainCaseId" = ? AND p.language = ?;
+    `,
+    {
+      replacements: [id, language],
+      type: db.sequelize.QueryTypes.SELECT,
     },
-  })
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((error) => next(error));
+  );
+
+  res.send(foundProcedures);
 });
 
 // Retrieve all procedures
@@ -54,20 +66,17 @@ proceduresUnderCasesRouter.get('/', middleware.checkUserRights, (req, res, next)
 });
 
 // Update a procedure (by id)
-proceduresUnderCasesRouter.put('/:id', middleware.checkAdminRights, (req, res, next) => {
+proceduresUnderCasesRouter.put('/:id', middleware.checkAdminRights, async (req, res) => {
   const { id } = req.params;
+  const { priority } = req.body;
 
-  ProcedureUnderCase.update(req.body, {
-    where: { procedureId: id, caseId: req.body.caseId },
-  })
-    .then((num) => {
-      if (Number(num) === 1) {
-        res.send({
-          message: 'Procedure was updated successfully.',
-        });
-      }
-    })
-    .catch((error) => next(error));
+  await ProcedureUnderCase.update({ priority }, {
+    where: { id },
+  });
+
+  res.send({
+    message: 'Procedure was updated successfully.',
+  });
 });
 
 module.exports = proceduresUnderCasesRouter;

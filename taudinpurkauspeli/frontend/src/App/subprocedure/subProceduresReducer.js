@@ -3,13 +3,10 @@ import textSubProceduresService from './textSubProceduresService';
 
 const subProceduresReducer = (state = [], action) => {
   switch (action.type) {
-    case 'INITIALIZE_SUBPROCEDURES':
+    case 'GET_SUBPROCEDURES':
       return action.data;
     case 'ADD_TEXT_SUBPROCEDURE':
-      return {
-        ...state,
-        subProcedures: state.subProcedures.concat(action.data),
-      };
+      return [...state, action.data];
     case 'UPDATE_TEXT_SUBPROCEDURE': {
       const subprocedure = state.subProcedures.find((sp) => sp.id === action.id);
       subprocedure.textSubProcedures.title = action.data.title;
@@ -26,22 +23,22 @@ const subProceduresReducer = (state = [], action) => {
   }
 };
 
-export const initializeSubprocedures = (procedureId) => async (dispatch) => {
-  const subprocedures = await subProceduresService.getAllId(procedureId);
+export const getSubprocedures = (procedureCaseId) => async (dispatch) => {
+  const subprocedures = await subProceduresService.getAllId(procedureCaseId);
   dispatch({
-    type: 'INITIALIZE_SUBPROCEDURES',
+    type: 'GET_SUBPROCEDURES',
     data: subprocedures,
   });
 };
 
-export const addTextSubprocedure = (subProcedureObject, procedureId) => async (dispatch) => {
+export const addTextSubprocedure = (subProcedureObject, procedureCaseId) => async (dispatch) => {
   const addedSubprocedure = await subProceduresService.create({
     priority: subProcedureObject.priority,
     type: subProcedureObject.type,
+    procedureCaseId,
   });
   const addedTextSubProcedure = await textSubProceduresService.create({
     subProcedureId: addedSubprocedure.id,
-    proceduresUnderCaseProcedureCaseId: procedureId,
     title: subProcedureObject.title,
     text: subProcedureObject.text,
   });
@@ -49,7 +46,8 @@ export const addTextSubprocedure = (subProcedureObject, procedureId) => async (d
     type: 'ADD_TEXT_SUBPROCEDURE',
     data: {
       ...addedSubprocedure,
-      textSubProcedures: addedTextSubProcedure,
+      ...addedTextSubProcedure,
+      id: addedTextSubProcedure.id,
     },
   });
 };

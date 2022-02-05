@@ -20,7 +20,7 @@ proceduresRouter.post('/:language', middleware.checkAdminRights, async (req, res
   const newProcedure = {
     plainProcedureId: id,
     language,
-    isDefault: language === 'fin',
+    isDefault: language === 'fi',
     name,
   };
 
@@ -31,8 +31,8 @@ proceduresRouter.post('/:language', middleware.checkAdminRights, async (req, res
   });
 
   res.json({
-    id: savedProcedure.plainProcedureId,
-    name: savedProcedure.name,
+    id: savedProcedure[0].plainProcedureId,
+    name: savedProcedure[0].name,
   });
 });
 
@@ -47,8 +47,8 @@ proceduresRouter.get('/:language', middleware.checkUserRights, async (req, res) 
       attributes: [],
     },
     attributes: [
-      'name',
       ['plainProcedureId', 'id'],
+      'name',
     ],
   });
 

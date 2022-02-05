@@ -8,16 +8,17 @@ import { useHistory, Link } from 'react-router-dom';
 import {
   Button,
 } from 'react-bootstrap';
-import service from '../proceduresService';
-import serviceUnderProcedure from '../proceduresUnderCaseService';
+import { useDispatch } from 'react-redux';
+import { updateProcedure } from '../proceduresReducer';
 
 const EditProcedure = ({ procedure, caseId, editProcedureFunc }) => {
   /* istanbul ignore next */
-  const [newPriority, setNewPriority] = useState(procedure.proceduresUnderCase.priority);
+  const [newPriority, setNewPriority] = useState(procedure.priority);
   /* istanbul ignore next */
-  const [newProcedureTitle, setNewProcedureTitle] = useState(procedure.title);
+  const [newProcedureTitle, setNewProcedureTitle] = useState(procedure.name);
   /* istanbul ignore next */
   const { t } = useTranslation();
+  const dispatch = useDispatch();
   /* istanbul ignore next */
   const history = useHistory();
   const baseUrl = `/cases/${caseId}`;
@@ -38,28 +39,21 @@ const EditProcedure = ({ procedure, caseId, editProcedureFunc }) => {
     setNewProcedureTitle(event.target[0].value);
     setNewPriority(event.target[1].value);
     // eslint-disable-next-line no-param-reassign
-    const procedureUnderCaseObject = ({
-      caseId: procedure.proceduresUnderCase.caseId,
-      procedureId: procedure.proceduresUnderCase.procedureId,
-      priority: event.target[1].value,
-    });
 
-    const procedureObject = ({
-      title: event.target[0].value,
-    });
+    const procedureToBeUpdated = {
+      ...procedure,
+      priority: Number(event.target[1].value),
+      name: event.target[0].value,
+    };
 
     if (editProcedureFunc != null) {
-      editProcedureFunc(procedureUnderCaseObject);
+      editProcedureFunc(procedureToBeUpdated);
     }
-    service.update(procedure.id, procedureObject);
-    serviceUnderProcedure.update(procedure.id, procedureUnderCaseObject);
-    if (editProcedureFunc == null) {
-      history.push('/');
-    }
+    dispatch(updateProcedure(procedureToBeUpdated));
   };
 
   return (
-    <div id="editProcedureForm" key={procedure.proceduresUnderCase.priority}>
+    <div id="editProcedureForm" key={procedure.priority}>
       <h2>{t('editProcedure')}</h2>
       <Button className="procedureButton goTo" as={Link} to={`${baseUrl}/procedure/${procedure.id}`} style={{ margin: 15 }}>{t('goToProcedure')}</Button>
       <form onSubmit={(e) => editProcedure(e)}>
@@ -71,7 +65,7 @@ const EditProcedure = ({ procedure, caseId, editProcedureFunc }) => {
           <input
             id="title"
             type="text"
-            defaultValue={procedure.title}
+            defaultValue={procedure.name}
             onChange={handleTitleChange}
             className="formInput"
           />
@@ -85,7 +79,7 @@ const EditProcedure = ({ procedure, caseId, editProcedureFunc }) => {
             id="priority"
             type="integer"
             onChange={handlePriorityChange}
-            defaultValue={procedure.proceduresUnderCase.priority}
+            defaultValue={procedure.priority}
             className="formInput"
           />
         </p>

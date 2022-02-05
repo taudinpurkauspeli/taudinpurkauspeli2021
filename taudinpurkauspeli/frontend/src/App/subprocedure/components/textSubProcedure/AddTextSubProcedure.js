@@ -15,13 +15,13 @@ const AddTextSubProcedure = ({ handleSubProcedureAdd }) => {
       .min(2, t('warningShort'))
       .max(999, t('warningLong'))
       .required(t('warningRequired')),
-    priority: Yup.string(),
+    priority: Yup.number(),
     text: Yup.string(),
   });
 
   const innerHandleSubProcedureAdd = (values) => {
     handleSubProcedureAdd({
-      priority: values.priority,
+      priority: Number(values.priority),
       type: 'TEXT',
       title: values.title,
       text: values.text,

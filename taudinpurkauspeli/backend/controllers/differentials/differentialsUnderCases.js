@@ -43,7 +43,8 @@ differentialsUnderCasesRouter.get('/:id/:language', middleware.checkUserRights, 
 
   const foundDifferentials = await db.sequelize.query(
     `SELECT duc."differentialGroupsUnderCaseId" AS "diffGroupCaseId", duc."plainDifferentialId" AS id, duc.description, d.name
-    FROM differential_groups_under_cases AS dguc LEFT JOIN differentials_under_cases AS duc ON dguc.id = duc."differentialGroupsUnderCaseId"
+    FROM differential_groups_under_cases AS dguc
+    LEFT JOIN differentials_under_cases AS duc ON dguc.id = duc."differentialGroupsUnderCaseId"
     LEFT JOIN differentials AS d ON duc."plainDifferentialId" = d."plainDifferentialId"
     WHERE dguc."plainCaseId" = ? AND duc.language = ? AND d.language = ?`,
     {

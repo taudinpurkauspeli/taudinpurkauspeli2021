@@ -2,9 +2,9 @@ import differentialGroupsUnderCasesService from '../services/differentialGroupsU
 
 const differentialGroupsUnderCasesReducer = (state = [], action) => {
   switch (action.type) {
-    case 'GET_DIFFERENTIALGROUPSUNDERCASE':
+    case 'GET_DIFFERENTIALGROUPS_UNDER_CASE':
       return action.data;
-    case 'NEW_DIFFERENTIALGROUPUNDERCASE':
+    case 'NEW_DIFFERENTIALGROUP_UNDER_CASE':
       return [...state, action.data];
     default:
       return state;
@@ -14,7 +14,7 @@ const differentialGroupsUnderCasesReducer = (state = [], action) => {
 export const getDifferentialGroupsUnderCase = (id) => async (dispatch) => {
   const returnedDifferentialGroupsUnderCase = await differentialGroupsUnderCasesService.getAll(id);
   dispatch({
-    type: 'GET_DIFFERENTIALGROUPSUNDERCASE',
+    type: 'GET_DIFFERENTIALGROUPS_UNDER_CASE',
     data: returnedDifferentialGroupsUnderCase,
   });
 };
@@ -22,7 +22,7 @@ export const getDifferentialGroupsUnderCase = (id) => async (dispatch) => {
 export const createDifferentialGroupUnderCase = (content) => async (dispatch) => {
   const newDifferentialGroupUnderCase = await differentialGroupsUnderCasesService.create(content);
   dispatch({
-    type: 'NEW_DIFFERENTIALGROUPUNDERCASE',
+    type: 'NEW_DIFFERENTIALGROUP_UNDER_CASE',
     data: newDifferentialGroupUnderCase,
   });
 };

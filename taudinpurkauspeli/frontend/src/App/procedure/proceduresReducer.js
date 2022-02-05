@@ -1,62 +1,50 @@
 import proceduresService from './proceduresService';
-import proceduresUnderCasesService from './proceduresUnderCaseService';
+import { createProcedureUnderCase, updateProcedurePriority } from './proceduresUnderCasesReducer';
 
 const proceduresReducer = (state = [], action) => {
   switch (action.type) {
-    case 'GET_PROCEDURES_UNDER_CASE':
+    case 'GET_PROCEDURES':
       return action.data;
-    case 'ADD_PROCEDURE':
-      return {
-        ...state,
-        procedures: state.procedures.concat(action.data),
-      };
+    case 'NEW_PROCEDURE':
+      return [...state, action.data];
+    case 'UPDATE_PROCEDURE':
+      return state.map((p) => (p.id !== action.data.id
+        ? p
+        : {
+          id: p.id,
+          name: p.name,
+        }));
     default:
       return state;
   }
 };
 
-export const getProceduresUnderCase = (caseId) => async (dispatch) => {
-  const proceduresUnderCase = await proceduresService.getAll(caseId);
+export const getProcedures = () => async (dispatch) => {
+  const procedures = await proceduresService.getAll();
   dispatch({
-    type: 'GET_PROCEDURES_UNDER_CASE',
-    data: proceduresUnderCase,
+    type: 'GET_PROCEDURES',
+    data: procedures,
   });
 };
 
-export const addProcedure = (caseId, procedure) => async (dispatch) => {
-  const addedProcedure = await proceduresService.create(procedure);
+export const createProcedure = (caseId, procedure) => async (dispatch) => {
+  const newProcedure = await proceduresService.create(procedure);
 
-  const procedureUnderCaseObject = ({
+  dispatch({
+    type: 'NEW_PROCEDURE',
+    data: newProcedure,
+  });
+
+  dispatch(createProcedureUnderCase({
     caseId,
-    procedureId: addedProcedure.id,
+    procedureId: newProcedure.id,
     priority: 1,
-  });
-
-  const addedProcedureUnderCase = await proceduresUnderCasesService
-    .create(procedureUnderCaseObject);
-
-  dispatch({
-    type: 'ADD_PROCEDURE',
-    data: {
-      ...addedProcedure,
-      proceduresUnderCase: addedProcedureUnderCase,
-    },
-  });
+  }));
 };
 
-export const updateProcedurePriorities = (caseId, procedures) => async (dispatch) => {
-  await Promise.all(procedures.map((p, index) => {
-    const procedureUnderCaseObject = ({
-      caseId: p.proceduresUnderCase.caseId,
-      procedureId: p.proceduresUnderCase.procedureId,
-      priority: index + 1,
-    });
-    return proceduresUnderCasesService.update(
-      p.proceduresUnderCase.procedureId,
-      procedureUnderCaseObject,
-    );
-  }));
-  dispatch(getProceduresUnderCase(caseId));
+export const updateProcedure = (procedure) => async (dispatch) => {
+  await proceduresService.update(procedure.id, procedure);
+  dispatch(updateProcedurePriority(procedure));
 };
 
 export default proceduresReducer;

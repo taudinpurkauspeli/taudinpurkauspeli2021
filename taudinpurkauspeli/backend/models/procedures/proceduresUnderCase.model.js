@@ -6,17 +6,17 @@ module.exports = (sequelize, Sequelize) => {
       primaryKey: true,
       autoIncrement: true,
     },
-    caseId: {
+    plainCaseId: {
       type: Sequelize.INTEGER,
       references: {
-        model: 'cases',
-        key: 'initialCaseId',
+        model: 'plainCases',
+        key: 'id',
       },
     },
-    procedureId: {
+    plainProcedureId: {
       type: Sequelize.INTEGER,
       references: {
-        model: 'procedures',
+        model: 'plainProcedures',
         key: 'id',
       },
     },

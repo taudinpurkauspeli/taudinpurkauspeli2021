@@ -27,7 +27,7 @@ db.plainCases = require('./plainCase.model')(sequelize, Sequelize);
 db.plainDifferentials = require('./differentials/plainDifferential.model')(sequelize, Sequelize);
 db.plainDifferentialGroups = require('./differentials/plainDifferentialGroup.model')(sequelize, Sequelize);
 db.plainProcedures = require('./procedures/plainProcedure.model')(sequelize, Sequelize);
-db.plainSubProcedures = require('./procedures/plainSubProcedure.model')(sequelize, Sequelize);
+db.plainTextSubProcedures = require('./procedures/plainTextSubProcedure.model')(sequelize, Sequelize);
 
 db.users = require('./user.model')(sequelize, Sequelize);
 db.cases = require('./case.model')(sequelize, Sequelize);
@@ -37,6 +37,7 @@ db.differentials = require('./differentials/differential.model')(sequelize, Sequ
 db.differentalsUnderCases = require('./differentials/differentialsUnderCase.model')(sequelize, Sequelize);
 db.procedures = require('./procedures/procedure.model')(sequelize, Sequelize);
 db.proceduresUnderCases = require('./procedures/proceduresUnderCase.model')(sequelize, Sequelize);
+db.subProcedureTypes = require('./procedures/subProcedureTypes.model')(sequelize, Sequelize);
 db.subProcedures = require('./procedures/subProcedure.model')(sequelize, Sequelize);
 db.textSubProcedures = require('./procedures/textSubProcedure.model')(sequelize, Sequelize);
 
@@ -64,9 +65,9 @@ db.procedures.belongsTo(db.plainProcedures, {
   constraints: false,
 });
 
-db.plainSubProcedures.hasMany(db.subProcedures);
-db.subProcedures.belongsTo(db.plainSubProcedures, {
-  foreignKey: 'plainSubProcedureId',
+db.subProcedureTypes.hasMany(db.subProcedures);
+db.subProcedures.belongsTo(db.subProcedureTypes, {
+  foreignKey: 'subProcedureTypeId',
   constraints: false,
 });
 
@@ -90,12 +91,21 @@ db.plainDifferentials.belongsToMany(db.differentialGroupsUnderCases, {
   through: db.differentalsUnderCases,
 });
 
-db.procedures.belongsToMany(db.cases, { through: db.proceduresUnderCases });
-db.cases.belongsToMany(db.procedures, { through: db.proceduresUnderCases });
+db.plainProcedures.belongsToMany(db.plainCases, {
+  through: db.proceduresUnderCases,
+});
+db.plainCases.belongsToMany(db.plainProcedures, {
+  through: db.proceduresUnderCases,
+});
 
-db.subProcedures.hasMany(db.textSubProcedures);
-db.textSubProcedures.belongsTo(db.subProcedures, {
-  as: 'subProcedure',
+db.plainTextSubProcedures.hasMany(db.textSubProcedures);
+db.textSubProcedures.belongsTo(db.plainTextSubProcedures, {
+  foreignKey: 'plainTextSubProcedureId',
+  constraints: false,
+});
+
+db.subProcedures.hasMany(db.plainTextSubProcedures);
+db.plainTextSubProcedures.belongsTo(db.subProcedures, {
   foreignKey: 'subProcedureId',
   constraints: false,
 });

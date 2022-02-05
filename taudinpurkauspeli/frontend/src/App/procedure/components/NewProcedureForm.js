@@ -17,9 +17,7 @@ const newProcedureForm = ({ addProcedure }) => {
 
   const handleProcedureAdd = (values) => {
     addProcedure({
-      title: values.title,
-      anamnesis: values.anamnesis,
-      hidden: values.hidden,
+      name: values.title,
     });
   };
 
