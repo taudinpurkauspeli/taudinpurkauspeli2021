@@ -15,14 +15,16 @@ describe('text_sub_procedures', () => {
     await db.plainCases.bulkCreate(helper.plainCases);
     await db.cases.bulkCreate(helper.initialCases);
     await db.plainProcedures.bulkCreate([{}, {}]);
+    await db.subProcedureTypes.bulkCreate(helper.subProcedureTypes);
     await db.procedures.bulkCreate(helper.initialProcedures);
     await db.proceduresUnderCases.bulkCreate(helper.initialProceduresUnderCases);
     await db.subProcedures.bulkCreate(helper.initialSubProcedures);
+    await db.plainTextSubProcedures.bulkCreate(helper.plainTextSubProcedures);
     await TSP.bulkCreate(helper.initialTextSubProcedures);
   });
 
   test('all text sub procedures are returned', async () => {
-    const response = await api.get('/api/textsubprocedures');
+    const response = await api.get('/api/textSubProcedures/fi');
 
     expect(response.body).toHaveLength(helper.initialTextSubProcedures.length);
   });
@@ -32,16 +34,15 @@ describe('text_sub_procedures', () => {
       subProcedureId: 2,
       title: 'TestTitle2',
       text: 'TestText2',
-      language: 'fin',
     };
 
     await api
-      .post('/api/textsubprocedures')
+      .post('/api/textSubProcedures/fi')
       .send(newTextSubProcedure)
       .expect(200)
       .expect('Content-Type', /application\/json/);
 
-    const response = await api.get('/api/textsubprocedures');
+    const response = await api.get('/api/textSubProcedures/fi');
 
     const titles = response.body.map((r) => r.title);
 
@@ -54,29 +55,26 @@ describe('text_sub_procedures', () => {
       subProcedureId: 1,
       title: null,
       text: 'TestText2',
-      language: 'fin',
     };
     await api
-      .post('/api/textsubprocedures')
+      .post('/api/textSubProcedures/fi')
       .send(newTextSubProcedure)
       .expect(400);
 
-    const response = await api.get('/api/textsubprocedures');
+    const response = await api.get('/api/textSubProcedures/fi');
 
     expect(response.body).toHaveLength(helper.initialTextSubProcedures.length);
   });
 
   test('title can be changed', async () => {
     await api
-      .put('/api/textsubprocedures/1')
+      .put('/api/textsubprocedures/1/fi')
       .send({
-        subProceduresId: 1,
         title: 'this is a coconut',
         text: 'TestText2',
-        language: 'fin',
       });
-    const responseCheck = await api.get('/api/textsubprocedures');
-    const contentsCheck = responseCheck.body[0].title;
+    const responseCheck = await api.get('/api/textSubProcedures/fi');
+    const contentsCheck = responseCheck.body[1].title;
     expect(contentsCheck).toEqual('this is a coconut');
   });
 });

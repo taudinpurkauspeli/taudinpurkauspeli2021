@@ -39,22 +39,9 @@ subProceduresRouter.post('/', middleware.checkAdminRights, async (req, res) => {
   });
 });
 
-// Retrieve all subprocedures
-subProceduresRouter.get('/:id/:language', middleware.checkUserRights, (req, res, next) => {
-  const { id, language } = req.params;
-
-  SubProcedure.findAll({
-    where: { proceduresUnderCaseId: id, language },
-  })
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((error) => next(error));
-});
-
 // Retrieve all subprocedures including textSubProcedures
-subProceduresRouter.get('/:id', middleware.checkUserRights, async (req, res) => {
-  const { id } = req.params;
+subProceduresRouter.get('/:id/:language', middleware.checkUserRights, async (req, res) => {
+  const { id, language } = req.params;
 
   const foundSubProcedures = await db.sequelize.query(
     `SELECT tsp."plainTextSubProcedureId" AS id, sp."proceduresUnderCaseId" AS "procedureCaseId", spt.type, sp.priority, tsp.title, tsp.text
@@ -63,9 +50,9 @@ subProceduresRouter.get('/:id', middleware.checkUserRights, async (req, res) => 
     LEFT JOIN sub_procedure_types AS spt ON spt.id = sp."subProcedureTypeId"
     LEFT JOIN plain_text_sub_procedures AS pspt ON pspt."subProcedureId" = sp.id
     LEFT JOIN text_sub_procedures AS tsp ON tsp."plainTextSubProcedureId" = pspt.id
-    WHERE puc."plainCaseId" = ?`,
+    WHERE puc."plainCaseId" = ? AND tsp.language = ?`,
     {
-      replacements: [id],
+      replacements: [id, language],
       type: db.sequelize.QueryTypes.SELECT,
     },
   );
@@ -74,20 +61,17 @@ subProceduresRouter.get('/:id', middleware.checkUserRights, async (req, res) => 
 });
 
 // Update a subprocedure (by id)
-subProceduresRouter.put('/:id', middleware.checkAdminRights, (req, res, next) => {
+subProceduresRouter.put('/:id', middleware.checkAdminRights, async (req, res) => {
   const { id } = req.params;
+  const { priority } = req.body;
 
-  SubProcedure.update(req.body, {
+  await SubProcedure.update({ priority }, {
     where: { id },
-  })
-    .then((num) => {
-      if (Number(num) === 1) {
-        res.send({
-          message: 'Procedure was updated successfully.',
-        });
-      }
-    })
-    .catch((error) => next(error));
+  });
+
+  res.send({
+    message: 'Procedure was updated successfully.',
+  });
 });
 
 module.exports = subProceduresRouter;

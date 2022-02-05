@@ -7,9 +7,8 @@ import SubProcedure from './SubProcedure';
 const SubProcedureList = ({ procedureCaseId, admin }) => {
   const caseSubProcedures = useSelector((state) => state.subProcedures);
   const listedProcedures = caseSubProcedures
-    .filter((p) => p.procedureCaseId === Number(procedureCaseId));
-
-  console.log('filtered', listedProcedures);
+    .filter((p) => p.procedureCaseId === Number(procedureCaseId))
+    .sort((a, b) => a.priority - b.priority);
 
   return (
     <Accordion>

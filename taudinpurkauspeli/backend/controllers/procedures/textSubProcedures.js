@@ -5,7 +5,6 @@ const middleware = require('../../utils/middleware');
 
 const TextSubProcedure = db.textSubProcedures;
 const PlainTextSubProcedure = db.plainTextSubProcedures;
-const { Op } = db.Sequelize;
 
 // Save a new sub procedure under case
 textSubProcedureRouter.post('/:language', middleware.checkAdminRights, async (req, res) => {
@@ -37,32 +36,27 @@ textSubProcedureRouter.post('/:language', middleware.checkAdminRights, async (re
 });
 
 // Retrieve all sub procedures
-textSubProcedureRouter.get('/', middleware.checkUserRights, (req, res, next) => {
-  const { subProcedureId } = req.params;
-  const condition = subProcedureId ? { subProcedureId: { [Op.iLike]: `%${subProcedureId}%` } } : null;
+textSubProcedureRouter.get('/:language', middleware.checkUserRights, async (req, res) => {
+  const { language } = req.params;
 
-  TextSubProcedure.findAll({ where: condition })
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((error) => next(error));
+  const foundTSP = await TextSubProcedure.findAll({ where: { language } });
+
+  res.json(foundTSP);
 });
 
 // Update a sub procedure (by id)
-textSubProcedureRouter.put('/:id', middleware.checkAdminRights, (req, res, next) => {
-  const { id } = req.params;
+textSubProcedureRouter.put('/:id/:language', middleware.checkAdminRights, async (req, res) => {
+  const { id, language } = req.params;
 
-  TextSubProcedure.update(req.body, {
-    where: { subProcedureId: id },
-  })
-    .then((num) => {
-      if (Number(num) === 1) {
-        res.send({
-          message: 'Sub procedure was updated successfully.',
-        });
-      }
-    })
-    .catch((error) => next(error));
+  await TextSubProcedure.update(req.body, {
+    where: {
+      plainTextSubProcedureId: id, language,
+    },
+  });
+
+  res.send({
+    message: 'Sub procedure was updated successfully.',
+  });
 });
 
 module.exports = textSubProcedureRouter;

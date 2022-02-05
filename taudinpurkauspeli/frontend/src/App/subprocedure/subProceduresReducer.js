@@ -24,7 +24,7 @@ const subProceduresReducer = (state = [], action) => {
 };
 
 export const getSubprocedures = (procedureCaseId) => async (dispatch) => {
-  const subprocedures = await subProceduresService.getAllId(procedureCaseId);
+  const subprocedures = await subProceduresService.getAll(procedureCaseId);
   dispatch({
     type: 'GET_SUBPROCEDURES',
     data: subprocedures,

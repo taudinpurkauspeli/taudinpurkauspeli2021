@@ -1,3 +1,12 @@
+const subProcedureTypes = [
+  {
+    type: 'TEXT',
+  },
+  {
+    type: 'QUESTION',
+  },
+];
+
 const plainCases = [
   {
     hidden: true,
@@ -7,12 +16,12 @@ const plainCases = [
   },
 ];
 
-const plainSubProcedures = [
+const plainTextSubProcedures = [
   {
-    priority: 1,
+    subProcedureId: 1,
   },
   {
-    priority: 2,
+    subProcedureId: 2,
   },
 ];
 
@@ -163,53 +172,51 @@ const initialEnglishProcedures = [
 
 const initialSubProcedures = [
   {
-    type: 'TEXT',
+    subProcedureTypeId: 1,
     proceduresUnderCaseId: 1,
-    language: 'fi',
-    isDefault: true,
+    priority: 1,
   },
   {
-    type: 'TEXT',
-    proceduresUnderCaseId: 2,
-    language: 'fi',
-    isDefault: true,
-  },
-];
-
-const initialEnglishSubProcedures = [
-  {
-    type: 'TEXT',
+    subProcedureTypeId: 1,
     proceduresUnderCaseId: 1,
-    language: 'en',
-    isDefault: false,
+    priority: 2,
   },
 ];
 
 const initialProceduresUnderCases = [
   {
-    caseId: 1,
-    procedureId: 1,
+    plainCaseId: 1,
+    plainProcedureId: 1,
     priority: 1,
   },
   {
-    caseId: 1,
-    procedureId: 2,
+    plainCaseId: 1,
+    plainProcedureId: 2,
     priority: 1,
   },
 ];
 
 const initialTextSubProcedures = [
   {
-    subProcedureId: 1,
-    title: 'TestTitle',
-    text: 'TestText',
+    plainTextSubProcedureId: 1,
+    title: 'TestiOtsikko1',
+    text: 'TestiTeksti1',
     language: 'fi',
+    isDefault: true,
+  },
+  {
+    plainTextSubProcedureId: 2,
+    title: 'TestiOtsikko2',
+    text: 'TestiTeksti2',
+    language: 'fi',
+    isDefault: true,
   },
 ];
 
 module.exports = {
+  subProcedureTypes,
   plainCases,
-  plainSubProcedures,
+  plainTextSubProcedures,
   initialDifferentials,
   initialEnglishDifferentials,
   initialCases,
@@ -222,7 +229,6 @@ module.exports = {
   initialProcedures,
   initialEnglishProcedures,
   initialSubProcedures,
-  initialEnglishSubProcedures,
   initialProceduresUnderCases,
   initialTextSubProcedures,
 };

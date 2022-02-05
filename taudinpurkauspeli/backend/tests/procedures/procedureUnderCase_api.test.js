@@ -31,16 +31,16 @@ describe('procedures', () => {
     };
 
     await api
-      .post('/api/proceduresUnderCases')
+      .post('/api/proceduresUnderCases/fi')
       .send(newProcedureUnderCase)
       .expect(200)
       .expect('Content-Type', /application\/json/);
 
-    const response = await api.get('/api/proceduresUnderCases');
+    const response = await api.get('/api/proceduresUnderCases/2/fi');
 
     const priorities = response.body.map((r) => r.priority);
 
-    expect(response.body).toHaveLength(helper.initialProceduresUnderCases.length + 1);
+    expect(response.body).toHaveLength(1);
     expect(priorities).toContain(3);
   });
 

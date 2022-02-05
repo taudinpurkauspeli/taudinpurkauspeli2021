@@ -2,6 +2,7 @@ module.exports = (sequelize, Sequelize) => {
   const SubProcedure = sequelize.define('subProcedure', {
     priority: {
       type: Sequelize.INTEGER,
+      allowNull: false,
     },
   }, {
     tableName: 'sub_procedures',

@@ -15,7 +15,7 @@ const differentialUnderCaseRouter = require('./controllers/differentials/differe
 const proceduresRouter = require('./controllers/procedures/procedures');
 const proceduresUnderCasesRouter = require('./controllers/procedures/proceduresUnderCases');
 const subProceduresRouter = require('./controllers/procedures/subProcedures');
-const textSubProcedureRouter = require('./controllers/procedures/textSubProcedure');
+const textSubProcedureRouter = require('./controllers/procedures/textSubProcedures');
 
 const middleware = require('./utils/middleware');
 const logger = require('./utils/logger');

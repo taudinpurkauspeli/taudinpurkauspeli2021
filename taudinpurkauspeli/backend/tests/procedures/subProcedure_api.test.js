@@ -14,8 +14,10 @@ beforeEach(async () => {
   await db.plainProcedures.bulkCreate([{}, {}]);
   await db.procedures.bulkCreate(helper.initialProcedures);
   await db.proceduresUnderCases.bulkCreate(helper.initialProceduresUnderCases);
-  await db.plainSubProcedures.bulkCreate(helper.plainSubProcedures);
+  await db.subProcedureTypes.bulkCreate(helper.subProcedureTypes);
   await db.subProcedures.bulkCreate(helper.initialSubProcedures);
+  await db.plainTextSubProcedures.bulkCreate(helper.plainTextSubProcedures);
+  await db.textSubProcedures.bulkCreate(helper.initialTextSubProcedures);
 });
 
 describe('Getting subprocedures from database', () => {
@@ -34,9 +36,6 @@ describe('Getting subprocedures from database', () => {
   test('all subprocedures are returned', async () => {
     const response = await api.get('/api/subprocedures/1/fi');
     expect(response.body).toHaveLength(helper.initialSubProcedures.length);
-
-    const engResponse = await api.get('/api/subprocedures/1/en');
-    expect(engResponse.body).toHaveLength(helper.initialEnglishSubProcedures.length);
   });
 });
 
@@ -44,46 +43,28 @@ describe('Adding a subprocedure to database', () => {
   test('a valid text subprocedure can be added', async () => {
     const newSubProcedure = {
       type: 'TEXT',
+      priority: 1,
+      procedureCaseId: 1,
     };
 
     await api
-      .post('/api/subprocedures/fi')
+      .post('/api/subprocedures')
       .send(newSubProcedure)
       .expect(200)
       .expect('Content-Type', /application\/json/);
-
-    const response = await api.get('/api/subprocedures/fi');
-
-    expect(response.body).toHaveLength(helper.initialSubProcedures.length + 1);
-  });
-
-  test('same subprocedure in different language can be added', async () => {
-    const newSubProcedure = {
-      id: 2,
-      type: 'TEXT',
-    };
-
-    await api
-      .post('/api/subprocedures/en')
-      .send(newSubProcedure)
-      .expect(200)
-      .expect('Content-Type', /application\/json/);
-
-    const response = await api.get('/api/subprocedures/en');
-
-    expect(response.body).toHaveLength(helper.initialEnglishSubProcedures.length + 1);
   });
 
   test('subprocedure without priority is not added', async () => {
     const newSubProcedure = {
       type: 'TEXT',
+      procedureCaseId: 1,
     };
     await api
-      .post('/api/subprocedures/fi')
+      .post('/api/subprocedures')
       .send(newSubProcedure)
       .expect(400);
 
-    const response = await api.get('/api/subprocedures/fi');
+    const response = await api.get('/api/subprocedures/1/fi');
 
     expect(response.body).toHaveLength(helper.initialSubProcedures.length);
   });
@@ -91,13 +72,14 @@ describe('Adding a subprocedure to database', () => {
   test('procedure without type is not added', async () => {
     const newSubProcedure = {
       priority: 1,
+      procedureCaseId: 1,
     };
     await api
-      .post('/api/subprocedures/fi')
+      .post('/api/subprocedures')
       .send(newSubProcedure)
-      .expect(400);
+      .expect(500);
 
-    const response = await api.get('/api/subprocedures/fi');
+    const response = await api.get('/api/subprocedures/1/fi');
 
     expect(response.body).toHaveLength(helper.initialSubProcedures.length);
   });
@@ -106,25 +88,14 @@ describe('Adding a subprocedure to database', () => {
 describe('Updating a subprocedure', () => {
   test('priority can be changed', async () => {
     await api
-      .put('/api/subprocedures/1/fi')
+      .put('/api/subprocedures/1')
       .send({
         priority: '42',
         type: 'TEXT',
       });
 
     const response = await api.get('/api/subprocedures/1/fi');
-    expect(response.body[0].subProcedures[0].priority).toEqual(42);
-  });
-
-  test('type can be changed', async () => {
-    await api
-      .put('/api/subprocedures/1/fi')
-      .send({
-        priority: 1,
-        type: 'NOTTEXT',
-      });
-    const response = await api.get('/api/subprocedures/1/fi');
-    expect(response.body[0].subProcedures[0].type).toEqual('NOTTEXT');
+    expect(response.body[0].priority).toEqual(42);
   });
 });
 
