@@ -7,9 +7,7 @@ const SubProcedure = ({ d, admin }) => {
   if (d.type === 'TEXT') {
     return (
       <TextSubProcedure
-        id={d.id}
-        title={d.title}
-        text={d.text}
+        d={d}
         admin={admin}
       />
     );

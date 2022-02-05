@@ -7,11 +7,7 @@ import UpdateTextSubProcedureForm from './UpdateTextSubProcedureForm';
 import { updateTextSubprocedure } from '../../subProceduresReducer';
 import { setSuccess, setError } from '../../../../utils/MessageBanner';
 
-const UpdateTextSubProcedure = ({
-  title,
-  text,
-  id,
-}) => {
+const UpdateTextSubProcedure = ({ d }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
@@ -20,12 +16,15 @@ const UpdateTextSubProcedure = ({
 
   /* istanbul ignore next */
   const handleTextSubProcedureUpdate = (updatedObject) => {
+    toggleVisibility();
     try {
-      dispatch(updateTextSubprocedure(id, updatedObject));
-      toggleVisibility();
+      dispatch(updateTextSubprocedure(d.id, {
+        ...d,
+        title: updatedObject.title,
+        text: updatedObject.text,
+      }));
       setSuccess(t('subProcedureUpdateSuccess'));
     } catch (error) {
-      toggleVisibility();
       setError(t('subProcedureUpdateError'));
     }
   };
@@ -46,8 +45,8 @@ const UpdateTextSubProcedure = ({
         </Modal.Header>
         <Modal.Body>
           <UpdateTextSubProcedureForm
-            title={title}
-            text={text}
+            title={d.title}
+            text={d.text}
             handleTextSubProcedureUpdate={handleTextSubProcedureUpdate}
           />
         </Modal.Body>

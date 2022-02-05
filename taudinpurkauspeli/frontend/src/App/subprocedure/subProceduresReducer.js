@@ -8,15 +8,10 @@ const subProceduresReducer = (state = [], action) => {
     case 'ADD_TEXT_SUBPROCEDURE':
       return [...state, action.data];
     case 'UPDATE_TEXT_SUBPROCEDURE': {
-      const subprocedure = state.subProcedures.find((sp) => sp.id === action.id);
-      subprocedure.textSubProcedures.title = action.data.title;
-      subprocedure.textSubProcedures.text = action.data.text;
-      return {
-        ...state,
-        subProcedures: state.subProcedures
-          .filter((sp) => sp.id !== action.id)
-          .concat(subprocedure),
-      };
+      return state.map((p) => (p.id !== action.data.id
+        ? p
+        : action.data
+      ));
     }
     default:
       return state;
@@ -56,7 +51,6 @@ export const updateTextSubprocedure = (id, subProcedureObject) => async (dispatc
   await textSubProceduresService.update(id, subProcedureObject);
   dispatch({
     type: 'UPDATE_TEXT_SUBPROCEDURE',
-    id,
     data: subProcedureObject,
   });
 };

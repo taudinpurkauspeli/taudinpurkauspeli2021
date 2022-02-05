@@ -3,22 +3,22 @@ import { Accordion, Card } from 'react-bootstrap';
 import UpdateTextSubProcedure from './UpdateTextSubProcedure';
 
 const TextSubProcedure = ({
-  id, title, text, admin,
+  d, admin,
 }) => (
   <div>
     <Card>
-      <Accordion.Toggle as={Card.Header} eventKey={id}>
+      <Accordion.Toggle as={Card.Header} eventKey={d.id}>
         <div className="d-flex justify-content-between align-items-center">
-          {title}
+          {d.title}
           {admin && (
             <div className="cardButtons">
-              <UpdateTextSubProcedure title={title} text={text} id={id} />
+              <UpdateTextSubProcedure d={d} />
             </div>
           )}
         </div>
       </Accordion.Toggle>
-      <Accordion.Collapse eventKey={id}>
-        <Card.Body>{text}</Card.Body>
+      <Accordion.Collapse eventKey={d.id}>
+        <Card.Body>{d.text}</Card.Body>
       </Accordion.Collapse>
     </Card>
   </div>
