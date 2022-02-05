@@ -8,7 +8,13 @@ jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key) => key }),
 }));
 
+const d = {
+  title: 'testTextSubProcedure',
+  text: 'just testing...',
+  id: 2,
+};
+
 test('Text sub procedure card is rendered', async () => {
-  render(<TextSubProcedure id="2" title="testTextSubProcedure" text="Testing out" />);
+  render(<TextSubProcedure d={d} />);
   await waitFor(() => expect(screen.getByText(/testTextSubProcedure/i)).toBeInTheDocument());
 });

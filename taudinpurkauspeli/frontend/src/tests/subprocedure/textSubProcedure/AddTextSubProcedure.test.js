@@ -26,7 +26,7 @@ describe('Adding a new text sub procedure', () => {
     userEvent.click(screen.getByRole('button', { name: /submit/i }));
 
     await waitFor(() => expect(addTextSubFunc).toHaveBeenCalledWith({
-      priority: '42',
+      priority: 42,
       text: 'testText',
       title: 'testTextSubProcedure',
       type: 'TEXT',

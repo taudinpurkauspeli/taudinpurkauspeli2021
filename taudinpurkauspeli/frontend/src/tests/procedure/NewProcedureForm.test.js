@@ -18,6 +18,6 @@ test('<AddProcedure /> updates parent state and calls onSubmit', async () => {
   userEvent.click(screen.getByRole('button', { id: /submit/i }));
 
   await waitFor(() => expect(addProcedure).toHaveBeenCalledWith({
-    title: 'testTitle',
+    name: 'testTitle',
   }));
 });

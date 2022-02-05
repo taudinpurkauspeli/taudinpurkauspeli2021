@@ -17,10 +17,16 @@ const useEffectSpy = jest.spyOn(React, 'useEffect');
 useEffectSpy.mockImplementation((f) => f());
 jest.spyOn(service, 'getAll');
 
+const d = {
+  title: 'testTextSubProcedure',
+  text: 'just testing...',
+  id: 2,
+};
+
 beforeEach(() => {
   render(
     <Provider store={store}>
-      <UpdateTextSubProcedure title="Testtitle" text="Testtext" id={1} />
+      <UpdateTextSubProcedure d={d} />
     </Provider>,
   );
 
