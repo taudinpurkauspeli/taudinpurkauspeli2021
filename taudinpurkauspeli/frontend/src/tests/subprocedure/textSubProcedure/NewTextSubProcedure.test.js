@@ -5,9 +5,11 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Provider } from 'react-redux';
 
-import store from '../../../store';
 import NewTextSubProcedure from '../../../App/subprocedure/components/textSubProcedure/NewTextSubProcedure';
 import service from '../../../App/subprocedure/subProceduresService';
+import createStore from '../../../store';
+
+const { store } = createStore();
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key) => key }),

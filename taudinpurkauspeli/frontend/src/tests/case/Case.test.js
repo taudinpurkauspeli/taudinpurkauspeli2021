@@ -7,7 +7,9 @@ import { Provider } from 'react-redux';
 import '@testing-library/dom';
 import '@testing-library/jest-dom/extend-expect';
 import Case from '../../App/case/components/Case';
-import store from '../../store';
+import createStore from '../../store';
+
+const { store } = createStore();
 
 const cases = [{
   id: 1,

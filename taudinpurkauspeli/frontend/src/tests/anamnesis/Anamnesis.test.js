@@ -6,7 +6,9 @@ import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import Anamnesis from '../../App/anamnesis/Anamnesis';
-import store from '../../store';
+import createStore from '../../store';
+
+const { store } = createStore();
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key) => key }),

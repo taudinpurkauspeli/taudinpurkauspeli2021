@@ -5,13 +5,12 @@ import {
   render, waitFor, fireEvent, screen,
 } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
+import configureStore from 'redux-mock-store';
 
 import userEvent from '@testing-library/user-event';
-import createStore from '../../store';
 import SelectDifferentialForm from '../../App/differential/components/SelectDifferentialForm';
 
-const { store, persistor } = createStore();
+const mockStore = configureStore([]);
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key) => key }),
@@ -20,14 +19,20 @@ jest.mock('react-i18next', () => ({
 const selectDifferentialFunc = jest.fn();
 
 beforeEach(() => {
+  const store = mockStore({
+    differentials: [
+      {
+        id: 1,
+        name: 'Test',
+      },
+    ],
+  });
   render(
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <SelectDifferentialForm
-          selectDifferential={selectDifferentialFunc}
-          diffGroupCaseId={1}
-        />
-      </PersistGate>
+      <SelectDifferentialForm
+        selectDifferential={selectDifferentialFunc}
+        diffGroupCaseId={1}
+      />
     </Provider>,
   );
 });

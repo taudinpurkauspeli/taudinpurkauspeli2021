@@ -4,8 +4,10 @@ import '@testing-library/jest-dom/extend-expect';
 import { render, screen, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import userEvent from '@testing-library/user-event';
-import store from '../../store';
 import NewDifferential from '../../App/differential/components/NewDifferential';
+import createStore from '../../store';
+
+const { store } = createStore();
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key) => key }),
@@ -17,10 +19,9 @@ beforeEach(() => {
       <NewDifferential caseId={1} />
     </Provider>,
   );
-
-  userEvent.click(screen.getByRole('button', { id: /addNew/i }));
 });
 
 test('New differential window is rendered', async () => {
+  userEvent.click(screen.getByRole('button', { id: /addNew/i }));
   await waitFor(() => expect(screen.getByLabelText(/addDifferential/i)).toBeInTheDocument());
 });

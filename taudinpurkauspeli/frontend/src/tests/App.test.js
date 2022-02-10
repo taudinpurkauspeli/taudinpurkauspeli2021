@@ -6,7 +6,9 @@ import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import App from '../App';
 import service from '../App/case/casesService';
-import store from '../store';
+import createStore from '../store';
+
+const { store } = createStore();
 
 jest.spyOn(React, 'useEffect').mockImplementation((f) => f());
 jest.spyOn(service, 'getAll');

@@ -4,7 +4,9 @@ import '@testing-library/jest-dom/extend-expect';
 import { render, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import DifferentialGroupList from '../../../App/differential/components/differentialGroup/DifferentialGroupList';
-import store from '../../../store';
+import createStore from '../../../store';
+
+const { store } = createStore();
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key) => key }),

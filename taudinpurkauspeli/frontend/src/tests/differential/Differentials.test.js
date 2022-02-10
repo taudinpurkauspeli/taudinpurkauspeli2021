@@ -4,7 +4,9 @@ import '@testing-library/jest-dom/extend-expect';
 import { render, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import Differentials from '../../App/differential/components/Differentials';
-import store from '../../store';
+import createStore from '../../store';
+
+const { store } = createStore();
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key) => key }),

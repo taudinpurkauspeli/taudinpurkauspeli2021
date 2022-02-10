@@ -6,7 +6,9 @@ import { waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import SubProcedureList from '../../App/subprocedure/components/SubProcedureList';
 import service from '../../App/subprocedure/subProceduresService';
-import store from '../../store';
+import createStore from '../../store';
+
+const { store } = createStore();
 
 const useEffectSpy = jest.spyOn(React, 'useEffect');
 useEffectSpy.mockImplementation((f) => f());

@@ -6,7 +6,9 @@ import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import CaseCard from '../../App/case/components/CaseCard';
-import store from '../../store';
+import createStore from '../../store';
+
+const { store } = createStore();
 
 const caseCard = {
   id: 1,

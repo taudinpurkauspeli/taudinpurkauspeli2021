@@ -65,7 +65,6 @@ const NewDifferentialGroup = ({ caseId }) => {
             <Tab eventKey="select" title={t('selectExisting')}>
               <SelectDifferentialGroupForm
                 selectDifferentialGroup={handleDifferentialGroupSelection}
-                caseId={caseId}
               />
             </Tab>
             <Tab eventKey="add" title={t('addNewDifferential2')}>

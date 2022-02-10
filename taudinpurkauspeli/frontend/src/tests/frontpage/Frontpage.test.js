@@ -8,7 +8,9 @@ import { screen } from '@testing-library/dom';
 import { Provider } from 'react-redux';
 
 import Frontpage from '../../App/frontpage/Frontpage';
-import store from '../../store';
+import createStore from '../../store';
+
+const { store } = createStore();
 
 let component;
 

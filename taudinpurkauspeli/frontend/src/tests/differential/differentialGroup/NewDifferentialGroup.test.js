@@ -6,7 +6,9 @@ import userEvent from '@testing-library/user-event';
 import { Provider } from 'react-redux';
 import NewDifferentialGroup from '../../../App/differential/components/differentialGroup/NewDifferentialGroup';
 import service from '../../../App/differential/services/differentialGroups';
-import store from '../../../store';
+import createStore from '../../../store';
+
+const { store } = createStore();
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key) => key }),

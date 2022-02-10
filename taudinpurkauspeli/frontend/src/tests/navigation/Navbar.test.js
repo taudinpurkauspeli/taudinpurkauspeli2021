@@ -6,7 +6,9 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import Navbar from '../../App/navigation/Navbar';
-import store from '../../store';
+import createStore from '../../store';
+
+const { store } = createStore();
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
