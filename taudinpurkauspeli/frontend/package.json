@@ -32,6 +32,7 @@
     "react-test-renderer": "^17.0.2",
     "react-toastify": "^8.1.0",
     "redux": "^4.1.2",
+    "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.1",
     "web-vitals": "^1.1.2",
     "yup": "^0.32.11"
@@ -43,7 +44,8 @@
     "eject": "react-scripts eject",
     "coverage": "react-scripts test --coverage",
     "cypress:open": "cypress open",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "clear_jest": "jest --clearCache"
   },
   "proxy": "http://localhost:8081",
   "eslintConfig": {
