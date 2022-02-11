@@ -38,6 +38,13 @@ jobs:
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1
+      
+    - name: e2e tests
+      uses: cypress-io/github-action@v2
+      with:
+        command: npx cypress run
+        start: npm start
+        wait-on: http://localhost:3000
 
     - name: Build
       run: npm run build
