@@ -2,7 +2,7 @@
 /* eslint-disable prefer-arrow-callback */
 describe('Frontpage ', function () {
   beforeEach(function () {
-    cy.visit('http://localhost:8080');
+    cy.visit('http://localhost:8082');
   });
 
   it('front page can be opened', function () {
@@ -26,14 +26,14 @@ describe('Frontpage ', function () {
     cy.contains('Lisää case').not();
   });
 
-  it.only('navbar links work as intended', function () {
+  it('navbar links work as intended', function () {
     cy.contains('Käyttäjien seuranta').click();
-    cy.url().should('eq', 'http://localhost:8080/users');
+    cy.url().should('eq', 'http://localhost:8082/users');
     cy.contains('Tiedostopankki').click();
-    cy.url().should('eq', 'http://localhost:8080/files');
+    cy.url().should('eq', 'http://localhost:8082/files');
     cy.contains('Peliohjeet').click();
-    cy.url().should('eq', 'http://localhost:8080/howtoplay');
+    cy.url().should('eq', 'http://localhost:8082/howtoplay');
     cy.contains('Taudinpurkauspeli').click();
-    cy.url().should('eq', 'http://localhost:8080/');
+    cy.url().should('eq', 'http://localhost:8082/');
   });
 });
