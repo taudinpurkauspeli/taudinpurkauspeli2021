@@ -22,7 +22,7 @@ export const getSubprocedures = (procedureCaseId) => async (dispatch) => {
   const subprocedures = await subProceduresService.getAll(procedureCaseId);
   dispatch({
     type: 'GET_SUBPROCEDURES',
-    data: subprocedures,
+    data: subprocedures || null,
   });
 };
 

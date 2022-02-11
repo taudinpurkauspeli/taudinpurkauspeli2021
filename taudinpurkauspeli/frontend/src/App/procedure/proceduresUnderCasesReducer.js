@@ -19,7 +19,7 @@ export const getProceduresUnderCase = (caseId) => async (dispatch) => {
   const proceduresUnderCase = await proceduresUnderCasesService.getAll(caseId);
   dispatch({
     type: 'GET_PROCEDURES_UNDER_CASE',
-    data: proceduresUnderCase,
+    data: proceduresUnderCase || null,
   });
 };
 

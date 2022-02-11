@@ -23,7 +23,7 @@ export const getProcedures = () => async (dispatch) => {
   const procedures = await proceduresService.getAll();
   dispatch({
     type: 'GET_PROCEDURES',
-    data: procedures,
+    data: procedures || null,
   });
 };
 

@@ -15,7 +15,7 @@ export const getDifferentialsUnderCase = (id) => async (dispatch) => {
   const returnedDifferentialsUnderCase = await differentialsUnderCasesService.getAll(id);
   dispatch({
     type: 'GET_DIFFERENTIALSUNDERCASE',
-    data: returnedDifferentialsUnderCase,
+    data: returnedDifferentialsUnderCase || null,
   });
 };
 

@@ -15,7 +15,7 @@ export const getDifferentialGroupsUnderCase = (id) => async (dispatch) => {
   const returnedDifferentialGroupsUnderCase = await differentialGroupsUnderCasesService.getAll(id);
   dispatch({
     type: 'GET_DIFFERENTIALGROUPS_UNDER_CASE',
-    data: returnedDifferentialGroupsUnderCase,
+    data: returnedDifferentialGroupsUnderCase || null,
   });
 };
 

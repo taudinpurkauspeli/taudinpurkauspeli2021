@@ -16,7 +16,7 @@ export const getDifferentialGroups = () => async (dispatch) => {
   const returnedDifferentialGroups = await differentialGroupsService.getAll();
   dispatch({
     type: 'GET_DIFFERENTIALGROUPS',
-    data: returnedDifferentialGroups,
+    data: returnedDifferentialGroups || null,
   });
 };
 

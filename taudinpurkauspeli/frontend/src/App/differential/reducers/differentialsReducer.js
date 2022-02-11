@@ -16,7 +16,7 @@ export const getDifferentials = () => async (dispatch) => {
   const returnedDifferentials = await differentialsService.getAll();
   dispatch({
     type: 'GET_DIFFERENTIALS',
-    data: returnedDifferentials,
+    data: returnedDifferentials || null,
   });
 };
 
