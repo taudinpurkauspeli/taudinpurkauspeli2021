@@ -1,5 +1,11 @@
 module.exports = (sequelize, Sequelize) => {
   const DifferentialGroup = sequelize.define('differentialGroup', {
+    language: {
+      type: Sequelize.STRING,
+    },
+    isDefault: {
+      type: Sequelize.BOOLEAN,
+    },
     name: {
       type: Sequelize.STRING,
       unique: true,
@@ -9,7 +15,7 @@ module.exports = (sequelize, Sequelize) => {
       },
     },
   }, {
-    tableName: 'differential_group',
+    tableName: 'differential_groups',
   });
 
   return DifferentialGroup;

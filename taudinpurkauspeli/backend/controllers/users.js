@@ -5,15 +5,13 @@ const middleware = require('../utils/middleware');
 
 const User = db.users;
 
-userRouter.get('/', middleware.checkAdminRights, (req, res, next) => {
-  User.findAll({})
-    .then((data) => {
-      if (data === null) {
-        res.send(404).end();
-      }
-      res.json(data);
-    })
-    .catch((error) => next(error));
+userRouter.get('/', middleware.checkAdminRights, async (req, res, next) => {
+  const users = await User.findAll({});
+
+  if (users === null) {
+    res.send(404).end();
+  }
+  res.json(users);
 });
 
 module.exports = userRouter;

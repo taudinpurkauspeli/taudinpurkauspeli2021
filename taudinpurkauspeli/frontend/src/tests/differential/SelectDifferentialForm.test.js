@@ -4,17 +4,13 @@ import '@testing-library/jest-dom/extend-expect';
 import {
   render, waitFor, fireEvent, screen,
 } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import SelectDifferentialForm from '../../components/differential/SelectDifferentialForm';
+import { Provider } from 'react-redux';
+import configureStore from 'redux-mock-store';
 
-const initialDifferentials = [{
-  id: 1,
-  name: 'testDifferential1',
-},
-{
-  id: 2,
-  name: 'testDifferential2',
-}];
+import userEvent from '@testing-library/user-event';
+import SelectDifferentialForm from '../../App/differential/components/SelectDifferentialForm';
+
+const mockStore = configureStore([]);
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key) => key }),
@@ -23,12 +19,21 @@ jest.mock('react-i18next', () => ({
 const selectDifferentialFunc = jest.fn();
 
 beforeEach(() => {
+  const store = mockStore({
+    differentials: [
+      {
+        id: 1,
+        name: 'Test',
+      },
+    ],
+  });
   render(
-    <SelectDifferentialForm
-      differentials={initialDifferentials}
-      selectDifferential={selectDifferentialFunc}
-      diffGroupCaseId={1}
-    />,
+    <Provider store={store}>
+      <SelectDifferentialForm
+        selectDifferential={selectDifferentialFunc}
+        diffGroupCaseId={1}
+      />
+    </Provider>,
   );
 });
 

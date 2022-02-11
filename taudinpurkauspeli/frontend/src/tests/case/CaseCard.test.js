@@ -3,7 +3,12 @@ import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { render } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import CaseCard from '../../components/case/CaseCard';
+import { Provider } from 'react-redux';
+
+import CaseCard from '../../App/case/components/CaseCard';
+import createStore from '../../store';
+
+const { store } = createStore();
 
 const caseCard = {
   id: 1,
@@ -20,9 +25,11 @@ jest.mock('react-i18next', () => ({
 
 beforeEach(() => {
   component = render(
-    <MemoryRouter>
-      <CaseCard c={caseCard} admin={false} />
-    </MemoryRouter>,
+    <Provider store={store}>
+      <MemoryRouter>
+        <CaseCard c={caseCard} admin={false} />
+      </MemoryRouter>
+    </Provider>,
   );
 });
 
@@ -55,9 +62,11 @@ test('user does not see the delete and copy buttons', () => {
 
 test('renders delete and copy buttons for teacher', () => {
   const teacherComponent = render(
-    <MemoryRouter>
-      <CaseCard c={caseCard} admin />
-    </MemoryRouter>,
+    <Provider store={store}>
+      <MemoryRouter>
+        <CaseCard c={caseCard} admin />
+      </MemoryRouter>
+    </Provider>,
   );
   expect(
     teacherComponent.getByText('buttonRemove'),

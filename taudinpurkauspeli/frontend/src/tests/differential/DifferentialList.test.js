@@ -1,19 +1,29 @@
 /* eslint-disable no-undef */
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
-import ShallowRenderer from 'react-shallow-renderer';
-import { waitFor } from '@testing-library/react';
-import DifferentialList from '../../components/differential/DifferentialList';
-import service from '../../services/differentials/differentialsUnderCases';
+// import ShallowRenderer from 'react-shallow-renderer';
+import { waitFor, render } from '@testing-library/react';
+import { Provider } from 'react-redux';
+import configureStore from 'redux-mock-store';
 
-const useEffectSpy = jest.spyOn(React, 'useEffect');
-useEffectSpy.mockImplementation((f) => f());
-jest.spyOn(service, 'getAll');
+import DifferentialList from '../../App/differential/components/DifferentialList';
+
+const mockStore = configureStore([]);
 
 test('List and accordion are rendered', async () => {
-  const resultA = new ShallowRenderer();
-  resultA.render(<DifferentialList diffGroupCaseId="1" />);
-  const result = resultA.getRenderOutput();
+  const store = mockStore({
+    differentialsUnderCase: [{
+      diffGroupCaseId: 1,
+      id: 1,
+      name: 'Test',
+      description: 'Test',
+    }],
+  });
+  const result = render(
+    <Provider store={store}>
+      <DifferentialList diffGroupCaseId={Number('1')} />
+    </Provider>,
+  );
   await waitFor(() => expect(result).toBeDefined());
-  await waitFor(() => expect(result.type.render.displayName).toBe('Accordion'));
+  await waitFor(() => expect(result.container.querySelector('.accordion')).toBeDefined());
 });

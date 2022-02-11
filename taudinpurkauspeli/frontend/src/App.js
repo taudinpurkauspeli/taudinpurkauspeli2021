@@ -1,55 +1,31 @@
-/* eslint-disable linebreak-style */
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   BrowserRouter as Router,
 } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
-// Import components
-import Navigationbar from './components/navigation/Navbar';
-import service from './services/cases';
-import Sidebar from './components/navigation/Sidebar';
-import Routing from './components/navigation/Routing';
+import { initializeCasesAndUser } from './App/case/casesReducer';
+import Navigationbar from './App/navigation/Navbar';
+import Sidebar from './App/navigation/Sidebar';
+import Routing from './App/navigation/Routing';
 import MessageBanner from './utils/MessageBanner';
 
-import { setToken } from './utils/Helper';
-
 const App = () => {
-  const [user, setUser] = useState(null);
-  const [admin, setAdmin] = useState(false);
-  const [cases, setCases] = useState([]);
+  const dispatch = useDispatch();
 
   /* istanbul ignore next */
   React.useEffect(() => {
-    service
-      .getAll()
-      .then((response) => {
-        // eslint-disable-next-line no-console
-        console.log(response);
-        setToken(response.user.token);
-        setAdmin(response.user.admin);
-        setUser(response.user.name);
-        setCases(response.data);
-        // eslint-disable-next-line no-console
-        console.log(user);
-      })
-      .catch((error) => {
-        // eslint-disable-next-line
-        console.log(error);
-      });
+    dispatch(initializeCasesAndUser());
   }, []);
 
   return (
     <Router>
-      <Navigationbar
-        user={false}
-        admin={admin}
-        cases={cases}
-      />
+      <Navigationbar />
       <Sidebar />
       <MessageBanner />
-      <Routing cases={cases} admin={admin} />
+      <Routing />
     </Router>
   );
 };

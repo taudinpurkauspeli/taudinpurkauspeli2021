@@ -3,48 +3,72 @@ const differentialGroupsUnderCasesRouter = require('express').Router();
 const db = require('../../models');
 const middleware = require('../../utils/middleware');
 
-const DifferentialGroupUnderCase = db.differentialGroupsUnderCase;
-const Case = db.cases;
-const DifferentialGroup = db.differentialGroups;
-
-Case.belongsToMany(DifferentialGroup, { through: DifferentialGroupUnderCase });
-DifferentialGroup.belongsToMany(Case, { through: DifferentialGroupUnderCase });
+const DifferentialGroupUnderCase = db.differentialGroupsUnderCases;
+const DifferentialGroups = db.differentialGroups;
 
 // Create differentialgroup under case
-differentialGroupsUnderCasesRouter.post('/', middleware.checkAdminRights, (req, res, next) => {
+differentialGroupsUnderCasesRouter.post('/:language', middleware.checkAdminRights, async (req, res) => {
+  const { language } = req.params;
   const newObject = {
-    caseId: req.body.caseId,
-    differentialGroupId: req.body.differentialGroupId,
+    plainCaseId: req.body.caseId,
+    plainDifferentialGroupId: req.body.differentialGroupId,
   };
 
-  DifferentialGroupUnderCase.create(newObject)
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((error) => next(error));
+  const savedDuc = await DifferentialGroupUnderCase.create(newObject);
+  const response = await DifferentialGroups.findOne({
+    where: {
+      plainDifferentialGroupId: savedDuc.plainDifferentialGroupId,
+      language,
+    },
+  });
+
+  res.send({
+    diffGroupCaseId: savedDuc.id,
+    id: response.plainDifferentialGroupId,
+    name: response.name,
+  });
 });
 
 // Retrieve all groups associated to a specific case
-differentialGroupsUnderCasesRouter.get('/:id', middleware.checkUserRights, (req, res, next) => {
-  const { id } = req.params;
+differentialGroupsUnderCasesRouter.get('/:id/:language', middleware.checkUserRights, async (req, res) => {
+  const { id, language } = req.params;
 
-  Case.findOne({
+  /*
+  const foundDifferentialGroups = await PlainCase.findOne({
     where: {
       id,
     },
-    include: DifferentialGroup,
-  })
-    .then((data) => {
-      const returnedData = data.differentialGroups.map((d) => {
-        const singleObj = {};
-        singleObj.id = d.id;
-        singleObj.name = d.name;
-        singleObj.diffGroupCaseId = d.differentialGroupsUnderCase.id;
-        return singleObj;
-      });
-      res.send(returnedData);
-    })
-    .catch((error) => next(error));
+    include: {
+      model: PlainDifferentialGroup,
+    },
+    attributes: {
+      include: [
+        [
+          db.sequelize.literal(`(
+                    SELECT name
+                    FROM differential_groups AS diffgroup
+                    WHERE diffgroup."plainDifferentialGroupId" = "plainDifferentialGroups".id
+                )`),
+          'name',
+        ],
+      ],
+    },
+  });
+  */
+
+  const foundDifferentialGroups = await db.sequelize.query(
+    `SELECT duc.id AS "diffGroupCaseId", dg."plainDifferentialGroupId" AS id, dg.name
+    FROM differential_groups_under_cases AS duc
+    LEFT JOIN differential_groups AS dg ON duc."plainDifferentialGroupId" = dg."plainDifferentialGroupId"
+    WHERE duc."plainCaseId" = ? AND dg.language = ?;
+    `,
+    {
+      replacements: [id, language],
+      type: db.sequelize.QueryTypes.SELECT,
+    },
+  );
+
+  res.send(foundDifferentialGroups);
 });
 
 module.exports = differentialGroupsUnderCasesRouter;

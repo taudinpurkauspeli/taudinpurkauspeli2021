@@ -3,7 +3,7 @@ import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import AddTextSubProcedure from '../../../components/subprocedure/textSubProcedure/AddTextSubProcedure';
+import AddTextSubProcedure from '../../../App/subprocedure/components/textSubProcedure/AddTextSubProcedure';
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key) => key }),
@@ -26,7 +26,7 @@ describe('Adding a new text sub procedure', () => {
     userEvent.click(screen.getByRole('button', { name: /submit/i }));
 
     await waitFor(() => expect(addTextSubFunc).toHaveBeenCalledWith({
-      priority: '42',
+      priority: 42,
       text: 'testText',
       title: 'testTextSubProcedure',
       type: 'TEXT',

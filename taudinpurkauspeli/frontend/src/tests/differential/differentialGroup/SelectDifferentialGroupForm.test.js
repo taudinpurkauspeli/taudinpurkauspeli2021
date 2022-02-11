@@ -5,16 +5,12 @@ import {
   render, waitFor, fireEvent, screen,
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import SelectDifferentialForm from '../../../components/differential/differentialGroup/SelectDifferentialGroupForm';
+import { Provider } from 'react-redux';
+import configureStore from 'redux-mock-store';
 
-const initialDifferentialGroups = [{
-  id: 1,
-  name: 'testDifferentialGroup1',
-},
-{
-  id: 2,
-  name: 'testDifferentialGroup2',
-}];
+import SelectDifferentialGroupForm from '../../../App/differential/components/differentialGroup/SelectDifferentialGroupForm';
+
+const mockStore = configureStore([]);
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key) => key }),
@@ -23,12 +19,18 @@ jest.mock('react-i18next', () => ({
 const selectDifferentialGroupFunc = jest.fn();
 
 beforeEach(() => {
+  const store = mockStore({
+    differentialGroups: [{
+      id: 1,
+      name: 't',
+    }],
+  });
   render(
-    <SelectDifferentialForm
-      differentialGroups={initialDifferentialGroups}
-      selectDifferentialGroup={selectDifferentialGroupFunc}
-      caseId={1}
-    />,
+    <Provider store={store}>
+      <SelectDifferentialGroupForm
+        selectDifferentialGroup={selectDifferentialGroupFunc}
+      />
+    </Provider>,
   );
 });
 
@@ -41,8 +43,5 @@ test('New differential group can be selected', async () => {
 
   userEvent.click(screen.getByRole('button', { name: /submit/i }));
 
-  await waitFor(() => expect(selectDifferentialGroupFunc).toHaveBeenCalledWith({
-    caseId: 1,
-    differentialGroupId: 1,
-  }));
+  await waitFor(() => expect(selectDifferentialGroupFunc).toHaveBeenCalledWith(1));
 });

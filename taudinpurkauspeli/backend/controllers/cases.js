@@ -4,102 +4,140 @@ const db = require('../models');
 const helper = require('../utils/token');
 const middleware = require('../utils/middleware');
 
+const PlainCase = db.plainCases;
 const Case = db.cases;
 const { Op } = db.Sequelize;
 
 // Save a new case
-caseRouter.post('/', middleware.checkAdminRights, (req, res, next) => {
-  const case1 = {
-    title: req.body.title,
-    hidden: req.body.hidden,
-    anamnesis: req.body.anamnesis,
+caseRouter.post('/:language', middleware.checkAdminRights, async (req, res) => {
+  const { language } = req.params;
+  let { id } = req.body;
+  const {
+    hidden, title, anamnesis,
+  } = req.body;
+
+  if (id === undefined) {
+    const newPlainCase = await PlainCase.create({ hidden });
+    id = newPlainCase.id;
+  }
+
+  const newCase = {
+    plainCaseId: id,
+    language,
+    isDefault: language === 'fi',
+    title,
+    anamnesis,
   };
 
-  // Save case in the database
-  Case.create(case1)
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((error) => next(error));
+  const savedCase = await Case.create(newCase);
+
+  res.json({
+    id: savedCase.plainCaseId,
+    title: savedCase.title,
+    anamnesis: savedCase.anamnesis,
+    hidden,
+  });
 });
 
 // Retrieve all cases
-caseRouter.get('/', async (req, res, next) => {
-  const { title } = req.query;
-  const condition = title ? { title: { [Op.iLike]: `%${title}%` } } : null;
+caseRouter.get('/:language', async (req, res) => {
+  const { language } = req.params;
 
-  const data = await Case.findAll({ where: condition });
+  const data = await Case.findAll({
+    where: { language },
+    include: {
+      model: PlainCase,
+      attributes: [],
+    },
+    attributes: [
+      ['plainCaseId', 'id'],
+      'title',
+      'anamnesis',
+      [db.Sequelize.literal('"plainCase"."hidden"'), 'hidden'],
+    ],
+  });
   const user = await helper.createUser(req);
 
-  try {
-    res
-      .status(200)
-      .send({
-        user, data,
-      });
-  } catch (error) {
-    next(error);
-  }
+  res
+    .status(200)
+    .send({
+      user, data,
+    });
 });
 
 // Find a single case (by id)
-caseRouter.get('/:id', middleware.checkUserRights, (req, res, next) => {
-  const { id } = req.params;
+caseRouter.get('/:id/:language', middleware.checkUserRights, async (req, res) => {
+  const { id, language } = req.params;
 
-  Case.findByPk(id)
-    .then((data) => {
-      if (data === null) {
-        res.send(404).end();
-      }
-      res.json(data);
-    })
-    .catch((error) => next(error));
+  const foundCase = await Case.findOne({
+    where: {
+      plainCaseId: id,
+      [Op.or]: [{ language }, { isDefault: true }],
+    },
+    include: {
+      model: PlainCase,
+      attributes: [],
+    },
+    attributes: [
+      ['plainCaseId', 'id'],
+      'title',
+      'anamnesis',
+      [db.Sequelize.literal('"plainCase"."hidden"'), 'hidden'],
+    ],
+  });
+
+  if (foundCase === null) {
+    res.send(404).end();
+  } else {
+    res.json(foundCase);
+  }
 });
 
 // Update a case (by id)
-caseRouter.put('/:id', middleware.checkAdminRights, (req, res, next) => {
-  const { id } = req.params;
+caseRouter.put('/:id/:language', middleware.checkAdminRights, async (req, res) => {
+  const { id, language } = req.params;
+  const {
+    title, anamnesis, hidden,
+  } = req.body;
 
-  Case.update(req.body, {
+  await Case.update({ title, anamnesis, plainCaseId: id }, {
+    where: { plainCaseId: id, language },
+  });
+  await PlainCase.update({ hidden }, {
     where: { id },
-  })
-    .then((num) => {
-      if (Number(num) === 1) {
-        res.send({
-          message: 'Case was updated successfully.',
-        });
-      }
-    })
-    .catch((error) => next(error));
+  });
+
+  res.send({
+    message: 'Case was updated successfully.',
+  });
 });
 
 // Delete a case (by id)
-caseRouter.delete('/:id', middleware.checkAdminRights, (req, res, next) => {
+caseRouter.delete('/:id', middleware.checkAdminRights, async (req, res) => {
   const { id } = req.params;
 
-  Case.destroy({
+  await Case.destroy({
+    where: { plainCaseId: id },
+  });
+  const deletedplainCase = await PlainCase.destroy({
     where: { id },
-  })
-    .then((num) => {
-      if (Number(num) === 1) {
-        res.status(204).end();
-      } else {
-        res.status(404).end();
-      }
-    })
-    .catch((error) => next(error));
+  });
+
+  if (Number(deletedplainCase) === 1) {
+    res.status(204).end();
+  } else {
+    res.status(404).end();
+  }
 });
 
 // Delete all cases
-caseRouter.delete('/', middleware.checkAdminRights, (req, res, next) => {
-  Case.destroy({
+caseRouter.delete('/', middleware.checkAdminRights, async (req, res) => {
+  await Case.destroy({
     where: {},
     truncate: false,
-  })
-    .then(() => {
-      res.status(204).end();
-    })
-    .catch((error) => next(error));
+  });
+
+  res.status(204).end();
 });
 
 module.exports = caseRouter;

@@ -3,6 +3,8 @@ require('express-async-errors');
 
 const app = express();
 const cors = require('cors');
+const sequelize_fixtures = require('sequelize-fixtures');
+const models = require('./models');
 
 const userRouter = require('./controllers/users');
 const caseRouter = require('./controllers/cases');
@@ -13,7 +15,7 @@ const differentialUnderCaseRouter = require('./controllers/differentials/differe
 const proceduresRouter = require('./controllers/procedures/procedures');
 const proceduresUnderCasesRouter = require('./controllers/procedures/proceduresUnderCases');
 const subProceduresRouter = require('./controllers/procedures/subProcedures');
-const textSubProcedureRouter = require('./controllers/procedures/textSubProcedure');
+const textSubProcedureRouter = require('./controllers/procedures/textSubProcedures');
 
 const middleware = require('./utils/middleware');
 const logger = require('./utils/logger');
@@ -22,6 +24,27 @@ const db = require('./models');
 // Huom! No forced synchronization,
 // make sure you either don't have the tables/databases,
 // or that they are correct. May be able to alter them, but...
+
+const fixtures = [
+  {
+    model: 'subProcedureTypes',
+    data: {
+      type: 'TEXT',
+    },
+  },
+  {
+    model: 'subProcedureTypes',
+    data: {
+      type: 'QUESTION',
+    },
+  },
+  {
+    model: 'subProcedureTypes',
+    data: {
+      type: 'THINKING',
+    },
+  },
+];
 
 db.sequelize
   .authenticate()
@@ -36,7 +59,9 @@ if (process.env.NODE_ENV !== 'test') {
   db.sequelize
     .sync({ alter: true })
     .then(() => {
-      logger.info('altered the tables');
+      sequelize_fixtures.loadFixtures(fixtures, models).then(() => {
+        logger.info('altered the tables');
+      });
     });
 }
 

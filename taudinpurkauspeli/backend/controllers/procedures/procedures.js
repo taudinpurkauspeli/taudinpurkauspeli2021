@@ -4,69 +4,69 @@ const db = require('../../models');
 const middleware = require('../../utils/middleware');
 
 const Procedure = db.procedures;
-const Case = db.cases;
-const { Op } = db.Sequelize;
+const PlainProcedure = db.plainProcedures;
 
-// Save a new procedure under case
-proceduresRouter.post('/', middleware.checkAdminRights, (req, res, next) => {
-  // Create a procedure under case
-  const procedureObject = {
-    title: req.body.title,
+// Save a new procedure
+proceduresRouter.post('/:language', middleware.checkAdminRights, async (req, res, next) => {
+  const { language } = req.params;
+  let { id } = req.body;
+  const { name } = req.body;
+
+  if (id === undefined) {
+    const newPlainProcedure = await PlainProcedure.create({});
+    id = newPlainProcedure.id;
+  }
+
+  const newProcedure = {
+    plainProcedureId: id,
+    language,
+    isDefault: language === 'fi',
+    name,
   };
 
   // Save procedure in the database
-  Procedure.create(procedureObject)
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((error) => next(error));
+  const savedProcedure = await Procedure.findOrCreate({
+    where: newProcedure,
+    defaults: newProcedure,
+  });
+
+  res.json({
+    id: savedProcedure[0].plainProcedureId,
+    name: savedProcedure[0].name,
+  });
 });
 
 // Retrieve all procedures
-proceduresRouter.get('/', middleware.checkUserRights, (req, res, next) => {
-  const { title } = req.query;
-  const condition = title ? { title: { [Op.iLike]: `%${title}%` } } : null;
+proceduresRouter.get('/:language', middleware.checkUserRights, async (req, res) => {
+  const { language } = req.params;
 
-  Procedure.findAll({ where: condition })
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((error) => next(error));
-});
-
-// Retrieve all procedures including procedure under cases
-proceduresRouter.get('/:id', middleware.checkUserRights, (req, res, next) => {
-  const { id } = req.params;
-
-  Case.findAll({
-    include: [{
-      model: Procedure,
-    }],
-    where: {
-      id,
+  const foundProcedures = await Procedure.findAll({
+    where: { language },
+    include: {
+      model: PlainProcedure,
+      attributes: [],
     },
-  })
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((error) => next(error));
+    attributes: [
+      ['plainProcedureId', 'id'],
+      'name',
+    ],
+  });
+
+  res.json(foundProcedures);
 });
 
 // Update a procedure (by id)
-proceduresRouter.put('/:id', middleware.checkAdminRights, (req, res, next) => {
-  const { id } = req.params;
+proceduresRouter.put('/:id/:language', middleware.checkAdminRights, async (req, res) => {
+  const { id, language } = req.params;
+  const { name } = req.body;
 
-  Procedure.update(req.body, {
-    where: { id },
-  })
-    .then((num) => {
-      if (Number(num) === 1) {
-        res.send({
-          message: 'Procedure was updated successfully.',
-        });
-      }
-    })
-    .catch((error) => next(error));
+  await Procedure.update({ name }, {
+    where: { plainProcedureId: id, language },
+  });
+
+  res.send({
+    message: 'Procedure was updated successfully.',
+  });
 });
 
 module.exports = proceduresRouter;

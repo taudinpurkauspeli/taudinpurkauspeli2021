@@ -5,17 +5,17 @@ module.exports = (sequelize, Sequelize) => {
       primaryKey: true,
       autoIncrement: true,
     },
-    caseId: {
+    plainCaseId: {
       type: Sequelize.INTEGER,
       references: {
-        model: 'cases',
+        model: 'plainCases',
         key: 'id',
       },
     },
-    differentialGroupId: {
+    plainDifferentialGroupId: {
       type: Sequelize.INTEGER,
       references: {
-        model: 'differentialGroups',
+        model: 'plainDifferentialGroups',
         key: 'id',
       },
     },

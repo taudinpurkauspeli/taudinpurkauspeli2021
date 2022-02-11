@@ -1,9 +1,14 @@
 /* eslint-disable no-undef */
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import Anamnesis from '../../components/anamnesis/Anamnesis';
+import { Provider } from 'react-redux';
+
+import Anamnesis from '../../App/anamnesis/Anamnesis';
+import createStore from '../../store';
+
+const { store } = createStore();
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key) => key }),
@@ -28,9 +33,11 @@ let studentView;
 
 beforeEach(() => {
   studentView = render(
-    <MemoryRouter>
-      <Anamnesis cases={cases} admin={false} />
-    </MemoryRouter>,
+    <Provider store={store}>
+      <MemoryRouter>
+        <Anamnesis cases={cases} admin={false} />
+      </MemoryRouter>
+    </Provider>,
   );
 });
 

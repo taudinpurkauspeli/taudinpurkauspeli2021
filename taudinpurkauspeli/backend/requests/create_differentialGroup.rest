@@ -1,4 +1,4 @@
-POST http://localhost:8080/api/differentialGroups
+POST http://localhost:8081/api/differentialGroups/fi
 Content-Type: application/json
 
 {

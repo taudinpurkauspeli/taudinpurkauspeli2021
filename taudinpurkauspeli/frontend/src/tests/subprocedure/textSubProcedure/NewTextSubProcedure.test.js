@@ -3,8 +3,13 @@ import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import NewTextSubProcedure from '../../../components/subprocedure/textSubProcedure/NewTextSubProcedure';
-import service from '../../../services/procedures/subProcedures';
+import { Provider } from 'react-redux';
+
+import NewTextSubProcedure from '../../../App/subprocedure/components/textSubProcedure/NewTextSubProcedure';
+import service from '../../../App/subprocedure/subProceduresService';
+import createStore from '../../../store';
+
+const { store } = createStore();
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key) => key }),
@@ -15,7 +20,9 @@ jest.spyOn(service, 'getAll');
 
 beforeEach(() => {
   render(
-    <NewTextSubProcedure caseId={1} />,
+    <Provider store={store}>
+      <NewTextSubProcedure caseId={1} />
+    </Provider>,
   );
 
   userEvent.click(screen.getByRole('button', { id: /addNew/i }));

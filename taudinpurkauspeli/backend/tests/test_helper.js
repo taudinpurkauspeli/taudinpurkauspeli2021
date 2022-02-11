@@ -1,73 +1,146 @@
-const initialDifferentials = [
+const subProcedureTypes = [
   {
-    name: 'TestDisease1',
+    type: 'TEXT',
   },
   {
-    name: 'TestDisease2',
+    type: 'QUESTION',
+  },
+];
+
+const plainCases = [
+  {
+    hidden: true,
+  },
+  {
+    hidden: true,
+  },
+];
+
+const plainTextSubProcedures = [
+  {
+    subProcedureId: 1,
+  },
+  {
+    subProcedureId: 2,
+  },
+];
+
+const initialDifferentials = [
+  {
+    plainDifferentialId: 1,
+    name: 'TestiDiffi1',
+    language: 'fi',
+    isDefault: true,
+  },
+  {
+    plainDifferentialId: 2,
+    name: 'TestiDiffi2',
+    language: 'fi',
+    isDefault: true,
+  },
+];
+
+const initialEnglishDifferentials = [
+  {
+    plainDifferentialId: 1,
+    name: 'TestDisease1',
+    language: 'en',
+    isDefault: false,
   },
 ];
 
 const initialCases = [
   {
-    title: 'TestCase1',
-    hidden: true,
-    anamnesis: 'TestCase1Anamnesis',
+    title: 'TestiCase1',
+    plainCaseId: 1,
+    anamnesis: 'Testianamneesi',
+    language: 'fi',
+    isDefault: true,
   },
   {
-    title: 'TestCase2',
-    hidden: true,
-    anamnesis: 'TestCase2Anamnesis',
+    title: 'TestiCase2',
+    plainCaseId: 2,
+    anamnesis: 'Testianamneesi',
+    language: 'fi',
+    isDefault: true,
+  },
+];
+
+const initialEnglishCases = [
+  {
+    title: 'TestCase1',
+    plainCaseId: 1,
+    anamnesis: 'TestCase1Anamnesis',
+    language: 'en',
+    isDefault: false,
   },
 ];
 
 const initialDifferentialGroups = [
   {
-    name: 'TestDifferentialGroup1',
+    plainDifferentialGroupId: 1,
+    name: 'TestiDiffiRyhmä1',
+    language: 'fi',
+    isDefault: true,
   },
   {
-    name: 'TestDifferentialGroup2',
+    plainDifferentialGroupId: 2,
+    name: 'TestiDiffiRyhmä2',
+    language: 'fi',
+    isDefault: true,
+  },
+];
+
+const initialEnglishDifferentialGroups = [
+  {
+    plainDifferentialGroupId: 1,
+    name: 'TestDifferentialGroup1',
+    language: 'en',
+    isDefault: false,
   },
 ];
 
 const initialDifferentialGroupsUnderCases = [
   {
-    differentialGroupId: 1,
-    caseId: 1,
+    plainDifferentialGroupId: 1,
+    plainCaseId: 1,
   },
   {
-    differentialGroupId: 2,
-    caseId: 2,
+    plainDifferentialGroupId: 2,
+    plainCaseId: 2,
   },
 ];
 
 const initialDifferentialsUnderCases = [
   {
     differentialGroupsUnderCaseId: 1,
-    differentialId: 2,
+    plainDifferentialId: 2,
     description: 'Testi1',
+    language: 'fi',
   },
   {
     differentialGroupsUnderCaseId: 2,
-    differentialId: 1,
+    plainDifferentialId: 1,
     description: 'Testi2',
+    language: 'fi',
   },
   {
     differentialGroupsUnderCaseId: 1,
-    differentialId: 1,
+    plainDifferentialId: 1,
     description: 'Testi3',
+    language: 'fi',
   },
 ];
 
 const initialUsers = [
   {
     user_name: 'Test User',
-    affiliation: 'student',
     studentid: '123456789',
     mail: 'test.user@example.org',
   },
   {
     user_name: 'Test Admin',
-    affiliation: 'faculty',
+    group: 'grp-taudinpurkausadmin',
     studentid: '',
     mail: 'test.admin@example.org',
   },
@@ -75,52 +148,86 @@ const initialUsers = [
 
 const initialProcedures = [
   {
-    title: 'TestProcedure1',
+    plainProcedureId: 1,
+    name: 'TestiToimenpide1',
+    language: 'fi',
+    isDefault: true,
   },
   {
-    title: 'TestProcedure2',
+    plainProcedureId: 2,
+    name: 'TestiToimenpide2',
+    language: 'fi',
+    isDefault: true,
   },
+];
+
+const initialEnglishProcedures = [
   {
-    title: 'TestProcedure3',
+    plainProcedureId: 1,
+    name: 'TestProcedure1',
+    language: 'en',
+    isDefault: false,
   },
 ];
 
 const initialSubProcedures = [
   {
+    subProcedureTypeId: 1,
+    proceduresUnderCaseId: 1,
     priority: 1,
-    type: 'TEXT',
   },
   {
-    priority: 1,
-    type: 'TEXT',
+    subProcedureTypeId: 1,
+    proceduresUnderCaseId: 1,
+    priority: 2,
   },
 ];
 
 const initialProceduresUnderCases = [
   {
-    caseId: 1,
-    procedureId: 1,
+    plainCaseId: 1,
+    plainProcedureId: 1,
+    priority: 1,
+  },
+  {
+    plainCaseId: 1,
+    plainProcedureId: 2,
     priority: 1,
   },
 ];
 
 const initialTextSubProcedures = [
   {
-    subProcedureId: 1,
-    proceduresUnderCaseProcedureCaseId: 1,
-    title: 'TestTitle',
-    text: 'TestText',
+    plainTextSubProcedureId: 1,
+    title: 'TestiOtsikko1',
+    text: 'TestiTeksti1',
+    language: 'fi',
+    isDefault: true,
+  },
+  {
+    plainTextSubProcedureId: 2,
+    title: 'TestiOtsikko2',
+    text: 'TestiTeksti2',
+    language: 'fi',
+    isDefault: true,
   },
 ];
 
 module.exports = {
+  subProcedureTypes,
+  plainCases,
+  plainTextSubProcedures,
   initialDifferentials,
+  initialEnglishDifferentials,
   initialCases,
+  initialEnglishCases,
   initialDifferentialGroups,
+  initialEnglishDifferentialGroups,
   initialDifferentialGroupsUnderCases,
   initialDifferentialsUnderCases,
   initialUsers,
   initialProcedures,
+  initialEnglishProcedures,
   initialSubProcedures,
   initialProceduresUnderCases,
   initialTextSubProcedures,
