@@ -42,9 +42,9 @@ jobs:
     - name: e2e tests
       uses: cypress-io/github-action@v2
       with:
-        command: npx cypress run
+        command: npm run cypress:run
         start: npm start
-        wait-on: http://localhost:3000
+        wait-on: http://localhost:8082
 
     - name: Build
       run: npm run build
