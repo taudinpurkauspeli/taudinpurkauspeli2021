@@ -24,13 +24,6 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-      with:
-          persist-credentials: false
-      
-    - name: Reconfigure git to use HTTP authentication
-      run: >
-        git config --global url."https://github.com/".insteadOf
-        ssh://git@github.com/
 
     - name: Set up Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
@@ -45,12 +38,6 @@ jobs:
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1
-      
-    - name: e2e tests
-      uses: cypress-io/github-action@v2
-      with:
-        build: npm run build
-        start: npm start
 
     - name: Build
       run: npm run build
