@@ -3,7 +3,7 @@ require('express-async-errors');
 
 const app = express();
 const cors = require('cors');
-const sequelize_fixtures = require('sequelize-fixtures');
+const sequelizeFixtures = require('sequelize-fixtures');
 const models = require('./models');
 
 const userRouter = require('./controllers/users');
@@ -14,8 +14,7 @@ const differentialRouter = require('./controllers/differentials/differentials');
 const differentialUnderCaseRouter = require('./controllers/differentials/differentialsUnderCases');
 const proceduresRouter = require('./controllers/procedures/procedures');
 const proceduresUnderCasesRouter = require('./controllers/procedures/proceduresUnderCases');
-const subProceduresRouter = require('./controllers/procedures/subProcedures');
-const textSubProcedureRouter = require('./controllers/procedures/textSubProcedures');
+const subProceduresRouter = require('./controllers/procedures/subProcedures/subProcedures');
 
 const middleware = require('./utils/middleware');
 const logger = require('./utils/logger');
@@ -59,7 +58,7 @@ if (process.env.NODE_ENV !== 'test') {
   db.sequelize
     .sync({ alter: true })
     .then(() => {
-      sequelize_fixtures.loadFixtures(fixtures, models).then(() => {
+      sequelizeFixtures.loadFixtures(fixtures, models).then(() => {
         logger.info('altered the tables');
       });
     });
@@ -81,7 +80,6 @@ app.use('/api/differentialsUnderCases', differentialUnderCaseRouter);
 app.use('/api/procedures', proceduresRouter);
 app.use('/api/proceduresUnderCases', proceduresUnderCasesRouter);
 app.use('/api/subProcedures', subProceduresRouter);
-app.use('/api/textSubProcedures', textSubProcedureRouter);
 
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);

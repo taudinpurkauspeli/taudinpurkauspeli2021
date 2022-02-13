@@ -6,7 +6,7 @@ import {
 } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 
-import { addTextSubprocedure } from '../../subProceduresReducer';
+import { addSubprocedure } from '../../subProceduresReducer';
 import AddTextSubProcedure from './AddTextSubProcedure';
 import { setSuccess, setError } from '../../../../utils/MessageBanner';
 
@@ -20,7 +20,7 @@ const NewTextSubProcedure = ({ procedureCaseId }) => {
   const handleTextSubProcedureAdd = (subProcedureObject) => {
     toggleVisibility();
     try {
-      dispatch(addTextSubprocedure(subProcedureObject, procedureCaseId));
+      dispatch(addSubprocedure(subProcedureObject, Number(procedureCaseId)));
       setSuccess(t('textSubProcedureUpdateSuccess'));
     } catch (error) {
       setError(t('textSubProcedureUpdateError'));

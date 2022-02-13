@@ -18,10 +18,23 @@ const plainCases = [
 
 const plainTextSubProcedures = [
   {
-    subProcedureId: 1,
+    plainSubProcedureId: 1,
   },
   {
-    subProcedureId: 2,
+    plainSubProcedureId: 2,
+  },
+];
+
+const plainSubProcedures = [
+  {
+    subProcedureTypeId: 1,
+    proceduresUnderCaseId: 1,
+    priority: 1,
+  },
+  {
+    subProcedureTypeId: 1,
+    proceduresUnderCaseId: 1,
+    priority: 2,
   },
 ];
 
@@ -172,14 +185,16 @@ const initialEnglishProcedures = [
 
 const initialSubProcedures = [
   {
-    subProcedureTypeId: 1,
-    proceduresUnderCaseId: 1,
-    priority: 1,
+    title: 'TestiOtsikko1',
+    language: 'fi',
+    isDefault: true,
+    plainSubProcedureId: 1,
   },
   {
-    subProcedureTypeId: 1,
-    proceduresUnderCaseId: 1,
-    priority: 2,
+    title: 'TestiOtsikko2',
+    language: 'fi',
+    isDefault: true,
+    plainSubProcedureId: 2,
   },
 ];
 
@@ -199,14 +214,12 @@ const initialProceduresUnderCases = [
 const initialTextSubProcedures = [
   {
     plainTextSubProcedureId: 1,
-    title: 'TestiOtsikko1',
     text: 'TestiTeksti1',
     language: 'fi',
     isDefault: true,
   },
   {
     plainTextSubProcedureId: 2,
-    title: 'TestiOtsikko2',
     text: 'TestiTeksti2',
     language: 'fi',
     isDefault: true,
@@ -217,6 +230,7 @@ module.exports = {
   subProcedureTypes,
   plainCases,
   plainTextSubProcedures,
+  plainSubProcedures,
   initialDifferentials,
   initialEnglishDifferentials,
   initialCases,

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 
 import UpdateTextSubProcedureForm from './UpdateTextSubProcedureForm';
-import { updateTextSubprocedure } from '../../subProceduresReducer';
+import { updateSubprocedure } from '../../subProceduresReducer';
 import { setSuccess, setError } from '../../../../utils/MessageBanner';
 
 const UpdateTextSubProcedure = ({ d }) => {
@@ -18,7 +18,7 @@ const UpdateTextSubProcedure = ({ d }) => {
   const handleTextSubProcedureUpdate = (updatedObject) => {
     toggleVisibility();
     try {
-      dispatch(updateTextSubprocedure(d.id, {
+      dispatch(updateSubprocedure(d.id, {
         ...d,
         title: updatedObject.title,
         text: updatedObject.text,

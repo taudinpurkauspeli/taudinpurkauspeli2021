@@ -27,7 +27,9 @@ db.plainCases = require('./plainCase.model')(sequelize, Sequelize);
 db.plainDifferentials = require('./differentials/plainDifferential.model')(sequelize, Sequelize);
 db.plainDifferentialGroups = require('./differentials/plainDifferentialGroup.model')(sequelize, Sequelize);
 db.plainProcedures = require('./procedures/plainProcedure.model')(sequelize, Sequelize);
-db.plainTextSubProcedures = require('./procedures/plainTextSubProcedure.model')(sequelize, Sequelize);
+db.plainSubProcedures = require('./procedures/subProcedures/plainSubProcedure.model')(sequelize, Sequelize);
+db.plainTextSubProcedures = require('./procedures/subProcedures/plainTextSubProcedure.model')(sequelize, Sequelize);
+db.plainOptions = require('./procedures/subProcedures/plainOption.model')(sequelize, Sequelize);
 
 db.users = require('./user.model')(sequelize, Sequelize);
 db.cases = require('./case.model')(sequelize, Sequelize);
@@ -37,9 +39,10 @@ db.differentials = require('./differentials/differential.model')(sequelize, Sequ
 db.differentalsUnderCases = require('./differentials/differentialsUnderCase.model')(sequelize, Sequelize);
 db.procedures = require('./procedures/procedure.model')(sequelize, Sequelize);
 db.proceduresUnderCases = require('./procedures/proceduresUnderCase.model')(sequelize, Sequelize);
-db.subProcedureTypes = require('./procedures/subProcedureTypes.model')(sequelize, Sequelize);
-db.subProcedures = require('./procedures/subProcedure.model')(sequelize, Sequelize);
-db.textSubProcedures = require('./procedures/textSubProcedure.model')(sequelize, Sequelize);
+db.subProcedureTypes = require('./procedures/subProcedures/subProcedureTypes.model')(sequelize, Sequelize);
+db.subProcedures = require('./procedures/subProcedures/subProcedure.model')(sequelize, Sequelize);
+db.textSubProcedures = require('./procedures/subProcedures/textSubProcedure.model')(sequelize, Sequelize);
+db.options = require('./procedures/subProcedures/option.model')(sequelize, Sequelize);
 
 db.plainCases.hasMany(db.cases);
 db.cases.belongsTo(db.plainCases, {
@@ -65,14 +68,14 @@ db.procedures.belongsTo(db.plainProcedures, {
   constraints: false,
 });
 
-db.subProcedureTypes.hasMany(db.subProcedures);
-db.subProcedures.belongsTo(db.subProcedureTypes, {
+db.subProcedureTypes.hasMany(db.plainSubProcedures);
+db.plainSubProcedures.belongsTo(db.subProcedureTypes, {
   foreignKey: 'subProcedureTypeId',
   constraints: false,
 });
 
-db.proceduresUnderCases.hasMany(db.subProcedures);
-db.subProcedures.belongsTo(db.proceduresUnderCases, {
+db.proceduresUnderCases.hasMany(db.plainSubProcedures);
+db.plainSubProcedures.belongsTo(db.proceduresUnderCases, {
   foreignKey: 'proceduresUnderCaseId',
   constraints: false,
 });
@@ -98,15 +101,27 @@ db.plainCases.belongsToMany(db.plainProcedures, {
   through: db.proceduresUnderCases,
 });
 
+db.plainSubProcedures.hasMany(db.subProcedures);
+db.subProcedures.belongsTo(db.plainSubProcedures, {
+  foreignKey: 'plainSubProcedureId',
+  constraints: false,
+});
+
 db.plainTextSubProcedures.hasMany(db.textSubProcedures);
 db.textSubProcedures.belongsTo(db.plainTextSubProcedures, {
   foreignKey: 'plainTextSubProcedureId',
   constraints: false,
 });
 
-db.subProcedures.hasMany(db.plainTextSubProcedures);
-db.plainTextSubProcedures.belongsTo(db.subProcedures, {
-  foreignKey: 'subProcedureId',
+db.plainSubProcedures.hasMany(db.plainTextSubProcedures);
+db.plainTextSubProcedures.belongsTo(db.plainSubProcedures, {
+  foreignKey: 'plainSubProcedureId',
+  constraints: false,
+});
+
+db.plainOptions.hasMany(db.options);
+db.options.belongsTo(db.plainOptions, {
+  foreignKey: 'plainOptionId',
   constraints: false,
 });
 
