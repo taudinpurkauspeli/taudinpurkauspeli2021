@@ -15,6 +15,10 @@ const differentialUnderCaseRouter = require('./controllers/differentials/differe
 const proceduresRouter = require('./controllers/procedures/procedures');
 const proceduresUnderCasesRouter = require('./controllers/procedures/proceduresUnderCases');
 const subProceduresRouter = require('./controllers/procedures/subProcedures/subProcedures');
+const optionGroupsRouter = require('./controllers/procedures/subProcedures/optionGroups');
+const optionGroupsUnderSubProceduresRouter = require('./controllers/procedures/subProcedures/optionGroupsUnderSubProcedures');
+const optionsRouter = require('./controllers/procedures/subProcedures/options');
+const optionsUnderSubProceduresRouter = require('./controllers/procedures/subProcedures/optionsUnderSubProcedures');
 
 const middleware = require('./utils/middleware');
 const logger = require('./utils/logger');
@@ -80,6 +84,10 @@ app.use('/api/differentialsUnderCases', differentialUnderCaseRouter);
 app.use('/api/procedures', proceduresRouter);
 app.use('/api/proceduresUnderCases', proceduresUnderCasesRouter);
 app.use('/api/subProcedures', subProceduresRouter);
+app.use('/api/optionGroups', optionGroupsRouter);
+app.use('/api/optionGroupsUnderSubProcedures', optionGroupsUnderSubProceduresRouter);
+app.use('/api/options', optionsRouter);
+app.use('/api/optionsUnderSubProcedures', optionsUnderSubProceduresRouter);
 
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);
