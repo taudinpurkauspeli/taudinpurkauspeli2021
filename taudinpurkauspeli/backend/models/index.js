@@ -49,6 +49,7 @@ db.optionGroups = require('./procedures/subProcedures/optionGroup.model')(sequel
 db.optionGroupsUnderSubProcedures = require('./procedures/subProcedures/optionGroupsUnderSubProcedure.model')(sequelize, Sequelize);
 db.options = require('./procedures/subProcedures/option.model')(sequelize, Sequelize);
 db.optionsUnderSubProcedures = require('./procedures/subProcedures/optionsUnderSubProcedure.model')(sequelize, Sequelize);
+db.questionOptionsUnderSubProcedures = require('./procedures/subProcedures/questionOptionsUnderSubProcedure.model')(sequelize, Sequelize);
 
 db.plainCases.hasMany(db.cases);
 db.cases.belongsTo(db.plainCases, {
@@ -159,6 +160,19 @@ db.plainOptions.belongsToMany(db.optionGroupsUnderSubProcedures, {
 
 db.plainDescriptions.hasMany(db.optionsUnderSubProcedures);
 db.optionsUnderSubProcedures.belongsTo(db.plainDescriptions, {
+  foreignKey: 'plainDescriptionId',
+  constraints: false,
+});
+
+db.plainSubProcedures.belongsToMany(db.plainOptions, {
+  through: db.questionOptionsUnderSubProcedures,
+});
+db.plainOptions.belongsToMany(db.plainSubProcedures, {
+  through: db.questionOptionsUnderSubProcedures,
+});
+
+db.plainDescriptions.hasMany(db.questionOptionsUnderSubProcedures);
+db.questionOptionsUnderSubProcedures.belongsTo(db.plainDescriptions, {
   foreignKey: 'plainDescriptionId',
   constraints: false,
 });

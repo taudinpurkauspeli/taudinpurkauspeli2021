@@ -321,6 +321,27 @@ const initialOptionsUnderSubProcedures = [
   },
 ];
 
+const initialQuestionOptionsUnderSubProcedures = [
+  {
+    plainSubProcedureId: 1,
+    plainOptionId: 1,
+    plainDescriptionId: 1,
+    isCorrect: true,
+  },
+  {
+    plainSubProcedureId: 1,
+    plainOptionId: 2,
+    plainDescriptionId: 2,
+    isCorrect: false,
+  },
+  {
+    plainSubProcedureId: 2,
+    plainOptionId: 1,
+    plainDescriptionId: 1,
+    isCorrect: false,
+  },
+];
+
 module.exports = {
   subProcedureTypes,
   plainCases,
@@ -347,4 +368,5 @@ module.exports = {
   initialOptionGroupsUnderSubProcedures,
   initialDescriptions,
   initialOptionsUnderSubProcedures,
+  initialQuestionOptionsUnderSubProcedures,
 };

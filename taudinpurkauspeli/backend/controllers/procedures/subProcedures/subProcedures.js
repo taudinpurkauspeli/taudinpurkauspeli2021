@@ -68,12 +68,8 @@ subProceduresRouter.post('/:language', middleware.checkAdminRights, async (req, 
   const savedSubProcedure = await SubProcedure.create(newSubProcedure);
   let savedTypedSubProcedure;
 
-  switch (content.type) {
-    case 'TEXT':
-      savedTypedSubProcedure = await saveTextSubProcedure(id, content, language);
-      break;
-    default:
-      res.status(404).end();
+  if (content.type === 'TEXT') {
+    savedTypedSubProcedure = await saveTextSubProcedure(id, content, language);
   }
 
   res.json({
@@ -82,7 +78,7 @@ subProceduresRouter.post('/:language', middleware.checkAdminRights, async (req, 
     type: content.type,
     priority: content.priority,
     title: savedSubProcedure.title,
-    text: savedTypedSubProcedure.text,
+    ...savedTypedSubProcedure,
   });
 });
 

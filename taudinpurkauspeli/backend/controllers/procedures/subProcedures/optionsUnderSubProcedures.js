@@ -48,21 +48,37 @@ optionsUnderSubProceduresRouter.post('/:language', middleware.checkAdminRights, 
 });
 
 // Retrieve all options
-optionsUnderSubProceduresRouter.get('/:id/:language', middleware.checkUserRights, async (req, res) => {
-  const { id, language } = req.params;
+optionsUnderSubProceduresRouter.get('/:id/:type/:language', middleware.checkUserRights, async (req, res) => {
+  const { id, type, language } = req.params;
 
-  const foundOptions = await db.sequelize.query(
-    `SELECT ouc."optionGroupsUnderSubProcedureId" AS "optionGroupSubProcedureId", ouc."plainOptionId" AS id, d.description, o.name
+  let foundOptions = [];
+
+  if (type === 'INTERVIEW') {
+    foundOptions = await db.sequelize.query(
+      `SELECT ouc."optionGroupsUnderSubProcedureId" AS "optionGroupSubProcedureId", ouc."plainOptionId" AS id, d.description, o.name, ouc."isRequired"
     FROM option_groups_under_sub_procedures AS oguc
     LEFT JOIN options_under_sub_procedures AS ouc ON oguc.id = ouc."optionGroupsUnderSubProcedureId"
     LEFT JOIN options AS o ON ouc."plainOptionId" = o."plainOptionId"
     LEFT JOIN descriptions AS d ON ouc."plainDescriptionId" = d."plainDescriptionId"
     WHERE oguc."plainSubProcedureId" = ? AND o.language = ? AND d.language = ?`,
-    {
-      replacements: [id, language, language],
-      type: db.sequelize.QueryTypes.SELECT,
-    },
-  );
+      {
+        replacements: [id, language, language],
+        type: db.sequelize.QueryTypes.SELECT,
+      },
+    );
+  } else if (type === 'QUESTION') {
+    foundOptions = await db.sequelize.query(
+      `SELECT qouc."plainOptionId" AS id, d.description, o.name, qouc."isCorrect"
+    FROM question_options_under_sub_procedures AS qouc
+    LEFT JOIN options AS o ON qouc."plainOptionId" = o."plainOptionId"
+    LEFT JOIN descriptions AS d ON qouc."plainDescriptionId" = d."plainDescriptionId"
+    WHERE qouc."plainSubProcedureId" = ? AND o.language = ? AND d.language = ?`,
+      {
+        replacements: [id, language, language],
+        type: db.sequelize.QueryTypes.SELECT,
+      },
+    );
+  }
 
   res.send(foundOptions);
 });
