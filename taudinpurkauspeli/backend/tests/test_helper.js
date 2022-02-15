@@ -226,6 +226,101 @@ const initialTextSubProcedures = [
   },
 ];
 
+const initialOptions = [
+  {
+    plainOptionId: 1,
+    name: 'TestiVaihtoehto1',
+    language: 'fi',
+    isDefault: true,
+  },
+  {
+    plainOptionId: 2,
+    name: 'TestiVaihtoehto2',
+    language: 'fi',
+    isDefault: true,
+  },
+];
+
+const initialEnglishOptions = [
+  {
+    plainOptionId: 1,
+    name: 'TestOption1',
+    language: 'en',
+    isDefault: false,
+  },
+];
+
+const initialOptionGroups = [
+  {
+    plainOptionGroupId: 1,
+    name: 'TestiVaihtoehtoRyhmä1',
+    language: 'fi',
+    isDefault: true,
+  },
+  {
+    plainOptionGroupId: 2,
+    name: 'TestiVaihtoehtoRyhmä2',
+    language: 'fi',
+    isDefault: true,
+  },
+];
+
+const initialEnglishOptionGroups = [
+  {
+    plainOptionGroupId: 1,
+    name: 'TestOptionGroup1',
+    language: 'en',
+    isDefault: false,
+  },
+];
+
+const initialOptionGroupsUnderSubProcedures = [
+  {
+    plainOptionGroupId: 1,
+    plainSubProcedureId: 1,
+  },
+  {
+    plainOptionGroupId: 2,
+    plainSubProcedureId: 2,
+  },
+];
+
+const initialDescriptions = [
+  {
+    language: 'fi',
+    isDefault: true,
+    description: 'TestiKuvaus1',
+    plainDescriptionId: 1,
+  },
+  {
+    language: 'fi',
+    isDefault: true,
+    description: 'TestiKuvaus2',
+    plainDescriptionId: 2,
+  },
+];
+
+const initialOptionsUnderSubProcedures = [
+  {
+    optionGroupsUnderSubProcedureId: 1,
+    plainOptionId: 1,
+    plainDescriptionId: 1,
+    isRequired: 0,
+  },
+  {
+    optionGroupsUnderSubProcedureId: 1,
+    plainOptionId: 2,
+    plainDescriptionId: 2,
+    isRequired: 1,
+  },
+  {
+    optionGroupsUnderSubProcedureId: 2,
+    plainOptionId: 1,
+    plainDescriptionId: 1,
+    isRequired: 2,
+  },
+];
+
 module.exports = {
   subProcedureTypes,
   plainCases,
@@ -245,4 +340,11 @@ module.exports = {
   initialSubProcedures,
   initialProceduresUnderCases,
   initialTextSubProcedures,
+  initialOptions,
+  initialEnglishOptions,
+  initialOptionGroups,
+  initialEnglishOptionGroups,
+  initialOptionGroupsUnderSubProcedures,
+  initialDescriptions,
+  initialOptionsUnderSubProcedures,
 };

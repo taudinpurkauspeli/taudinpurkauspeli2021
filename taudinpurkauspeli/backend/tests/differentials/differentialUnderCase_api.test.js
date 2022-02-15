@@ -1,15 +1,12 @@
 const supertest = require('supertest');
 const app = require('../../app');
-const { plainDifferentialGroups } = require('../../models');
 
 const api = supertest(app);
 const db = require('../../models');
 const helper = require('../test_helper');
 
 const DifferentialGroupUnderCase = db.differentialGroupsUnderCases;
-const DifferentialGroup = db.differentialGroups;
 const Differential = db.differentials;
-const Case = db.cases;
 const DifferentialUnderCase = db.differentalsUnderCases;
 const PlainCase = db.plainCases;
 const PlainDifferential = db.plainDifferentials;
@@ -22,9 +19,7 @@ beforeEach(async () => {
   await PlainDifferential.bulkCreate([{}, {}]);
   await Differential.bulkCreate(helper.initialDifferentials);
   await PlainCase.bulkCreate(helper.plainCases);
-  await Case.bulkCreate(helper.initialCases);
   await PlainDifferentialGroup.bulkCreate([{}, {}]);
-  await DifferentialGroup.bulkCreate(helper.initialDifferentialGroups);
   await DifferentialGroupUnderCase.bulkCreate(helper.initialDifferentialGroupsUnderCases);
   await DifferentialUnderCase.bulkCreate(helper.initialDifferentialsUnderCases);
 });
