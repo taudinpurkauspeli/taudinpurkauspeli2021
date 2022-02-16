@@ -33,7 +33,7 @@ const newCaseForm = ({ addCase }) => {
 
   return (
     <Form noValidate onSubmit={formik.handleSubmit} spellCheck="false">
-      <Form.Group md="6" controlId="title">
+      <Form.Group controlId="title">
         <Form.Label>{t('caseTitle')}</Form.Label>
         <Form.Control
           type="text"
@@ -44,7 +44,7 @@ const newCaseForm = ({ addCase }) => {
           {formik.errors.title}
         </Form.Control.Feedback>
       </Form.Group>
-      <Form.Group className="mb-3" controlId="anamnesis">
+      <Form.Group controlId="anamnesis">
         <Form.Label>{t('caseAnamnesis')}</Form.Label>
         <Form.Control
           as="textarea"
@@ -52,14 +52,13 @@ const newCaseForm = ({ addCase }) => {
           {...formik.getFieldProps('anamnesis')}
         />
       </Form.Group>
-      <Form.Group className="mb-3" controlId="hidden">
+      <Form.Group controlId="hidden">
         <Form.Check
-          required
           label={t('hideCase')}
           {...formik.getFieldProps('hidden')}
         />
       </Form.Group>
-      <Button className="submitButton" id="submit-case" type="submit">{t('buttonSubmitNewCase')}</Button>
+      <Button className="submitButton" type="submit">{t('buttonSubmitNewCase')}</Button>
     </Form>
   );
 };
