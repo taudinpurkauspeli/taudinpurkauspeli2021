@@ -43,6 +43,7 @@
   "casePlayable": "Playable cases",
   "caseProcedures": "Procedures",
   "caseTitle": "Case title",
+  "caseTitleInstruction": "Press enter after you have made the changes",
   "caseAddError": "ERROR! Could not add the case",
   "caseAddSuccess": "Case added successfully",
   "caseUpdateError": "ERROR! Could not update case",

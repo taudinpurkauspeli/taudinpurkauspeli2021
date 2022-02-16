@@ -1,7 +1,7 @@
 /* eslint-disable linebreak-style */
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Formik } from 'formik';
+import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import {
   Form, Button,
@@ -10,52 +10,39 @@ import {
 const AddDifferentialGroupForm = ({ addDifferentialGroup }) => {
   const { t } = useTranslation();
 
-  const newDifferentialGroupSchema = Yup.object().shape({
-    name: Yup.string()
-      .min(2, t('warningShort'))
-      .max(999, t('warningLong'))
-      .required(t('warningRequired')),
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+    },
+    validationSchema: Yup.object({
+      name: Yup.string()
+        .min(2, t('warningShort'))
+        .max(999, t('warningLong'))
+        .required(t('warningRequired')),
+    }),
+    onSubmit: (values) => {
+      addDifferentialGroup({
+        name: values.name,
+      });
+    },
   });
 
-  const handleDifferentialGroupAdd = (values) => {
-    addDifferentialGroup({
-      name: values.name,
-    });
-  };
-
   return (
-    <Formik
-      initialValues={{
-        name: '',
-      }}
-      validationSchema={newDifferentialGroupSchema}
-      onSubmit={handleDifferentialGroupAdd}
-    >
-      {({
-        handleSubmit,
-        handleChange,
-        values,
-        errors,
-      }) => (
-        <Form noValidate onSubmit={handleSubmit}>
-          <Form.Group md="6" controlId="name">
-            <Form.Label>{t('addDifferentialGroup')}</Form.Label>
-            <Form.Control
-              type="text"
-              name="name"
-              placeholder={t('write')}
-              value={values.name}
-              onChange={handleChange}
-              isInvalid={!!errors.name}
-            />
-            <Form.Control.Feedback type="invalid" role="alert" aria-label="from feedback">
-              {errors.name}
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Button className="submitButton" type="submit">{t('buttonSubmitNewDifferentialGroup')}</Button>
-        </Form>
-      )}
-    </Formik>
+    <Form noValidate onSubmit={formik.handleSubmit}>
+      <Form.Group controlId="name">
+        <Form.Label>{t('addDifferentialGroup')}</Form.Label>
+        <Form.Control
+          type="text"
+          placeholder={t('write')}
+          {...formik.getFieldProps('name')}
+          isInvalid={!!formik.errors.name}
+        />
+        <Form.Control.Feedback type="invalid" role="alert" aria-label="from feedback">
+          {formik.errors.name}
+        </Form.Control.Feedback>
+      </Form.Group>
+      <Button className="submitButton" type="submit">{t('buttonSubmitNewDifferentialGroup')}</Button>
+    </Form>
   );
 };
 
