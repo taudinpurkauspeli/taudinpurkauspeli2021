@@ -87,16 +87,18 @@ subProceduresRouter.get('/:id/:language', middleware.checkUserRights, async (req
   const { id, language } = req.params;
 
   const foundSubProcedures = await db.sequelize.query(
-    `SELECT psp.id, psp."proceduresUnderCaseId" AS "procedureCaseId", spt.type, psp.priority, sp.title, tsp.text
-    FROM procedures_under_cases AS puc
-    LEFT JOIN plain_sub_procedures AS psp ON psp."proceduresUnderCaseId" = puc.id
-    LEFT JOIN sub_procedure_types AS spt ON spt.id = psp."subProcedureTypeId"
-    LEFT JOIN sub_procedures AS sp ON sp."plainSubProcedureId" = psp.id
-    LEFT JOIN plain_text_sub_procedures AS pspt ON pspt."plainSubProcedureId" = psp.id
-    LEFT JOIN text_sub_procedures AS tsp ON tsp."plainTextSubProcedureId" = pspt.id
-    WHERE puc."plainCaseId" = ? AND tsp.language = ?`,
+    `SELECT psp.id, psp."proceduresUnderCaseId" AS "procedureCaseId", spt.type, psp.priority, sp.title, (
+      SELECT tsp.text FROM plain_text_sub_procedures AS pspt
+      LEFT JOIN text_sub_procedures AS tsp ON tsp."plainTextSubProcedureId" = pspt.id
+      WHERE pspt."plainSubProcedureId" = psp.id AND tsp.language = ?
+    )
+        FROM procedures_under_cases AS puc
+        LEFT JOIN plain_sub_procedures AS psp ON psp."proceduresUnderCaseId" = puc.id
+        LEFT JOIN sub_procedure_types AS spt ON spt.id = psp."subProcedureTypeId"
+        LEFT JOIN sub_procedures AS sp ON sp."plainSubProcedureId" = psp.id
+        WHERE puc."plainCaseId" = ? AND sp.language = ?`,
     {
-      replacements: [id, language],
+      replacements: [language, id, language],
       type: db.sequelize.QueryTypes.SELECT,
     },
   );

@@ -5,6 +5,9 @@ const subProcedureTypes = [
   {
     type: 'QUESTION',
   },
+  {
+    type: 'INTERVIEW',
+  },
 ];
 
 const plainCases = [

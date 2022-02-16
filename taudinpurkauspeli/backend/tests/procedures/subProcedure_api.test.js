@@ -63,7 +63,49 @@ describe('Adding a subprocedure to database', () => {
     expect(titles).toContain('newTitle');
   });
 
-  test('textsubprocedure without title is not added', async () => {
+  test('a valid interview subprocedure can be added', async () => {
+    const newSubProcedure = {
+      type: 'INTERVIEW',
+      priority: 1,
+      procedureCaseId: 1,
+      title: 'newInterview',
+    };
+
+    await api
+      .post('/api/subProcedures/fi')
+      .send(newSubProcedure)
+      .expect(200)
+      .expect('Content-Type', /application\/json/);
+
+    const response = await api.get('/api/subProcedures/1/fi');
+    const titles = response.body.map((r) => r.title);
+
+    expect(response.body).toHaveLength(helper.initialSubProcedures.length + 1);
+    expect(titles).toContain('newInterview');
+  });
+
+  test('a valid question subprocedure can be added', async () => {
+    const newSubProcedure = {
+      type: 'QUESTION',
+      priority: 1,
+      procedureCaseId: 1,
+      title: 'newQuestion',
+    };
+
+    await api
+      .post('/api/subProcedures/fi')
+      .send(newSubProcedure)
+      .expect(200)
+      .expect('Content-Type', /application\/json/);
+
+    const response = await api.get('/api/subProcedures/1/fi');
+    const titles = response.body.map((r) => r.title);
+
+    expect(response.body).toHaveLength(helper.initialSubProcedures.length + 1);
+    expect(titles).toContain('newQuestion');
+  });
+
+  test('text subprocedure without title is not added', async () => {
     const newTextSubProcedure = {
       type: 'TEXT',
       priority: 1,

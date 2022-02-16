@@ -44,7 +44,7 @@ const fixtures = [
   {
     model: 'subProcedureTypes',
     data: {
-      type: 'THINKING',
+      type: 'INTERVIEW',
     },
   },
 ];
