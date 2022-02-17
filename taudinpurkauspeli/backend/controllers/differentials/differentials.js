@@ -70,8 +70,8 @@ differentialRouter.get('/:language', middleware.checkUserRights, async (req, res
       attributes: [],
     },
     attributes: [
-      'name',
       ['plainDifferentialId', 'id'],
+      'name',
     ],
   });
 

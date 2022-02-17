@@ -1,0 +1,9 @@
+POST http://localhost:8081/api/subProcedures/fi
+Content-Type: application/json
+
+{
+    "title": "Toimiiko tämä?",
+    "procedureCaseId": 1,
+    "priority": 1,
+    "type": "INTERVIEW"
+}

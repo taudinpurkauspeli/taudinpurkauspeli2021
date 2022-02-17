@@ -10,11 +10,11 @@ const getAll = (id) => {
 };
 
 const create = (newObject) => {
-  const request = axios.post(baseUrl, newObject, getConfig());
+  const request = axios.post(`${baseUrl}/${getLanguage()}`, newObject, getConfig());
   return request.then((response) => response.data);
 };
 
-const update = (id, newObject) => axios.put(`${baseUrl}/${id}`, newObject, getConfig());
+const update = (id, newObject) => axios.put(`${baseUrl}/${id}/${getLanguage()}`, newObject, getConfig());
 
 export default {
   create,

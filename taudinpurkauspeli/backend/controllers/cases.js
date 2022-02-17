@@ -87,7 +87,7 @@ caseRouter.get('/:id/:language', middleware.checkUserRights, async (req, res) =>
   });
 
   if (foundCase === null) {
-    res.send(404).end();
+    res.status(404).end();
   } else {
     res.json(foundCase);
   }

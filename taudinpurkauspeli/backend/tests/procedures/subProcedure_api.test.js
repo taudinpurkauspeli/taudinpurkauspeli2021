@@ -15,6 +15,7 @@ beforeEach(async () => {
   await db.procedures.bulkCreate(helper.initialProcedures);
   await db.proceduresUnderCases.bulkCreate(helper.initialProceduresUnderCases);
   await db.subProcedureTypes.bulkCreate(helper.subProcedureTypes);
+  await db.plainSubProcedures.bulkCreate(helper.plainSubProcedures);
   await db.subProcedures.bulkCreate(helper.initialSubProcedures);
   await db.plainTextSubProcedures.bulkCreate(helper.plainTextSubProcedures);
   await db.textSubProcedures.bulkCreate(helper.initialTextSubProcedures);
@@ -23,18 +24,18 @@ beforeEach(async () => {
 describe('Getting subprocedures from database', () => {
   test('subprocedures are returned as json', async () => {
     await api
-      .get('/api/subprocedures/1/fi')
+      .get('/api/subProcedures/1/fi')
       .expect(200)
       .expect('Content-Type', /application\/json/);
 
     await api
-      .get('/api/subprocedures/1/en')
+      .get('/api/subProcedures/1/en')
       .expect(200)
       .expect('Content-Type', /application\/json/);
   });
 
   test('all subprocedures are returned', async () => {
-    const response = await api.get('/api/subprocedures/1/fi');
+    const response = await api.get('/api/subProcedures/1/fi');
     expect(response.body).toHaveLength(helper.initialSubProcedures.length);
   });
 });
@@ -45,13 +46,80 @@ describe('Adding a subprocedure to database', () => {
       type: 'TEXT',
       priority: 1,
       procedureCaseId: 1,
+      title: 'newTitle',
+      text: 'TestText2',
     };
 
     await api
-      .post('/api/subprocedures')
+      .post('/api/subProcedures/fi')
       .send(newSubProcedure)
       .expect(200)
       .expect('Content-Type', /application\/json/);
+
+    const response = await api.get('/api/subProcedures/1/fi');
+    const titles = response.body.map((r) => r.title);
+
+    expect(response.body).toHaveLength(helper.initialSubProcedures.length + 1);
+    expect(titles).toContain('newTitle');
+  });
+
+  test('a valid interview subprocedure can be added', async () => {
+    const newSubProcedure = {
+      type: 'INTERVIEW',
+      priority: 1,
+      procedureCaseId: 1,
+      title: 'newInterview',
+    };
+
+    await api
+      .post('/api/subProcedures/fi')
+      .send(newSubProcedure)
+      .expect(200)
+      .expect('Content-Type', /application\/json/);
+
+    const response = await api.get('/api/subProcedures/1/fi');
+    const titles = response.body.map((r) => r.title);
+
+    expect(response.body).toHaveLength(helper.initialSubProcedures.length + 1);
+    expect(titles).toContain('newInterview');
+  });
+
+  test('a valid question subprocedure can be added', async () => {
+    const newSubProcedure = {
+      type: 'QUESTION',
+      priority: 1,
+      procedureCaseId: 1,
+      title: 'newQuestion',
+    };
+
+    await api
+      .post('/api/subProcedures/fi')
+      .send(newSubProcedure)
+      .expect(200)
+      .expect('Content-Type', /application\/json/);
+
+    const response = await api.get('/api/subProcedures/1/fi');
+    const titles = response.body.map((r) => r.title);
+
+    expect(response.body).toHaveLength(helper.initialSubProcedures.length + 1);
+    expect(titles).toContain('newQuestion');
+  });
+
+  test('text subprocedure without title is not added', async () => {
+    const newTextSubProcedure = {
+      type: 'TEXT',
+      priority: 1,
+      procedureCaseId: 1,
+      text: 'TestText2',
+    };
+    await api
+      .post('/api/subProcedures/fi')
+      .send(newTextSubProcedure)
+      .expect(400);
+
+    const response = await api.get('/api/subProcedures/1/fi');
+
+    expect(response.body).toHaveLength(helper.initialTextSubProcedures.length);
   });
 
   test('subprocedure without priority is not added', async () => {
@@ -60,11 +128,11 @@ describe('Adding a subprocedure to database', () => {
       procedureCaseId: 1,
     };
     await api
-      .post('/api/subprocedures')
+      .post('/api/subProcedures/fi')
       .send(newSubProcedure)
       .expect(400);
 
-    const response = await api.get('/api/subprocedures/1/fi');
+    const response = await api.get('/api/subProcedures/1/fi');
 
     expect(response.body).toHaveLength(helper.initialSubProcedures.length);
   });
@@ -75,11 +143,11 @@ describe('Adding a subprocedure to database', () => {
       procedureCaseId: 1,
     };
     await api
-      .post('/api/subprocedures')
+      .post('/api/subProcedures/fi')
       .send(newSubProcedure)
       .expect(500);
 
-    const response = await api.get('/api/subprocedures/1/fi');
+    const response = await api.get('/api/subProcedures/1/fi');
 
     expect(response.body).toHaveLength(helper.initialSubProcedures.length);
   });
@@ -88,14 +156,33 @@ describe('Adding a subprocedure to database', () => {
 describe('Updating a subprocedure', () => {
   test('priority can be changed', async () => {
     await api
-      .put('/api/subprocedures/1')
+      .put('/api/subProcedures/1/fi')
       .send({
         priority: '42',
         type: 'TEXT',
       });
 
-    const response = await api.get('/api/subprocedures/1/fi');
-    expect(response.body[0].priority).toEqual(42);
+    const response = await api.get('/api/subProcedures/1/fi');
+
+    const priorities = response.body.map((r) => r.priority);
+    expect(priorities).toContain(42);
+  });
+
+  test('title can be changed', async () => {
+    await api
+      .put('/api/subProcedures/1/fi')
+      .send({
+        type: 'TEXT',
+        priority: 1,
+        procedureCaseId: 1,
+        title: 'this is a coconut',
+        text: 'TestText1',
+      });
+
+    const response = await api.get('/api/subProcedures/1/fi');
+
+    const titles = response.body.map((r) => r.title);
+    expect(titles).toContain('this is a coconut');
   });
 });
 
