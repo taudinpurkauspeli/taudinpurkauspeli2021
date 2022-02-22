@@ -81,6 +81,8 @@
   "logOut": "Log out",
   "nameOfTheGame": "Taudinpurkauspeli",
   "noDifferentialsYet": "No differentials yet",
+  "optionGroupAddError": "ERROR! Could not add an option group",
+  "optionGroupAddSuccess": "Option group added successfully",
   "procedureAddError": "ERROR! Could not add a procedure",
   "procedureAddSuccess": "Procedure added successfully",
   "procedurePriority": "Procedure priority",

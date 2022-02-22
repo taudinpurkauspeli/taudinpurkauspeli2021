@@ -11,7 +11,7 @@ import { useDispatch } from 'react-redux';
 import AddUpdateModal from '../../../utils/AddUpdateModal';
 import SubProcedureList from '../../subprocedure/components/SubProcedureList';
 import AddTextSubProcedure from '../../subprocedure/components/textSubProcedure/AddTextSubProcedure';
-import { addSubprocedure } from '../../subprocedure/subProceduresReducer';
+import { addSubprocedure } from '../../subprocedure/reducers/subProceduresReducer';
 import { setSuccess, setError } from '../../../utils/MessageBanner';
 import AddInterviewSubProcedure from '../../subprocedure/components/interviewSubProcedure/AddInterviewSubProcedure';
 

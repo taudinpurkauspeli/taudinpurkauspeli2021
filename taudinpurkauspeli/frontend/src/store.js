@@ -8,11 +8,12 @@ import casesReducer from './App/case/casesReducer';
 import userReducer from './App/users/reducers/userReducer';
 import proceduresReducer from './App/procedure/proceduresReducer';
 import proceduresUnderCasesReducer from './App/procedure/proceduresUnderCasesReducer';
-import subProceduresReducer from './App/subprocedure/subProceduresReducer';
+import subProceduresReducer from './App/subprocedure/reducers/subProceduresReducer';
 import differentialsReducer from './App/differential/reducers/differentialsReducer';
 import differentialsUnderCasesReducer from './App/differential/reducers/differentialsUnderCasesReducer';
 import differentialGroupsReducer from './App/differential/reducers/differentialGroupsReducer';
 import differentialGroupsUnderCasesReducer from './App/differential/reducers/differentialGroupsUnderCasesReducer';
+import optionGroupsReducer from './App/subprocedure/reducers/optionGroupsReducer';
 
 const persistConfig = {
   key: 'root',
@@ -25,6 +26,7 @@ const reducer = combineReducers({
   procedures: proceduresReducer,
   proceduresUnderCase: proceduresUnderCasesReducer,
   subProcedures: subProceduresReducer,
+  optionGroups: optionGroupsReducer,
   differentials: differentialsReducer,
   differentialsUnderCase: differentialsUnderCasesReducer,
   differentialGroups: differentialGroupsReducer,

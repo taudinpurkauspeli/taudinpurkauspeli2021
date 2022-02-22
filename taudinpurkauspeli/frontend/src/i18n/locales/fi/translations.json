@@ -80,6 +80,8 @@
   "logOut": "Kirjaudu ulos",
   "nameOfTheGame": "Taudinpurkauspeli",
   "noDifferentialsYet": "Ei vielä diffejä",
+  "optionGroupAddError": "VIRHE! Kysymysryhmän lisääminen epäonnistui",
+  "optionGroupAddSuccess": "Kysymysryhmän lisääminen onnistui",
   "procedureAddError": "VIRHE! Toimenpiteen lisäys epäonnistui",
   "procedureAddSuccess": "Toimenpiteen lisäys onnistui",
   "procedurePriority": "Toimenpiteen tärkeysjärjestys",

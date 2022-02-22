@@ -1,12 +1,12 @@
-import subProceduresService from './subProceduresService';
+import subProceduresService from '../services/subProceduresService';
 
 const subProceduresReducer = (state = [], action) => {
   switch (action.type) {
     case 'GET_SUBPROCEDURES':
       return action.data;
-    case 'ADD_TEXT_SUBPROCEDURE':
+    case 'ADD_SUBPROCEDURE':
       return [...state, action.data];
-    case 'UPDATE_TEXT_SUBPROCEDURE': {
+    case 'UPDATE_SUBPROCEDURE': {
       return state.map((p) => (p.id !== action.data.id
         ? p
         : action.data
@@ -31,7 +31,7 @@ export const addSubprocedure = (subProcedureObject, procedureCaseId) => async (d
     procedureCaseId,
   });
   dispatch({
-    type: 'ADD_TEXT_SUBPROCEDURE',
+    type: 'ADD_SUBPROCEDURE',
     data: addedSubprocedure,
   });
 };
@@ -39,7 +39,7 @@ export const addSubprocedure = (subProcedureObject, procedureCaseId) => async (d
 export const updateSubprocedure = (id, subProcedureObject) => async (dispatch) => {
   await subProceduresService.update(id, subProcedureObject);
   dispatch({
-    type: 'UPDATE_TEXT_SUBPROCEDURE',
+    type: 'UPDATE_SUBPROCEDURE',
     data: subProcedureObject,
   });
 };
