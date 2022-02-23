@@ -54,7 +54,7 @@ const Procedure = ({ admin }) => {
               <AddTextSubProcedure handleSubProcedureAdd={handleSubProcedureAdd} />
             </AddUpdateModal>
             <Button className="addButton question" size="sm">{t('buttonAddNewQuestion')}</Button>
-            <AddUpdateModal buttonLabel={t('buttonAddNewInterview')} titleLabel={t('addInterviewSubProcedure')}>
+            <AddUpdateModal buttonLabel={t('buttonAddNewInterview')} titleLabel={t('addInterviewSubProcedure')} ref={modalRef}>
               <AddInterviewSubProcedure handleSubProcedureAdd={handleSubProcedureAdd} />
             </AddUpdateModal>
             <Button className="addButton diagnosis" size="sm">{t('buttonAddFinalDiagnosis')}</Button>
