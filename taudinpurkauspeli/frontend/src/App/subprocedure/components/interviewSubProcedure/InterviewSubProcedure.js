@@ -6,6 +6,7 @@ import AddUpdateModal from '../../../../utils/AddUpdateModal';
 import NewOptionGroupForm from './NewOptionGroupForm';
 import { createOptionGroup } from '../../reducers/optionGroupsReducer';
 import { setSuccess, setError } from '../../../../utils/MessageBanner';
+import OptionGroupList from './OptionGroupList';
 // import UpdateInterviewSubProcedure from './UpdateInterviewSubProcedure';
 /*
 {admin && (
@@ -17,12 +18,12 @@ import { setSuccess, setError } from '../../../../utils/MessageBanner';
 const InterviewSubProcedure = ({ d, admin }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const modalRef = useRef();
+  const interviewRef = useRef();
 
   const handleOptionGroupAdd = (optionGroup) => {
-    modalRef.current.toggleVisibility();
+    interviewRef.current.toggleVisibility();
     try {
-      dispatch(createOptionGroup(1, optionGroup));
+      dispatch(createOptionGroup(d.id, optionGroup));
       setSuccess(t('optionGroupAddSuccess'));
     } catch (error) {
       setError(t('optionGroupAddError'));
@@ -41,10 +42,11 @@ const InterviewSubProcedure = ({ d, admin }) => {
           <Card.Body>
             { admin
             && (
-            <AddUpdateModal buttonLabel={t('buttonAddNewOptionGroup')} titleLabel={t('addOptionGroup')} ref={modalRef}>
+            <AddUpdateModal buttonLabel={t('buttonAddNewOptionGroup')} titleLabel={t('addOptionGroup')} ref={interviewRef}>
               <NewOptionGroupForm addOptionGroup={handleOptionGroupAdd} />
             </AddUpdateModal>
             )}
+            <OptionGroupList subProcedureId={d.id} admin={admin} />
           </Card.Body>
         </Accordion.Collapse>
       </Card>

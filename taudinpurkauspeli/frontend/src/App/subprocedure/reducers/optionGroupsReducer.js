@@ -1,5 +1,5 @@
 import optionGroupsService from '../services/optionGroupsService';
-// import { createOptionGroupUnderCase } from './optionGroupsUnderCasesReducer';
+import { createOptionGroupUnderSubProcedure } from './optionGroupsUnderSubProceduresReducer';
 
 const optionGroupsReducer = (state = [], action) => {
   switch (action.type) {
@@ -21,21 +21,23 @@ export const getOptionGroups = () => async (dispatch) => {
 };
 
 export const createOptionGroup = (subProcedureId, optionGroup) => async (dispatch) => {
-  console.log(optionGroup.id);
-  if (optionGroup.id === undefined) {
+  let { id } = optionGroup;
+
+  if (id === undefined) {
     const newOptionGroup = await optionGroupsService.create(optionGroup);
 
     dispatch({
       type: 'NEW_OPTIONGROUP',
       data: newOptionGroup,
     });
+
+    id = newOptionGroup.id;
   }
-/*
-  dispatch(createOptionGroupUnderCase({
+
+  dispatch(createOptionGroupUnderSubProcedure({
     subProcedureId,
-    optionGroupId: newOptionGroup.id,
+    optionGroupId: id,
   }));
-  */
 };
 
 export default optionGroupsReducer;

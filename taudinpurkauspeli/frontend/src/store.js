@@ -14,6 +14,7 @@ import differentialsUnderCasesReducer from './App/differential/reducers/differen
 import differentialGroupsReducer from './App/differential/reducers/differentialGroupsReducer';
 import differentialGroupsUnderCasesReducer from './App/differential/reducers/differentialGroupsUnderCasesReducer';
 import optionGroupsReducer from './App/subprocedure/reducers/optionGroupsReducer';
+import optionGroupsUnderSubProceduresReducer from './App/subprocedure/reducers/optionGroupsUnderSubProceduresReducer';
 
 const persistConfig = {
   key: 'root',
@@ -27,6 +28,7 @@ const reducer = combineReducers({
   proceduresUnderCase: proceduresUnderCasesReducer,
   subProcedures: subProceduresReducer,
   optionGroups: optionGroupsReducer,
+  optionGroupsUnderSubProcedure: optionGroupsUnderSubProceduresReducer,
   differentials: differentialsReducer,
   differentialsUnderCase: differentialsUnderCasesReducer,
   differentialGroups: differentialGroupsReducer,
