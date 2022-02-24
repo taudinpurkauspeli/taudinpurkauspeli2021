@@ -18,10 +18,10 @@ import OptionGroupList from './OptionGroupList';
 const InterviewSubProcedure = ({ d, admin }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const interviewRef = useRef();
+  const modalRef = useRef();
 
   const handleOptionGroupAdd = (optionGroup) => {
-    interviewRef.current.toggleVisibility();
+    modalRef.current.toggleVisibility();
     try {
       dispatch(createOptionGroup(d.id, optionGroup));
       setSuccess(t('optionGroupAddSuccess'));
@@ -32,7 +32,7 @@ const InterviewSubProcedure = ({ d, admin }) => {
 
   return (
     <div>
-      <Card>
+      <Card style={{ width: '60rem' }}>
         <Accordion.Toggle as={Card.Header} eventKey={d.id}>
           <div className="d-flex justify-content-between align-items-center">
             {d.title}
@@ -42,7 +42,7 @@ const InterviewSubProcedure = ({ d, admin }) => {
           <Card.Body>
             { admin
             && (
-            <AddUpdateModal buttonLabel={t('buttonAddNewOptionGroup')} titleLabel={t('addOptionGroup')} ref={interviewRef}>
+            <AddUpdateModal buttonLabel={t('buttonAddNewOptionGroup')} titleLabel={t('addOptionGroup')} ref={modalRef}>
               <NewOptionGroupForm addOptionGroup={handleOptionGroupAdd} />
             </AddUpdateModal>
             )}

@@ -8,6 +8,7 @@
   "addTextSubProcedure": "Add new text subprocedure",
   "addInterviewSubProcedure": "Add new interview subprocedure",
   "addOptionGroup": "Add option group",
+  "addOption": "Add option",
   "addProcedure": "Add procedure",
   "anamnesis": "Anamnesis",
   "buttonAddFinalDiagnosis": "+ Add final diagnosis",
@@ -15,6 +16,7 @@
   "buttonAddNewQuestion": "+ Add new question",
   "buttonAddNewText": "+ Add new text",
   "buttonAddNewOptionGroup": "+ Add new option group",
+  "buttonAddNewOption": "+ Add new option",
   "buttonEdit": "Edit",
   "buttonHideCaseFromStudents": "Hide case from students",
   "buttonShowCaseToStudents": "Show case to students",
@@ -91,6 +93,7 @@
   "procedures": "Procedures",
   "procedureUpdateError": "ERROR! Could not update the procedure",
   "procedureUpdateSuccess": "Procedure updated successfully",
+  "required": "Required answer",
   "searchByTitle": "Search by title",
   "selectDifferential": "Select differential...",
   "selectDifferentialGroup": "Select differential group...",
@@ -111,9 +114,11 @@
   "updateSubProcedure": "Update subprocedure",
   "userInformation": "Users",
   "userProfile": "Profile",
+  "voluntary": "Voluntary answer",
   "warningShort": "Too short",
   "warningLong": "Too long",
   "warningRequired": "Required information",
   "warningPositiveInteger": "Priority must be a positive integer",
-  "write": "Write..."
+  "write": "Write...",
+  "wrong": "Wrong answer"
 }

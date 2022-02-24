@@ -13,7 +13,7 @@ const OptionGroupList = ({ subProcedureId, admin }) => {
       {subProcedureOptionGroups.map((d) => (
         <OptionGroup
           key={d.id}
-          subProcedureCaseId={d.subProcedureCaseId}
+          optionGroupSubProcedureId={d.optionGroupSubProcedureId}
           name={d.name}
           admin={admin}
         />

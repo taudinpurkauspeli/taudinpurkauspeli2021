@@ -1,33 +1,42 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Card } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-// import OptionList from '../OptionList';
-// import NewOptionForm from '../NewOptionForm';
-// import AddUpdateModal from '../../../../utils/AddUpdateModal';
+import { useDispatch } from 'react-redux';
+import OptionList from './OptionList';
+import NewOptionForm from './NewOptionForm';
+import AddUpdateModal from '../../../../utils/AddUpdateModal';
+import { createOption } from '../../reducers/optionReducer';
+import { setSuccess, setError } from '../../../../utils/MessageBanner';
 
-const OptionGroup = ({ name }) => {
+const OptionGroup = ({
+  optionGroupSubProcedureId, name, admin,
+}) => {
   const { t } = useTranslation();
-  /*
-  const handleOptionAdd = () => {
-    console.log('ello');
+  const dispatch = useDispatch();
+  const modalRef = useRef();
+
+  const handleOptionAdd = (newOption) => {
+    modalRef.current.toggleVisibility();
+    try {
+      dispatch(createOption(optionGroupSubProcedureId, newOption));
+      setSuccess(t('optionGroupAddSuccess'));
+    } catch (error) {
+      setError(t('optionGroupAddError'));
+    }
   };
-  */
+
   return (
-    <Card style={{ width: '60rem' }}>
+    <Card>
       <Card.Header>{name}</Card.Header>
       <Card.Body>
-        {/*
-        <OptionList subProcedureCaseId={subProcedureCaseId} />
+        <OptionList optionGroupSubProcedureId={optionGroupSubProcedureId} />
         {admin && (
-        <AddUpdateModal>
+        <AddUpdateModal buttonLabel={t('buttonAddNewOption')} titleLabel={t('addOption')} ref={modalRef}>
           <NewOptionForm
-            subProcedureCaseId={subProcedureCaseId}
             addOption={handleOptionAdd}
           />
         </AddUpdateModal>
         )}
-        */}
-        {t('write')}
       </Card.Body>
     </Card>
   );

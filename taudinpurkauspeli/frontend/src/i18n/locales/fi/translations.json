@@ -8,6 +8,7 @@
   "addTextSubProcedure": "Luo uusi tekstialakohta",
   "addInterviewSubProcedure": "Luo uusi pohdinta-alakohta",
   "addOptionGroup": "Lisää uusi kysymysryhmä",
+  "addOption": "Lisää uusi kysymys",
   "addProcedure": "Lisää toimenpide",
   "anamnesis": "Anamneesi",
   "buttonAddFinalDiagnosis": "+ Lisää loppudiagnoosi",
@@ -15,6 +16,7 @@
   "buttonAddNewQuestion": "+ Lisää kysymys",
   "buttonAddNewText": "+ Lisää teksti",
   "buttonAddNewOptionGroup": "+ Lisää kysymysryhmä",
+  "buttonAddNewOption": "+ Lisää kysymys",
   "buttonEdit": "Muokkaa",
   "buttonHideCaseFromStudents": "Piilota case opiskelijoilta",
   "buttonShowCaseToStudents": "Näytä case opiskelijoille",
@@ -90,6 +92,7 @@
   "procedureUpdateSuccess": "Toimenpiteen päivitys onnistui",
   "procedure": "Toimenpide",
   "procedures": "Toimenpiteet",
+  "required": "Vaadittu vastaus",
   "searchByTitle": "Etsi nimellä",
   "selectLanguage": "Valitse kieli",
   "selectDifferentialGroup": "Valitse diffiryhmä...",
@@ -110,9 +113,11 @@
   "updateSubProcedure": "Päivitä toimenpiteen alakohtaa",
   "userInformation": "Käyttäjien seuranta",
   "userProfile": "Käyttäjätiedot",
+  "voluntary": "Vapaaehtoinen vastaus",
   "warningShort": "Liian lyhyt",
   "warningLong": "Liian pitkä",
   "warningRequired": "Vaadittu tieto",
   "warningPositiveInteger": "Prioriteetin tulee olla positiivinen kokonaisluku",
-  "write": "Kirjoita..."
+  "write": "Kirjoita...",
+  "wrong": "Väärä vastaus"
   }

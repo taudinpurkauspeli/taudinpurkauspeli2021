@@ -4,7 +4,7 @@ import UpdateTextSubProcedure from './UpdateTextSubProcedure';
 
 const TextSubProcedure = ({ d, admin }) => (
   <div>
-    <Card>
+    <Card style={{ width: '60rem' }}>
       <Accordion.Toggle as={Card.Header} eventKey={d.id}>
         <div className="d-flex justify-content-between align-items-center">
           {d.title}
