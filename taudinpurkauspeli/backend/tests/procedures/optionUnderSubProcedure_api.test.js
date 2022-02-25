@@ -41,8 +41,8 @@ describe('Getting subprocedure-option-pairs from database', () => {
   });
 });
 
-describe('Adding subprocedure-optiongroup-pairs to database', () => {
-  test('Subprocedure-optiongroup-pairs can be added', async () => {
+describe('Adding subprocedure-option-pairs to database', () => {
+  test('Subprocedure-option-pairs can be added', async () => {
     const newOptionUnderCase = {
       optionGroupSubProcedureId: 2,
       optionId: 2,

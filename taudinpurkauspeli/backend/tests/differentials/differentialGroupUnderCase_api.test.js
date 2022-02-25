@@ -35,6 +35,24 @@ describe('Getting case-diffgroup-pairs from database', () => {
   });
 });
 
+describe('Adding case-diffgroup-pairs to database', () => {
+  test('Case-diffgroup-pairs can be added', async () => {
+    const pair = {
+      caseId: 1,
+      differentialGroupId: 2,
+    };
+
+    await api
+      .post('/api/differentialGroupsUnderCases/fi')
+      .send(pair)
+      .expect(200)
+      .expect('Content-Type', /application\/json/);
+
+    const response = await api.get('/api/differentialGroupsUnderCases/1/fi');
+    expect(response.body).toHaveLength(2);
+  });
+});
+
 afterAll(async () => {
   await db.sequelize.close();
 });
