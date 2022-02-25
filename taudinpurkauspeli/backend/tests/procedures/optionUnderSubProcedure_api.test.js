@@ -35,9 +35,32 @@ describe('Getting subprocedure-option-pairs from database', () => {
     const names = response.body.map((r) => r.name);
     const descriptions = response.body.map((r) => r.description);
 
-    expect(response.body).toHaveLength(2);
+    expect(response.body).toHaveLength(3);
     expect(names).toContain('TestiVaihtoehto1');
     expect(descriptions).toContain('TestiKuvaus2');
+  });
+});
+
+describe('Adding subprocedure-optiongroup-pairs to database', () => {
+  test('Subprocedure-optiongroup-pairs can be added', async () => {
+    const newOptionUnderCase = {
+      optionGroupSubProcedureId: 2,
+      optionId: 2,
+      description: 'Uusi kuvaus',
+      isRequired: 1,
+    };
+
+    await api
+      .post('/api/optionsUnderSubProcedures/fi')
+      .send(newOptionUnderCase)
+      .expect(200)
+      .expect('Content-Type', /application\/json/);
+
+    const response = await api.get('/api/optionsUnderSubProcedures/1/INTERVIEW/fi');
+    const descriptions = response.body.map((r) => r.description);
+
+    expect(response.body).toHaveLength(4);
+    expect(descriptions).toContain('Uusi kuvaus');
   });
 });
 
