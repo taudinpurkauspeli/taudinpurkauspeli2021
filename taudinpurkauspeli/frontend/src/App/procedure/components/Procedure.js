@@ -1,25 +1,41 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable array-callback-return */
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   useParams,
 } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
 
-import NewTextSubProcedure from '../../subprocedure/components/textSubProcedure/NewTextSubProcedure';
+import AddUpdateModal from '../../../utils/AddUpdateModal';
 import SubProcedureList from '../../subprocedure/components/SubProcedureList';
+import AddTextSubProcedure from '../../subprocedure/components/textSubProcedure/AddTextSubProcedure';
+import { addSubprocedure } from '../../subprocedure/reducers/subProceduresReducer';
+import { setSuccess, setError } from '../../../utils/MessageBanner';
+import AddInterviewSubProcedure from '../../subprocedure/components/interviewSubProcedure/AddInterviewSubProcedure';
 
 const Procedure = ({ admin }) => {
   const { t } = useTranslation();
   const { id } = useParams();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const [show, setShow] = useState(false);
+  const modalRef = useRef();
 
   const showWhenVisible = { display: show ? '' : 'none' };
 
   const handleVisibility = () => {
     setShow(!show);
+  };
+
+  const handleSubProcedureAdd = (newSubProcedure) => {
+    modalRef.current.toggleVisibility();
+    try {
+      dispatch(addSubprocedure(newSubProcedure, Number(id)));
+      setSuccess(t('subProcedureUpdateSuccess'));
+    } catch (error) {
+      setError(t('subProcedureUpdateError'));
+    }
   };
 
   return (
@@ -34,9 +50,13 @@ const Procedure = ({ admin }) => {
             {t('buttonNewSubProcedure')}
           </Button>
           <div className="rows" style={showWhenVisible}>
-            <NewTextSubProcedure procedureCaseId={id} />
+            <AddUpdateModal buttonLabel={t('buttonAddNewText')} titleLabel={t('addTextSubProcedure')} ref={modalRef}>
+              <AddTextSubProcedure handleSubProcedureAdd={handleSubProcedureAdd} />
+            </AddUpdateModal>
             <Button className="addButton question" size="sm">{t('buttonAddNewQuestion')}</Button>
-            <Button className="addButton multichoice" size="sm">{t('buttonAddNewMultiChoice')}</Button>
+            <AddUpdateModal buttonLabel={t('buttonAddNewInterview')} titleLabel={t('addInterviewSubProcedure')} ref={modalRef}>
+              <AddInterviewSubProcedure handleSubProcedureAdd={handleSubProcedureAdd} />
+            </AddUpdateModal>
             <Button className="addButton diagnosis" size="sm">{t('buttonAddFinalDiagnosis')}</Button>
           </div>
           <SubProcedureList procedureCaseId={id} admin={admin} />

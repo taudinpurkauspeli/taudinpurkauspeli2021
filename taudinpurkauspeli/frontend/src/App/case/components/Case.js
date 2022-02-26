@@ -15,7 +15,11 @@ import { getDifferentials } from '../../differential/reducers/differentialsReduc
 import { getDifferentialGroups } from '../../differential/reducers/differentialGroupsReducer';
 import { getDifferentialGroupsUnderCase } from '../../differential/reducers/differentialGroupsUnderCasesReducer';
 import { getDifferentialsUnderCase } from '../../differential/reducers/differentialsUnderCasesReducer';
-import { getSubprocedures } from '../../subprocedure/subProceduresReducer';
+import { getSubprocedures } from '../../subprocedure/reducers/subProceduresReducer';
+import { getOptionGroups } from '../../subprocedure/reducers/optionGroupsReducer';
+import { getOptionGroupsUnderSubProcedures } from '../../subprocedure/reducers/optionGroupsUnderSubProceduresReducer';
+import { getOptions } from '../../subprocedure/reducers/optionReducer';
+import { getOptionsUnderSubProcedures } from '../../subprocedure/reducers/optionsUnderSubProceduresReducer';
 
 const Case = ({ admin }) => {
   const { t } = useTranslation();
@@ -27,6 +31,10 @@ const Case = ({ admin }) => {
     dispatch(getProcedures());
     dispatch(getProceduresUnderCase(id));
     dispatch(getSubprocedures(id));
+    dispatch(getOptionGroups());
+    dispatch(getOptionGroupsUnderSubProcedures(id));
+    dispatch(getOptions());
+    dispatch(getOptionsUnderSubProcedures(id));
     dispatch(getDifferentials());
     dispatch(getDifferentialsUnderCase(id));
     dispatch(getDifferentialGroups());

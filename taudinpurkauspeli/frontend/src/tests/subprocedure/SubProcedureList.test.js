@@ -5,7 +5,7 @@ import ShallowRenderer from 'react-shallow-renderer';
 import { waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import SubProcedureList from '../../App/subprocedure/components/SubProcedureList';
-import service from '../../App/subprocedure/subProceduresService';
+import service from '../../App/subprocedure/services/subProceduresService';
 import createStore from '../../store';
 
 const { store } = createStore();

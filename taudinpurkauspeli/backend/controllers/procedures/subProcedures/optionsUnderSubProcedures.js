@@ -44,6 +44,7 @@ optionsUnderSubProceduresRouter.post('/:language', middleware.checkAdminRights, 
     id: response.plainOptionId,
     description: savedDescription.description,
     name: response.name,
+    isRequired: savedOuc.isRequired,
   });
 });
 
@@ -56,11 +57,13 @@ optionsUnderSubProceduresRouter.get('/:id/:type/:language', middleware.checkUser
   if (type === 'INTERVIEW') {
     foundOptions = await db.sequelize.query(
       `SELECT ouc."optionGroupsUnderSubProcedureId" AS "optionGroupSubProcedureId", ouc."plainOptionId" AS id, d.description, o.name, ouc."isRequired"
-    FROM option_groups_under_sub_procedures AS oguc
+    FROM procedures_under_cases AS puc
+    LEFT JOIN plain_sub_procedures AS psp ON psp."proceduresUnderCaseId" = puc.id
+    LEFT JOIN option_groups_under_sub_procedures AS oguc ON oguc."plainSubProcedureId" = psp.id
     LEFT JOIN options_under_sub_procedures AS ouc ON oguc.id = ouc."optionGroupsUnderSubProcedureId"
     LEFT JOIN options AS o ON ouc."plainOptionId" = o."plainOptionId"
     LEFT JOIN descriptions AS d ON ouc."plainDescriptionId" = d."plainDescriptionId"
-    WHERE oguc."plainSubProcedureId" = ? AND o.language = ? AND d.language = ?`,
+    WHERE puc."plainCaseId" = ? AND o.language = ? AND d.language = ?`,
       {
         replacements: [id, language, language],
         type: db.sequelize.QueryTypes.SELECT,

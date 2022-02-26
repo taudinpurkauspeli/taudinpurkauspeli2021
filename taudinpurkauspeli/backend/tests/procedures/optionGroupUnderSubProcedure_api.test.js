@@ -26,10 +26,28 @@ describe('Getting subprocedure-optiongroup-pairs from database', () => {
       .expect('Content-Type', /application\/json/);
   });
 
-  test('all entries associated to a specific subprocedure are returned', async () => {
+  test('all entries associated to a specific case are returned', async () => {
     const response = await api.get('/api/optionGroupsUnderSubProcedures/1/fi');
-    expect(response.body).toHaveLength(1);
+    expect(response.body).toHaveLength(2);
     expect(response.body[0].name).toEqual('TestiVaihtoehtoRyhmä1');
+  });
+});
+
+describe('Adding subprocedure-optiongroup-pairs to database', () => {
+  test('Subprocedure-optiongroup-pairs can be added', async () => {
+    const pair = {
+      subProcedureId: 1,
+      optionGroupId: 2,
+    };
+
+    await api
+      .post('/api/optionGroupsUnderSubProcedures/fi')
+      .send(pair)
+      .expect(200)
+      .expect('Content-Type', /application\/json/);
+
+    const response = await api.get('/api/optionGroupsUnderSubProcedures/1/fi');
+    expect(response.body).toHaveLength(3);
   });
 });
 

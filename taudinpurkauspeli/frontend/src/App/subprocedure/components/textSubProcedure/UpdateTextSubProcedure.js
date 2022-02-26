@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 
 import UpdateTextSubProcedureForm from './UpdateTextSubProcedureForm';
-import { updateSubprocedure } from '../../subProceduresReducer';
+import { updateSubprocedure } from '../../reducers/subProceduresReducer';
 import { setSuccess, setError } from '../../../../utils/MessageBanner';
 
 const UpdateTextSubProcedure = ({ d }) => {
