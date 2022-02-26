@@ -12,13 +12,7 @@ const OptionList = ({ optionGroupSubProcedureId }) => {
   return (
     <Accordion>
       {options.map((o) => (
-        <Option
-          key={o.id}
-          id={o.id}
-          name={o.name}
-          description={o.description}
-          isRequired={o.isRequired}
-        />
+        <Option key={o.id} optionObject={o} />
       ))}
     </Accordion>
   );

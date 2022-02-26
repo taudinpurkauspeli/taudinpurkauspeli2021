@@ -13,8 +13,12 @@ import diffgroupService from '../../App/differential/services/differentialGroups
 import diffsUnderCaseService from '../../App/differential/services/differentialsUnderCases';
 import diffgroupsUnderCaseService from '../../App/differential/services/differentialGroupsUnderCases';
 import proceduresService from '../../App/procedure/proceduresService';
-import subProceduresService from '../../App/subprocedure/subProceduresService';
+import subProceduresService from '../../App/subprocedure/services/subProceduresService';
 import proceduresUnderCaseService from '../../App/procedure/proceduresUnderCaseService';
+import optionGroupsService from '../../App/subprocedure/services/optionGroupsService';
+import optionGroupsUnderSubProceduresService from '../../App/subprocedure/services/optionGroupsUnderSubProceduresService';
+import optionsService from '../../App/subprocedure/services/optionsService';
+import optionsUnderSubProceduresService from '../../App/subprocedure/services/optionsUnderSubProceduresService';
 
 const { store } = createStore();
 
@@ -45,6 +49,10 @@ jest.spyOn(diffgroupsUnderCaseService, 'getAll');
 jest.spyOn(proceduresService, 'getAll');
 jest.spyOn(subProceduresService, 'getAll');
 jest.spyOn(proceduresUnderCaseService, 'getAll');
+jest.spyOn(optionsService, 'getAll');
+jest.spyOn(optionGroupsService, 'getAll');
+jest.spyOn(optionsUnderSubProceduresService, 'getAll');
+jest.spyOn(optionGroupsUnderSubProceduresService, 'getAll');
 
 describe('Case pages', () => {
   test('case is rendered', () => {

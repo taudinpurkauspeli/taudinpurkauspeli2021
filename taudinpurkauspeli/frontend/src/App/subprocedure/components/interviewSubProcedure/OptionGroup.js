@@ -15,6 +15,7 @@ const OptionGroup = ({
   const dispatch = useDispatch();
   const modalRef = useRef();
 
+  /* istanbul ignore next */
   const handleOptionAdd = (newOption) => {
     modalRef.current.toggleVisibility();
     try {
