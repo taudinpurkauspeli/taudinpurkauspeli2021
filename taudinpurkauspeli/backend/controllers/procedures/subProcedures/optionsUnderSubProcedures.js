@@ -44,6 +44,7 @@ optionsUnderSubProceduresRouter.post('/:language', middleware.checkAdminRights, 
     id: response.plainOptionId,
     description: savedDescription.description,
     name: response.name,
+    isRequired: savedOuc.isRequired,
   });
 });
 
