@@ -59,7 +59,13 @@ db.sequelize
   });
 
 if (process.env.NODE_ENV !== 'test') {
-  db.sequelize.drop();
+  db.sequelize
+    .sync({ alter: true })
+    .then(() => {
+      sequelizeFixtures.loadFixtures(fixtures, models).then(() => {
+        logger.info('altered the tables');
+      });
+    });
 }
 
 app.use(cors());
