@@ -21,15 +21,18 @@ const AddTextSubProcedure = ({ handleSubProcedureAdd }) => {
         .min(2, t('warningShort'))
         .max(999, t('warningLong'))
         .required(t('warningRequired')),
-      priority: Yup.number(),
+      priority: Yup.number()
+        .typeError(t('warningPositiveInteger'))
+        .required(t('warningRequired'))
+        .positive(t('warningPositiveInteger'))
+        .integer(t('warningPositiveInteger')),
       text: Yup.string(),
     }),
     onSubmit: (values) => {
       handleSubProcedureAdd({
+        ...values,
         priority: Number(values.priority),
         type: 'TEXT',
-        title: values.title,
-        text: values.text,
       });
     },
   });
@@ -54,7 +57,11 @@ const AddTextSubProcedure = ({ handleSubProcedureAdd }) => {
           type="text"
           placeholder={t('giveNumber')}
           {...formik.getFieldProps('priority')}
+          isInvalid={!!formik.errors.priority}
         />
+        <Form.Control.Feedback type="invalid" role="alert" aria-label="from feedback">
+          {formik.errors.priority}
+        </Form.Control.Feedback>
       </Form.Group>
       <Form.Group className="mb-3" controlId="text">
         <Form.Label>{t('textToAdd')}</Form.Label>

@@ -32,8 +32,8 @@ const NewOptionForm = ({ addOption }) => {
       const option = options.filter((r) => r.name === values.name);
       addOption(
         option.length === 0
-          ? values
-          : { ...option[0], ...values },
+          ? { ...values, isRequired: Number(values.isRequired) }
+          : { ...option[0], ...values, isRequired: Number(values.isRequired) },
       );
     },
   });

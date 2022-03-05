@@ -39,6 +39,7 @@ const UpdateTextSubProcedureForm = ({
       <Form.Group controlId="title">
         <Form.Label>{t('title')}</Form.Label>
         <Form.Control
+          disabled
           type="text"
           placeholder={t('write')}
           {...formik.getFieldProps('title')}

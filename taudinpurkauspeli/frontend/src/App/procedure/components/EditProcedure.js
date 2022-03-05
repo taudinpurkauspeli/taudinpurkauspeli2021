@@ -12,28 +12,21 @@ import { useDispatch } from 'react-redux';
 import { updateProcedure } from '../proceduresReducer';
 
 const EditProcedure = ({ procedure, caseId, editProcedureFunc }) => {
-  /* istanbul ignore next */
   const [newPriority, setNewPriority] = useState(procedure.priority);
-  /* istanbul ignore next */
   const [newProcedureTitle, setNewProcedureTitle] = useState(procedure.name);
-  /* istanbul ignore next */
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  /* istanbul ignore next */
   const history = useHistory();
   const baseUrl = `/cases/${caseId}`;
 
-  /* istanbul ignore next */
   const handlePriorityChange = (event) => {
     setNewPriority(event.target.value);
   };
 
-  /* istanbul ignore next */
   const handleTitleChange = (event) => {
     setNewProcedureTitle(event.target.value);
   };
 
-  /* istanbul ignore next */
   const editProcedure = (event) => {
     event.preventDefault();
     setNewProcedureTitle(event.target[0].value);

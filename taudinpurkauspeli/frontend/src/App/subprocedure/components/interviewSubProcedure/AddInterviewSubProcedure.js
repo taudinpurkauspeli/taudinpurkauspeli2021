@@ -20,6 +20,7 @@ const AddInterviewSubProcedure = ({ handleSubProcedureAdd }) => {
         .max(999, t('warningLong'))
         .required(t('warningRequired')),
       priority: Yup.number()
+        .typeError(t('warningPositiveInteger'))
         .required(t('warningRequired'))
         .positive(t('warningPositiveInteger'))
         .integer(t('warningPositiveInteger')),
