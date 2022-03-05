@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import {
   Form, Button,
 } from 'react-bootstrap';
+import { validateName, validatePriority } from '../../../../utils/Helper';
 
 const AddTextSubProcedure = ({ handleSubProcedureAdd }) => {
   const { t } = useTranslation();
@@ -17,15 +18,8 @@ const AddTextSubProcedure = ({ handleSubProcedureAdd }) => {
       text: '',
     },
     validationSchema: Yup.object({
-      title: Yup.string()
-        .min(2, t('warningShort'))
-        .max(999, t('warningLong'))
-        .required(t('warningRequired')),
-      priority: Yup.number()
-        .typeError(t('warningPositiveInteger'))
-        .required(t('warningRequired'))
-        .positive(t('warningPositiveInteger'))
-        .integer(t('warningPositiveInteger')),
+      title: validateName(),
+      priority: validatePriority(),
       text: Yup.string(),
     }),
     onSubmit: (values) => {

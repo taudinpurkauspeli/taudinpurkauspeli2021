@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import {
   Form, Button,
 } from 'react-bootstrap';
+import { validateName } from '../../../../utils/Helper';
 
 const AddDifferentialGroupForm = ({ addDifferentialGroup }) => {
   const { t } = useTranslation();
@@ -15,10 +16,7 @@ const AddDifferentialGroupForm = ({ addDifferentialGroup }) => {
       name: '',
     },
     validationSchema: Yup.object({
-      name: Yup.string()
-        .min(2, t('warningShort'))
-        .max(999, t('warningLong'))
-        .required(t('warningRequired')),
+      name: validateName(),
     }),
     onSubmit: (values) => {
       addDifferentialGroup({

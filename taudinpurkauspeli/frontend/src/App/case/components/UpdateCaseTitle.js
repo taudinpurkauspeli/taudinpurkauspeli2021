@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Form } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { validateName } from '../../../utils/Helper';
 
 const UpdateCaseTitle = ({ c, updateCaseTitle }) => {
   const { t } = useTranslation();
@@ -13,10 +14,7 @@ const UpdateCaseTitle = ({ c, updateCaseTitle }) => {
       title: c.title,
     },
     validationSchema: Yup.object({
-      title: Yup.string()
-        .min(2, t('warningShort'))
-        .max(999, t('warningLong'))
-        .required(t('warningRequired')),
+      title: validateName(),
     }),
     onSubmit: (values) => {
       updateCaseTitle({

@@ -7,6 +7,7 @@ import { useFormik, FormikProvider } from 'formik';
 import * as Yup from 'yup';
 import { useSelector } from 'react-redux';
 import CustomTypeaheadSelect from '../../../../utils/CustomTypeaheadSelect';
+import { validateName } from '../../../../utils/Helper';
 
 const NewOptionGroupForm = ({ addOptionGroup }) => {
   const { t } = useTranslation();
@@ -17,10 +18,7 @@ const NewOptionGroupForm = ({ addOptionGroup }) => {
       name: '',
     },
     validationSchema: Yup.object().shape({
-      name: Yup.string()
-        .min(2, t('warningShort'))
-        .max(999, t('warningLong'))
-        .required(t('warningRequired')),
+      name: validateName(),
     }),
     onSubmit: async (values) => {
       const group = optionGroups.filter((r) => r.name === values.name);

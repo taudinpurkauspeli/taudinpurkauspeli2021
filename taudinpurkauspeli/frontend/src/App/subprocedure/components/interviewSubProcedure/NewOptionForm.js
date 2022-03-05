@@ -7,6 +7,7 @@ import {
 import { useFormik, FormikProvider } from 'formik';
 import * as Yup from 'yup';
 import CustomTypeaheadSelect from '../../../../utils/CustomTypeaheadSelect';
+import { validateName } from '../../../../utils/Helper';
 
 const NewOptionForm = ({ addOption }) => {
   const { t } = useTranslation();
@@ -19,10 +20,7 @@ const NewOptionForm = ({ addOption }) => {
       isRequired: '',
     },
     validationSchema: Yup.object().shape({
-      name: Yup.string()
-        .min(2, t('warningShort'))
-        .max(999, t('warningLong'))
-        .required(t('warningRequired')),
+      name: validateName(),
       description: Yup.string(),
       isRequired: Yup.number()
         .required(t('warningRequired'))

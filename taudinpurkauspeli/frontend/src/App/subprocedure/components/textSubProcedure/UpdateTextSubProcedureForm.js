@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import {
   Form, Button,
 } from 'react-bootstrap';
+import { validateName, validatePriority } from '../../../../utils/Helper';
 
 const UpdateTextSubProcedureForm = ({
   title,
@@ -19,11 +20,8 @@ const UpdateTextSubProcedureForm = ({
       text,
     },
     validationSchema: Yup.object({
-      title: Yup.string()
-        .min(2, t('warningShort'))
-        .max(999, t('warningLong'))
-        .required(t('warningRequired')),
-      priority: Yup.string(),
+      title: validateName(),
+      priority: validatePriority(),
       text: Yup.string(),
     }),
     onSubmit: (values) => {
