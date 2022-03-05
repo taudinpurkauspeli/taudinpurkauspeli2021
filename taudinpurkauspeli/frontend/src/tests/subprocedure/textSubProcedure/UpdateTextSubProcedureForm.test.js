@@ -20,41 +20,26 @@ beforeEach(() => {
 
 describe('Updating a text subprocedure', () => {
   test('Text subprocedure can be updated', async () => {
-    const title = screen.getByLabelText(/title/i);
-    title.setSelectionRange(0, 9);
-    userEvent.type(title, '{backspace}New testtitle');
     const text = screen.getByLabelText(/textToAdd/i);
     text.setSelectionRange(0, 8);
     userEvent.type(text, '{backspace}New testtext');
     userEvent.click(screen.getByRole('button', { name: /buttonUpdate/i }));
 
     await waitFor(() => expect(handleTextSubProcedureUpdate).toHaveBeenCalledWith({
-      title: 'New testtitle',
+      title: 'Testtitle',
       text: 'New testtext',
     }));
   });
 
-  test('If the new title is too short, subprocedure will not be updated', async () => {
-    const title = screen.getByLabelText(/title/i);
-    title.setSelectionRange(0, 9);
-    userEvent.type(title, '{backspace}T');
-    userEvent.click(screen.getByRole('button', { name: /buttonUpdate/i }));
-
-    const alert = await screen.findByRole('alert', { name: /From Feedback/i });
-    expect(alert).toBeInTheDocument();
-    expect(alert).toHaveTextContent('warningShort');
-    expect(handleTextSubProcedureUpdate.mock.calls).toHaveLength(0);
-  });
-
-  test('Subprocedure cannot be updated with an empty title', async () => {
+  test('Subprocedure title cannot be changed', async () => {
     const title = screen.getByLabelText(/title/i);
     title.setSelectionRange(0, 9);
     userEvent.type(title, '{backspace}');
     userEvent.click(screen.getByRole('button', { name: /buttonUpdate/i }));
 
-    const alert = await screen.findByRole('alert', { name: /From Feedback/i });
-    expect(alert).toBeInTheDocument();
-    expect(alert).toHaveTextContent('warningRequired');
-    expect(handleTextSubProcedureUpdate.mock.calls).toHaveLength(0);
+    await waitFor(() => expect(handleTextSubProcedureUpdate).toHaveBeenCalledWith({
+      title: 'Testtitle',
+      text: 'Testtext',
+    }));
   });
 });

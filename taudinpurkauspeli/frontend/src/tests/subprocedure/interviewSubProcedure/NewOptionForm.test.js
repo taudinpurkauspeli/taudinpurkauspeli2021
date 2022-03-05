@@ -38,6 +38,7 @@ describe('Adding a new option', () => {
   test('New option can be added', async () => {
     userEvent.type(screen.getByRole(/combobox/i), 'testOption');
     userEvent.type(screen.getByLabelText(/description/i), 'testDescription');
+    userEvent.click(screen.getByLabelText(/required/i));
     userEvent.click(screen.getByRole('button', { name: /submit/i }));
 
     await waitFor(() => expect(newOptionFunc).toHaveBeenCalledWith({
