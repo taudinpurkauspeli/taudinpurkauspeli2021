@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import {
   Form, Button,
 } from 'react-bootstrap';
-import { validateName, validatePriority } from '../../../../utils/Helper';
+import { validateName } from '../../../../utils/Helper';
 
 const UpdateTextSubProcedureForm = ({
   title,
@@ -19,14 +19,12 @@ const UpdateTextSubProcedureForm = ({
       title,
       text,
     },
-    validationSchema: Yup.object({
+    validationSchema: Yup.object().shape({
       title: validateName(),
-      priority: validatePriority(),
       text: Yup.string(),
     }),
     onSubmit: (values) => {
       handleTextSubProcedureUpdate({
-        title: values.title,
         text: values.text,
       });
     },

@@ -33,9 +33,7 @@ const OptionGroup = ({
         <OptionList optionGroupSubProcedureId={optionGroupSubProcedureId} />
         {admin && (
         <AddUpdateModal buttonLabel={t('buttonAddNewOption')} titleLabel={t('addOption')} ref={modalRef}>
-          <NewOptionForm
-            addOption={handleOptionAdd}
-          />
+          <NewOptionForm addOption={handleOptionAdd} />
         </AddUpdateModal>
         )}
       </Card.Body>

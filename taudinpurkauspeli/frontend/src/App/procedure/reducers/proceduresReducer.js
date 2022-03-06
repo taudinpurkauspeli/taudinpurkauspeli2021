@@ -1,4 +1,4 @@
-import proceduresService from './proceduresService';
+import proceduresService from '../services/proceduresService';
 import { createProcedureUnderCase, updateProcedurePriority } from './proceduresUnderCasesReducer';
 
 const proceduresReducer = (state = [], action) => {

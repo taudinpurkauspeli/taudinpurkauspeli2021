@@ -9,7 +9,7 @@ import {
   Button,
 } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { updateProcedure } from '../proceduresReducer';
+import { updateProcedure } from '../reducers/proceduresReducer';
 
 const EditProcedure = ({ procedure, caseId, editProcedureFunc }) => {
   const [newPriority, setNewPriority] = useState(procedure.priority);

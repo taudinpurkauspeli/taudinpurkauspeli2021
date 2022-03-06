@@ -6,8 +6,8 @@ import storage from 'redux-persist/lib/storage';
 
 import casesReducer from './App/case/casesReducer';
 import userReducer from './App/users/reducers/userReducer';
-import proceduresReducer from './App/procedure/proceduresReducer';
-import proceduresUnderCasesReducer from './App/procedure/proceduresUnderCasesReducer';
+import proceduresReducer from './App/procedure/reducers/proceduresReducer';
+import proceduresUnderCasesReducer from './App/procedure/reducers/proceduresUnderCasesReducer';
 import subProceduresReducer from './App/subprocedure/reducers/subProceduresReducer';
 import differentialsReducer from './App/differential/reducers/differentialsReducer';
 import differentialsUnderCasesReducer from './App/differential/reducers/differentialsUnderCasesReducer';

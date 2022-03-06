@@ -20,17 +20,24 @@ export const getDifferentials = () => async (dispatch) => {
   });
 };
 
-export const createDifferential = (content, diffGroupCaseId) => async (dispatch) => {
-  const newDifferential = await differentialsService.create({ name: content.name });
-  dispatch({
-    type: 'NEW_DIFFERENTIAL',
-    data: newDifferential,
-  });
+export const createDifferential = (diffGroupCaseId, differential) => async (dispatch) => {
+  let { id } = differential;
+
+  if (id === undefined) {
+    const newDifferential = await differentialsService.create({ name: differential.name });
+
+    dispatch({
+      type: 'NEW_DIFFERENTIAL',
+      data: newDifferential,
+    });
+
+    id = newDifferential.id;
+  }
 
   dispatch(createDifferentialUnderCase({
     diffGroupCaseId,
-    differentialId: newDifferential.id,
-    description: content.description,
+    differentialId: id,
+    description: differential.description,
   }));
 };
 

@@ -1,9 +1,12 @@
 /* eslint-disable no-undef */
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
-import ShallowRenderer from 'react-shallow-renderer';
-import { waitFor } from '@testing-library/react';
+import { waitFor, render, screen } from '@testing-library/react';
+import { Provider } from 'react-redux';
+import createStore from '../../store';
 import Procedures from '../../App/procedure/components/Procedures';
+
+const { store } = createStore();
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
@@ -18,9 +21,11 @@ jest.mock('react-i18next', () => ({
 }));
 
 test('List and accordion are rendered', async () => {
-  const resultA = new ShallowRenderer();
-  resultA.render(<Procedures />);
-  const result = resultA.getRenderOutput();
-  await waitFor(() => expect(result).toBeDefined());
-  await waitFor(() => expect(result.type).toBe('div'));
+  render(
+    <Provider store={store}>
+      <Procedures />
+    </Provider>,
+  );
+
+  await waitFor(() => expect(screen.getByText(/procedures/i)).toBeInTheDocument());
 });

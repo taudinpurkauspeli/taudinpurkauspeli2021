@@ -26,7 +26,6 @@ describe('Updating a text subprocedure', () => {
     userEvent.click(screen.getByRole('button', { name: /buttonUpdate/i }));
 
     await waitFor(() => expect(handleTextSubProcedureUpdate).toHaveBeenCalledWith({
-      title: 'Testtitle',
       text: 'New testtext',
     }));
   });
@@ -38,7 +37,6 @@ describe('Updating a text subprocedure', () => {
     userEvent.click(screen.getByRole('button', { name: /buttonUpdate/i }));
 
     await waitFor(() => expect(handleTextSubProcedureUpdate).toHaveBeenCalledWith({
-      title: 'Testtitle',
       text: 'Testtext',
     }));
   });

@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { updateProcedurePriorities } from '../proceduresUnderCasesReducer';
+import { updateProcedurePriorities } from '../reducers/proceduresUnderCasesReducer';
 import EditProcedure from './EditProcedure';
 
 const DragNDropList = ({

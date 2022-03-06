@@ -1,15 +1,18 @@
 /* eslint-disable linebreak-style */
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useFormik } from 'formik';
+import { useSelector } from 'react-redux';
+import { useFormik, FormikProvider } from 'formik';
 import * as Yup from 'yup';
 import {
   Form, Button,
 } from 'react-bootstrap';
 import { validateName } from '../../../../utils/Helper';
+import CustomTypeaheadSelect from '../../../../utils/CustomTypeaheadSelect';
 
 const AddDifferentialGroupForm = ({ addDifferentialGroup }) => {
   const { t } = useTranslation();
+  const differentialGroups = useSelector((state) => state.differentialGroups);
 
   const formik = useFormik({
     initialValues: {
@@ -18,29 +21,27 @@ const AddDifferentialGroupForm = ({ addDifferentialGroup }) => {
     validationSchema: Yup.object({
       name: validateName(),
     }),
-    onSubmit: (values) => {
-      addDifferentialGroup({
-        name: values.name,
-      });
+    onSubmit: async (values) => {
+      const group = differentialGroups.filter((r) => r.name === values.name);
+      addDifferentialGroup(
+        group.length === 0
+          ? values
+          : group[0],
+      );
     },
   });
 
   return (
-    <Form noValidate onSubmit={formik.handleSubmit}>
-      <Form.Group controlId="name">
-        <Form.Label>{t('addDifferentialGroup')}</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder={t('write')}
-          {...formik.getFieldProps('name')}
-          isInvalid={!!formik.errors.name}
+    <FormikProvider value={formik}>
+      <Form noValidate onSubmit={formik.handleSubmit}>
+        <CustomTypeaheadSelect
+          name="name"
+          label={t('addDifferentialGroup')}
+          options={differentialGroups}
         />
-        <Form.Control.Feedback type="invalid" role="alert" aria-label="from feedback">
-          {formik.errors.name}
-        </Form.Control.Feedback>
-      </Form.Group>
-      <Button className="submitButton" type="submit">{t('buttonSubmitNewDifferentialGroup')}</Button>
-    </Form>
+        <Button className="submitButton" type="submit">{t('buttonSubmitNewDifferential')}</Button>
+      </Form>
+    </FormikProvider>
   );
 };
 

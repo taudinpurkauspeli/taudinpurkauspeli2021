@@ -7,19 +7,13 @@ import NewOptionGroupForm from './NewOptionGroupForm';
 import { createOptionGroup } from '../../reducers/optionGroupsReducer';
 import { setSuccess, setError } from '../../../../utils/MessageBanner';
 import OptionGroupList from './OptionGroupList';
-// import UpdateInterviewSubProcedure from './UpdateInterviewSubProcedure';
-/*
-{admin && (
-            <div className="cardButtons">
-              <UpdateInterviewSubProcedure d={d} />
-            </div>
-          )}
-          */
+
 const InterviewSubProcedure = ({ d, admin }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const modalRef = useRef();
 
+  /* istanbul ignore next */
   const handleOptionGroupAdd = (optionGroup) => {
     modalRef.current.toggleVisibility();
     try {
