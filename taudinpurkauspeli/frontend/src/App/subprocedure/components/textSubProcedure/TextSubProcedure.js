@@ -38,7 +38,7 @@ const TextSubProcedure = ({ d, admin }) => {
                 <UpdateTextSubProcedureForm
                   title={d.title}
                   text={d.text}
-                  handleTextSubProcedureUpdate={handleTextSubProcedureUpdate}
+                  updateTextSubProcedure={handleTextSubProcedureUpdate}
                 />
               </AddUpdateModal>
             </div>

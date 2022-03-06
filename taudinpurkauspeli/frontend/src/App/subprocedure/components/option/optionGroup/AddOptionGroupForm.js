@@ -6,8 +6,8 @@ import {
 import { useFormik, FormikProvider } from 'formik';
 import * as Yup from 'yup';
 import { useSelector } from 'react-redux';
-import CustomTypeaheadSelect from '../../../../utils/CustomTypeaheadSelect';
-import { validateName } from '../../../../utils/Helper';
+import CustomTypeaheadSelect from '../../../../../utils/CustomTypeaheadSelect';
+import { validateName } from '../../../../../utils/Helper';
 
 const NewOptionGroupForm = ({ addOptionGroup }) => {
   const { t } = useTranslation();

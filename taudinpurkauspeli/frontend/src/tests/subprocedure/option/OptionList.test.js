@@ -4,7 +4,7 @@ import '@testing-library/jest-dom/extend-expect';
 import { waitFor, render } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
-import OptionList from '../../../App/subprocedure/components/interviewSubProcedure/OptionList';
+import OptionList from '../../../App/subprocedure/components/option/OptionList';
 
 const mockStore = configureStore([]);
 

@@ -7,7 +7,7 @@ import {
 } from 'react-bootstrap';
 import { validateName, validatePriority } from '../../../../utils/Helper';
 
-const AddInterviewSubProcedure = ({ handleSubProcedureAdd }) => {
+const AddInterviewSubProcedure = ({ addSubProcedure }) => {
   const { t } = useTranslation();
 
   const formik = useFormik({
@@ -20,7 +20,7 @@ const AddInterviewSubProcedure = ({ handleSubProcedureAdd }) => {
       priority: validatePriority(),
     }),
     onSubmit: (values) => {
-      handleSubProcedureAdd({
+      addSubProcedure({
         priority: Number(values.priority),
         type: 'INTERVIEW',
         title: values.title,

@@ -3,8 +3,8 @@ import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { render, screen, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import OptionGroup from '../../../App/subprocedure/components/interviewSubProcedure/OptionGroup';
-import createStore from '../../../store';
+import OptionGroup from '../../../../App/subprocedure/components/option/optionGroup/OptionGroup';
+import createStore from '../../../../store';
 
 const { store } = createStore();
 

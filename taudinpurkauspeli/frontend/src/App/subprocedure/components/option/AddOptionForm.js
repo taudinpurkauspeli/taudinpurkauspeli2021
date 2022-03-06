@@ -9,7 +9,7 @@ import * as Yup from 'yup';
 import CustomTypeaheadSelect from '../../../../utils/CustomTypeaheadSelect';
 import { validateName } from '../../../../utils/Helper';
 
-const NewOptionForm = ({ addOption }) => {
+const AddOptionForm = ({ addOption }) => {
   const { t } = useTranslation();
   const options = useSelector((state) => state.options);
 
@@ -85,4 +85,4 @@ const NewOptionForm = ({ addOption }) => {
   );
 };
 
-export default NewOptionForm;
+export default AddOptionForm;

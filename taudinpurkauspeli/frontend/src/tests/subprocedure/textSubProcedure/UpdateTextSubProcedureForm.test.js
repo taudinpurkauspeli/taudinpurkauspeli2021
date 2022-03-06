@@ -9,12 +9,11 @@ jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key) => key }),
 }));
 
-let handleTextSubProcedureUpdate;
+const updateTextSubProcedureFunc = jest.fn();
 
 beforeEach(() => {
-  handleTextSubProcedureUpdate = jest.fn();
   render(
-    <UpdateTextSubProcedureForm title="Testtitle" text="Testtext" handleTextSubProcedureUpdate={handleTextSubProcedureUpdate} />,
+    <UpdateTextSubProcedureForm title="Testtitle" text="Testtext" updateTextSubProcedure={updateTextSubProcedureFunc} />,
   );
 });
 
@@ -25,7 +24,7 @@ describe('Updating a text subprocedure', () => {
     userEvent.type(text, '{backspace}New testtext');
     userEvent.click(screen.getByRole('button', { name: /buttonUpdate/i }));
 
-    await waitFor(() => expect(handleTextSubProcedureUpdate).toHaveBeenCalledWith({
+    await waitFor(() => expect(updateTextSubProcedureFunc).toHaveBeenCalledWith({
       text: 'New testtext',
     }));
   });
@@ -36,7 +35,7 @@ describe('Updating a text subprocedure', () => {
     userEvent.type(title, '{backspace}');
     userEvent.click(screen.getByRole('button', { name: /buttonUpdate/i }));
 
-    await waitFor(() => expect(handleTextSubProcedureUpdate).toHaveBeenCalledWith({
+    await waitFor(() => expect(updateTextSubProcedureFunc).toHaveBeenCalledWith({
       text: 'Testtext',
     }));
   });

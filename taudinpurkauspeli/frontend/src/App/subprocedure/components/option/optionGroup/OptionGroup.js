@@ -2,11 +2,11 @@ import React, { useRef } from 'react';
 import { Card } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import OptionList from './OptionList';
-import NewOptionForm from './NewOptionForm';
-import AddUpdateModal from '../../../../utils/AddUpdateModal';
-import { createOption } from '../../reducers/optionReducer';
-import { setSuccess, setError } from '../../../../utils/MessageBanner';
+import OptionList from '../OptionList';
+import AddOptionForm from '../AddOptionForm';
+import AddUpdateModal from '../../../../../utils/AddUpdateModal';
+import { createOption } from '../../../reducers/optionReducer';
+import { setSuccess, setError } from '../../../../../utils/MessageBanner';
 
 const OptionGroup = ({
   optionGroupSubProcedureId, name, admin,
@@ -33,7 +33,7 @@ const OptionGroup = ({
         <OptionList optionGroupSubProcedureId={optionGroupSubProcedureId} />
         {admin && (
         <AddUpdateModal buttonLabel={t('buttonAddNewOption')} titleLabel={t('addOption')} ref={modalRef}>
-          <NewOptionForm addOption={handleOptionAdd} />
+          <AddOptionForm addOption={handleOptionAdd} />
         </AddUpdateModal>
         )}
       </Card.Body>

@@ -10,7 +10,7 @@ import { validateName } from '../../../../utils/Helper';
 const UpdateTextSubProcedureForm = ({
   title,
   text,
-  handleTextSubProcedureUpdate,
+  updateTextSubProcedure,
 }) => {
   const { t } = useTranslation();
 
@@ -24,7 +24,7 @@ const UpdateTextSubProcedureForm = ({
       text: Yup.string(),
     }),
     onSubmit: (values) => {
-      handleTextSubProcedureUpdate({
+      updateTextSubProcedure({
         text: values.text,
       });
     },

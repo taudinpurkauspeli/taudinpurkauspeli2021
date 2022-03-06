@@ -1,5 +1,3 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable array-callback-return */
 import React, { useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
@@ -51,11 +49,11 @@ const Procedure = ({ admin }) => {
           </Button>
           <div className="rows" style={showWhenVisible}>
             <AddUpdateModal buttonLabel={t('buttonAddNewText')} titleLabel={t('addTextSubProcedure')} ref={modalRef}>
-              <AddTextSubProcedure handleSubProcedureAdd={handleSubProcedureAdd} />
+              <AddTextSubProcedure addSubProcedure={handleSubProcedureAdd} />
             </AddUpdateModal>
             <Button className="addButton question" size="sm">{t('buttonAddNewQuestion')}</Button>
             <AddUpdateModal buttonLabel={t('buttonAddNewInterview')} titleLabel={t('addInterviewSubProcedure')} ref={modalRef}>
-              <AddInterviewSubProcedure handleSubProcedureAdd={handleSubProcedureAdd} />
+              <AddInterviewSubProcedure addSubProcedure={handleSubProcedureAdd} />
             </AddUpdateModal>
             <Button className="addButton diagnosis" size="sm">{t('buttonAddFinalDiagnosis')}</Button>
           </div>

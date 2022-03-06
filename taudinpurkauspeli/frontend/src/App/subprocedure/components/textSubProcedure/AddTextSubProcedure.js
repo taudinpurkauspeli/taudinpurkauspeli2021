@@ -8,7 +8,7 @@ import {
 } from 'react-bootstrap';
 import { validateName, validatePriority } from '../../../../utils/Helper';
 
-const AddTextSubProcedure = ({ handleSubProcedureAdd }) => {
+const AddTextSubProcedure = ({ addSubProcedure }) => {
   const { t } = useTranslation();
 
   const formik = useFormik({
@@ -23,7 +23,7 @@ const AddTextSubProcedure = ({ handleSubProcedureAdd }) => {
       text: Yup.string(),
     }),
     onSubmit: (values) => {
-      handleSubProcedureAdd({
+      addSubProcedure({
         ...values,
         priority: Number(values.priority),
         type: 'TEXT',
