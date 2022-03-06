@@ -1,4 +1,4 @@
-import differentialsUnderCasesService from '../services/differentialsUnderCases';
+import differentialsUnderCasesService from '../services/differentialsUnderCasesService';
 
 const differentialsUnderCasesReducer = (state = [], action) => {
   switch (action.type) {

@@ -1,4 +1,4 @@
-import differentialsService from '../services/differentials';
+import differentialsService from '../services/differentialsService';
 import { createDifferentialUnderCase } from './differentialsUnderCasesReducer';
 
 const differentialsReducer = (state = [], action) => {

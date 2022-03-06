@@ -1,4 +1,4 @@
-import differentialGroupsService from '../services/differentialGroups';
+import differentialGroupsService from '../services/differentialGroupsService';
 import { createDifferentialGroupUnderCase } from './differentialGroupsUnderCasesReducer';
 
 const differentialGroupsReducer = (state = [], action) => {
