@@ -17,7 +17,7 @@ const NewOptionForm = ({ addOption }) => {
     initialValues: {
       name: '',
       description: '',
-      isRequired: '',
+      isRequired: 2,
     },
     validationSchema: Yup.object().shape({
       name: validateName(),
@@ -54,6 +54,8 @@ const NewOptionForm = ({ addOption }) => {
         </Form.Group>
         <Form.Group controlId="isRequired">
           <Form.Check
+            defaultChecked
+            id="required"
             label={t('required')}
             name="isRequired"
             type="radio"
@@ -61,6 +63,7 @@ const NewOptionForm = ({ addOption }) => {
             onChange={formik.getFieldProps('isRequired').onChange}
           />
           <Form.Check
+            id="voluntary"
             label={t('voluntary')}
             name="isRequired"
             type="radio"
@@ -68,6 +71,7 @@ const NewOptionForm = ({ addOption }) => {
             onChange={formik.getFieldProps('isRequired').onChange}
           />
           <Form.Check
+            id="wrong"
             label={t('wrong')}
             name="isRequired"
             type="radio"
