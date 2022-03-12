@@ -12,8 +12,8 @@ import { useDispatch } from 'react-redux';
 import CopyCase from './CopyCase';
 import RemoveCase from './RemoveCase';
 import { setError, setSuccess } from '../../../utils/MessageBanner';
-import ducService from '../../differential/services/differentialsUnderCases';
-import pucService from '../../procedure/proceduresUnderCaseService';
+import ducService from '../../differential/services/differentialsUnderCasesService';
+import pucService from '../../procedure/services/proceduresUnderCaseService';
 import { removeCase } from '../casesReducer';
 
 const CaseCard = ({ c, admin }) => {

@@ -5,8 +5,9 @@ import * as Yup from 'yup';
 import {
   Form, Button,
 } from 'react-bootstrap';
+import { validateName, validatePriority } from '../../../../utils/Helper';
 
-const AddInterviewSubProcedure = ({ handleSubProcedureAdd }) => {
+const AddInterviewSubProcedure = ({ addSubProcedure }) => {
   const { t } = useTranslation();
 
   const formik = useFormik({
@@ -15,17 +16,11 @@ const AddInterviewSubProcedure = ({ handleSubProcedureAdd }) => {
       title: '',
     },
     validationSchema: Yup.object({
-      title: Yup.string()
-        .min(2, t('warningShort'))
-        .max(999, t('warningLong'))
-        .required(t('warningRequired')),
-      priority: Yup.number()
-        .required(t('warningRequired'))
-        .positive(t('warningPositiveInteger'))
-        .integer(t('warningPositiveInteger')),
+      title: validateName(),
+      priority: validatePriority(),
     }),
     onSubmit: (values) => {
-      handleSubProcedureAdd({
+      addSubProcedure({
         priority: Number(values.priority),
         type: 'INTERVIEW',
         title: values.title,

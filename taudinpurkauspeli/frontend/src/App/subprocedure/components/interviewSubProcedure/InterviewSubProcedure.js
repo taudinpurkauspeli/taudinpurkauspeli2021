@@ -3,23 +3,17 @@ import { Accordion, Card } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import AddUpdateModal from '../../../../utils/AddUpdateModal';
-import NewOptionGroupForm from './NewOptionGroupForm';
+import AddOptionGroupForm from '../option/optionGroup/AddOptionGroupForm';
 import { createOptionGroup } from '../../reducers/optionGroupsReducer';
 import { setSuccess, setError } from '../../../../utils/MessageBanner';
-import OptionGroupList from './OptionGroupList';
-// import UpdateInterviewSubProcedure from './UpdateInterviewSubProcedure';
-/*
-{admin && (
-            <div className="cardButtons">
-              <UpdateInterviewSubProcedure d={d} />
-            </div>
-          )}
-          */
+import OptionGroupList from '../option/optionGroup/OptionGroupList';
+
 const InterviewSubProcedure = ({ d, admin }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const modalRef = useRef();
 
+  /* istanbul ignore next */
   const handleOptionGroupAdd = (optionGroup) => {
     modalRef.current.toggleVisibility();
     try {
@@ -43,7 +37,7 @@ const InterviewSubProcedure = ({ d, admin }) => {
             { admin
             && (
             <AddUpdateModal buttonLabel={t('buttonAddNewOptionGroup')} titleLabel={t('addOptionGroup')} ref={modalRef}>
-              <NewOptionGroupForm addOptionGroup={handleOptionGroupAdd} />
+              <AddOptionGroupForm addOptionGroup={handleOptionGroupAdd} />
             </AddUpdateModal>
             )}
             <OptionGroupList subProcedureId={d.id} admin={admin} />

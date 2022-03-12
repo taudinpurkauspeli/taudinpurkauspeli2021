@@ -1,29 +1,28 @@
-/* eslint-disable linebreak-style */
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
-import { useFormik, FormikProvider } from 'formik';
-import * as Yup from 'yup';
 import {
   Form, Button,
 } from 'react-bootstrap';
-import { validateName } from '../../../../utils/Helper';
-import CustomTypeaheadSelect from '../../../../utils/CustomTypeaheadSelect';
+import { useFormik, FormikProvider } from 'formik';
+import * as Yup from 'yup';
+import { useSelector } from 'react-redux';
+import CustomTypeaheadSelect from '../../../../../utils/CustomTypeaheadSelect';
+import { validateName } from '../../../../../utils/Helper';
 
-const AddDifferentialGroupForm = ({ addDifferentialGroup }) => {
+const NewOptionGroupForm = ({ addOptionGroup }) => {
   const { t } = useTranslation();
-  const differentialGroups = useSelector((state) => state.differentialGroups);
+  const optionGroups = useSelector((state) => state.optionGroups);
 
   const formik = useFormik({
     initialValues: {
       name: '',
     },
-    validationSchema: Yup.object({
+    validationSchema: Yup.object().shape({
       name: validateName(),
     }),
     onSubmit: async (values) => {
-      const group = differentialGroups.filter((r) => r.name === values.name);
-      addDifferentialGroup(
+      const group = optionGroups.filter((r) => r.name === values.name);
+      addOptionGroup(
         group.length === 0
           ? values
           : group[0],
@@ -36,8 +35,8 @@ const AddDifferentialGroupForm = ({ addDifferentialGroup }) => {
       <Form noValidate onSubmit={formik.handleSubmit}>
         <CustomTypeaheadSelect
           name="name"
-          label={t('addDifferentialGroup')}
-          options={differentialGroups}
+          label={t('addOptionGroup')}
+          options={optionGroups}
         />
         <Button className="submitButton" type="submit">{t('buttonSubmitNewDifferential')}</Button>
       </Form>
@@ -45,4 +44,4 @@ const AddDifferentialGroupForm = ({ addDifferentialGroup }) => {
   );
 };
 
-export default AddDifferentialGroupForm;
+export default NewOptionGroupForm;

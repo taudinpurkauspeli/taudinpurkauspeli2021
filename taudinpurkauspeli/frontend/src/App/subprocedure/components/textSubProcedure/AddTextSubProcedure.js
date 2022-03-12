@@ -6,8 +6,9 @@ import * as Yup from 'yup';
 import {
   Form, Button,
 } from 'react-bootstrap';
+import { validateName, validatePriority } from '../../../../utils/Helper';
 
-const AddTextSubProcedure = ({ handleSubProcedureAdd }) => {
+const AddTextSubProcedure = ({ addSubProcedure }) => {
   const { t } = useTranslation();
 
   const formik = useFormik({
@@ -17,19 +18,15 @@ const AddTextSubProcedure = ({ handleSubProcedureAdd }) => {
       text: '',
     },
     validationSchema: Yup.object({
-      title: Yup.string()
-        .min(2, t('warningShort'))
-        .max(999, t('warningLong'))
-        .required(t('warningRequired')),
-      priority: Yup.number(),
+      title: validateName(),
+      priority: validatePriority(),
       text: Yup.string(),
     }),
     onSubmit: (values) => {
-      handleSubProcedureAdd({
+      addSubProcedure({
+        ...values,
         priority: Number(values.priority),
         type: 'TEXT',
-        title: values.title,
-        text: values.text,
       });
     },
   });
@@ -54,7 +51,11 @@ const AddTextSubProcedure = ({ handleSubProcedureAdd }) => {
           type="text"
           placeholder={t('giveNumber')}
           {...formik.getFieldProps('priority')}
+          isInvalid={!!formik.errors.priority}
         />
+        <Form.Control.Feedback type="invalid" role="alert" aria-label="from feedback">
+          {formik.errors.priority}
+        </Form.Control.Feedback>
       </Form.Group>
       <Form.Group className="mb-3" controlId="text">
         <Form.Label>{t('textToAdd')}</Form.Label>

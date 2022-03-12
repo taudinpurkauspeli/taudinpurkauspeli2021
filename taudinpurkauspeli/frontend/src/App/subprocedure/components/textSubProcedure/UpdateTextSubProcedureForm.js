@@ -5,11 +5,12 @@ import * as Yup from 'yup';
 import {
   Form, Button,
 } from 'react-bootstrap';
+import { validateName } from '../../../../utils/Helper';
 
 const UpdateTextSubProcedureForm = ({
   title,
   text,
-  handleTextSubProcedureUpdate,
+  updateTextSubProcedure,
 }) => {
   const { t } = useTranslation();
 
@@ -18,17 +19,12 @@ const UpdateTextSubProcedureForm = ({
       title,
       text,
     },
-    validationSchema: Yup.object({
-      title: Yup.string()
-        .min(2, t('warningShort'))
-        .max(999, t('warningLong'))
-        .required(t('warningRequired')),
-      priority: Yup.string(),
+    validationSchema: Yup.object().shape({
+      title: validateName(),
       text: Yup.string(),
     }),
     onSubmit: (values) => {
-      handleTextSubProcedureUpdate({
-        title: values.title,
+      updateTextSubProcedure({
         text: values.text,
       });
     },
@@ -39,6 +35,7 @@ const UpdateTextSubProcedureForm = ({
       <Form.Group controlId="title">
         <Form.Label>{t('title')}</Form.Label>
         <Form.Control
+          disabled
           type="text"
           placeholder={t('write')}
           {...formik.getFieldProps('title')}

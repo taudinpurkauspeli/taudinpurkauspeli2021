@@ -9,12 +9,11 @@ jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key) => key }),
 }));
 
-let addIntSubFunc;
+const addIntSubFunc = jest.fn();
 
 beforeEach(() => {
-  addIntSubFunc = jest.fn();
   render(
-    <AddInterviewSubProcedure handleSubProcedureAdd={addIntSubFunc} />,
+    <AddInterviewSubProcedure addSubProcedure={addIntSubFunc} />,
   );
 });
 

@@ -1,21 +1,40 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable array-callback-return */
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Col,
   Row,
 } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import NewCase from '../case/components/NewCase';
+import { setSuccess, setError } from '../../utils/MessageBanner';
+import { createCase } from '../case/casesReducer';
+
+import NewCaseForm from '../case/components/NewCaseForm';
 import CaseCard from '../case/components/CaseCard';
 import Search from './Search';
+import AddUpdateModal from '../../utils/AddUpdateModal';
 
 const Frontpage = ({ admin }) => {
   const { t } = useTranslation();
   const [newSearch, setNewSearch] = useState('');
+  const dispatch = useDispatch();
+  const modalRef = useRef();
   const cases = useSelector((state) => state.cases);
+
+  /* istanbul ignore next */
+  const handleCaseAdd = (newCase) => {
+    modalRef.current.toggleVisibility();
+    try {
+      dispatch(createCase(newCase));
+      setSuccess(t('caseAddSuccess'));
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log(error);
+      setError(t('caseAddError'));
+    }
+  };
 
   const searchCases = (event) => {
     setNewSearch(event.target.value);
@@ -32,7 +51,9 @@ const Frontpage = ({ admin }) => {
       <br />
       {admin && (
         <div>
-          <NewCase />
+          <AddUpdateModal buttonLabel={t('buttonNewCase')} titleLabel={t('addCase')} ref={modalRef}>
+            <NewCaseForm addCase={handleCaseAdd} />
+          </AddUpdateModal>
           <br />
           <h3>{t('caseHidden')}</h3>
           <hr />

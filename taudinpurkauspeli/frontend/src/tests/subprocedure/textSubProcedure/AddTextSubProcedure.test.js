@@ -9,12 +9,11 @@ jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key) => key }),
 }));
 
-let addTextSubFunc;
+const addTextSubFunc = jest.fn();
 
 beforeEach(() => {
-  addTextSubFunc = jest.fn();
   render(
-    <AddTextSubProcedure handleSubProcedureAdd={addTextSubFunc} />,
+    <AddTextSubProcedure addSubProcedure={addTextSubFunc} />,
   );
 });
 
@@ -39,9 +38,8 @@ describe('Adding a new text sub procedure', () => {
     userEvent.type(screen.getByLabelText(/subProcedurePriority/i), '42');
     userEvent.click(screen.getByRole('button', { name: /submit/i }));
 
-    const alert = await screen.findByRole('alert', { name: /From Feedback/i });
-    expect(alert).toBeInTheDocument();
-    expect(alert).toHaveTextContent('warningShort');
+    const alert = await screen.findAllByRole('alert', { name: /From Feedback/i });
+    expect(alert[0]).toHaveTextContent('warningShort');
     expect(addTextSubFunc.mock.calls).toHaveLength(0);
   });
 
@@ -50,9 +48,8 @@ describe('Adding a new text sub procedure', () => {
     userEvent.type(screen.getByLabelText(/subProcedurePriority/i), '42');
     userEvent.click(screen.getByRole('button', { name: /submit/i }));
 
-    const alert = await screen.findByRole('alert', { name: /From Feedback/i });
-    expect(alert).toBeInTheDocument();
-    expect(alert).toHaveTextContent('warningRequired');
+    const alert = await screen.findAllByRole('alert', { name: /From Feedback/i });
+    expect(alert[0]).toHaveTextContent('warningRequired');
     expect(addTextSubFunc.mock.calls).toHaveLength(0);
   });
 });

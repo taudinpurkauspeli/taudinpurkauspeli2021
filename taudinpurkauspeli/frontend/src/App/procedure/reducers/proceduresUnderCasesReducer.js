@@ -1,4 +1,4 @@
-import proceduresUnderCasesService from './proceduresUnderCaseService';
+import proceduresUnderCasesService from '../services/proceduresUnderCaseService';
 
 const proceduresReducer = (state = [], action) => {
   switch (action.type) {

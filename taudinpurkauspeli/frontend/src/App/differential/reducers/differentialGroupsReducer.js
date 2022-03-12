@@ -1,4 +1,4 @@
-import differentialGroupsService from '../services/differentialGroups';
+import differentialGroupsService from '../services/differentialGroupsService';
 import { createDifferentialGroupUnderCase } from './differentialGroupsUnderCasesReducer';
 
 const differentialGroupsReducer = (state = [], action) => {
@@ -20,17 +20,23 @@ export const getDifferentialGroups = () => async (dispatch) => {
   });
 };
 
-export const createDifferentialGroup = (caseId, differential) => async (dispatch) => {
-  const newDifferentialGroup = await differentialGroupsService.create(differential);
+export const createDifferentialGroup = (caseId, differentialGroup) => async (dispatch) => {
+  let { id } = differentialGroup;
 
-  dispatch({
-    type: 'NEW_DIFFERENTIALGROUP',
-    data: newDifferentialGroup,
-  });
+  if (id === undefined) {
+    const newDifferentialGroup = await differentialGroupsService.create(differentialGroup);
+
+    dispatch({
+      type: 'NEW_DIFFERENTIALGROUP',
+      data: newDifferentialGroup,
+    });
+
+    id = newDifferentialGroup.id;
+  }
 
   dispatch(createDifferentialGroupUnderCase({
     caseId,
-    differentialGroupId: newDifferentialGroup.id,
+    differentialGroupId: id,
   }));
 };
 
