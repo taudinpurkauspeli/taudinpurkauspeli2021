@@ -6,6 +6,11 @@ const differentialsUnderCasesReducer = (state = [], action) => {
       return action.data;
     case 'NEW_DIFFERENTIALUNDERCASE':
       return [...state, action.data];
+    case 'UPDATE_DIFFERENTIALUNDERCASE':
+      return state.map((p) => (p.id !== action.data.id
+        ? p
+        : action.data
+      ));
     default:
       return state;
   }
@@ -24,6 +29,14 @@ export const createDifferentialUnderCase = (content) => async (dispatch) => {
   dispatch({
     type: 'NEW_DIFFERENTIALUNDERCASE',
     data: newDifferentialUnderCase,
+  });
+};
+
+export const updateDifferentialUnderCase = (content) => async (dispatch) => {
+  await differentialsUnderCasesService.update(content.id, content);
+  dispatch({
+    type: 'UPDATE_DIFFERENTIALUNDERCASE',
+    data: content,
   });
 };
 

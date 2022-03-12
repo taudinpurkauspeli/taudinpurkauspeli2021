@@ -56,4 +56,18 @@ differentialsUnderCasesRouter.get('/:id/:language', middleware.checkUserRights, 
   res.send(foundDifferentials);
 });
 
+// Update differential description
+differentialsUnderCasesRouter.put('/:id/:language', middleware.checkAdminRights, async (req, res) => {
+  const { id, language } = req.params;
+  const { description } = req.body;
+
+  await DifferentialUnderCase.update({ description }, {
+    where: { plainDifferentialId: id, language },
+  });
+
+  res.send({
+    message: 'Procedure was updated successfully.',
+  });
+});
+
 module.exports = differentialsUnderCasesRouter;

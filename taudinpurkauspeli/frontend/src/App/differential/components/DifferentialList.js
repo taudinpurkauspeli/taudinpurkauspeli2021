@@ -4,14 +4,18 @@ import { Accordion } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import Differential from './Differential';
 
-const DifferentialList = ({ diffGroupCaseId }) => {
+const DifferentialList = ({ diffGroupCaseId, admin }) => {
   const caseDifferentials = useSelector((state) => state.differentialsUnderCase);
   const diffGroupDiffs = caseDifferentials.filter((d) => d.diffGroupCaseId === diffGroupCaseId);
 
   return (
     <Accordion>
       {diffGroupDiffs.map((d) => (
-        <Differential key={d.id} id={d.id} name={d.name} description={d.description} />
+        <Differential
+          key={d.id}
+          d={d}
+          admin={admin}
+        />
       ))}
     </Accordion>
   );
