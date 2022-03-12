@@ -34,7 +34,7 @@ const TextSubProcedure = ({ d, admin }) => {
             {d.title}
             {admin && (
             <div className="cardButtons">
-              <AddUpdateModal buttonLabel={t('buttonEdit')} titleLabel={t('updateSubProcedure')} ref={modalRef}>
+              <AddUpdateModal className="editButton" buttonLabel={t('buttonEdit')} titleLabel={t('updateSubProcedure')} ref={modalRef}>
                 <UpdateTextSubProcedureForm
                   title={d.title}
                   text={d.text}
