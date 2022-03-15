@@ -5,9 +5,9 @@ const middleware = require('../../../utils/middleware');
 const PlainOptionGroup = db.plainOptionGroups;
 const OptionGroup = db.optionGroups;
 
-// Save a new differentialgroup
+// Save a new optiongroup
 optionGroupsRouter.post('/:language', middleware.checkAdminRights, async (req, res) => {
-  // Create a differentialgroup
+  // Create a optiongroup
   const { language } = req.params;
   let { id } = req.body;
   const { name } = req.body;
@@ -24,7 +24,7 @@ optionGroupsRouter.post('/:language', middleware.checkAdminRights, async (req, r
     name,
   };
 
-  // Save differentialgroup in the database
+  // Save optiongroup in the database
   const savedOptionGroup = await OptionGroup.findOrCreate({
     where: newOptionGroup,
     defaults: newOptionGroup,
@@ -36,7 +36,7 @@ optionGroupsRouter.post('/:language', middleware.checkAdminRights, async (req, r
   });
 });
 
-// Retrieve all differentialgroups
+// Retrieve all optiongroups
 optionGroupsRouter.get('/:language', middleware.checkUserRights, async (req, res) => {
   const { language } = req.params;
 

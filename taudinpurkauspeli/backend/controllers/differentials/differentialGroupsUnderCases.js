@@ -33,29 +33,6 @@ differentialGroupsUnderCasesRouter.post('/:language', middleware.checkAdminRight
 differentialGroupsUnderCasesRouter.get('/:id/:language', middleware.checkUserRights, async (req, res) => {
   const { id, language } = req.params;
 
-  /*
-  const foundDifferentialGroups = await PlainCase.findOne({
-    where: {
-      id,
-    },
-    include: {
-      model: PlainDifferentialGroup,
-    },
-    attributes: {
-      include: [
-        [
-          db.sequelize.literal(`(
-                    SELECT name
-                    FROM differential_groups AS diffgroup
-                    WHERE diffgroup."plainDifferentialGroupId" = "plainDifferentialGroups".id
-                )`),
-          'name',
-        ],
-      ],
-    },
-  });
-  */
-
   const foundDifferentialGroups = await db.sequelize.query(
     `SELECT duc.id AS "diffGroupCaseId", dg."plainDifferentialGroupId" AS id, dg.name
     FROM differential_groups_under_cases AS duc

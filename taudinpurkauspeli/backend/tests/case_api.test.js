@@ -38,16 +38,6 @@ describe('Getting cases from database', () => {
     expect(engResponse.body.data).toHaveLength(helper.initialEnglishCases.length);
   });
 
-  test('throws error when trying to get case with non-existent id', async () => {
-    await api
-      .get('/api/cases/5/fi')
-      .expect(404);
-
-    await api
-      .get('/api/cases/5/en')
-      .expect(404);
-  });
-
   test('a specific case is within the returned cases', async () => {
     const response = await api.get('/api/cases/fi');
     const titles = response.body.data.map((r) => r.title);
@@ -56,15 +46,6 @@ describe('Getting cases from database', () => {
     const engResponse = await api.get('/api/cases/en');
     const engTitles = engResponse.body.data.map((r) => r.title);
     expect(engTitles).toContain('TestCase1');
-  });
-
-  test('if a case does not have a translation, default is returned', async () => {
-    const response = await api.get('/api/cases/2/en');
-
-    const { title, hidden, anamnesis } = response.body;
-    expect(title).toEqual('TestiCase2');
-    expect(hidden).toEqual(true);
-    expect(anamnesis).toEqual('Testianamneesi');
   });
 });
 
@@ -146,8 +127,10 @@ describe('Updating a case in database', () => {
         hidden: false,
         anamnesis: 'Testianamneesi',
       });
-    const response = await api.get('/api/cases/1/fi');
-    expect(response.body.hidden).toEqual(false);
+
+    const response = await api.get('/api/cases/fi');
+    const hiddens = response.body.data.map((c) => c.hidden);
+    expect(hiddens).toContain(false);
   });
 
   test('title can be changed to another valid title', async () => {
@@ -158,8 +141,10 @@ describe('Updating a case in database', () => {
         hidden: true,
         anamnesis: 'Testianamneesi',
       });
-    const response = await api.get('/api/cases/1/fi');
-    expect(response.body.title).toEqual('updatedTestCase');
+
+    const response = await api.get('/api/cases/fi');
+    const titles = response.body.data.map((c) => c.title);
+    expect(titles).toContain('updatedTestCase');
   });
 
   test('invalid title is not updated', async () => {
@@ -171,8 +156,10 @@ describe('Updating a case in database', () => {
         anamnesis: 'Testianamneesi',
       })
       .expect(400);
-    const response = await api.get('/api/cases/1/fi');
-    expect(response.body.title).toEqual('TestiCase1');
+
+    const response = await api.get('/api/cases/fi');
+    const titles = response.body.data.map((c) => c.title);
+    expect(titles).toContain('TestiCase1');
   });
 });
 

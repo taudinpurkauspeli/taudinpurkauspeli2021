@@ -7,9 +7,7 @@ const helper = require('../test_helper');
 
 describe('procedures', () => {
   beforeEach(async () => {
-    // deletes the content from the table 'procedures'
     await db.sequelize.sync({ force: true });
-    // inserts test cases in the table 'procedures'
     await db.plainCases.bulkCreate(helper.plainCases);
     await db.plainProcedures.bulkCreate([{}, {}]);
     await db.procedures.bulkCreate(helper.initialProcedures);
@@ -17,7 +15,7 @@ describe('procedures', () => {
   });
 
   test('all procedures under cases are returned', async () => {
-    const response = await api.get('/api/proceduresUnderCases');
+    const response = await api.get('/api/proceduresUnderCases/1/fi');
 
     expect(response.body).toHaveLength(helper.initialProceduresUnderCases.length);
   });
@@ -51,7 +49,7 @@ describe('procedures', () => {
         procedureId: 1,
         priority: 55,
       });
-    const responseCheck = await api.get('/api/proceduresUnderCases');
+    const responseCheck = await api.get('/api/proceduresUnderCases/1/fi');
     const priorities = responseCheck.body.map((r) => r.priority);
 
     expect(priorities).toContain(55);
@@ -62,7 +60,7 @@ describe('procedures', () => {
       .del('/api/proceduresUnderCases/1')
       .expect(204);
 
-    const returnedProcedures = await api.get('/api/proceduresUnderCases');
+    const returnedProcedures = await api.get('/api/proceduresUnderCases/1/fi');
     expect(returnedProcedures.body).toHaveLength(helper.initialProceduresUnderCases.length - 1);
   });
 });

@@ -66,7 +66,7 @@ differentialsUnderCasesRouter.put('/:id/:language', middleware.checkAdminRights,
   });
 
   res.send({
-    message: 'Procedure was updated successfully.',
+    message: 'Differential description was updated successfully.',
   });
 });
 

@@ -6,8 +6,6 @@ const middleware = require('../../utils/middleware');
 const ProcedureUnderCase = db.proceduresUnderCases;
 const Procedure = db.procedures;
 
-const { Op } = db.Sequelize;
-
 // create a new procedure under case
 proceduresUnderCasesRouter.post('/:language', middleware.checkAdminRights, async (req, res) => {
   const { language } = req.params;
@@ -51,18 +49,6 @@ proceduresUnderCasesRouter.get('/:id/:language', middleware.checkUserRights, asy
   );
 
   res.send(foundProcedures);
-});
-
-// Retrieve all procedures
-proceduresUnderCasesRouter.get('/', middleware.checkUserRights, (req, res, next) => {
-  const { caseId } = req.params;
-  const condition = caseId ? { caseId: { [Op.iLike]: `%${caseId}%` } } : null;
-
-  ProcedureUnderCase.findAll({ where: condition })
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((error) => next(error));
 });
 
 // Update a procedure (by id)
