@@ -107,6 +107,12 @@ db.plainDifferentials.belongsToMany(db.differentialGroupsUnderCases, {
   through: db.differentalsUnderCases,
 });
 
+db.plainDescriptions.hasMany(db.differentalsUnderCases);
+db.differentalsUnderCases.belongsTo(db.plainDescriptions, {
+  foreignKey: 'plainDescriptionId',
+  constraints: false,
+});
+
 db.plainProcedures.belongsToMany(db.plainCases, {
   through: db.proceduresUnderCases,
 });

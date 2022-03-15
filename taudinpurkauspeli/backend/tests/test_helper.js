@@ -131,20 +131,17 @@ const initialDifferentialsUnderCases = [
   {
     differentialGroupsUnderCaseId: 1,
     plainDifferentialId: 2,
-    description: 'Testi1',
-    language: 'fi',
+    plainDescriptionId: 2,
   },
   {
     differentialGroupsUnderCaseId: 2,
     plainDifferentialId: 1,
-    description: 'Testi2',
-    language: 'fi',
+    plainDescriptionId: 2,
   },
   {
     differentialGroupsUnderCaseId: 1,
     plainDifferentialId: 1,
-    description: 'Testi3',
-    language: 'fi',
+    plainDescriptionId: 1,
   },
 ];
 

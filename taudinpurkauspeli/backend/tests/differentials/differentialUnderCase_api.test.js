@@ -1,5 +1,6 @@
 const supertest = require('supertest');
 const app = require('../../app');
+const { plainDescriptions } = require('../../models');
 
 const api = supertest(app);
 const db = require('../../models');
@@ -11,6 +12,8 @@ const DifferentialUnderCase = db.differentalsUnderCases;
 const PlainCase = db.plainCases;
 const PlainDifferential = db.plainDifferentials;
 const PlainDifferentialGroup = db.plainDifferentialGroups;
+const PlainDescriptions = db.plainDescriptions;
+const Descriptions = db.descriptions; 
 
 beforeEach(async () => {
   // deletes the content from the table 'differentials'
@@ -20,6 +23,8 @@ beforeEach(async () => {
   await Differential.bulkCreate(helper.initialDifferentials);
   await PlainCase.bulkCreate(helper.plainCases);
   await PlainDifferentialGroup.bulkCreate([{}, {}]);
+  await PlainDescriptions.bulkCreate([{}, {}]);
+  await Descriptions.bulkCreate(helper.initialDescriptions);
   await DifferentialGroupUnderCase.bulkCreate(helper.initialDifferentialGroupsUnderCases);
   await DifferentialUnderCase.bulkCreate(helper.initialDifferentialsUnderCases);
 });
@@ -67,18 +72,18 @@ describe('Updating case-diff-pairs', () => {
       diffGroupCaseId: 1,
       id: 1,
       name: 'TestiDiffi1',
-      description: 'Uusi kuvaus',
+      description: 'Muokattu kuvaus',
     };
 
     await api
       .put('/api/differentialsUnderCases/1/fi')
       .send(updatedDifferentialUnderCase);
 
-    const response = await api.get('/api/differentialsUnderCases/2/fi');
+    const response = await api.get('/api/differentialsUnderCases/1/fi');
     const descriptions = response.body.map((r) => r.description);
 
-    expect(response.body).toHaveLength(1);
-    expect(descriptions).toContain('Uusi kuvaus');
+    expect(response.body).toHaveLength(2);
+    expect(descriptions).toContain('Muokattu kuvaus');
   });
 });
 
