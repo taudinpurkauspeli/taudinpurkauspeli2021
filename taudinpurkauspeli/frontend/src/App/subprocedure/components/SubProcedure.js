@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 import React from 'react';
 import InterviewSubProcedure from './interviewSubProcedure/InterviewSubProcedure';
 import TextSubProcedure from './textSubProcedure/TextSubProcedure';

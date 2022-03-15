@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 import React, { useRef } from 'react';
 import { Accordion, Card } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';

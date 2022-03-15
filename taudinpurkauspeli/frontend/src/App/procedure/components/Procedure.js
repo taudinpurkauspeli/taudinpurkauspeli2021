@@ -26,6 +26,7 @@ const Procedure = ({ admin }) => {
     setShow(!show);
   };
 
+  /* istanbull ignore next */
   const handleSubProcedureAdd = (newSubProcedure) => {
     modalRef.current.toggleVisibility();
     try {
@@ -37,7 +38,6 @@ const Procedure = ({ admin }) => {
   };
 
   return (
-
     <div id="wrapper">
       <h2>
         {t('subProcedures')}

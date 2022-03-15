@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 /* eslint-disable react/no-array-index-key */
 import React, { useState, useRef, useEffect } from 'react';
 import { Button } from 'react-bootstrap';

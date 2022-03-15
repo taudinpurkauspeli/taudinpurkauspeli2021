@@ -1,6 +1,3 @@
-/* eslint-disable linebreak-style */
-
-/* eslint-disable react/react-in-jsx-scope */
 import { Button } from 'react-bootstrap';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -16,7 +13,6 @@ const copyCase = ({
 }) => {
   const { t } = useTranslation();
   const oldCaseId = caseToBeCopied.id;
-  // eslint-disable-next-line no-unused-vars
   let newCopyId = 0;
 
   /* istanbul ignore next */

@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
@@ -10,7 +9,6 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import CopyCase from './CopyCase';
-// import RemoveEntity from '../../../utils/RemoveEntity';
 import { setError, setSuccess } from '../../../utils/MessageBanner';
 import ducService from '../../differential/services/differentialsUnderCasesService';
 import pucService from '../../procedure/services/proceduresUnderCaseService';
