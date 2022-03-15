@@ -79,4 +79,19 @@ proceduresUnderCasesRouter.put('/:id', middleware.checkAdminRights, async (req, 
   });
 });
 
+// Delete a procedure from case
+proceduresUnderCasesRouter.delete('/:id', middleware.checkAdminRights, async (req, res) => {
+  const { id } = req.params;
+
+  const deletedProcedureUnderCase = await ProcedureUnderCase.destroy({
+    where: { plainProcedureId: id },
+  });
+
+  if (Number(deletedProcedureUnderCase) === 1) {
+    res.status(204).end();
+  } else {
+    res.status(404).end();
+  }
+});
+
 module.exports = proceduresUnderCasesRouter;

@@ -56,6 +56,15 @@ describe('procedures', () => {
 
     expect(priorities).toContain(55);
   });
+
+  test('procedure can be deleted from case', async () => {
+    await api
+      .del('/api/proceduresUnderCases/1')
+      .expect(204);
+
+    const returnedProcedures = await api.get('/api/proceduresUnderCases');
+    expect(returnedProcedures.body).toHaveLength(helper.initialProceduresUnderCases.length - 1);
+  });
 });
 
 afterAll(async () => {
