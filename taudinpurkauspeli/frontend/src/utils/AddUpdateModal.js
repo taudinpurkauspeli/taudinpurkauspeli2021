@@ -15,7 +15,7 @@ const AddUpdateModal = forwardRef((props, ref) => {
 
   return (
     <div>
-      <Button className="addButton text" onClick={toggleVisibility} size="sm">
+      <Button className={props.className ? props.className : 'addButton text'} onClick={toggleVisibility} size="sm">
         {props.buttonLabel}
       </Button>
       <Modal

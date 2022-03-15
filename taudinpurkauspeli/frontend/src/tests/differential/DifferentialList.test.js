@@ -9,6 +9,10 @@ import DifferentialList from '../../App/differential/components/DifferentialList
 
 const mockStore = configureStore([]);
 
+jest.mock('react-i18next', () => ({
+  useTranslation: () => ({ t: (key) => key }),
+}));
+
 test('List and accordion are rendered', async () => {
   const store = mockStore({
     differentialsUnderCase: [{

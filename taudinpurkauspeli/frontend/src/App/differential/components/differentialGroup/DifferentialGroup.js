@@ -20,11 +20,11 @@ const DifferentialGroup = ({
     modalRef.current.toggleVisibility();
     try {
       dispatch(createDifferential(diffGroupCaseId, differentialObject));
-      setSuccess(t('differentialUpdateSuccess'));
+      setSuccess(t('differentialAddSuccess'));
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log(error);
-      setError(t('differentialUpdateError'));
+      setError(t('differentialAddError'));
     }
   };
 
@@ -32,7 +32,7 @@ const DifferentialGroup = ({
     <Card style={{ width: '60rem' }}>
       <Card.Header>{name}</Card.Header>
       <Card.Body>
-        <DifferentialList diffGroupCaseId={diffGroupCaseId} />
+        <DifferentialList diffGroupCaseId={diffGroupCaseId} admin={admin} />
         {admin && (
           <AddUpdateModal buttonLabel={t('buttonNewDifferential')} titleLabel={t('addDifferential')} ref={modalRef}>
             <AddDifferentialForm addDifferential={handleDifferentialAdd} />

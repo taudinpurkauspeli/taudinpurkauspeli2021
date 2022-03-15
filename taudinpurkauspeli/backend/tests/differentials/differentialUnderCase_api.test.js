@@ -61,6 +61,27 @@ describe('Adding case-diff-pairs to database', () => {
   });
 });
 
+describe('Updating case-diff-pairs', () => {
+  test('Description can be updated', async () => {
+    const updatedDifferentialUnderCase = {
+      diffGroupCaseId: 1,
+      id: 1,
+      name: 'TestiDiffi1',
+      description: 'Uusi kuvaus',
+    };
+
+    await api
+      .put('/api/differentialsUnderCases/1/fi')
+      .send(updatedDifferentialUnderCase);
+
+    const response = await api.get('/api/differentialsUnderCases/2/fi');
+    const descriptions = response.body.map((r) => r.description);
+
+    expect(response.body).toHaveLength(1);
+    expect(descriptions).toContain('Uusi kuvaus');
+  });
+});
+
 afterAll(async () => {
   await db.sequelize.close();
 });
