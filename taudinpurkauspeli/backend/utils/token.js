@@ -45,10 +45,10 @@ const createUser = async (req) => {
       group: userFromDb.group,
     };
 
-    token = jwt.sign(userForToken, process.env.SECRET);
+    token = jwt.sign(userForToken, config.SECRET);
   }
 
-  return { token, name: user.user_name, admin: user.group === 'grp-taudinpurkausadmin' };
+  return { token, name: user.user_name, admin: user.group === config.ADMINGROUP };
 };
 
 exports.createUser = createUser;

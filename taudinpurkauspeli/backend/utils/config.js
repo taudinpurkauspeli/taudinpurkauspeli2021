@@ -10,6 +10,7 @@ const {
   STUDENTID,
   MAIL,
   SECRET,
+  ADMINGROUP,
 } = process.env;
 
 module.exports = {
@@ -30,4 +31,5 @@ module.exports = {
   STUDENTID,
   MAIL,
   SECRET,
+  ADMINGROUP,
 };
