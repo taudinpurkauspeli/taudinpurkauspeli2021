@@ -1,9 +1,9 @@
 const supertest = require('supertest');
-const app = require('../../app');
+const app = require('../../../app');
 
 const api = supertest(app);
-const db = require('../../models');
-const helper = require('../test_helper');
+const db = require('../../../models');
+const helper = require('../../test_helper');
 
 const OptionGroup = db.optionGroups;
 const PlainOptionGroup = db.plainOptionGroups;
