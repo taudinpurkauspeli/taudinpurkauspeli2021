@@ -10,6 +10,8 @@ const proceduresReducer = (state = [], action) => {
       return state.map((p) => (p.id !== action.data.id
         ? p
         : action.data));
+    case 'REMOVE_PROCEDURE_UNDER_CASE':
+      return state.filter((p) => p.id !== action.data);
     default:
       return state;
   }
@@ -46,6 +48,14 @@ export const updateProcedurePriorities = (caseId, procedures) => async (dispatch
       { priority: index + 1 },
     )));
   dispatch(getProceduresUnderCase(caseId));
+};
+
+export const removeProcedureUnderCase = (procedureId) => async (dispatch) => {
+  await proceduresUnderCasesService.remove(procedureId);
+  dispatch({
+    type: 'REMOVE_PROCEDURE_UNDER_CASE',
+    data: procedureId,
+  });
 };
 
 export default proceduresReducer;

@@ -1,11 +1,9 @@
-/* eslint-disable linebreak-style */
 import React from 'react';
 import {
   Switch, Route, Redirect,
 } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-// Import components
 import Frontpage from '../frontpage/Frontpage';
 import HowToPlay from '../instructions/HowToPlay';
 import Profile from '../users/Profile';

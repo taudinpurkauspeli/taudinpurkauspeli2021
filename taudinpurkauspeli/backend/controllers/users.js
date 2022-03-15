@@ -5,7 +5,7 @@ const middleware = require('../utils/middleware');
 
 const User = db.users;
 
-userRouter.get('/', middleware.checkAdminRights, async (req, res, next) => {
+userRouter.get('/', middleware.checkAdminRights, async (req, res) => {
   const users = await User.findAll({});
 
   if (users === null) {

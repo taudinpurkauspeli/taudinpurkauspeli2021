@@ -1,15 +1,21 @@
-/* eslint-disable linebreak-style */
 /* eslint-disable react/no-array-index-key */
 import React, { useState, useRef, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { updateProcedurePriorities } from '../reducers/proceduresUnderCasesReducer';
+import { updateProcedurePriorities, removeProcedureUnderCase } from '../reducers/proceduresUnderCasesReducer';
 import EditProcedure from './EditProcedure';
+import { setSuccess, setError } from '../../../utils/MessageBanner';
 
 const DragNDropList = ({
-  proceduresHook, handleDragStart, handleDragEnd, handleDragEnter, t, submitForm,
+  proceduresHook,
+  handleDragStart,
+  handleDragEnd,
+  handleDragEnter,
+  t,
+  submitForm,
+  handleProcedureRemove,
 }) => (
   proceduresHook
     && proceduresHook.map((p, index) => (
@@ -29,13 +35,13 @@ const DragNDropList = ({
           <form onSubmit={(e) => submitForm(p, e)} className="handleEdits">
             <Button type="submit" className="editButton" key={index} size="sm">{t('buttonEdit') }</Button>
           </form>
+          <Button className="removeButton" size="sm" variant="danger" onClick={() => handleProcedureRemove(p.id)}>{t('buttonRemove')}</Button>
         </div>
       </h4>
     ))
 );
 
 const ProcedureList = ({ id }) => {
-  /* istanbul ignore next */
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const draggingItem = useRef();
@@ -62,6 +68,20 @@ const ProcedureList = ({ id }) => {
   const submitForm = (p, e) => {
     e.preventDefault();
     handleEditId(p);
+  };
+
+  /* istanbul ignore next */
+  const handleProcedureRemove = (procedureId) => {
+    // eslint-disable-next-line no-alert
+    const confirmBox = window.confirm(t('deleteProcedureUnderCaseConfirmation'));
+    if (confirmBox === true) {
+      try {
+        dispatch(removeProcedureUnderCase(procedureId));
+        setSuccess(t('deleteProcedureUnderCaseSuccess'));
+      } catch (error) {
+        setError(t('deleteProcedureUnderCaseError'));
+      }
+    }
   };
 
   /* istanbul ignore next */
@@ -95,6 +115,7 @@ const ProcedureList = ({ id }) => {
         handleDragEnter={handleDragEnter}
         t={t}
         submitForm={submitForm}
+        handleProcedureRemove={handleProcedureRemove}
       />
       { procedureToEdit ? (
         <EditProcedure procedure={procedureToEdit} caseId={id} />

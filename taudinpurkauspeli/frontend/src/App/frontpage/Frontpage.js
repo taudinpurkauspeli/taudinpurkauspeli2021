@@ -1,5 +1,3 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable array-callback-return */
 import React, { useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import {

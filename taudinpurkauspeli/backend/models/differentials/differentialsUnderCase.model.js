@@ -16,15 +16,6 @@ module.exports = (sequelize, Sequelize) => {
         key: 'id',
       },
     },
-    language: {
-      type: Sequelize.STRING,
-    },
-    isDefault: {
-      type: Sequelize.BOOLEAN,
-    },
-    description: {
-      type: Sequelize.TEXT,
-    },
   }, {
     tableName: 'differentials_under_cases',
   });

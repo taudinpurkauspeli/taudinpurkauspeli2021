@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 import axios from 'axios';
 import { getConfig, getLanguage } from '../../../utils/Helper';
 

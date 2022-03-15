@@ -19,7 +19,6 @@ const casesReducer = (state = [], action) => {
 };
 
 export const initializeCasesAndUser = () => async (dispatch) => {
-  // eslint-disable-next-line no-unused-vars
   const { data, user } = await casesService.getAll();
   dispatch({
     type: 'INITIALIZE_CASES',

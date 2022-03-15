@@ -5,6 +5,8 @@ const middleware = require('../../utils/middleware');
 
 const DifferentialUnderCase = db.differentalsUnderCases;
 const Differentials = db.differentials;
+const PlainDescriptions = db.plainDescriptions;
+const Descriptions = db.descriptions;
 
 // Create differential under case
 differentialsUnderCasesRouter.post('/:language', middleware.checkAdminRights, async (req, res) => {
@@ -13,12 +15,21 @@ differentialsUnderCasesRouter.post('/:language', middleware.checkAdminRights, as
     diffGroupCaseId, differentialId, description,
   } = req.body;
 
+  const savedPlainDescription = await PlainDescriptions.create({});
+
+  const newDescription = {
+    language,
+    isDefault: language === 'fi',
+    description,
+    plainDescriptionId: savedPlainDescription.id,
+  };
+
+  const savedDescription = await Descriptions.create(newDescription);
+
   const duc = {
     differentialGroupsUnderCaseId: diffGroupCaseId,
     plainDifferentialId: differentialId,
-    description,
-    language,
-    isDefault: language === 'fi',
+    plainDescriptionId: savedPlainDescription.id,
   };
 
   const savedDuc = await DifferentialUnderCase.create(duc);
@@ -32,7 +43,7 @@ differentialsUnderCasesRouter.post('/:language', middleware.checkAdminRights, as
   res.send({
     diffGroupCaseId: savedDuc.differentialGroupsUnderCaseId,
     id: response.plainDifferentialId,
-    description: savedDuc.description,
+    description: savedDescription.description,
     name: response.name,
   });
 });
@@ -42,11 +53,12 @@ differentialsUnderCasesRouter.get('/:id/:language', middleware.checkUserRights, 
   const { id, language } = req.params;
 
   const foundDifferentials = await db.sequelize.query(
-    `SELECT duc."differentialGroupsUnderCaseId" AS "diffGroupCaseId", duc."plainDifferentialId" AS id, duc.description, d.name
+    `SELECT duc."differentialGroupsUnderCaseId" AS "diffGroupCaseId", duc."plainDifferentialId" AS id, des.description, d.name
     FROM differential_groups_under_cases AS dguc
     LEFT JOIN differentials_under_cases AS duc ON dguc.id = duc."differentialGroupsUnderCaseId"
     LEFT JOIN differentials AS d ON duc."plainDifferentialId" = d."plainDifferentialId"
-    WHERE dguc."plainCaseId" = ? AND duc.language = ? AND d.language = ?`,
+    LEFT JOIN descriptions AS des ON duc."plainDescriptionId" = des."plainDescriptionId"
+    WHERE dguc."plainCaseId" = ? AND des.language = ? AND d.language = ?`,
     {
       replacements: [id, language, language],
       type: db.sequelize.QueryTypes.SELECT,
@@ -56,17 +68,20 @@ differentialsUnderCasesRouter.get('/:id/:language', middleware.checkUserRights, 
   res.send(foundDifferentials);
 });
 
-// Update differential description
+// Update differential (description, name update coming)
 differentialsUnderCasesRouter.put('/:id/:language', middleware.checkAdminRights, async (req, res) => {
   const { id, language } = req.params;
   const { description } = req.body;
 
-  await DifferentialUnderCase.update({ description }, {
-    where: { plainDifferentialId: id, language },
+  const toBeUpdated = await DifferentialUnderCase.findOne({
+    where: { plainDifferentialId: id },
   });
 
+  await Descriptions.update({ description },
+    { where: { plainDescriptionId: toBeUpdated.plainDescriptionId, language } });
+
   res.send({
-    message: 'Procedure was updated successfully.',
+    message: 'Differential description was updated successfully.',
   });
 });
 

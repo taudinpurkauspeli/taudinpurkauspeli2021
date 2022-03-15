@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
@@ -10,7 +9,6 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import CopyCase from './CopyCase';
-import RemoveCase from './RemoveCase';
 import { setError, setSuccess } from '../../../utils/MessageBanner';
 import ducService from '../../differential/services/differentialsUnderCasesService';
 import pucService from '../../procedure/services/proceduresUnderCaseService';
@@ -80,7 +78,7 @@ const CaseCard = ({ c, admin }) => {
             createDifferentials={createDifferentials}
             createProcedures={createProcedures}
           />
-          <RemoveCase caseToBeRemoved={c} deleteCase={handleCaseRemove} />
+          <Button className="removeButton" size="sm" variant="danger" onClick={handleCaseRemove}>{t('buttonRemove')}</Button>
         </div>
       )}
     </div>

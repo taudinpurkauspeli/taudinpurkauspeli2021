@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 import axios from 'axios';
 import { getConfig, getLanguage } from '../../../utils/Helper';
 
@@ -16,8 +15,11 @@ const create = (newObject) => {
 
 const update = (id, newObject) => axios.put(`${baseUrl}/${id}`, newObject, getConfig());
 
+const remove = (id) => axios.delete(`${baseUrl}/${id}`, getConfig());
+
 export default {
   getAll,
   create,
   update,
+  remove,
 };

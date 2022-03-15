@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 import React from 'react';
 import { Accordion } from 'react-bootstrap';
 import { useSelector } from 'react-redux';

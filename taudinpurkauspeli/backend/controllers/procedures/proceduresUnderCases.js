@@ -6,8 +6,6 @@ const middleware = require('../../utils/middleware');
 const ProcedureUnderCase = db.proceduresUnderCases;
 const Procedure = db.procedures;
 
-const { Op } = db.Sequelize;
-
 // create a new procedure under case
 proceduresUnderCasesRouter.post('/:language', middleware.checkAdminRights, async (req, res) => {
   const { language } = req.params;
@@ -53,18 +51,6 @@ proceduresUnderCasesRouter.get('/:id/:language', middleware.checkUserRights, asy
   res.send(foundProcedures);
 });
 
-// Retrieve all procedures
-proceduresUnderCasesRouter.get('/', middleware.checkUserRights, (req, res, next) => {
-  const { caseId } = req.params;
-  const condition = caseId ? { caseId: { [Op.iLike]: `%${caseId}%` } } : null;
-
-  ProcedureUnderCase.findAll({ where: condition })
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((error) => next(error));
-});
-
 // Update a procedure (by id)
 proceduresUnderCasesRouter.put('/:id', middleware.checkAdminRights, async (req, res) => {
   const { id } = req.params;
@@ -77,6 +63,21 @@ proceduresUnderCasesRouter.put('/:id', middleware.checkAdminRights, async (req, 
   res.send({
     message: 'Procedure was updated successfully.',
   });
+});
+
+// Delete a procedure from case
+proceduresUnderCasesRouter.delete('/:id', middleware.checkAdminRights, async (req, res) => {
+  const { id } = req.params;
+
+  const deletedProcedureUnderCase = await ProcedureUnderCase.destroy({
+    where: { plainProcedureId: id },
+  });
+
+  if (Number(deletedProcedureUnderCase) === 1) {
+    res.status(204).end();
+  } else {
+    res.status(404).end();
+  }
 });
 
 module.exports = proceduresUnderCasesRouter;
