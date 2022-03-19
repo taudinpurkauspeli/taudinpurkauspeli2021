@@ -11,6 +11,7 @@ import Navigationbar from './App/navigation/Navbar';
 import Sidebar from './App/navigation/Sidebar';
 import Routing from './App/navigation/Routing';
 import MessageBanner from './utils/MessageBanner';
+import Footer from './App/navigation/Footer';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ const App = () => {
       <Sidebar />
       <MessageBanner />
       <Routing />
+      <Footer />
     </Router>
   );
 };

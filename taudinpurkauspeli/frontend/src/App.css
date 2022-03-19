@@ -57,6 +57,17 @@ a:hover {
   transform: scale(0.99);
 }
 
+.footer {
+  margin-top: 1rem;
+  padding: 1.5em;
+  background-color: white;
+  bottom: 0;
+  margin-left: 250px;
+  white-space: pre-line;
+  position: fixed;
+  width: calc(100% - 250px);
+}
+
 .tabs {
   color: #d8f3dc !important;
   background-color: #1b4332 !important;
@@ -153,6 +164,14 @@ a:hover {
 .hideCase:hover {
   filter: brightness(85%);
   transform: scale(0.99);
+}
+
+#link:link {
+  color: black;
+}
+
+#link:hover {
+  text-decoration: underline;
 }
 
 .list {
