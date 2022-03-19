@@ -76,5 +76,10 @@
     "react-shallow-renderer": "^16.14.1",
     "redux-devtools-extension": "^2.13.9",
     "redux-mock-store": "^1.5.4"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "react-pdf/dist/esm/entry.webpack": "react-pdf"
+    }
   }
 }
