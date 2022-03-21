@@ -1,15 +1,21 @@
-import React, { useState } from 'react';
+/* eslint-disable import/no-unresolved */
+import React, { useEffect, useState } from 'react';
 import { Document, Page } from 'react-pdf/dist/esm/entry.webpack';
 import { useTranslation } from 'react-i18next';
-import { getLanguage } from '../../utils/Helper';
-
-import tietosuojailmoitusPdf from './Tietosuojailmoitus.pdf';
-import privacyNoticePdf from './PrivacyNotice.pdf';
+import filesService from './filesService';
 
 const PrivacyNotice = () => {
   const { t } = useTranslation();
+  const [pdf, setPdf] = useState(null);
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
+
+  useEffect(async () => {
+    const fetchedPdf = await filesService.getPrivacyNotice();
+    setPdf({
+      data: fetchedPdf,
+    });
+  }, []);
 
   // eslint-disable-next-line no-shadow
   const onDocumentLoadSuccess = ({ numPages }) => {
@@ -28,8 +34,6 @@ const PrivacyNotice = () => {
   const nextPage = () => {
     changePage(1);
   };
-
-  const pdf = getLanguage() === 'en' ? privacyNoticePdf : tietosuojailmoitusPdf;
 
   return (
     <div id="wrapper">

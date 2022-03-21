@@ -8,6 +8,7 @@ const models = require('./models');
 
 const userRouter = require('./controllers/users');
 const caseRouter = require('./controllers/cases');
+const fileRouter = require('./controllers/files');
 const differentialGroupRouter = require('./controllers/differentials/differentialGroups');
 const differentialGroupsUnderCaseRouter = require('./controllers/differentials/differentialGroupsUnderCases');
 const differentialRouter = require('./controllers/differentials/differentials');
@@ -77,6 +78,7 @@ app.use(middleware.extractDecodedToken);
 
 app.use('/api/users', userRouter);
 app.use('/api/cases', caseRouter);
+app.use('/api/files', fileRouter);
 app.use('/api/differentialGroups', differentialGroupRouter);
 app.use('/api/differentialGroupsUnderCases', differentialGroupsUnderCaseRouter);
 app.use('/api/differentials', differentialRouter);
