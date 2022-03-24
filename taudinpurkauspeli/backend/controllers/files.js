@@ -1,19 +1,14 @@
-/* eslint-disable consistent-return */
 const fileRouter = require('express').Router();
-const path = require('path');
-
-// eslint-disable-next-line no-unused-vars
+const config = require('../utils/config');
 const middleware = require('../utils/middleware');
 
-fileRouter.get('/:language', async (req, res) => {
+fileRouter.get('/:language', middleware.checkUserRights, async (req, res) => {
   const { language } = req.params;
-  // eslint-disable-next-line no-unused-vars
 
   const options = {
-    root: path.join(__dirname),
+    root: config.FILEPATH,
   };
 
-  // eslint-disable-next-line no-unused-vars
   const filename = language === 'en' ? 'PrivacyNotice.pdf' : 'Tietosuojailmoitus.pdf';
   res.sendFile(filename, options);
 });
