@@ -11,6 +11,7 @@ const {
   MAIL,
   SECRET,
   ADMINGROUP,
+  FILEPATH,
 } = process.env;
 
 module.exports = {
@@ -32,4 +33,5 @@ module.exports = {
   MAIL,
   SECRET,
   ADMINGROUP,
+  FILEPATH,
 };

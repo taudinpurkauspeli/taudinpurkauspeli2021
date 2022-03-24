@@ -11,6 +11,7 @@ import Users from '../users/Users';
 import Case from '../case/components/Case';
 import Procedure from '../procedure/components/Procedure';
 import FileBank from '../files/FileBank';
+import PrivacyNotice from '../files/PrivacyNotice';
 
 const Routing = () => {
   const admin = useSelector((state) => state.admin);
@@ -34,6 +35,9 @@ const Routing = () => {
       </Route>
       <Route path="/files">
         {admin ? <FileBank /> : <Redirect to="/" />}
+      </Route>
+      <Route path="/privacy">
+        <PrivacyNotice />
       </Route>
       <Route path="/">
         <Frontpage admin={admin} />
