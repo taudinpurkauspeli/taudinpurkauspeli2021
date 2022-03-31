@@ -1,3 +1,4 @@
+import { setError, setSuccess } from '../../../utils/MessageBanner';
 import subProceduresService from '../services/subProceduresService';
 
 const subProceduresReducer = (state = [], action) => {
@@ -25,23 +26,41 @@ export const getSubprocedures = (procedureCaseId) => async (dispatch) => {
   });
 };
 
-export const addSubprocedure = (subProcedureObject, procedureCaseId) => async (dispatch) => {
-  const addedSubprocedure = await subProceduresService.create({
-    ...subProcedureObject,
-    procedureCaseId,
-  });
-  dispatch({
-    type: 'ADD_SUBPROCEDURE',
-    data: addedSubprocedure,
-  });
+export const addSubprocedure = (
+  subProcedureObject, procedureCaseId, successMessage, errorMessage,
+) => async (dispatch) => {
+  try {
+    const addedSubprocedure = await subProceduresService.create({
+      ...subProcedureObject,
+      procedureCaseId,
+    });
+
+    dispatch({
+      type: 'ADD_SUBPROCEDURE',
+      data: addedSubprocedure,
+    });
+
+    setSuccess(successMessage);
+  } catch (error) {
+    setError(errorMessage);
+  }
 };
 
-export const updateSubprocedure = (id, subProcedureObject) => async (dispatch) => {
-  await subProceduresService.update(id, subProcedureObject);
-  dispatch({
-    type: 'UPDATE_SUBPROCEDURE',
-    data: subProcedureObject,
-  });
+export const updateSubprocedure = (
+  id, subProcedureObject, successMessage, errorMessage,
+) => async (dispatch) => {
+  try {
+    await subProceduresService.update(id, subProcedureObject);
+
+    dispatch({
+      type: 'UPDATE_SUBPROCEDURE',
+      data: subProcedureObject,
+    });
+
+    setSuccess(successMessage);
+  } catch (error) {
+    setError(errorMessage);
+  }
 };
 
 export default subProceduresReducer;

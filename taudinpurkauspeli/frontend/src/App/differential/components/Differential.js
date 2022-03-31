@@ -3,7 +3,6 @@ import { Accordion, Card } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import AddUpdateModal from '../../../utils/AddUpdateModal';
-import { setError, setSuccess } from '../../../utils/MessageBanner';
 import { updateDifferentialUnderCase } from '../reducers/differentialsUnderCasesReducer';
 import UpdateDifferentialForm from './UpdateDifferentialForm';
 
@@ -16,15 +15,10 @@ const Differential = ({
 
   const handleDifferentialUpdate = (updatedDifferential) => {
     modalRef.current.toggleVisibility();
-    try {
-      dispatch(updateDifferentialUnderCase({
-        ...d,
-        description: updatedDifferential.description,
-      }));
-      setSuccess(t('differentialUpdateSuccess'));
-    } catch {
-      setError('differentialUpdateError');
-    }
+    dispatch(updateDifferentialUnderCase({
+      ...d,
+      description: updatedDifferential.description,
+    }, t('differentialUpdateSuccess'), t('differentialUpdateError')));
   };
 
   return (

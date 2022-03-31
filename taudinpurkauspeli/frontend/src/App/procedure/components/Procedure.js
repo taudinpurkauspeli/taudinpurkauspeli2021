@@ -10,7 +10,6 @@ import AddUpdateModal from '../../../utils/AddUpdateModal';
 import SubProcedureList from '../../subprocedure/components/SubProcedureList';
 import AddTextSubProcedure from '../../subprocedure/components/textSubProcedure/AddTextSubProcedure';
 import { addSubprocedure } from '../../subprocedure/reducers/subProceduresReducer';
-import { setSuccess, setError } from '../../../utils/MessageBanner';
 import AddInterviewSubProcedure from '../../subprocedure/components/interviewSubProcedure/AddInterviewSubProcedure';
 
 const Procedure = ({ admin }) => {
@@ -29,12 +28,7 @@ const Procedure = ({ admin }) => {
   /* istanbull ignore next */
   const handleSubProcedureAdd = (newSubProcedure) => {
     modalRef.current.toggleVisibility();
-    try {
-      dispatch(addSubprocedure(newSubProcedure, Number(id)));
-      setSuccess(t('subProcedureUpdateSuccess'));
-    } catch (error) {
-      setError(t('subProcedureUpdateError'));
-    }
+    dispatch(addSubprocedure(newSubProcedure, Number(id), t('subProcedureAddSuccess'), t('subProcedureAddError')));
   };
 
   return (

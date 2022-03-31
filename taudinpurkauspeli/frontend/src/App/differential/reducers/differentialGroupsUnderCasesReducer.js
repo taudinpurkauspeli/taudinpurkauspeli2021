@@ -1,3 +1,4 @@
+import { setError, setSuccess } from '../../../utils/MessageBanner';
 import differentialGroupsUnderCasesService from '../services/differentialGroupsUnderCasesService';
 
 const differentialGroupsUnderCasesReducer = (state = [], action) => {
@@ -19,12 +20,21 @@ export const getDifferentialGroupsUnderCase = (id) => async (dispatch) => {
   });
 };
 
-export const createDifferentialGroupUnderCase = (content) => async (dispatch) => {
-  const newDifferentialGroupUnderCase = await differentialGroupsUnderCasesService.create(content);
-  dispatch({
-    type: 'NEW_DIFFERENTIALGROUP_UNDER_CASE',
-    data: newDifferentialGroupUnderCase,
-  });
+export const createDifferentialGroupUnderCase = (
+  content, successMessage, errorMessage,
+) => async (dispatch) => {
+  try {
+    const newDifferentialGroupUnderCase = await differentialGroupsUnderCasesService.create(content);
+
+    dispatch({
+      type: 'NEW_DIFFERENTIALGROUP_UNDER_CASE',
+      data: newDifferentialGroupUnderCase,
+    });
+
+    setSuccess(successMessage);
+  } catch (error) {
+    setError(errorMessage);
+  }
 };
 
 export default differentialGroupsUnderCasesReducer;

@@ -6,7 +6,6 @@ import {
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { setSuccess, setError } from '../../utils/MessageBanner';
 import { createCase } from '../case/casesReducer';
 
 import NewCaseForm from '../case/components/NewCaseForm';
@@ -24,14 +23,7 @@ const Frontpage = ({ admin }) => {
   /* istanbul ignore next */
   const handleCaseAdd = (newCase) => {
     modalRef.current.toggleVisibility();
-    try {
-      dispatch(createCase(newCase));
-      setSuccess(t('caseAddSuccess'));
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log(error);
-      setError(t('caseAddError'));
-    }
+    dispatch(createCase(newCase, t('caseAddSuccess'), t('caseAddError')));
   };
 
   const searchCases = (event) => {

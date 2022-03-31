@@ -9,7 +9,6 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import CopyCase from './CopyCase';
-import { setError, setSuccess } from '../../../utils/MessageBanner';
 import ducService from '../../differential/services/differentialsUnderCasesService';
 import pucService from '../../procedure/services/proceduresUnderCaseService';
 import { removeCase } from '../casesReducer';
@@ -49,12 +48,7 @@ const CaseCard = ({ c, admin }) => {
     // eslint-disable-next-line no-alert
     const confirmBox = window.confirm(t('deleteCaseConfirmation'));
     if (confirmBox === true) {
-      try {
-        dispatch(removeCase(c.id));
-        setSuccess(t('deleteCaseSuccess'));
-      } catch (error) {
-        setError(t('deleteCaseError'));
-      }
+      dispatch(removeCase(c.id, t('deleteCaseSuccess'), t('deleteCaseError')));
     }
   };
 

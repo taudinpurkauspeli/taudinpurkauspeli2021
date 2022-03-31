@@ -6,7 +6,6 @@ import DifferentialList from '../DifferentialList';
 import AddDifferentialForm from '../AddDifferentialForm';
 import AddUpdateModal from '../../../../utils/AddUpdateModal';
 import { createDifferential } from '../../reducers/differentialsReducer';
-import { setSuccess, setError } from '../../../../utils/MessageBanner';
 
 const DifferentialGroup = ({
   diffGroupCaseId, name, admin,
@@ -18,14 +17,7 @@ const DifferentialGroup = ({
   /* istanbul ignore next */
   const handleDifferentialAdd = (differentialObject) => {
     modalRef.current.toggleVisibility();
-    try {
-      dispatch(createDifferential(diffGroupCaseId, differentialObject));
-      setSuccess(t('differentialAddSuccess'));
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log(error);
-      setError(t('differentialAddError'));
-    }
+    dispatch(createDifferential(diffGroupCaseId, differentialObject, t('differentialAddSuccess'), t('differentialAddError')));
   };
 
   return (

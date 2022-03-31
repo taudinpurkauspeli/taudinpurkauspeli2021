@@ -20,7 +20,9 @@ export const getDifferentials = () => async (dispatch) => {
   });
 };
 
-export const createDifferential = (diffGroupCaseId, differential) => async (dispatch) => {
+export const createDifferential = (
+  diffGroupCaseId, differential, successMessage, errorMessage,
+) => async (dispatch) => {
   let { id } = differential;
 
   if (id === undefined) {
@@ -38,7 +40,7 @@ export const createDifferential = (diffGroupCaseId, differential) => async (disp
     diffGroupCaseId,
     differentialId: id,
     description: differential.description,
-  }));
+  }, successMessage, errorMessage));
 };
 
 export default differentialsReducer;

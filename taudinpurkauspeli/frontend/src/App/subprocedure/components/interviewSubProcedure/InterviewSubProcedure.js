@@ -5,7 +5,6 @@ import { useDispatch } from 'react-redux';
 import AddUpdateModal from '../../../../utils/AddUpdateModal';
 import AddOptionGroupForm from '../option/optionGroup/AddOptionGroupForm';
 import { createOptionGroup } from '../../reducers/optionGroupsReducer';
-import { setSuccess, setError } from '../../../../utils/MessageBanner';
 import OptionGroupList from '../option/optionGroup/OptionGroupList';
 
 const InterviewSubProcedure = ({ d, admin }) => {
@@ -16,12 +15,7 @@ const InterviewSubProcedure = ({ d, admin }) => {
   /* istanbul ignore next */
   const handleOptionGroupAdd = (optionGroup) => {
     modalRef.current.toggleVisibility();
-    try {
-      dispatch(createOptionGroup(d.id, optionGroup));
-      setSuccess(t('optionGroupAddSuccess'));
-    } catch (error) {
-      setError(t('optionGroupAddError'));
-    }
+    dispatch(createOptionGroup(d.id, optionGroup, t('optionGroupAddSuccess'), t('optionGroupAddError')));
   };
 
   return (

@@ -14,13 +14,16 @@ const optionGroupsReducer = (state = [], action) => {
 
 export const getOptionGroups = () => async (dispatch) => {
   const returnedOptionGroups = await optionGroupsService.getAll();
+
   dispatch({
     type: 'GET_OPTIONGROUPS',
     data: returnedOptionGroups || null,
   });
 };
 
-export const createOptionGroup = (subProcedureId, optionGroup) => async (dispatch) => {
+export const createOptionGroup = (
+  subProcedureId, optionGroup, successMessage, errorMessage,
+) => async (dispatch) => {
   let { id } = optionGroup;
 
   if (id === undefined) {
@@ -37,7 +40,7 @@ export const createOptionGroup = (subProcedureId, optionGroup) => async (dispatc
   dispatch(createOptionGroupUnderSubProcedure({
     subProcedureId,
     optionGroupId: id,
-  }));
+  }, successMessage, errorMessage));
 };
 
 export default optionGroupsReducer;

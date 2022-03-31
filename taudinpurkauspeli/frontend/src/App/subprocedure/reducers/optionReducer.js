@@ -20,7 +20,9 @@ export const getOptions = () => async (dispatch) => {
   });
 };
 
-export const createOption = (optionGroupSubProcedureId, content) => async (dispatch) => {
+export const createOption = (
+  optionGroupSubProcedureId, content, successMessage, errorMessage,
+) => async (dispatch) => {
   let { id } = content;
 
   if (id === undefined) {
@@ -39,7 +41,7 @@ export const createOption = (optionGroupSubProcedureId, content) => async (dispa
     optionId: id,
     description: content.description,
     isRequired: content.isRequired,
-  }));
+  }, successMessage, errorMessage));
 };
 
 export default optionsReducer;

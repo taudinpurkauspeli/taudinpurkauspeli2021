@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import HideCase from '../case/components/HideCase';
 import UpdateCaseTitle from '../case/components/UpdateCaseTitle';
-import { setSuccess, setError } from '../../utils/MessageBanner';
 import UpdateAnamnesis from './UpdateAnamnesis';
 import { updateCase } from '../case/casesReducer';
 
@@ -17,14 +16,7 @@ const Anamnesis = ({ admin }) => {
 
   /* istanbul ignore next */
   const handleCaseUpdate = (updatedCase) => {
-    try {
-      dispatch(updateCase(updatedCase));
-      setSuccess(t('caseUpdateSuccess'));
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log(error);
-      setError(t('caseUpdateError'));
-    }
+    dispatch(updateCase(updatedCase, t('caseUpdateSuccess'), t('caseUpdateError')));
   };
 
   return (
