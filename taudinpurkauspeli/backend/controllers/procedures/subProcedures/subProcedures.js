@@ -8,24 +8,57 @@ const PlainSubProcedure = db.plainSubProcedures;
 const TextSubProcedure = db.textSubProcedures;
 const PlainTextSubProcedure = db.plainTextSubProcedures;
 const SubProcedureType = db.subProcedureTypes;
+const PlainConclusionSubProcedure = db.plainConclusionSubProcedures;
+const ConclusionSubProcedure = db.conclusionSubProcedures;
+const Differential = db.differentials;
 
 const saveTextSubProcedure = async (id, content, language) => {
-  const savedPlainTsp = await PlainTextSubProcedure
+  const savedPlainTSP = await PlainTextSubProcedure
     .create({
       plainSubProcedureId: id,
     });
 
   const textSubProcedure = {
-    plainTextSubProcedureId: savedPlainTsp.id,
+    plainTextSubProcedureId: savedPlainTSP.id,
     language,
     isDefault: language === 'fi',
     text: content.text,
   };
 
-  const savedTsp = await TextSubProcedure.create(textSubProcedure);
+  const savedTSP = await TextSubProcedure.create(textSubProcedure);
 
   return ({
-    text: savedTsp.text,
+    text: savedTSP.text,
+  });
+};
+
+const saveConclusionSubProcedure = async (id, content, language) => {
+  const savedPlainCSP = await PlainConclusionSubProcedure
+    .create({
+      plainSubProcedureId: id,
+      plainDifferentialId: content.differentialId,
+    });
+
+  const conclusionSubProcedure = {
+    plainConclusionSubProcedureId: savedPlainCSP.id,
+    language,
+    isDefault: language === 'fi',
+    text: content.text,
+  };
+
+  const savedCSP = await ConclusionSubProcedure.create(conclusionSubProcedure);
+  const diagnosis = await Differential.findOne({
+    where: {
+      plainDifferentialId: savedPlainCSP.plainDifferentialId,
+    },
+    attributes: [
+      'name',
+    ],
+  });
+
+  return ({
+    text: savedCSP.text,
+    diagnosis,
   });
 };
 
@@ -72,6 +105,10 @@ subProceduresRouter.post('/:language', middleware.checkAdminRights, async (req, 
     savedTypedSubProcedure = await saveTextSubProcedure(id, content, language);
   }
 
+  if (content.type === 'CONCLUSION') {
+    savedTypedSubProcedure = await saveConclusionSubProcedure(id, content, language);
+  }
+
   res.json({
     id: savedSubProcedure.plainSubProcedureId,
     procedureCaseId: content.procedureCaseId,
@@ -82,7 +119,7 @@ subProceduresRouter.post('/:language', middleware.checkAdminRights, async (req, 
   });
 });
 
-// Retrieve all textsubprocedures
+// Retrieve all subprocedures
 subProceduresRouter.get('/:id/:language', middleware.checkUserRights, async (req, res) => {
   const { id, language } = req.params;
 
@@ -91,6 +128,14 @@ subProceduresRouter.get('/:id/:language', middleware.checkUserRights, async (req
       SELECT tsp.text FROM plain_text_sub_procedures AS pspt
       LEFT JOIN text_sub_procedures AS tsp ON tsp."plainTextSubProcedureId" = pspt.id
       WHERE pspt."plainSubProcedureId" = psp.id AND tsp.language = ?
+    ), (
+      SELECT csp.text FROM plain_conclusion_sub_procedures AS pcsp
+      LEFT JOIN conclusion_sub_procedures AS csp ON csp."plainConclusionSubProcedureId" = pcsp.id
+      WHERE pcsp."plainSubProcedureId" = psp.id AND csp.language = ?
+    ), (
+      SELECT d.name FROM plain_conclusion_sub_procedures AS pcsp
+      LEFT JOIN differentials AS d ON pcsp."plainDifferentialId" = d."plainDifferentialId"
+      WHERE pcsp."plainSubProcedureId" = psp.id AND d.language = ?
     )
         FROM procedures_under_cases AS puc
         LEFT JOIN plain_sub_procedures AS psp ON psp."proceduresUnderCaseId" = puc.id
@@ -98,7 +143,7 @@ subProceduresRouter.get('/:id/:language', middleware.checkUserRights, async (req
         LEFT JOIN sub_procedures AS sp ON sp."plainSubProcedureId" = psp.id
         WHERE puc."plainCaseId" = ? AND sp.language = ?`,
     {
-      replacements: [language, id, language],
+      replacements: [language, language, language, id, language],
       type: db.sequelize.QueryTypes.SELECT,
     },
   );

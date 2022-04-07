@@ -19,6 +19,10 @@ beforeEach(async () => {
   await db.subProcedures.bulkCreate(helper.initialSubProcedures);
   await db.plainTextSubProcedures.bulkCreate(helper.plainTextSubProcedures);
   await db.textSubProcedures.bulkCreate(helper.initialTextSubProcedures);
+  await db.plainDifferentials.bulkCreate([{}, {}]);
+  await db.differentials.bulkCreate(helper.initialDifferentials);
+  await db.plainConclusionSubProcedures.bulkCreate(helper.plainConclusionSubProcedures);
+  await db.conclusionSubProcedures.bulkCreate(helper.initialConclusionSubProcedures);
 });
 
 describe('Getting subprocedures from database', () => {
@@ -105,6 +109,29 @@ describe('Adding a subprocedure to database', () => {
     expect(titles).toContain('newQuestion');
   });
 
+  test('a valid conclusion subprocedure can be added', async () => {
+    const newSubProcedure = {
+      type: 'CONCLUSION',
+      priority: 1,
+      procedureCaseId: 1,
+      differentialId: 1,
+      title: 'newConclusion',
+      text: 'selvitit casen!',
+    };
+
+    await api
+      .post('/api/subProcedures/fi')
+      .send(newSubProcedure)
+      .expect(200)
+      .expect('Content-Type', /application\/json/);
+
+    const response = await api.get('/api/subProcedures/1/fi');
+    const titles = response.body.map((r) => r.title);
+
+    expect(response.body).toHaveLength(helper.initialSubProcedures.length + 1);
+    expect(titles).toContain('newConclusion');
+  });
+
   test('text subprocedure without title is not added', async () => {
     const newTextSubProcedure = {
       type: 'TEXT',
@@ -119,7 +146,7 @@ describe('Adding a subprocedure to database', () => {
 
     const response = await api.get('/api/subProcedures/1/fi');
 
-    expect(response.body).toHaveLength(helper.initialTextSubProcedures.length);
+    expect(response.body).toHaveLength(helper.initialSubProcedures.length);
   });
 
   test('subprocedure without priority is not added', async () => {
