@@ -87,6 +87,17 @@ describe('Updating case-diff-pairs', () => {
   });
 });
 
+describe('Deleting case-diff-pairs from database', () => {
+  test('Differential can be deleted from case', async () => {
+    await api
+      .del('/api/differentialsUnderCases/1/1')
+      .expect(204);
+
+    const returnedDifferentials = await api.get('/api/differentialsUnderCases/1/fi');
+    expect(returnedDifferentials.body).toHaveLength(helper.initialProceduresUnderCases.length - 1);
+  });
+});
+
 afterAll(async () => {
   await db.sequelize.close();
 });

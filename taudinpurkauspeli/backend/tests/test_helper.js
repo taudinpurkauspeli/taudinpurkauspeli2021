@@ -36,7 +36,7 @@ const plainConclusionSubProcedures = [
     plainSubProcedureId: 3,
     plainDifferentialId: 1,
   },
-]
+];
 
 const plainSubProcedures = [
   {
@@ -53,7 +53,7 @@ const plainSubProcedures = [
     subProcedureTypeId: 4,
     proceduresUnderCaseId: 1,
     priority: 3,
-  }
+  },
 ];
 
 const initialDifferentials = [
@@ -216,7 +216,7 @@ const initialSubProcedures = [
     language: 'fi',
     isDefault: true,
     plainSubProcedureId: 3,
-  }
+  },
 ];
 
 const initialProceduresUnderCases = [
