@@ -4,13 +4,14 @@ import {
   useParams,
 } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import AddUpdateModal from '../../../utils/AddUpdateModal';
 import SubProcedureList from '../../subprocedure/components/SubProcedureList';
 import AddTextSubProcedure from '../../subprocedure/components/textSubProcedure/AddTextSubProcedure';
 import { addSubprocedure } from '../../subprocedure/reducers/subProceduresReducer';
 import AddInterviewSubProcedure from '../../subprocedure/components/interviewSubProcedure/AddInterviewSubProcedure';
+import AddConclusionSubProcedureForm from '../../subprocedure/components/conclusionSubProcedure/AddConclusionSubProcedureForm';
 
 const Procedure = ({ admin }) => {
   const { t } = useTranslation();
@@ -18,6 +19,11 @@ const Procedure = ({ admin }) => {
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const modalRef = useRef();
+
+  const caseSubProcedures = useSelector((state) => state.subProcedures);
+  const listedProcedures = caseSubProcedures
+    .filter((p) => p.procedureCaseId === Number(id))
+    .sort((a, b) => a.priority - b.priority);
 
   const showWhenVisible = { display: show ? '' : 'none' };
 
@@ -49,9 +55,11 @@ const Procedure = ({ admin }) => {
             <AddUpdateModal buttonLabel={t('buttonAddNewInterview')} titleLabel={t('addInterviewSubProcedure')} ref={modalRef}>
               <AddInterviewSubProcedure addSubProcedure={handleSubProcedureAdd} />
             </AddUpdateModal>
-            <Button className="addButton diagnosis" size="sm">{t('buttonAddFinalDiagnosis')}</Button>
+            <AddUpdateModal disabled={caseSubProcedures.some((p) => p.type === 'CONCLUSION')} buttonLabel={t('buttonAddFinalDiagnosis')} titleLabel={t('addConclusionSubProcedure')} ref={modalRef}>
+              <AddConclusionSubProcedureForm addSubProcedure={handleSubProcedureAdd} />
+            </AddUpdateModal>
           </div>
-          <SubProcedureList procedureCaseId={id} admin={admin} />
+          <SubProcedureList listedProcedures={listedProcedures} admin={admin} />
         </div>
       )}
     </div>
