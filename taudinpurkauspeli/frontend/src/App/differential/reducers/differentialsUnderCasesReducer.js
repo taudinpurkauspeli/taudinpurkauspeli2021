@@ -12,6 +12,8 @@ const differentialsUnderCasesReducer = (state = [], action) => {
         ? p
         : action.data
       ));
+    case 'REMOVE_DIFFERENTIAL_UNDER_CASE':
+      return state.filter((p) => p.id !== action.data);
     default:
       return state;
   }
@@ -51,6 +53,23 @@ export const updateDifferentialUnderCase = (
     dispatch({
       type: 'UPDATE_DIFFERENTIALUNDERCASE',
       data: content,
+    });
+
+    setSuccess(successMessage);
+  } catch (error) {
+    setError(errorMessage);
+  }
+};
+
+export const removeDifferentialUnderCase = (
+  diffGroupCaseId, differentialId, successMessage, errorMessage,
+) => async (dispatch) => {
+  try {
+    await differentialsUnderCasesService.remove(diffGroupCaseId, differentialId);
+
+    dispatch({
+      type: 'REMOVE_DIFFERENTIAL_UNDER_CASE',
+      data: differentialId,
     });
 
     setSuccess(successMessage);
