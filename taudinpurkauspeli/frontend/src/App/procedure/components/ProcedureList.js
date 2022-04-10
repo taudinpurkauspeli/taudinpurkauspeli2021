@@ -6,7 +6,6 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { updateProcedurePriorities, removeProcedureUnderCase } from '../reducers/proceduresUnderCasesReducer';
 import EditProcedure from './EditProcedure';
-import { setSuccess, setError } from '../../../utils/MessageBanner';
 
 const DragNDropList = ({
   proceduresHook,
@@ -75,12 +74,7 @@ const ProcedureList = ({ id }) => {
     // eslint-disable-next-line no-alert
     const confirmBox = window.confirm(t('deleteProcedureUnderCaseConfirmation'));
     if (confirmBox === true) {
-      try {
-        dispatch(removeProcedureUnderCase(procedureId));
-        setSuccess(t('deleteProcedureUnderCaseSuccess'));
-      } catch (error) {
-        setError(t('deleteProcedureUnderCaseError'));
-      }
+      dispatch(removeProcedureUnderCase(procedureId, t('deleteProcedureUnderCaseSuccess'), t('deleteProcedureUnderCaseError')));
     }
   };
 

@@ -1,3 +1,4 @@
+import { setError, setSuccess } from '../../../utils/MessageBanner';
 import proceduresUnderCasesService from '../services/proceduresUnderCaseService';
 
 const proceduresReducer = (state = [], action) => {
@@ -25,20 +26,38 @@ export const getProceduresUnderCase = (caseId) => async (dispatch) => {
   });
 };
 
-export const createProcedureUnderCase = (content) => async (dispatch) => {
-  const newProcedureUnderCase = await proceduresUnderCasesService.create(content);
-  dispatch({
-    type: 'NEW_PROCEDURE_UNDER_CASE',
-    data: newProcedureUnderCase,
-  });
+export const createProcedureUnderCase = (
+  content, successMessage, errorMessage,
+) => async (dispatch) => {
+  try {
+    const newProcedureUnderCase = await proceduresUnderCasesService.create(content);
+
+    dispatch({
+      type: 'NEW_PROCEDURE_UNDER_CASE',
+      data: newProcedureUnderCase,
+    });
+
+    setSuccess(successMessage);
+  } catch (error) {
+    setError(errorMessage);
+  }
 };
 
-export const updateProcedurePriority = (procedure) => async (dispatch) => {
-  await proceduresUnderCasesService.update(procedure.procedureCaseId, procedure);
-  dispatch({
-    type: 'UPDATE_PROCEDURE',
-    data: procedure,
-  });
+export const updateProcedurePriority = (
+  procedure, successMessage, errorMessage,
+) => async (dispatch) => {
+  try {
+    await proceduresUnderCasesService.update(procedure.procedureCaseId, procedure);
+
+    dispatch({
+      type: 'UPDATE_PROCEDURE',
+      data: procedure,
+    });
+
+    setSuccess(successMessage);
+  } catch (error) {
+    setError(errorMessage);
+  }
 };
 
 export const updateProcedurePriorities = (caseId, procedures) => async (dispatch) => {
@@ -50,12 +69,21 @@ export const updateProcedurePriorities = (caseId, procedures) => async (dispatch
   dispatch(getProceduresUnderCase(caseId));
 };
 
-export const removeProcedureUnderCase = (procedureId) => async (dispatch) => {
-  await proceduresUnderCasesService.remove(procedureId);
-  dispatch({
-    type: 'REMOVE_PROCEDURE_UNDER_CASE',
-    data: procedureId,
-  });
+export const removeProcedureUnderCase = (
+  procedureId, successMessage, errorMessage,
+) => async (dispatch) => {
+  try {
+    await proceduresUnderCasesService.remove(procedureId);
+
+    dispatch({
+      type: 'REMOVE_PROCEDURE_UNDER_CASE',
+      data: procedureId,
+    });
+
+    setSuccess(successMessage);
+  } catch (error) {
+    setError(errorMessage);
+  }
 };
 
 export default proceduresReducer;

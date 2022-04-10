@@ -8,6 +8,9 @@ const subProcedureTypes = [
   {
     type: 'INTERVIEW',
   },
+  {
+    type: 'CONCLUSION',
+  },
 ];
 
 const plainCases = [
@@ -28,6 +31,13 @@ const plainTextSubProcedures = [
   },
 ];
 
+const plainConclusionSubProcedures = [
+  {
+    plainSubProcedureId: 3,
+    plainDifferentialId: 1,
+  },
+];
+
 const plainSubProcedures = [
   {
     subProcedureTypeId: 1,
@@ -38,6 +48,11 @@ const plainSubProcedures = [
     subProcedureTypeId: 1,
     proceduresUnderCaseId: 1,
     priority: 2,
+  },
+  {
+    subProcedureTypeId: 4,
+    proceduresUnderCaseId: 1,
+    priority: 3,
   },
 ];
 
@@ -196,6 +211,12 @@ const initialSubProcedures = [
     isDefault: true,
     plainSubProcedureId: 2,
   },
+  {
+    title: 'TestiDiagnoosi',
+    language: 'fi',
+    isDefault: true,
+    plainSubProcedureId: 3,
+  },
 ];
 
 const initialProceduresUnderCases = [
@@ -221,6 +242,15 @@ const initialTextSubProcedures = [
   {
     plainTextSubProcedureId: 2,
     text: 'TestiTeksti2',
+    language: 'fi',
+    isDefault: true,
+  },
+];
+
+const initialConclusionSubProcedures = [
+  {
+    plainConclusionSubProcedureId: 1,
+    text: 'Suoritettu',
     language: 'fi',
     isDefault: true,
   },
@@ -347,6 +377,7 @@ module.exports = {
   plainCases,
   plainTextSubProcedures,
   plainSubProcedures,
+  plainConclusionSubProcedures,
   initialDifferentials,
   initialEnglishDifferentials,
   initialCases,
@@ -369,4 +400,5 @@ module.exports = {
   initialDescriptions,
   initialOptionsUnderSubProcedures,
   initialQuestionOptionsUnderSubProcedures,
+  initialConclusionSubProcedures,
 };

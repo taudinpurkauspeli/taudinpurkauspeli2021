@@ -1,4 +1,5 @@
 import differentialsUnderCasesService from '../services/differentialsUnderCasesService';
+import { setSuccess, setError } from '../../../utils/MessageBanner';
 
 const differentialsUnderCasesReducer = (state = [], action) => {
   switch (action.type) {
@@ -11,6 +12,8 @@ const differentialsUnderCasesReducer = (state = [], action) => {
         ? p
         : action.data
       ));
+    case 'REMOVE_DIFFERENTIAL_UNDER_CASE':
+      return state.filter((p) => p.id !== action.data);
     default:
       return state;
   }
@@ -24,20 +27,55 @@ export const getDifferentialsUnderCase = (id) => async (dispatch) => {
   });
 };
 
-export const createDifferentialUnderCase = (content) => async (dispatch) => {
-  const newDifferentialUnderCase = await differentialsUnderCasesService.create(content);
-  dispatch({
-    type: 'NEW_DIFFERENTIALUNDERCASE',
-    data: newDifferentialUnderCase,
-  });
+export const createDifferentialUnderCase = (
+  content, successMessage, errorMessage,
+) => async (dispatch) => {
+  try {
+    const newDifferentialUnderCase = await differentialsUnderCasesService.create(content);
+
+    dispatch({
+      type: 'NEW_DIFFERENTIALUNDERCASE',
+      data: newDifferentialUnderCase,
+    });
+
+    setSuccess(successMessage);
+  } catch (error) {
+    setError(errorMessage);
+  }
 };
 
-export const updateDifferentialUnderCase = (content) => async (dispatch) => {
-  await differentialsUnderCasesService.update(content.id, content);
-  dispatch({
-    type: 'UPDATE_DIFFERENTIALUNDERCASE',
-    data: content,
-  });
+export const updateDifferentialUnderCase = (
+  content, successMessage, errorMessage,
+) => async (dispatch) => {
+  try {
+    await differentialsUnderCasesService.update(content.id, content);
+
+    dispatch({
+      type: 'UPDATE_DIFFERENTIALUNDERCASE',
+      data: content,
+    });
+
+    setSuccess(successMessage);
+  } catch (error) {
+    setError(errorMessage);
+  }
+};
+
+export const removeDifferentialUnderCase = (
+  diffGroupCaseId, differentialId, successMessage, errorMessage,
+) => async (dispatch) => {
+  try {
+    await differentialsUnderCasesService.remove(diffGroupCaseId, differentialId);
+
+    dispatch({
+      type: 'REMOVE_DIFFERENTIAL_UNDER_CASE',
+      data: differentialId,
+    });
+
+    setSuccess(successMessage);
+  } catch (error) {
+    setError(errorMessage);
+  }
 };
 
 export default differentialsUnderCasesReducer;

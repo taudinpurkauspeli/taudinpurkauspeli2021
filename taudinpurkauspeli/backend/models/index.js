@@ -50,6 +50,8 @@ db.optionGroupsUnderSubProcedures = require('./procedures/subProcedures/optionGr
 db.options = require('./procedures/subProcedures/option.model')(sequelize, Sequelize);
 db.optionsUnderSubProcedures = require('./procedures/subProcedures/optionsUnderSubProcedure.model')(sequelize, Sequelize);
 db.questionOptionsUnderSubProcedures = require('./procedures/subProcedures/questionOptionsUnderSubProcedure.model')(sequelize, Sequelize);
+db.plainConclusionSubProcedures = require('./procedures/subProcedures/plainConclusionSubProcedure.model')(sequelize, Sequelize);
+db.conclusionSubProcedures = require('./procedures/subProcedures/conclusionSubProcedure.model')(sequelize, Sequelize);
 
 db.plainCases.hasMany(db.cases);
 db.cases.belongsTo(db.plainCases, {
@@ -180,6 +182,24 @@ db.plainOptions.belongsToMany(db.plainSubProcedures, {
 db.plainDescriptions.hasMany(db.questionOptionsUnderSubProcedures);
 db.questionOptionsUnderSubProcedures.belongsTo(db.plainDescriptions, {
   foreignKey: 'plainDescriptionId',
+  constraints: false,
+});
+
+db.plainConclusionSubProcedures.hasMany(db.conclusionSubProcedures);
+db.conclusionSubProcedures.belongsTo(db.plainConclusionSubProcedures, {
+  foreignKey: 'plainConclusionSubProcedureId',
+  constraints: false,
+});
+
+db.plainSubProcedures.hasMany(db.plainConclusionSubProcedures);
+db.plainConclusionSubProcedures.belongsTo(db.plainSubProcedures, {
+  foreignKey: 'plainSubProcedureId',
+  constraints: false,
+});
+
+db.plainDifferentials.hasMany(db.plainConclusionSubProcedures);
+db.plainConclusionSubProcedures.belongsTo(db.plainDifferentials, {
+  foreignKey: 'plainDifferentialId',
   constraints: false,
 });
 

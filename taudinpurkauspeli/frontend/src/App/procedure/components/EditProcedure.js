@@ -40,7 +40,7 @@ const EditProcedure = ({ procedure, caseId, editProcedureFunc }) => {
     if (editProcedureFunc != null) {
       editProcedureFunc(procedureToBeUpdated);
     }
-    dispatch(updateProcedure(procedureToBeUpdated));
+    dispatch(updateProcedure(procedureToBeUpdated, t('procedureUpdateSuccess'), t('procedureUpdateError')));
   };
 
   return (

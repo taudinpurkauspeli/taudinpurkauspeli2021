@@ -20,7 +20,9 @@ export const getDifferentialGroups = () => async (dispatch) => {
   });
 };
 
-export const createDifferentialGroup = (caseId, differentialGroup) => async (dispatch) => {
+export const createDifferentialGroup = (
+  caseId, differentialGroup, successMessage, errorMessage,
+) => async (dispatch) => {
   let { id } = differentialGroup;
 
   if (id === undefined) {
@@ -37,7 +39,7 @@ export const createDifferentialGroup = (caseId, differentialGroup) => async (dis
   dispatch(createDifferentialGroupUnderCase({
     caseId,
     differentialGroupId: id,
-  }));
+  }, successMessage, errorMessage));
 };
 
 export default differentialGroupsReducer;

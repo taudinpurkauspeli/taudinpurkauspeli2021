@@ -48,6 +48,12 @@ const fixtures = [
       type: 'INTERVIEW',
     },
   },
+  {
+    model: 'subProcedureTypes',
+    data: {
+      type: 'CONCLUSION',
+    },
+  },
 ];
 
 db.sequelize

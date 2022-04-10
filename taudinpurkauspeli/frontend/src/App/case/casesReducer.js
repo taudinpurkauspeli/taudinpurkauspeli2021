@@ -1,5 +1,6 @@
 import casesService from './casesService';
 import { setToken } from '../../utils/Helper';
+import { setError, setSuccess } from '../../utils/MessageBanner';
 
 const casesReducer = (state = [], action) => {
   switch (action.type) {
@@ -32,28 +33,49 @@ export const initializeCasesAndUser = () => async (dispatch) => {
   });
 };
 
-export const createCase = (content) => async (dispatch) => {
-  const newCase = await casesService.create(content);
-  dispatch({
-    type: 'NEW_CASE',
-    data: newCase,
-  });
+export const createCase = (content, successMessage, errorMessage) => async (dispatch) => {
+  try {
+    const newCase = await casesService.create(content);
+
+    dispatch({
+      type: 'NEW_CASE',
+      data: newCase,
+    });
+
+    setSuccess(successMessage);
+  } catch (error) {
+    setError(errorMessage);
+  }
 };
 
-export const removeCase = (id) => async (dispatch) => {
-  await casesService.remove(id);
-  dispatch({
-    type: 'REMOVE_CASE',
-    data: id,
-  });
+export const removeCase = (id, successMessage, errorMessage) => async (dispatch) => {
+  try {
+    await casesService.remove(id);
+
+    dispatch({
+      type: 'REMOVE_CASE',
+      data: id,
+    });
+
+    setSuccess(successMessage);
+  } catch (error) {
+    setError(errorMessage);
+  }
 };
 
-export const updateCase = (content) => async (dispatch) => {
-  await casesService.update(content);
-  dispatch({
-    type: 'UPDATE_CASE',
-    data: content,
-  });
+export const updateCase = (content, successMessage, errorMessage) => async (dispatch) => {
+  try {
+    await casesService.update(content);
+
+    dispatch({
+      type: 'UPDATE_CASE',
+      data: content,
+    });
+
+    setSuccess(successMessage);
+  } catch (error) {
+    setError(errorMessage);
+  }
 };
 
 export default casesReducer;

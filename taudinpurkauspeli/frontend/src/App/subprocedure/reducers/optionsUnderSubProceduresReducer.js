@@ -1,3 +1,4 @@
+import { setError, setSuccess } from '../../../utils/MessageBanner';
 import service from '../services/optionsUnderSubProceduresService';
 
 const optionsUnderSubProceduresReducer = (state = [], action) => {
@@ -19,12 +20,21 @@ export const getOptionsUnderSubProcedures = (id) => async (dispatch) => {
   });
 };
 
-export const createOptionUnderSubProcedure = (content) => async (dispatch) => {
-  const newOption = await service.create(content);
-  dispatch({
-    type: 'NEW_OPTION_UNDER_SUBPROCEDURE',
-    data: newOption,
-  });
+export const createOptionUnderSubProcedure = (
+  content, successMessage, errorMessage,
+) => async (dispatch) => {
+  try {
+    const newOption = await service.create(content);
+
+    dispatch({
+      type: 'NEW_OPTION_UNDER_SUBPROCEDURE',
+      data: newOption,
+    });
+
+    setSuccess(successMessage);
+  } catch (error) {
+    setError(errorMessage);
+  }
 };
 
 export default optionsUnderSubProceduresReducer;

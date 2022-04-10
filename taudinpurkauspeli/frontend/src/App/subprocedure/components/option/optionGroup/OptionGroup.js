@@ -6,7 +6,6 @@ import OptionList from '../OptionList';
 import AddOptionForm from '../AddOptionForm';
 import AddUpdateModal from '../../../../../utils/AddUpdateModal';
 import { createOption } from '../../../reducers/optionReducer';
-import { setSuccess, setError } from '../../../../../utils/MessageBanner';
 
 const OptionGroup = ({
   optionGroupSubProcedureId, name, admin,
@@ -18,12 +17,7 @@ const OptionGroup = ({
   /* istanbul ignore next */
   const handleOptionAdd = (newOption) => {
     modalRef.current.toggleVisibility();
-    try {
-      dispatch(createOption(optionGroupSubProcedureId, newOption));
-      setSuccess(t('optionGroupAddSuccess'));
-    } catch (error) {
-      setError(t('optionGroupAddError'));
-    }
+    dispatch(createOption(optionGroupSubProcedureId, newOption, t('optionAddSuccess'), t('optionAddError')));
   };
 
   return (

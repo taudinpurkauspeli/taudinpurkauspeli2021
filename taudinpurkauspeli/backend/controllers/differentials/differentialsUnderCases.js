@@ -85,4 +85,19 @@ differentialsUnderCasesRouter.put('/:id/:language', middleware.checkAdminRights,
   });
 });
 
+// Delete a differential from case
+differentialsUnderCasesRouter.delete('/:differentialGroupsUnderCaseId/:plainDifferentialId', middleware.checkAdminRights, async (req, res) => {
+  const { differentialGroupsUnderCaseId, plainDifferentialId } = req.params;
+
+  const deletedDifferentialUnderCase = await DifferentialUnderCase.destroy({
+    where: { plainDifferentialId, differentialGroupsUnderCaseId },
+  });
+
+  if (Number(deletedDifferentialUnderCase) === 1) {
+    res.status(204).end();
+  } else {
+    res.status(404).end();
+  }
+});
+
 module.exports = differentialsUnderCasesRouter;

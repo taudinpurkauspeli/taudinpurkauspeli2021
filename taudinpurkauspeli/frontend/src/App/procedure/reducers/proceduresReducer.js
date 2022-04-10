@@ -27,7 +27,9 @@ export const getProcedures = () => async (dispatch) => {
   });
 };
 
-export const createProcedure = (caseId, procedure) => async (dispatch) => {
+export const createProcedure = (
+  caseId, procedure, successMessage, errorMessage,
+) => async (dispatch) => {
   const newProcedure = await proceduresService.create(procedure);
 
   dispatch({
@@ -39,12 +41,12 @@ export const createProcedure = (caseId, procedure) => async (dispatch) => {
     caseId,
     procedureId: newProcedure.id,
     priority: 1,
-  }));
+  }, successMessage, errorMessage));
 };
 
-export const updateProcedure = (procedure) => async (dispatch) => {
+export const updateProcedure = (procedure, successMessage, errorMessage) => async (dispatch) => {
   await proceduresService.update(procedure.id, procedure);
-  dispatch(updateProcedurePriority(procedure));
+  dispatch(updateProcedurePriority(procedure, successMessage, errorMessage));
 };
 
 export default proceduresReducer;

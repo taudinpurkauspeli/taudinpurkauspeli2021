@@ -15,8 +15,11 @@ const create = (newObject) => {
 
 const update = (id, newObject) => axios.put(`${baseUrl}/${id}/${getLanguage()}`, newObject, getConfig());
 
+const remove = (diffGroupCaseId, differentialId) => axios.delete(`${baseUrl}/${diffGroupCaseId}/${differentialId}`, getConfig());
+
 export default {
   getAll,
   create,
   update,
+  remove,
 };
