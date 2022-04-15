@@ -147,16 +147,19 @@ const initialDifferentialsUnderCases = [
     differentialGroupsUnderCaseId: 1,
     plainDifferentialId: 2,
     plainDescriptionId: 2,
+    plainProcedureId: 2,
   },
   {
     differentialGroupsUnderCaseId: 2,
     plainDifferentialId: 1,
     plainDescriptionId: 2,
+    plainProcedureId: 1,
   },
   {
     differentialGroupsUnderCaseId: 1,
     plainDifferentialId: 1,
     plainDescriptionId: 1,
+    plainProcedureId: 1,
   },
 ];
 
