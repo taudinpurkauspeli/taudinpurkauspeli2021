@@ -12,10 +12,12 @@ import CustomTypeaheadSelect from '../../../utils/CustomTypeaheadSelect';
 const AddDifferentialForm = ({ addDifferential }) => {
   const { t } = useTranslation();
   const differentials = useSelector((state) => state.differentials);
+  const caseProcedures = useSelector((state) => state.proceduresUnderCase);
 
   const formik = useFormik({
     initialValues: {
       name: '',
+      procedureId: undefined,
       description: '',
     },
     validationSchema: Yup.object({
@@ -26,8 +28,8 @@ const AddDifferentialForm = ({ addDifferential }) => {
       const differential = differentials.filter((r) => r.name === values.name);
       addDifferential(
         differential.length === 0
-          ? { ...values }
-          : { ...differential[0], ...values },
+          ? { ...values, procedureId: Number(values.procedureId) }
+          : { ...differential[0], ...values, procedureId: Number(values.procedureId) },
       );
     },
   });
@@ -41,6 +43,22 @@ const AddDifferentialForm = ({ addDifferential }) => {
             label={t('addDifferential')}
             options={differentials}
           />
+        </Form.Group>
+        <Form.Group controlId="procedureId">
+          <Form.Label>{t('differentialProcedure')}</Form.Label>
+          <Form.Control
+            as="select"
+            {...formik.getFieldProps('procedureId')}
+            isInvalid={!!formik.errors.procedureId}
+          >
+            <option value={undefined}>{t('anamnesis')}</option>
+            {caseProcedures.map((d) => (
+              <option key={d.id} value={d.id}>{d.name}</option>
+            ))}
+          </Form.Control>
+          <Form.Control.Feedback type="invalid" role="alert" aria-label="from feedback">
+            {formik.errors.differentialId}
+          </Form.Control.Feedback>
         </Form.Group>
         <Form.Group controlId="description">
           <Form.Label>{t('description')}</Form.Label>

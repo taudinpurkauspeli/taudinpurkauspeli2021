@@ -74,6 +74,7 @@
   "differentialGroupUpdateSuccess": "Differential was added successfully",
   "differentialGroupUpdateError": "ERROR! The differential already exists in this case.",
   "differentialNameInstruction": "You can edit this by going to database",
+  "differentialProcedure": "Procedure, after which the exclusion of a differential is possible",
   "differentialUpdateSuccess": "Differential was updated successfully",
   "differentialUpdateError": "ERROR! Could not update the differential",
   "edit": "Edit",

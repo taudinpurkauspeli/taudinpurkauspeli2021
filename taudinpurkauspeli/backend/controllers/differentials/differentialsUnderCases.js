@@ -46,7 +46,7 @@ differentialsUnderCasesRouter.post('/:language', middleware.checkAdminRights, as
     id: response.plainDifferentialId,
     description: savedDescription.description,
     name: response.name,
-    procedureId: response.plainProcedureId,
+    procedureId: savedDuc.plainProcedureId,
   });
 });
 

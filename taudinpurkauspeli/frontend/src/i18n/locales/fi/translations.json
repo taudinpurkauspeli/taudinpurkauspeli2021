@@ -73,6 +73,7 @@
   "differentialGroupUpdateSuccess": "Diffiryhmä lisätty onnistuneesti",
   "differentialGroupUpdateError": "VIRHE! Valittu diffiryhmä on jo aiemmin lisätty caseen.",
   "differentialNameInstruction": "Voit muokata tätä menemällä tietopankkiin",
+  "differentialProcedure": "Toimenpide, jonka jälkeen diffin poissulkeminen on mahdollista",
   "differentialUpdateSuccess": "Diffi päivitetty onnistuneesti",
   "differentialUpdateError": "VIRHE! Diffiä ei voitu päivittä",
   "edit": "Muokkaa",
