@@ -65,7 +65,7 @@ const AddDifferentialForm = ({ addDifferential }) => {
             {...formik.getFieldProps('description')}
           />
         </Form.Group>
-        <Button className="submitButton" type="submit">{t('buttonSubmitNewDifferential')}</Button>
+        <Button className="submitButton" type="submit">{t('buttonSubmit')}</Button>
       </Form>
     </FormikProvider>
   );

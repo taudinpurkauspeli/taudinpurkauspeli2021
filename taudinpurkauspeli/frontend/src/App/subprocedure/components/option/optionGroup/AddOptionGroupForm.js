@@ -38,7 +38,7 @@ const NewOptionGroupForm = ({ addOptionGroup }) => {
           label={t('addOptionGroup')}
           options={optionGroups}
         />
-        <Button className="submitButton" type="submit">{t('buttonSubmitNewDifferential')}</Button>
+        <Button className="submitButton" type="submit">{t('buttonSubmitNewOptionGroup')}</Button>
       </Form>
     </FormikProvider>
   );
