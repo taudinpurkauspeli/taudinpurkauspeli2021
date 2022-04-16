@@ -25,7 +25,14 @@ beforeEach(() => {
         name: 'Test',
       },
     ],
+    proceduresUnderCase: [
+      {
+        id: 1,
+        name: 'Procedure 1',
+      },
+    ],
   });
+
   render(
     <Provider store={store}>
       <AddDifferentialForm addDifferential={addDifferentialFunc} />
@@ -35,18 +42,23 @@ beforeEach(() => {
 
 describe('Adding a new differential to the case', () => {
   test('New differential can be added', async () => {
-    userEvent.type(screen.getByRole('combobox'), 'testDifferential');
+    userEvent.type(screen.getAllByRole('combobox')[0], 'testDifferential');
+    userEvent.selectOptions(
+      screen.getAllByRole('combobox')[1],
+      screen.getByRole('option', { name: 'Procedure 1' }),
+    );
     userEvent.type(screen.getByLabelText(/description/i), 'testDescription');
     userEvent.click(screen.getByRole('button', { name: /submit/i }));
 
     await waitFor(() => expect(addDifferentialFunc).toHaveBeenCalledWith({
       name: 'testDifferential',
+      procedureId: 1,
       description: 'testDescription',
     }));
   });
 
   test('Differential with a too short name cannot be created', async () => {
-    userEvent.type(screen.getByRole('combobox'), 't');
+    userEvent.type(screen.getAllByRole('combobox')[0], 't');
     userEvent.type(screen.getByLabelText(/description/i), 'testDescription');
     userEvent.click(screen.getByRole('button', { name: /submit/i }));
 
@@ -56,7 +68,7 @@ describe('Adding a new differential to the case', () => {
   });
 
   test('Differential with no name cannot be created', async () => {
-    userEvent.type(screen.getByRole('combobox'), '');
+    userEvent.type(screen.getAllByRole('combobox')[0], '');
     userEvent.type(screen.getByLabelText(/description/i), 'testDescription');
     userEvent.click(screen.getByRole('button', { name: /submit/i }));
 
@@ -66,7 +78,7 @@ describe('Adding a new differential to the case', () => {
   });
 
   test('New differential can be selected', async () => {
-    const selectField = screen.getByRole('combobox');
+    const selectField = screen.getAllByRole('combobox')[0];
     selectField.focus();
     await waitFor(() => fireEvent.change(selectField, { target: { value: 't' } }));
     await waitFor(() => fireEvent.keyDown(selectField, { key: 'ArrowDown' }));
@@ -78,6 +90,7 @@ describe('Adding a new differential to the case', () => {
     await waitFor(() => expect(addDifferentialFunc).toHaveBeenCalledWith({
       id: 1,
       name: 'Test',
+      procedureId: NaN,
       description: 'testDescription',
     }));
   });
