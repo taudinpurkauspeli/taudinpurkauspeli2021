@@ -64,7 +64,7 @@ a:hover {
   bottom: 0;
   margin-left: 250px;
   white-space: pre-line;
-  position: relative;
+  position: fixed;
   width: calc(100% - 250px);
 }
 
