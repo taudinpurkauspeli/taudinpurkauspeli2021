@@ -18,6 +18,7 @@ const Differential = ({
     modalRef.current.toggleVisibility();
     dispatch(updateDifferentialUnderCase({
       ...d,
+      procedureId: updatedDifferential.procedureId,
       description: updatedDifferential.description,
     }, t('differentialUpdateSuccess'), t('differentialUpdateError')));
   };
@@ -49,6 +50,7 @@ const Differential = ({
               <UpdateDifferentialForm
                 name={d.name}
                 description={d.description}
+                procedureId={d.procedureId}
                 updateDifferential={handleDifferentialUpdate}
               />
             </AddUpdateModal>

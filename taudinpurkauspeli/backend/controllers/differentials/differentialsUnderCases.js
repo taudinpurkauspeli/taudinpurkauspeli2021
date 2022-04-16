@@ -73,11 +73,14 @@ differentialsUnderCasesRouter.get('/:id/:language', middleware.checkUserRights, 
 // Update differential (description, name update coming)
 differentialsUnderCasesRouter.put('/:id/:language', middleware.checkAdminRights, async (req, res) => {
   const { id, language } = req.params;
-  const { description } = req.body;
+  const { description, procedureId } = req.body;
 
   const toBeUpdated = await DifferentialUnderCase.findOne({
     where: { plainDifferentialId: id },
   });
+
+  await DifferentialUnderCase.update({ plainProcedureId: procedureId },
+    { where: { plainDifferentialId: id } });
 
   await Descriptions.update({ description },
     { where: { plainDescriptionId: toBeUpdated.plainDescriptionId, language } });

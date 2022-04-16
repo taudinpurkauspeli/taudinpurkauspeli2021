@@ -56,9 +56,6 @@ const AddDifferentialForm = ({ addDifferential }) => {
               <option key={d.id} value={d.id}>{d.name}</option>
             ))}
           </Form.Control>
-          <Form.Control.Feedback type="invalid" role="alert" aria-label="from feedback">
-            {formik.errors.differentialId}
-          </Form.Control.Feedback>
         </Form.Group>
         <Form.Group controlId="description">
           <Form.Label>{t('description')}</Form.Label>
