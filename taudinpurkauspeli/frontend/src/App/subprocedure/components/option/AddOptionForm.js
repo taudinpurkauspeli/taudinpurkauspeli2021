@@ -79,7 +79,7 @@ const AddOptionForm = ({ addOption }) => {
             onChange={formik.getFieldProps('isRequired').onChange}
           />
         </Form.Group>
-        <Button className="submitButton" type="submit">{t('buttonSubmitNewOption')}</Button>
+        <Button className="submitButton" type="submit">{t('buttonSubmit')}</Button>
       </Form>
     </FormikProvider>
   );
