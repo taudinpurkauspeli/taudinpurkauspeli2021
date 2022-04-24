@@ -53,6 +53,17 @@ describe('Adding case-diffgroup-pairs to database', () => {
   });
 });
 
+describe('Deleting case-diffgroup-pairs from database', () => {
+  test('Differentialgroup can be deleted from case', async () => {
+    await api
+      .del('/api/differentialGroupsUnderCases/1')
+      .expect(204);
+
+    const returnedDifferentialGroups = await api.get('/api/differentialGroupsUnderCases/1/fi');
+    expect(returnedDifferentialGroups.body).toHaveLength(0);
+  });
+});
+
 afterAll(async () => {
   await db.sequelize.close();
 });
