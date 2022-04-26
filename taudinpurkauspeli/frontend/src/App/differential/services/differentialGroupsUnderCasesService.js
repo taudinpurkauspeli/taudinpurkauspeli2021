@@ -13,7 +13,10 @@ const create = (newObject) => {
   return request.then((response) => response.data);
 };
 
+const remove = (diffGroupCaseId) => axios.delete(`${baseUrl}/${diffGroupCaseId}`, getConfig());
+
 export default {
   getAll,
   create,
+  remove,
 };

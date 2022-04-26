@@ -7,6 +7,8 @@ const differentialGroupsUnderCasesReducer = (state = [], action) => {
       return action.data;
     case 'NEW_DIFFERENTIALGROUP_UNDER_CASE':
       return [...state, action.data];
+    case 'REMOVE_DIFFERENTIALGROUP_UNDER_CASE':
+      return state.filter((p) => p.diffGroupCaseId !== action.data);
     default:
       return state;
   }
@@ -29,6 +31,23 @@ export const createDifferentialGroupUnderCase = (
     dispatch({
       type: 'NEW_DIFFERENTIALGROUP_UNDER_CASE',
       data: newDifferentialGroupUnderCase,
+    });
+
+    setSuccess(successMessage);
+  } catch (error) {
+    setError(errorMessage);
+  }
+};
+
+export const removeDifferentialGroupUnderCase = (
+  diffGroupCaseId, successMessage, errorMessage,
+) => async (dispatch) => {
+  try {
+    await differentialGroupsUnderCasesService.remove(diffGroupCaseId);
+
+    dispatch({
+      type: 'REMOVE_DIFFERENTIALGROUP_UNDER_CASE',
+      data: diffGroupCaseId,
     });
 
     setSuccess(successMessage);
