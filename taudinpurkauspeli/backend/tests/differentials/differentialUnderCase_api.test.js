@@ -117,7 +117,7 @@ describe('Deleting case-diff-pairs from database', () => {
       .expect(204);
 
     const returnedDifferentials = await api.get('/api/differentialsUnderCases/1/fi');
-    expect(returnedDifferentials.body).toHaveLength(helper.initialProceduresUnderCases.length - 1);
+    expect(returnedDifferentials.body).toHaveLength(1);
   });
 });
 

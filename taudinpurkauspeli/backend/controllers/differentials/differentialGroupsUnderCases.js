@@ -48,4 +48,19 @@ differentialGroupsUnderCasesRouter.get('/:id/:language', middleware.checkUserRig
   res.send(foundDifferentialGroups);
 });
 
+// Delete a differentialgroup from case
+differentialGroupsUnderCasesRouter.delete('/:id', middleware.checkAdminRights, async (req, res) => {
+  const { id } = req.params;
+
+  const deletedDifferentialGroupUnderCase = await DifferentialGroupUnderCase.destroy({
+    where: { id },
+  });
+
+  if (Number(deletedDifferentialGroupUnderCase) === 1) {
+    res.status(204).end();
+  } else {
+    res.status(404).end();
+  }
+});
+
 module.exports = differentialGroupsUnderCasesRouter;
