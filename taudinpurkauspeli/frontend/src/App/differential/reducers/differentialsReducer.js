@@ -39,6 +39,7 @@ export const createDifferential = (
   dispatch(createDifferentialUnderCase({
     diffGroupCaseId,
     differentialId: id,
+    procedureId: differential.procedureId,
     description: differential.description,
   }, successMessage, errorMessage));
 };

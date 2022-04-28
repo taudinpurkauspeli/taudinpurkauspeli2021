@@ -38,7 +38,7 @@ const AddDifferentialGroupForm = ({ addDifferentialGroup }) => {
           label={t('addDifferentialGroup')}
           options={differentialGroups}
         />
-        <Button className="submitButton" type="submit">{t('buttonSubmitNewDifferential')}</Button>
+        <Button className="submitButton" type="submit">{t('buttonSubmit')}</Button>
       </Form>
     </FormikProvider>
   );

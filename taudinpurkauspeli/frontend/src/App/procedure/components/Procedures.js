@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import NewProcedureForm from './NewProcedureForm';
+import AddProcedureForm from './AddProcedureForm';
 import ProcedureList from './ProcedureList';
 import AddUpdateModal from '../../../utils/AddUpdateModal';
 import { createProcedure } from '../reducers/proceduresReducer';
@@ -30,7 +30,7 @@ const Procedures = ({ admin }) => {
       <h2>{t('procedures')}</h2>
       { admin && (
         <AddUpdateModal buttonLabel={t('buttonNewProcedure')} titleLabel={t('addProcedure')} ref={modalRef}>
-          <NewProcedureForm addProcedure={handleProcedureAdd} />
+          <AddProcedureForm addProcedure={handleProcedureAdd} />
         </AddUpdateModal>
       )}
       <ProcedureList id={id} />

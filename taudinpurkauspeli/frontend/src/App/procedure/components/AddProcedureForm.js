@@ -35,7 +35,7 @@ const newProcedureForm = ({ addProcedure }) => {
           {formik.errors.title}
         </Form.Control.Feedback>
       </Form.Group>
-      <Button type="submit" className="submitButton">{t('buttonSubmitNewProcedure')}</Button>
+      <Button type="submit" className="submitButton">{t('buttonSubmit')}</Button>
     </Form>
   );
 };

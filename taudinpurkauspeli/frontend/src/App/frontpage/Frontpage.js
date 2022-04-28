@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { createCase } from '../case/casesReducer';
 
-import NewCaseForm from '../case/components/NewCaseForm';
+import AddCaseForm from '../case/components/AddCaseForm';
 import CaseCard from '../case/components/CaseCard';
 import Search from './Search';
 import AddUpdateModal from '../../utils/AddUpdateModal';
@@ -42,7 +42,7 @@ const Frontpage = ({ admin }) => {
       {admin && (
         <div>
           <AddUpdateModal buttonLabel={t('buttonNewCase')} titleLabel={t('addCase')} ref={modalRef}>
-            <NewCaseForm addCase={handleCaseAdd} />
+            <AddCaseForm addCase={handleCaseAdd} />
           </AddUpdateModal>
           <br />
           <h3>{t('caseHidden')}</h3>

@@ -12,7 +12,7 @@ const Descriptions = db.descriptions;
 differentialsUnderCasesRouter.post('/:language', middleware.checkAdminRights, async (req, res) => {
   const { language } = req.params;
   const {
-    diffGroupCaseId, differentialId, description,
+    diffGroupCaseId, differentialId, description, procedureId,
   } = req.body;
 
   const savedPlainDescription = await PlainDescriptions.create({});
@@ -30,6 +30,7 @@ differentialsUnderCasesRouter.post('/:language', middleware.checkAdminRights, as
     differentialGroupsUnderCaseId: diffGroupCaseId,
     plainDifferentialId: differentialId,
     plainDescriptionId: savedPlainDescription.id,
+    plainProcedureId: procedureId,
   };
 
   const savedDuc = await DifferentialUnderCase.create(duc);
@@ -45,6 +46,7 @@ differentialsUnderCasesRouter.post('/:language', middleware.checkAdminRights, as
     id: response.plainDifferentialId,
     description: savedDescription.description,
     name: response.name,
+    procedureId: savedDuc.plainProcedureId,
   });
 });
 
@@ -53,7 +55,7 @@ differentialsUnderCasesRouter.get('/:id/:language', middleware.checkUserRights, 
   const { id, language } = req.params;
 
   const foundDifferentials = await db.sequelize.query(
-    `SELECT duc."differentialGroupsUnderCaseId" AS "diffGroupCaseId", duc."plainDifferentialId" AS id, des.description, d.name
+    `SELECT duc."differentialGroupsUnderCaseId" AS "diffGroupCaseId", duc."plainDifferentialId" AS id, des.description, d.name, duc."plainProcedureId" AS "procedureId"
     FROM differential_groups_under_cases AS dguc
     LEFT JOIN differentials_under_cases AS duc ON dguc.id = duc."differentialGroupsUnderCaseId"
     LEFT JOIN differentials AS d ON duc."plainDifferentialId" = d."plainDifferentialId"
@@ -71,11 +73,14 @@ differentialsUnderCasesRouter.get('/:id/:language', middleware.checkUserRights, 
 // Update differential (description, name update coming)
 differentialsUnderCasesRouter.put('/:id/:language', middleware.checkAdminRights, async (req, res) => {
   const { id, language } = req.params;
-  const { description } = req.body;
+  const { description, procedureId } = req.body;
 
   const toBeUpdated = await DifferentialUnderCase.findOne({
     where: { plainDifferentialId: id },
   });
+
+  await DifferentialUnderCase.update({ plainProcedureId: procedureId },
+    { where: { plainDifferentialId: id } });
 
   await Descriptions.update({ description },
     { where: { plainDescriptionId: toBeUpdated.plainDescriptionId, language } });

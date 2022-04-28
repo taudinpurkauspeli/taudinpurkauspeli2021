@@ -12,8 +12,9 @@ const DifferentialUnderCase = db.differentalsUnderCases;
 const PlainCase = db.plainCases;
 const PlainDifferential = db.plainDifferentials;
 const PlainDifferentialGroup = db.plainDifferentialGroups;
-const PlainDescriptions = db.plainDescriptions;
-const Descriptions = db.descriptions; 
+const PlainDescription = db.plainDescriptions;
+const PlainProcedure = db.plainProcedures;
+const Descriptions = db.descriptions;
 
 beforeEach(async () => {
   // deletes the content from the table 'differentials'
@@ -23,7 +24,8 @@ beforeEach(async () => {
   await Differential.bulkCreate(helper.initialDifferentials);
   await PlainCase.bulkCreate(helper.plainCases);
   await PlainDifferentialGroup.bulkCreate([{}, {}]);
-  await PlainDescriptions.bulkCreate([{}, {}]);
+  await PlainDescription.bulkCreate([{}, {}]);
+  await PlainProcedure.bulkCreate([{}, {}]);
   await Descriptions.bulkCreate(helper.initialDescriptions);
   await DifferentialGroupUnderCase.bulkCreate(helper.initialDifferentialGroupsUnderCases);
   await DifferentialUnderCase.bulkCreate(helper.initialDifferentialsUnderCases);
@@ -49,6 +51,7 @@ describe('Adding case-diff-pairs to database', () => {
     const newDifferentialUnderCase = {
       diffGroupCaseId: 2,
       differentialId: 2,
+      procedureId: 1,
       description: 'Uusi kuvaus',
     };
 
@@ -63,6 +66,26 @@ describe('Adding case-diff-pairs to database', () => {
 
     expect(response.body).toHaveLength(2);
     expect(descriptions).toContain('Uusi kuvaus');
+  });
+
+  test('Case-diff-pair with no procedureId is also valid', async () => {
+    const newDifferentialUnderCase = {
+      diffGroupCaseId: 2,
+      differentialId: 2,
+      description: 'Uusi kuvaus',
+    };
+
+    await api
+      .post('/api/differentialsUnderCases/fi')
+      .send(newDifferentialUnderCase)
+      .expect(200)
+      .expect('Content-Type', /application\/json/);
+
+    const response = await api.get('/api/differentialsUnderCases/2/fi');
+    const procedureIds = response.body.map((r) => r.procedureId);
+
+    expect(response.body).toHaveLength(2);
+    expect(procedureIds).toContain(null);
   });
 });
 

@@ -55,7 +55,7 @@ const newCaseForm = ({ addCase }) => {
           {...formik.getFieldProps('hidden')}
         />
       </Form.Group>
-      <Button className="submitButton" type="submit">{t('buttonSubmitNewCase')}</Button>
+      <Button className="submitButton" type="submit">{t('buttonSubmit')}</Button>
     </Form>
   );
 };

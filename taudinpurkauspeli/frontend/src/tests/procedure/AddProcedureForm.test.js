@@ -3,7 +3,7 @@ import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import NewProcedureForm from '../../App/procedure/components/NewProcedureForm';
+import AddProcedureForm from '../../App/procedure/components/AddProcedureForm';
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key) => key }),
@@ -12,7 +12,7 @@ jest.mock('react-i18next', () => ({
 test('<AddProcedure /> updates parent state and calls onSubmit', async () => {
   const addProcedure = jest.fn();
 
-  render(<NewProcedureForm addProcedure={addProcedure} />);
+  render(<AddProcedureForm addProcedure={addProcedure} />);
 
   userEvent.type(screen.getByLabelText(/procedureTitle/i), 'testTitle');
   userEvent.click(screen.getByRole('button', { id: /submit/i }));
