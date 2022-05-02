@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const {
   PORT,
+  DB,
   DB_HOST,
   DB_USERNAME,
   DB_PASSWORD,
@@ -18,7 +19,8 @@ module.exports = {
   HOST: DB_HOST,
   USER: DB_USERNAME,
   PASSWORD: DB_PASSWORD,
-  DB: 'taudinpurkaus',
+  // eslint-disable-next-line object-shorthand
+  DB: DB,
   dialect: 'postgres',
   pool: {
     max: 10,
