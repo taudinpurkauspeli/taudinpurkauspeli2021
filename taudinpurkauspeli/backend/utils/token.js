@@ -11,7 +11,7 @@ const createUser = async (req) => {
       : config.USER_NAME,
     group: req.headers.hygroupcn
       ? req.headers.hygroupcn
-      : config.GROUP,
+      : config.GROUP || '',
     studentid: req.headers.hypersonstudentid
       ? req.headers.hypersonstudentid
       : config.STUDENTID || '',
