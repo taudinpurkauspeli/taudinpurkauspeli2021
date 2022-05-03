@@ -16,6 +16,7 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   },
 
   logging: false,
+  ssl: true,
 });
 
 const db = {};
