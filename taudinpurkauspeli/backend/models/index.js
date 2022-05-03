@@ -1,9 +1,30 @@
+/* eslint-disable linebreak-style */
 // connection to database
 
 const Sequelize = require('sequelize');
 const dbConfig = require('../utils/config');
 
-const sequelize = new Sequelize(dbConfig.HOST);
+let sequelize = 'ignore this';
+
+if (dbConfig.DB === 'taudinpurkauspeli') {
+  sequelize = new Sequelize(dbConfig.HOST);
+} else {
+  sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
+    host: dbConfig.HOST,
+    dialect: dbConfig.dialect,
+    operatorsAliases: 0,
+
+    pool: {
+      max: dbConfig.pool.max,
+      min: dbConfig.pool.min,
+      acquire: dbConfig.pool.acquire,
+      idle: dbConfig.pool.idle,
+    },
+
+    logging: false,
+    ssl: true,
+  });
+}
 
 const db = {};
 
