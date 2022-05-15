@@ -17,6 +17,7 @@ import optionGroupsReducer from './App/subprocedure/reducers/optionGroupsReducer
 import optionGroupsUnderSubProceduresReducer from './App/subprocedure/reducers/optionGroupsUnderSubProceduresReducer';
 import optionsReducer from './App/subprocedure/reducers/optionReducer';
 import optionsUnderSubProceduresReducer from './App/subprocedure/reducers/optionsUnderSubProceduresReducer';
+import adminReducer from './App/users/reducers/adminReducer';
 
 const persistConfig = {
   key: 'root',
@@ -25,7 +26,7 @@ const persistConfig = {
 
 const reducer = combineReducers({
   cases: casesReducer,
-  admin: userReducer,
+  admin: adminReducer,
   procedures: proceduresReducer,
   proceduresUnderCase: proceduresUnderCasesReducer,
   subProcedures: subProceduresReducer,
@@ -37,6 +38,7 @@ const reducer = combineReducers({
   differentialsUnderCase: differentialsUnderCasesReducer,
   differentialGroups: differentialGroupsReducer,
   differentialGroupsUnderCase: differentialGroupsUnderCasesReducer,
+  users: userReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);
