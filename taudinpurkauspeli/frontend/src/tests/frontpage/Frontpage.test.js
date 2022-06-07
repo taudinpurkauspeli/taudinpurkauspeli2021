@@ -98,7 +98,7 @@ test('teacher can see all cases', () => {
 });
 
 test('student sees correct cases as search results', () => {
-  const inputElement = screen.getByLabelText('searchByTitle');
+  const inputElement = document.getElementById('search');
   fireEvent.change(inputElement, { target: { value: 'Hepat' } });
 
   expect(
