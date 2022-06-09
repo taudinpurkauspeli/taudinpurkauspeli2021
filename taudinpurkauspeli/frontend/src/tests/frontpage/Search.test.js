@@ -2,7 +2,7 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { render } from '@testing-library/react';
-import Search from '../../App/frontpage/Search';
+import SearchField from '../../utils/SearchField';
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key) => key }),
@@ -10,6 +10,6 @@ jest.mock('react-i18next', () => ({
 
 test('<Search /> is rendered', () => {
   render(
-    <Search />,
+    <SearchField />,
   );
 });

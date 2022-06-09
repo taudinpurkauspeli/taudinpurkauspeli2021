@@ -168,6 +168,7 @@ const initialUsers = [
     user_name: 'Test User',
     studentid: '123456789',
     mail: 'test.user@example.org',
+    group: '',
   },
   {
     user_name: 'Test Admin',

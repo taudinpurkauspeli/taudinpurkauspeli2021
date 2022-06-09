@@ -10,7 +10,7 @@ import { createCase } from '../case/casesReducer';
 
 import AddCaseForm from '../case/components/AddCaseForm';
 import CaseCard from '../case/components/CaseCard';
-import Search from './Search';
+import SearchField from '../../utils/SearchField';
 import AddUpdateModal from '../../utils/AddUpdateModal';
 
 const Frontpage = ({ admin }) => {
@@ -37,7 +37,7 @@ const Frontpage = ({ admin }) => {
     <div id="wrapper">
       <h2>{t('frontpageTitle')}</h2>
       <p>{t('frontpageText')}</p>
-      <Search newSearch={newSearch} searchCases={searchCases} />
+      <SearchField newSearch={newSearch} onChange={searchCases} placeholder={t('searchByTitle')} />
       <br />
       {admin && (
         <div>
