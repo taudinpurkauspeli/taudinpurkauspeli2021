@@ -13,7 +13,7 @@ jest.mock('react-i18next', () => ({
 }));
 
 const d = {
-  title: 'testConclusionSubProcedure',
+  name: 'testConclusionSubProcedure',
   text: 'just testing...',
   id: 2,
 };

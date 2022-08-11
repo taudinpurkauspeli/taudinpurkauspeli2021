@@ -27,7 +27,7 @@ describe('Adding a new text sub procedure', () => {
     await waitFor(() => expect(addTextSubFunc).toHaveBeenCalledWith({
       priority: 42,
       text: 'testText',
-      title: 'testTextSubProcedure',
+      name: 'testTextSubProcedure',
       type: 'TEXT',
     }));
   });

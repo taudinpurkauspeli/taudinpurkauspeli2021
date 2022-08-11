@@ -25,7 +25,7 @@ describe('Adding a new interview sub procedure', () => {
 
     await waitFor(() => expect(addIntSubFunc).toHaveBeenCalledWith({
       priority: 42,
-      title: 'testInterviewSubProcedure',
+      name: 'testInterviewSubProcedure',
       type: 'INTERVIEW',
     }));
   });
