@@ -48,4 +48,40 @@ optionsRouter.get('/:language', middleware.checkUserRights, async (req, res) => 
   res.json(foundOptions);
 });
 
+optionsRouter.delete('/:id', middleware.checkAdminRights, async (req, res, next) => {
+  const { id } = req.params;
+
+  await Option.destroy({
+    where: { plainOptionId: id },
+  });
+  const deletedPlainOption = await PlainOption.destroy({
+    where: { id },
+  });
+
+  if (Number(deletedPlainOption) === 1) {
+    res.status(204).end();
+  } else {
+    res.status(404).end();
+  }
+});
+
+optionsRouter.put('/:id/:language', middleware.checkAdminRights, (req, res, next) => {
+  const { language, id } = req.params;
+
+  Option.update(req.body, {
+    where: {
+      plainOptionId: id,
+      language,
+    },
+  })
+    .then((num) => {
+      if (Number(num) === 1) {
+        res.send({
+          message: 'Option was updated successfully.',
+        });
+      }
+    })
+    .catch((error) => next(error));
+});
+
 module.exports = optionsRouter;

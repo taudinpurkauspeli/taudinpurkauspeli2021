@@ -51,4 +51,40 @@ optionGroupsRouter.get('/:language', middleware.checkUserRights, async (req, res
   res.json(foundOptionGroups);
 });
 
+optionGroupsRouter.delete('/:id', middleware.checkAdminRights, async (req, res, next) => {
+  const { id } = req.params;
+
+  await OptionGroup.destroy({
+    where: { plainOptionGroupId: id },
+  });
+  const deletedPlainOptionGroup = await PlainOptionGroup.destroy({
+    where: { id },
+  });
+
+  if (Number(deletedPlainOptionGroup) === 1) {
+    res.status(204).end();
+  } else {
+    res.status(404).end();
+  }
+});
+
+optionGroupsRouter.put('/:id/:language', middleware.checkAdminRights, (req, res, next) => {
+  const { language, id } = req.params;
+
+  OptionGroup.update(req.body, {
+    where: {
+      plainOptionGroupId: id,
+      language,
+    },
+  })
+    .then((num) => {
+      if (Number(num) === 1) {
+        res.send({
+          message: 'OptionGroup was updated successfully.',
+        });
+      }
+    })
+    .catch((error) => next(error));
+});
+
 module.exports = optionGroupsRouter;

@@ -69,4 +69,21 @@ proceduresRouter.put('/:id/:language', middleware.checkAdminRights, async (req, 
   });
 });
 
+proceduresRouter.delete('/:id', middleware.checkAdminRights, async (req, res, next) => {
+  const { id } = req.params;
+
+  await Procedure.destroy({
+    where: { plainProcedureId: id },
+  });
+  const deletedPlainProcedure = await PlainProcedure.destroy({
+    where: { id },
+  });
+
+  if (Number(deletedPlainProcedure) === 1) {
+    res.status(204).end();
+  } else {
+    res.status(404).end();
+  }
+});
+
 module.exports = proceduresRouter;

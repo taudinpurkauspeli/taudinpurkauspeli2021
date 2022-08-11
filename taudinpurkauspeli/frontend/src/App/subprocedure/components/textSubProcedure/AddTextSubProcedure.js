@@ -13,11 +13,11 @@ const AddTextSubProcedure = ({ addSubProcedure }) => {
   const formik = useFormik({
     initialValues: {
       priority: '',
-      title: '',
+      name: '',
       text: '',
     },
     validationSchema: Yup.object({
-      title: validateName(),
+      name: validateName(),
       priority: validatePriority(),
       text: Yup.string(),
     }),
@@ -32,16 +32,16 @@ const AddTextSubProcedure = ({ addSubProcedure }) => {
 
   return (
     <Form noValidate onSubmit={formik.handleSubmit}>
-      <Form.Group controlId="title">
+      <Form.Group controlId="name">
         <Form.Label>{t('title')}</Form.Label>
         <Form.Control
           type="text"
           placeholder={t('write')}
-          {...formik.getFieldProps('title')}
-          isInvalid={!!formik.errors.title}
+          {...formik.getFieldProps('name')}
+          isInvalid={!!formik.errors.name}
         />
         <Form.Control.Feedback type="invalid" role="alert" aria-label="from feedback">
-          {formik.errors.title}
+          {formik.errors.name}
         </Form.Control.Feedback>
       </Form.Group>
       <Form.Group controlId="priority">

@@ -204,19 +204,19 @@ const initialEnglishProcedures = [
 
 const initialSubProcedures = [
   {
-    title: 'TestiOtsikko1',
+    name: 'TestiOtsikko1',
     language: 'fi',
     isDefault: true,
     plainSubProcedureId: 1,
   },
   {
-    title: 'TestiOtsikko2',
+    name: 'TestiOtsikko2',
     language: 'fi',
     isDefault: true,
     plainSubProcedureId: 2,
   },
   {
-    title: 'TestiDiagnoosi',
+    name: 'TestiDiagnoosi',
     language: 'fi',
     isDefault: true,
     plainSubProcedureId: 3,

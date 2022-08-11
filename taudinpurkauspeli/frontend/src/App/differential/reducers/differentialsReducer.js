@@ -1,5 +1,6 @@
 import differentialsService from '../services/differentialsService';
 import { createDifferentialUnderCase } from './differentialsUnderCasesReducer';
+import { setError, setSuccess } from '../../../utils/MessageBanner';
 
 const differentialsReducer = (state = [], action) => {
   switch (action.type) {
@@ -7,6 +8,13 @@ const differentialsReducer = (state = [], action) => {
       return action.data;
     case 'NEW_DIFFERENTIAL':
       return [...state, action.data];
+    case 'REMOVE_DIFFERENTIAL':
+      return state.filter((d) => d.id !== action.data.id);
+    case 'UPDATE_DIFFERENTIAL':
+      return state.map((d) => (d.id !== action.data.id
+        ? d
+        : action.data
+      ));
     default:
       return state;
   }
@@ -42,6 +50,38 @@ export const createDifferential = (
     procedureId: differential.procedureId,
     description: differential.description,
   }, successMessage, errorMessage));
+};
+
+export const removeDifferential = (id, successMessage, errorMessage) => async (dispatch) => {
+  try {
+    await differentialsService.remove(id);
+
+    dispatch({
+      type: 'REMOVE_DIFFERENTIAL',
+      data: id,
+    });
+
+    setSuccess(successMessage);
+  } catch (error) {
+    setError(errorMessage);
+  }
+};
+
+export const updateDifferential = (
+  content, successMessage, errorMessage,
+) => async (dispatch) => {
+  try {
+    await differentialsService.update(content.id, content);
+
+    dispatch({
+      type: 'UPDATE_DIFFERENTIAL',
+      data: content,
+    });
+
+    setSuccess(successMessage);
+  } catch (error) {
+    setError(errorMessage);
+  }
 };
 
 export default differentialsReducer;
