@@ -105,7 +105,6 @@ const FileBank = () => {
   };
 
   // sarake, jossa kerrottu, monessako casessa käytetään
-  // työaikaa +0,75h +0,5h +0,5h + 0,5h +0,75h +0,75h +1,5h +1h +1,5h
 
   return (
     <div id="wrapper">
