@@ -23,7 +23,7 @@ const InterviewSubProcedure = ({ d, admin }) => {
       <Card style={{ width: '60rem' }}>
         <Accordion.Toggle as={Card.Header} eventKey={d.id}>
           <div className="d-flex justify-content-between align-items-center">
-            {d.title}
+            {d.name}
           </div>
         </Accordion.Toggle>
         <Accordion.Collapse eventKey={d.id}>

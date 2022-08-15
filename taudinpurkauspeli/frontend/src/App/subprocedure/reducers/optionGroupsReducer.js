@@ -1,5 +1,6 @@
 import optionGroupsService from '../services/optionGroupsService';
 import { createOptionGroupUnderSubProcedure } from './optionGroupsUnderSubProceduresReducer';
+import { setError, setSuccess } from '../../../utils/MessageBanner';
 
 const optionGroupsReducer = (state = [], action) => {
   switch (action.type) {
@@ -7,6 +8,13 @@ const optionGroupsReducer = (state = [], action) => {
       return action.data;
     case 'NEW_OPTIONGROUP':
       return [...state, action.data];
+    case 'REMOVE_OPTIONGROUP':
+      return state.filter((o) => o.id !== action.data.id);
+    case 'UPDATE_OPTIONGROUP':
+      return state.map((d) => (d.id !== action.data.id
+        ? d
+        : action.data
+      ));
     default:
       return state;
   }
@@ -41,6 +49,38 @@ export const createOptionGroup = (
     subProcedureId,
     optionGroupId: id,
   }, successMessage, errorMessage));
+};
+
+export const removeOptionGroup = (id, successMessage, errorMessage) => async (dispatch) => {
+  try {
+    await optionGroupsService.remove(id);
+
+    dispatch({
+      type: 'REMOVE_OPTIONGROUP',
+      data: id,
+    });
+
+    setSuccess(successMessage);
+  } catch (error) {
+    setError(errorMessage);
+  }
+};
+
+export const updateOptionGroup = (
+  content, successMessage, errorMessage,
+) => async (dispatch) => {
+  try {
+    await optionGroupsService.update(content.id, content);
+
+    dispatch({
+      type: 'UPDATE_OPTIONGROUP',
+      data: content,
+    });
+
+    setSuccess(successMessage);
+  } catch (error) {
+    setError(errorMessage);
+  }
 };
 
 export default optionGroupsReducer;

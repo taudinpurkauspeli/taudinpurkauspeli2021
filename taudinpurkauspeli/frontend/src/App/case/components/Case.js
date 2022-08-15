@@ -14,7 +14,7 @@ import { getDifferentials } from '../../differential/reducers/differentialsReduc
 import { getDifferentialGroups } from '../../differential/reducers/differentialGroupsReducer';
 import { getDifferentialGroupsUnderCase } from '../../differential/reducers/differentialGroupsUnderCasesReducer';
 import { getDifferentialsUnderCase } from '../../differential/reducers/differentialsUnderCasesReducer';
-import { getSubprocedures } from '../../subprocedure/reducers/subProceduresReducer';
+import { getSubProceduresUnderCase } from '../../subprocedure/reducers/subProceduresReducer';
 import { getOptionGroups } from '../../subprocedure/reducers/optionGroupsReducer';
 import { getOptionGroupsUnderSubProcedures } from '../../subprocedure/reducers/optionGroupsUnderSubProceduresReducer';
 import { getOptions } from '../../subprocedure/reducers/optionReducer';
@@ -29,7 +29,7 @@ const Case = ({ admin }) => {
   useEffect(() => {
     dispatch(getProcedures());
     dispatch(getProceduresUnderCase(id));
-    dispatch(getSubprocedures(id));
+    dispatch(getSubProceduresUnderCase(id));
     dispatch(getOptionGroups());
     dispatch(getOptionGroupsUnderSubProcedures(id));
     dispatch(getOptions());

@@ -79,11 +79,14 @@ differentialRouter.get('/:language', middleware.checkUserRights, async (req, res
 });
 
 // Update a differential (by id)
-differentialRouter.put('/:id', middleware.checkAdminRights, (req, res, next) => {
-  const { id } = req.params;
+differentialRouter.put('/:id/:language', middleware.checkAdminRights, (req, res, next) => {
+  const { language, id } = req.params;
 
   Differential.update(req.body, {
-    where: { id },
+    where: {
+      plainDifferentialId: id,
+      language,
+    },
   })
     .then((num) => {
       if (Number(num) === 1) {
@@ -93,6 +96,23 @@ differentialRouter.put('/:id', middleware.checkAdminRights, (req, res, next) => 
       }
     })
     .catch((error) => next(error));
+});
+
+differentialRouter.delete('/:id', middleware.checkAdminRights, async (req, res, next) => {
+  const { id } = req.params;
+
+  await Differential.destroy({
+    where: { plainDifferentialId: id },
+  });
+  const deletedPlainDifferential = await PlainDifferential.destroy({
+    where: { id },
+  });
+
+  if (Number(deletedPlainDifferential) === 1) {
+    res.status(204).end();
+  } else {
+    res.status(404).end();
+  }
 });
 
 module.exports = differentialRouter;

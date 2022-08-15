@@ -14,8 +14,6 @@ const differentialsUnderCasesReducer = (state = [], action) => {
       ));
     case 'REMOVE_DIFFERENTIAL_UNDER_CASE':
       return state.filter((p) => p.id !== action.data);
-    case 'REMOVE_DIFFERENTIALGROUP_UNDER_CASE':
-      return state.filter((p) => p.diffGroupCaseId !== action.data);
     default:
       return state;
   }

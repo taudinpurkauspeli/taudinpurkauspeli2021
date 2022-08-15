@@ -94,7 +94,7 @@ subProceduresRouter.post('/:language', middleware.checkAdminRights, async (req, 
     plainSubProcedureId: id,
     language,
     isDefault: language === 'fi',
-    title: content.title,
+    name: content.name,
   };
 
   // Save subprocedure in the database
@@ -114,17 +114,17 @@ subProceduresRouter.post('/:language', middleware.checkAdminRights, async (req, 
     procedureCaseId: content.procedureCaseId,
     type: content.type,
     priority: content.priority,
-    title: savedSubProcedure.title,
+    name: savedSubProcedure.name,
     ...savedTypedSubProcedure,
   });
 });
 
-// Retrieve all subprocedures
+// Retrieve all subprocedures under case
 subProceduresRouter.get('/:id/:language', middleware.checkUserRights, async (req, res) => {
   const { id, language } = req.params;
 
   const foundSubProcedures = await db.sequelize.query(
-    `SELECT psp.id, psp."proceduresUnderCaseId" AS "procedureCaseId", spt.type, psp.priority, sp.title, (
+    `SELECT psp.id, psp."proceduresUnderCaseId" AS "procedureCaseId", spt.type, psp.priority, sp.name, (
       SELECT tsp.text FROM plain_text_sub_procedures AS pspt
       LEFT JOIN text_sub_procedures AS tsp ON tsp."plainTextSubProcedureId" = pspt.id
       WHERE pspt."plainSubProcedureId" = psp.id AND tsp.language = ?
@@ -133,7 +133,7 @@ subProceduresRouter.get('/:id/:language', middleware.checkUserRights, async (req
       LEFT JOIN conclusion_sub_procedures AS csp ON csp."plainConclusionSubProcedureId" = pcsp.id
       WHERE pcsp."plainSubProcedureId" = psp.id AND csp.language = ?
     ), (
-      SELECT d.name FROM plain_conclusion_sub_procedures AS pcsp
+      SELECT d.name AS differential FROM plain_conclusion_sub_procedures AS pcsp
       LEFT JOIN differentials AS d ON pcsp."plainDifferentialId" = d."plainDifferentialId"
       WHERE pcsp."plainSubProcedureId" = psp.id AND d.language = ?
     )
@@ -151,6 +151,25 @@ subProceduresRouter.get('/:id/:language', middleware.checkUserRights, async (req
   res.send(foundSubProcedures);
 });
 
+// Retrieve all subprocedures
+subProceduresRouter.get('/:language', middleware.checkAdminRights, async (req, res) => {
+  const { language } = req.params;
+
+  const foundSubProcedures = await SubProcedure.findAll({
+    where: { language },
+    include: {
+      model: PlainSubProcedure,
+      attributes: [],
+    },
+    attributes: [
+      ['plainSubProcedureId', 'id'],
+      'name',
+    ],
+  });
+
+  res.json(foundSubProcedures);
+});
+
 // Update a subprocedure (by id)
 subProceduresRouter.put('/:id/:language', middleware.checkAdminRights, async (req, res) => {
   const { id, language } = req.params;
@@ -160,7 +179,7 @@ subProceduresRouter.put('/:id/:language', middleware.checkAdminRights, async (re
     where: { id },
   });
 
-  await SubProcedure.update({ title: content.title }, {
+  await SubProcedure.update({ name: content.name }, {
     where: {
       plainSubProcedureId: id,
       language,
@@ -182,8 +201,25 @@ subProceduresRouter.put('/:id/:language', middleware.checkAdminRights, async (re
   }
 
   res.send({
-    message: 'Procedure was updated successfully.',
+    message: 'SubProcedure was updated successfully.',
   });
+});
+
+subProceduresRouter.delete('/:id', middleware.checkAdminRights, async (req, res, next) => {
+  const { id } = req.params;
+
+  await SubProcedure.destroy({
+    where: { plainSubProcedureId: id },
+  });
+  const deletedPlainSubProcedure = await PlainSubProcedure.destroy({
+    where: { id },
+  });
+
+  if (Number(deletedPlainSubProcedure) === 1) {
+    res.status(204).end();
+  } else {
+    res.status(404).end();
+  }
 });
 
 module.exports = subProceduresRouter;

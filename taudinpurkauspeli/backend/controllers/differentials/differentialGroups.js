@@ -56,4 +56,40 @@ differentialGroupRouter.get('/:language', middleware.checkUserRights, async (req
   res.json(foundDifferentialGroups);
 });
 
+differentialGroupRouter.put('/:id/:language', middleware.checkAdminRights, (req, res, next) => {
+  const { language, id } = req.params;
+
+  DifferentialGroup.update(req.body, {
+    where: {
+      plainDifferentialGroupId: id,
+      language,
+    },
+  })
+    .then((num) => {
+      if (Number(num) === 1) {
+        res.send({
+          message: 'DifferentialGroup was updated successfully.',
+        });
+      }
+    })
+    .catch((error) => next(error));
+});
+
+differentialGroupRouter.delete('/:id', middleware.checkAdminRights, async (req, res, next) => {
+  const { id } = req.params;
+
+  await DifferentialGroup.destroy({
+    where: { plainDifferentialGroupId: id },
+  });
+  const deletedPlainDifferentialGroup = await PlainDifferentialGroup.destroy({
+    where: { id },
+  });
+
+  if (Number(deletedPlainDifferentialGroup) === 1) {
+    res.status(204).end();
+  } else {
+    res.status(404).end();
+  }
+});
+
 module.exports = differentialGroupRouter;

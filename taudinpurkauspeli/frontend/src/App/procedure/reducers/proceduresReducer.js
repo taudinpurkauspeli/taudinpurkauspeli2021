@@ -1,5 +1,6 @@
 import proceduresService from '../services/proceduresService';
 import { createProcedureUnderCase, updateProcedurePriority } from './proceduresUnderCasesReducer';
+import { setError, setSuccess } from '../../../utils/MessageBanner';
 
 const proceduresReducer = (state = [], action) => {
   switch (action.type) {
@@ -14,6 +15,8 @@ const proceduresReducer = (state = [], action) => {
           id: p.id,
           name: p.name,
         }));
+    case 'REMOVE_PROCEDURE':
+      return state.filter((p) => p.id !== action.data.id);
     default:
       return state;
   }
@@ -47,6 +50,21 @@ export const createProcedure = (
 export const updateProcedure = (procedure, successMessage, errorMessage) => async (dispatch) => {
   await proceduresService.update(procedure.id, procedure);
   dispatch(updateProcedurePriority(procedure, successMessage, errorMessage));
+};
+
+export const removeProcedure = (id, successMessage, errorMessage) => async (dispatch) => {
+  try {
+    await proceduresService.remove(id);
+
+    dispatch({
+      type: 'REMOVE_PROCEDURE',
+      data: id,
+    });
+
+    setSuccess(successMessage);
+  } catch (error) {
+    setError(errorMessage);
+  }
 };
 
 export default proceduresReducer;
